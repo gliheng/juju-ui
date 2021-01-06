@@ -1,0 +1,19 @@
+{
+  "name": "example",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "juju-ui": "file:../dist",
+    "vue": "^3.0.2",
+    "vue-router": "^4.0.0-rc.5"
+  },
+  "devDependencies": {
+    "@vue/compiler-sfc": "^3.0.2",
+    "sass": "^1.29.0",
+    "scss": "^0.2.4",
+    "vite": "^1.0.0-rc.8"
+  }
+}

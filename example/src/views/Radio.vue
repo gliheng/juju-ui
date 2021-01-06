@@ -1,0 +1,32 @@
+<template>
+  <div>
+    <h1>Checkbox</h1>
+    <section>
+      <p>Which fruit do you like?</p>
+      <p>
+        <j-radio name="fruit" value="apple" v-model="grp">Apple</j-radio>
+        <j-radio name="fruit" value="banana" v-model="grp">Banana</j-radio>
+        <j-radio name="fruit" value="orange" v-model="grp">Orange</j-radio>
+        <j-radio name="fruit" value="melon" v-model="grp">Melon</j-radio>
+      </p>
+      <p>Current value: {{ grp }}</p>
+    </section>
+  </div>
+</template>
+
+<script>
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    let grp = ref('apple');
+    return { grp };
+  }
+}
+</script>
+
+<style scoped>
+:deep(.j-radio) {
+  margin-right: 10px;
+}
+</style>

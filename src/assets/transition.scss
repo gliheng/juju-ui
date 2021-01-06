@@ -1,0 +1,57 @@
+.j-scale-enter-active,
+.j-scale-leave-active {
+  transition: opacity 0.2s $curve, transform 0.2s $curve;
+}
+
+.j-scale-enter-from,
+.j-scale-leave-to {
+  opacity: 0;
+  transform: scale(0.7, 0.7);
+}
+
+.j-list-move {
+  transition: all 0.6s;
+}
+.j-list-enter, .j-list-leave-to {
+  transform: translateY(-20px);
+  opacity: 0;
+}
+.j-list-leave-active {
+  position: absolute;
+}
+.j-list-enter-active {
+  transition: all 0.6s;
+}
+
+@mixin slide-transition($side) {
+  .j-slide-#{$side}-enter-active,
+  .j-slide-#{$side}-leave-active {
+    margin-#{$side}: 0;
+    transition: margin-#{$side} 0.2s $curve, opacity 0.2s $curve;
+  }
+  
+  .j-slide-#{$side}-enter-from,
+  .j-slide-#{$side}-leave-to {
+    margin-#{$side}: -200px;
+    opacity: 0;
+  }
+}
+
+@include slide-transition("left");
+@include slide-transition("right");
+@include slide-transition("top");
+@include slide-transition("bottom");
+
+.j-expand-enter-active,
+.j-expand-leave-active {
+  transition: max-height 0.2s $curve, opacity 0.2s $curve;
+  // This css trick animate height, since you cannot transition from 0 to auto 
+  max-height: 2000px;
+}
+
+.j-expand-enter-from,
+.j-expand-leave-to {
+  overflow: hidden;
+  opacity: 0;
+  max-height: 0;
+}

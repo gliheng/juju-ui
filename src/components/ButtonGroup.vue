@@ -1,0 +1,23 @@
+<template functional>
+  <div class="j-button-group">
+    <slot></slot>
+  </div>
+</template>
+
+<style lang="scss">
+.j-button-group {
+  white-space: nowrap;
+  > .j-button {
+    border-radius: 0;
+    margin: 0!important;
+    &:first-child {
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+    }
+    &:last-child {
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+    }
+  }
+}
+</style>

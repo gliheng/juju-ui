@@ -1,0 +1,50 @@
+@use "sass:color";
+
+@mixin use-theme($c, $t: white) {
+  --primary-color: #{$c};
+  // these lighter colors are not transparent
+  // --primary-color-light: #{color.scale($c, $lightness: 40%)};
+  // --primary-color-lighter: #{color.scale($c, $lightness: 80%)};
+  // however these transparent colors are better for dark mode
+  --primary-color-light: #{rgba($c, 0.5)};
+  --primary-color-lighter: #{rgba($c, 0.3)};
+  --primary-color-text: #{$t};
+}
+
+:root {
+  @include use-theme(#2196f3);
+  --neutral-color: #555;
+  --neutral-color-light: #aaa;
+  --neutral-color-lighter: #ddd;
+  --text-color: #333;
+  --background-color: white;
+
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.j-dark {
+  --text-color: #ddd;
+  --background-color: #323133;
+}
+.j-primary {
+  @include use-theme(#2196f3);
+}
+.j-secondary {
+  @include use-theme(#f82c69);
+}
+.j-success {
+  @include use-theme(#70b137);
+}
+.j-info {
+  @include use-theme(#19c1df);
+}
+.j-warning {
+  @include use-theme(#ffa149, black);
+}
+.j-danger {
+  @include use-theme(#da2a2a);
+}
+.j-help {
+  @include use-theme(#9c27b0);
+}

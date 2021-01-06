@@ -1,0 +1,83 @@
+.j-scroller {
+  position: relative;
+  overflow: scroll;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+  .j-scroll-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+  }
+  .j-scroll-x, .j-scroll-y {
+    position: absolute;
+    pointer-events: all;
+    transition: background-color 0.2s $curve, opacity 0.2s $curve, width 0.2s $curve, height 0.2s $curve, border-color 0.2s $curve;
+    background-color: transparent;
+    opacity: 0.4;
+    border: 1px solid transparent;
+    &[data-dragging], &:hover {
+      background-color: var(--neutral-color-lighter);
+      border-color: var(--neutral-color-lighter);
+    }
+    .j-scroll-handle {
+      background-color: var(--neutral-color);
+      transition: width 0.2s $curve, height 0.2s $curve, border-radius 0.2s $curve;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &:hover {
+    .j-scroll-x, .j-scroll-y {
+      opacity: 0.8;
+    }
+  }
+
+  $size: 4px;
+  $hover-size: 12px;
+
+  .j-scroll-x {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: $size;
+    border-left: none;
+    border-right: none;
+    > .j-scroll-handle {
+      height: $size;
+      border-radius: $size/2;
+    }
+    &[data-dragging], &:hover {
+      height: $hover-size;
+      > .j-scroll-handle {
+        height: $hover-size;
+        border-radius: $hover-size/2;
+      }
+    }
+  }
+
+  .j-scroll-y {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: $size;
+    border-top: none;
+    border-bottom: none;
+    > .j-scroll-handle {
+      width: $size;
+      border-radius: $size/2;
+    }
+    &[data-dragging], &:hover {
+      width: $hover-size;
+      > .j-scroll-handle {
+        width: $hover-size;
+        border-radius: $hover-size/2;
+      }
+    }
+  }
+}

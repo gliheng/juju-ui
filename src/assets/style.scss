@@ -1,0 +1,45 @@
+@import "./vars.scss";
+@import "./theme.scss";
+@import "./shadow.scss";
+@import "./scroller.scss";
+@import "./transition.scss";
+
+.j-ink {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(white, 0.5);
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  transform: scale(0);
+  pointer-events: none;
+}
+
+.j-ink-active {
+  animation: j-ripple 0.4s linear;
+}
+
+@keyframes j-ripple {  
+  100% {
+    opacity: 0;
+    transform: scale(2.5);
+  }
+}
+
+#j-backdrop {
+  position: fixed;
+  background-color: rgba(0,0,0,.3);
+  inset: 0;
+}
+
+.ionicon {
+  fill:currentColor;
+  stroke:currentColor
+}
+.ionicon-fill-none {
+  fill:none
+}
+.ionicon-stroke-width {
+  stroke-width:32px
+}
