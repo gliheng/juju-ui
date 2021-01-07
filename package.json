@@ -7,7 +7,7 @@
     "dev": "rollup -c -w",
     "build": "rollup -c"
   },
-  "keywords": [],
+  "keywords": ["vue", "ui", "components"],
   "author": "",
   "license": "ISC",
   "devDependencies": {
