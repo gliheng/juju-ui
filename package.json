@@ -20,7 +20,6 @@
     "@vue/compiler-sfc": "^3.0.2",
     "glob": "^7.1.6",
     "gulp": "^4.0.2",
-    "ionicons": "^5.2.3",
     "rollup": "^2.33.3",
     "rollup-plugin-copy": "^3.3.0",
     "rollup-plugin-scss": "^2.6.1",
@@ -33,6 +32,7 @@
   },
   "dependencies": {
     "animejs": "^3.2.1",
+    "ionicons": "^5.2.3",
     "mitt": "^2.1.0"
   }
 }
