@@ -1,13 +1,17 @@
 {
   "name": "juju-ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "module": "index.esm.js",
   "scripts": {
     "dev": "rollup -c -w",
     "build": "rollup -c"
   },
-  "keywords": ["vue", "ui", "components"],
+  "keywords": [
+    "vue",
+    "ui",
+    "components"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
