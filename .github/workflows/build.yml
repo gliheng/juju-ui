@@ -33,6 +33,7 @@ jobs:
       - name: Publish lib
         run: |
           npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
+          cd dist
           npm publish --ignore-scripts
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

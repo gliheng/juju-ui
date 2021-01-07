@@ -1,3 +1,5 @@
 # juju-ui
 
-Light weight ui components
+Light weight vue3 ui components
+
+[Demo](https://juju-ui.vercel.app/)
