@@ -1,15 +1,9 @@
 <template>
   <div class="j-scaffold" :data-wide="wideLayout" :data-expanded="expanded" :data-has-nav="hasNav">
     <j-drawer v-if="!wideLayout" v-model="drawerOn" side="left" >
-      <div class="j-scaffold-title j-shadow-1">
-        <slot name="title"></slot>
-      </div>
       <slot name="drawer"></slot>
     </j-drawer>
     <nav v-else class="j-scaffold-nav">
-      <div class="j-scaffold-title j-shadow-1">
-        <slot name="title"></slot>
-      </div>
       <slot name="drawer"></slot>
     </nav>
     <main class="j-scaffold-content">
@@ -162,17 +156,6 @@ export default {
     box-sizing: border-box;
     transition: transform 0.2s $curve;
     padding: 1rem;
-  }
-  .j-scaffold-title {
-    height: 60px;
-    background-color: var(--primary-color);
-    color: var(--primary-color-text);
-    margin-left: -1rem;
-    margin-right: -1rem;
-    margin-top: -1rem;
-    display: flex;
-    align-items: center;
-    padding: 0 $margin;
   }
   .j-scaffold-content {
     transition: margin-left 0.2s $curve;

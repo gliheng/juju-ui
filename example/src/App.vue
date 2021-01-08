@@ -13,8 +13,6 @@
         <component class="demo" :is="Component" />
         <footer>Copyright © 2020 juju</footer>
       </template>
-      <template #drawer>
-      </template>
     </j-scaffold>
     <component v-else :is="Component" />
   </router-view>
