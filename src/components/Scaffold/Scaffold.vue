@@ -1,9 +1,15 @@
 <template>
   <div class="j-scaffold" :data-wide="wideLayout" :data-expanded="expanded" :data-has-nav="hasNav">
     <j-drawer v-if="!wideLayout" v-model="drawerOn" side="left" >
+      <div class="j-scaffold-title j-shadow-1">
+        <slot name="title"></slot>
+      </div>
       <slot name="drawer"></slot>
     </j-drawer>
     <nav v-else class="j-scaffold-nav">
+      <div class="j-scaffold-title j-shadow-1">
+        <slot name="title"></slot>
+      </div>
       <slot name="drawer"></slot>
     </nav>
     <main class="j-scaffold-content">
@@ -107,7 +113,7 @@ export default {
   min-height: 100vh;
   $left: 300px;
   $hh: 60px;
-  > .j-appbar {
+  .j-appbar {
     $pad: 10px;
     position: relative;
     height: 60px;
@@ -123,10 +129,10 @@ export default {
     left: 0;
     right: 0;
     transition: left 0.2s $curve;
-    > .j-appbar-title {
+    .j-appbar-title {
       text-align: center;
     }
-    > .j-appbar-left-actions {
+    .j-appbar-left-actions {
       position: absolute;
       left: $pad;
     } 
@@ -146,7 +152,7 @@ export default {
       }
     }
   }
-  > .j-scaffold-nav {
+  .j-scaffold-nav {
     position: fixed;
     transform: translateX(-$left);
     top: 0;
@@ -157,21 +163,37 @@ export default {
     transition: transform 0.2s $curve;
     padding: 1rem;
   }
-  > .j-scaffold-content {
+  .j-scaffold-title {
+    height: 60px;
+    background-color: var(--primary-color);
+    color: var(--primary-color-text);
+    margin-left: -1rem;
+    margin-right: -1rem;
+    margin-top: -1rem;
+    display: flex;
+    align-items: center;
+    padding: 0 $margin;
+  }
+  .j-scaffold-content {
     transition: margin-left 0.2s $curve;
     display: flow-root;
     margin-top: $hh;
   }
   &[data-has-nav="true"][data-wide="true"][data-expanded="false"] {
-    > .j-appbar {
+    .j-appbar {
       left: $left;
     }
-    > .j-scaffold-nav {
+    .j-scaffold-nav {
       transform: translateX(0);
     }
-    > .j-scaffold-content {
+    .j-scaffold-content {
       margin-left: $left;
     }
   }
+  // &[data-wide="true"] {
+  //   .j-appbar-title {
+  //     display: none;
+  //   }
+  // }
 }
 </style>

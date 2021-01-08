@@ -14,9 +14,6 @@
         <footer>Copyright © 2020 juju</footer>
       </template>
       <template #drawer>
-        <div class="drawer">
-          <header class="j-shadow-1"></header>
-        </div>
       </template>
     </j-scaffold>
     <component v-else :is="Component" />
@@ -41,17 +38,7 @@ export default {
 <style lang="scss">
 .j-scaffold.app {
   display: flex;
-  .j-scaffold-nav, .j-drawer {
-    header {
-      height: 60px;
-      background-color: var(--primary-color);
-      color: var(--primary-color-text);
-      margin-left: -1rem;
-      margin-right: -1rem;
-      margin-top: -1rem;
-    }
-  }
-  .j-appbar-title {
+  .j-appbar-title, .j-scaffold-title {
     h1 {
       font-size: 1.6em;
     }
