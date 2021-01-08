@@ -53,10 +53,10 @@ export default {
     > .demo {
       flex: 1;
     }
-  }
-  footer {
-    text-align: center;
-    margin: 2rem 0;
+    > footer {
+      text-align: center;
+      margin: 2rem 0;
+    }
   }
 }
 </style>
