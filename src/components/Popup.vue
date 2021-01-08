@@ -147,7 +147,7 @@ export default {
       h1 {
         flex: 1;
         margin: 0;
-        padding-left: 0.5rem;
+        padding-left: $margin;
         font-size: 14px;
         font-weight: 600;
       }
@@ -169,11 +169,11 @@ export default {
       padding: 1rem;
     }
     footer {
-      padding: 0.5rem 0;
+      padding: $margin 0;
       text-align: right;
       button {
         margin: 0;
-        margin-right: 0.5rem;
+        margin-right: $margin;
       }
     }
 

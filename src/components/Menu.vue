@@ -128,7 +128,7 @@ export default {
       flex: 1;
     }
     > .j-icon {
-      margin-left: 0.5rem;
+      margin-left: $margin;
     }
   }
   .j-menu-icon {

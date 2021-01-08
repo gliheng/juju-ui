@@ -179,7 +179,7 @@ export default {
       }
       > button {
         color: var(--text-color);
-        padding: 0.5rem;
+        padding: $margin;
         background: none;
         border: none;
         outline: none;

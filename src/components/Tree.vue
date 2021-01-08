@@ -32,8 +32,8 @@ export default {
     display: flex;
     cursor: default;
     border-radius: 3px;
-    padding: 0.5rem 1rem;
-    padding-right: 0.5rem;
+    padding: $margin 2*$margin;
+    padding-right: $margin;
     &:hover {
       background-color: var(--primary-color-lighter);
     }

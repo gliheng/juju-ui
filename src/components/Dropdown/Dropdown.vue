@@ -81,14 +81,14 @@ export default {
     display: flex;
     align-items: center;
     border-radius: 3px;
-    padding: 0.5rem;
+    padding: $margin;
     cursor: default;
     outline: none;
     // padding-left: 1rem;
     border: 1px solid var(--neutral-color-lighter);
     transition: border-color 0.2s, box-shadow 0.2s;
     .j-dropdown-icon {
-      margin-left: 0.5rem;
+      margin-left: $margin;
     }
     &:focus {
       box-shadow: $outline;
@@ -109,7 +109,7 @@ export default {
     position: absolute;
     top: 100%;
     z-index: 1;
-    padding: 0.5rem 0;
+    padding: $margin 0;
     margin-top: 2px;
     box-sizing: border-box;
     min-width: 100%;
@@ -119,7 +119,7 @@ export default {
     color: var(--text-color);
   }
   .j-dropdown-item {
-    padding: 0.5rem;
+    padding: $margin;
     cursor: default;
     position: relative;
     overflow: hidden;

@@ -29,7 +29,7 @@ export default {
   overflow: hidden;
   margin: 0;
   border-radius: 3px;
-  padding: 0.5rem 1rem;
+  padding: $margin 2*$margin;
   cursor: default;
   &:hover {
     background-color: var(--primary-color-lighter);
@@ -39,7 +39,7 @@ export default {
     color: var(--primary-color-text);
   }
   .j-listbox-icon {
-    margin-right: 0.5rem;
+    margin-right: $margin;
   }
 }
 </style>

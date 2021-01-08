@@ -97,7 +97,7 @@ function pct2value(pct: number, min: number, max: number, step: number): number 
     display: flex;
     align-items: center;
     position: relative;
-    padding: 0.5rem 0;
+    padding: $margin 0;
     // height: 2rem;
   }
   .j-slider-track {
