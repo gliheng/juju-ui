@@ -2,9 +2,9 @@
   <hr class="j-dropdown-seperator">
 </template>
 
-<style>
+<style lang="scss">
 hr.j-dropdown-seperator {
-  margin: 0.2rem 0.5rem;
+  margin: $margin/2 $margin;
   border-color: var(--neutral-color-lighter);
   border-top: none;
 }

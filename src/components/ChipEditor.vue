@@ -85,9 +85,9 @@ export default {
     display: flex;
     flex-wrap: wrap;
     min-width: 0;
-    padding: 0.4rem;
+    padding: $margin;
     > .j-chip {
-      margin: 0.2rem 0.4rem 0.2rem 0;
+      margin: $margin/2 $margin $margin/2 0;
     }
     > input {
       min-width: 0;

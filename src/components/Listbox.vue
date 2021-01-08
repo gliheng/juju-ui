@@ -16,6 +16,6 @@ ul.j-listbox {
   list-style: none;
   text-align: left;
   margin: 0;
-  padding: 0.5rem 0;
+  padding: $margin 0;
 }
 </style>
