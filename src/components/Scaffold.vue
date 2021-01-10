@@ -1,16 +1,22 @@
 <template>
   <div class="j-scaffold" :data-wide="wideLayout" :data-expanded="expanded" :data-has-nav="hasNav">
     <j-drawer v-if="!wideLayout" v-model="drawerOn" side="left" >
-      <slot name="drawer"></slot>
+      <div class="j-scaffold-appbar j-shadow-1" v-if="$slots['nav-title']">
+        <slot name="nav-title"></slot>
+      </div>
+      <slot name="nav"></slot>
     </j-drawer>
     <nav v-else class="j-scaffold-nav">
-      <slot name="drawer"></slot>
+      <div class="j-scaffold-appbar j-shadow-1" v-if="$slots['nav-title']">
+        <slot name="nav-title"></slot>
+      </div>
+      <slot name="nav"></slot>
     </nav>
     <main class="j-scaffold-content">
       <slot name="content"></slot>
     </main>
     <header class="j-appbar j-shadow-1" :data-align="wideLayout || titleAlign == 'left' ? 'left' : 'center'">
-      <div class="j-appbar-left-actions" v-if="$slots.drawer">
+      <div class="j-appbar-left-actions" v-if="hasNav">
         <j-button rounded icon="menu" @click="toggleNav" />
       </div>
       <div class="j-appbar-title"><slot name="title"></slot></div>
@@ -39,12 +45,12 @@
 
 <script lang="ts">
 import { ref, computed, SetupContext } from 'vue';
-import JButton from '../Button.vue';
-import Dropdown from '../Dropdown/Dropdown.vue';
-import DropdownItem from '../Dropdown/DropdownItem.vue';
-import { useSwitch, useWindowSize } from '../../utils/vue';
-import { getScreenSizeClass } from '../../utils/screen';
-import SvgIcon from '../SvgIcon.vue';
+import JButton from './Button.vue';
+import Dropdown from './Dropdown/Dropdown.vue';
+import DropdownItem from './Dropdown/DropdownItem.vue';
+import { useSwitch, useWindowSize } from '../utils/vue';
+import { getScreenSizeClass } from '../utils/screen';
+import SvgIcon from './SvgIcon.vue';
 
 type Action = {
   label?: string,
@@ -85,7 +91,7 @@ export default {
     let size = useWindowSize();
     let sizeClass = computed(() => getScreenSizeClass(size.width, size.height));
     let wideLayout = computed(() => sizeClass.value != 'sm');
-    let hasNav = computed(() => !!slots.drawer);
+    let hasNav = computed(() => !!slots.nav);
 
     function toggleNav() {
       if (wideLayout.value) {
@@ -107,16 +113,16 @@ export default {
   min-height: 100vh;
   $left: 300px;
   $hh: 60px;
+  $pad: 10px;
   .j-appbar {
-    $pad: 10px;
     position: relative;
-    height: 60px;
+    height: $hh;
     background-color: var(--primary-color);
     color: var(--primary-color-text);
     padding: 0 $pad;
     box-sizing: border-box;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     position: fixed;
     top: 0;
@@ -127,10 +133,12 @@ export default {
       text-align: center;
     }
     .j-appbar-left-actions {
-      position: absolute;
-      left: $pad;
+      position: relative;
+      > * {
+        margin-right: 0.2rem;
+      }
     } 
-    > .j-appbar-right-actions {
+    .j-appbar-right-actions {
       display: flex;
       position: absolute;
       right: $pad;
@@ -138,10 +146,10 @@ export default {
         margin-left: 0.2rem;
       }
     }
-    &[data-align="left"] {
-      justify-content: left;
+    &[data-align="center"] {
+      justify-content: center;
       .j-appbar-left-actions {
-        position: relative;
+        position: absolute;
         left: 0;
       }
     }
@@ -155,7 +163,18 @@ export default {
     width: $left;
     box-sizing: border-box;
     transition: transform 0.2s $curve;
-    padding: 1rem;
+    padding: $margin;
+  }
+  .j-scaffold-appbar {
+    height: $hh;
+    background-color: var(--primary-color);
+    color: var(--primary-color-text);
+    padding: 0 $pad;
+    margin: -$margin;
+    margin-bottom: initial;
+    display: flex;
+    justify-content: left;
+    align-items: center;
   }
   .j-scaffold-content {
     transition: margin-left 0.2s $curve;

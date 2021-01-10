@@ -1,17 +1,18 @@
 <template>
   <j-scaffold :actions="actions">
-    <template #drawer>
-      <j-listbox>
-        <j-listbox-item v-for="(item, i) in drawerItems" :key="item.label" @click="active = i"
-        :icon="item.icon" :active="i == active">{{ item.label }}</j-listbox-item>
-      </j-listbox>
-    </template>
     <template #title>juju-ui</template>
     <template #content>
       <div class="content">
         <p>Scaffold example</p>
       </div>
     </template>
+    <template #nav>
+      <j-listbox>
+        <j-listbox-item v-for="(item, i) in drawerItems" :key="item.label" @click="active = i"
+        :icon="item.icon" :active="i == active">{{ item.label }}</j-listbox-item>
+      </j-listbox>
+    </template>
+    <template #nav-title></template>
   </j-scaffold>
 </template>
 

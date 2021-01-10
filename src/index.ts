@@ -33,7 +33,7 @@ import Spinner from './components/Spinner.vue';
 import Progress from './components/Progress.vue';
 import Calendar from './components/Calendar.vue';
 import Tree from './components/Tree.vue';
-import Scaffold from './components/Scaffold/Scaffold.vue';
+import Scaffold from './components/Scaffold.vue';
 
 import ripple from './directives/ripple';
 import scroller from './directives/scroller';
