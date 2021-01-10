@@ -83,6 +83,17 @@ function getIconSvg(name?: string): string {
       width: 100%;
       height: 100%;
     }
+
+    .ionicon {
+      fill:currentColor;
+      stroke:currentColor
+    }
+    .ionicon-fill-none {
+      fill:none
+    }
+    .ionicon-stroke-width {
+      stroke-width:32px
+    }
   }
 }
 </style>
