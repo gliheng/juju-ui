@@ -7,7 +7,7 @@ import image from '@rollup/plugin-image';
 
 let entries = [].concat(
   'src/index.ts',
-  glob.sync('src/components/**/*.vue'),
+  glob.sync('src/components/**/!(_*).vue'),
 );
 
 export default {
