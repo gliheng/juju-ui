@@ -155,8 +155,9 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
+        color: var(--neutral-color);
         &:hover {
-          background-color: var(--neutral-color-light);
+          background-color: var(--neutral-color-lighter);
         }
         width: 30px;
         box-sizing: border-box;

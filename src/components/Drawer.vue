@@ -64,7 +64,7 @@ export default {
   right: 0;
   $w: 20rem;
   $h: 10rem;
-  padding: 1rem;
+  padding: $margin;
   box-sizing: border-box;
   z-index: 1000;
   background-color: var(--background-color);

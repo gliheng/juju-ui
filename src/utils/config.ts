@@ -1,15 +1,15 @@
-let config = {
+export interface Config {
+  popupBaseDepth: number,
+};
+
+let config: Config = {
   popupBaseDepth: 1000,
 };
 
-export interface Config {
-  popupBaseDepth?: number,
-}
-
-export function set(c: Config) {
+export function set(c: Partial<Config>) {
   Object.assign(config, c);
 }
 
-export function get(): typeof config {
+export function get(): Config {
   return config;
 }

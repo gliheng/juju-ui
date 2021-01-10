@@ -33,7 +33,7 @@ import Spinner from './components/Spinner.vue';
 import Progress from './components/Progress.vue';
 import Calendar from './components/Calendar.vue';
 import Tree from './components/Tree.vue';
-import Scaffold from './components/Scaffold/Scaffold.vue';
+import Scaffold from './components/Scaffold.vue';
 
 import ripple from './directives/ripple';
 import scroller from './directives/scroller';
@@ -41,7 +41,7 @@ import scroller from './directives/scroller';
 import * as utils from './utils';
 import { Config, set as setConfig } from './utils/config';
 
-export default function(conf: Config) {
+export default function(conf: Partial<Config>) {
   if (conf) setConfig(conf);
 
   return function(vue: App<Element>, prefix = 'j') {
