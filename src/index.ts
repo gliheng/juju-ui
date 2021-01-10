@@ -41,7 +41,7 @@ import scroller from './directives/scroller';
 import * as utils from './utils';
 import { Config, set as setConfig } from './utils/config';
 
-export default function(conf: Config) {
+export default function(conf: Partial<Config>) {
   if (conf) setConfig(conf);
 
   return function(vue: App<Element>, prefix = 'j') {
