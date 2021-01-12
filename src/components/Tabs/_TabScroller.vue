@@ -13,12 +13,11 @@
 </template>
 
 <script lang="ts">
-import { ref, watchEffect, onUpdated, onMounted, onUnmounted } from 'vue';
+import { ref, watch, onUpdated, onMounted, onUnmounted } from 'vue';
 import anime from 'animejs';
 import SvgIcon from '../SvgIcon.vue';
 import ContextMenuVue from '../ContextMenu.vue';
-
-declare let ResizeObserver: any;
+import { useElementSize } from '../../utils/vue'
 
 export default {
   setup() {
@@ -40,22 +39,14 @@ export default {
       }
     }
 
-    let observer: any;
-    onMounted(() => {
+    let size = useElementSize(content, v => v.firstElementChild!);
+    watch(size, _size => {
+      console.log('size update', _size);
       checkScroll();
-      // @ts-ignore
-      observer = new ResizeObserver(_entries => {
-        checkScroll();
-      });
-      observer.observe(content.value!.firstElementChild);
-    });
+    })
 
     onUpdated(() => {
       checkScroll();
-    });
-
-    onUnmounted(() => {
-      observer.disconnect();
     });
 
     function scrollBy(d: number, t: number = 200) {
@@ -119,6 +110,7 @@ export default {
     overflow: hidden;
     height: initial;
     margin: 0 1px;
+    color: var(--neutral-color-light);
   }
 }
 </style>
