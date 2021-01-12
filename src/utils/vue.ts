@@ -77,3 +77,30 @@ export function useWindowSize() {
   });
   return size;
 }
+
+declare let ResizeObserver: any;
+
+export function useElementSize(elementRef: Ref<HTMLElement | undefined>, nodeFetcher?: (node: Element) => Element) {
+  let size = reactive({ width: 0, height: 0 });
+  let watchNode: Element;
+  let observer = new ResizeObserver((entries: Array<any>) => {
+    entries.forEach(entry => {
+      if (entry.target == watchNode) {
+        size.width = entry.contentRect.width;
+        size.height = entry.contentRect.height;
+      }
+    });
+  });
+  onMounted(() => {
+    let elm = elementRef.value!;
+    size.width = elm.clientWidth;
+    size.height = elm.clientHeight;
+    watchNode = nodeFetcher ? nodeFetcher(elm) : elm;
+    observer.observe(watchNode);
+  });
+  onUnmounted(() => {
+    observer.disconnect(elementRef.value);
+  });
+
+  return size;
+}
