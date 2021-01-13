@@ -1,0 +1,25 @@
+ul.j-listbox {
+  list-style: none;
+  text-align: left;
+  margin: 0;
+  padding: $margin 0;
+}
+
+.j-listbox-item {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  border-radius: 3px;
+  padding: $margin 2*$margin;
+  cursor: default;
+  &:hover {
+    background-color: var(--primary-color-lighter);
+  }
+  &.j-active {
+    background-color: var(--primary-color);
+    color: var(--primary-color-text);
+  }
+  .j-listbox-icon {
+    margin-right: $margin;
+  }
+}

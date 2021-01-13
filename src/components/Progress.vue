@@ -31,36 +31,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.j-progress {
-  height: 6px;
-  background-color: var(--primary-color-lighter);
-  position: relative;
-  overflow: hidden;
-  .j-progress-bar {
-    height: 100%;
-    background-color: var(--primary-color);
-    transition: width 0.3s;
-  }
-  &[data-indeterminate="true"] {
-    .j-progress-bar {
-      position: absolute;
-      animation: j-progress-pan 1s infinite;
-      left: -30%;
-    }
-  }
-  &[data-striped="true"] {
-    .j-progress-bar {
-      background-image: linear-gradient(135deg,hsla(0,0%,100%,.25) 25%, transparent 0,transparent 50%, hsla(0,0%,100%,.25) 0, hsla(0,0%,100%,.25) 75%,transparent 0, transparent);
-      background-size: 30px 30px;
-      background-repeat: repeat;
-    }
-  }
-}
-@keyframes j-progress-pan {
-  to {
-    left: 100%;
-  }
-}
-</style>

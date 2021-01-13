@@ -1,9 +1,10 @@
 import { App } from 'vue';
+
 import Button from './components/Button.vue';
 import ButtonGroup from './components/ButtonGroup.vue';
 import SplitButton from './components/SplitButton.vue';
-import ToggleButton from './components/ToggleButton.vue';
-import ToggleButtonGroup from './components/ToggleButtonGroup.vue';
+import ToggleButton from './components/ToggleButton/ToggleButton.vue';
+import ToggleButtonGroup from './components/ToggleButton/ToggleButtonGroup.vue';
 import SvgIcon from './components/SvgIcon.vue';
 import Tabs from './components/Tabs/Tabs.vue';
 import TabPane from './components/Tabs/TabPane.vue';
@@ -19,8 +20,8 @@ import Switch from './components/Switch.vue';
 import Slider from './components/Slider.vue';
 import Drawer from './components/Drawer.vue';
 import Popup from './components/Popup.vue';
-import Listbox from './components/Listbox.vue';
-import ListboxItem from './components/ListboxItem.vue';
+import Listbox from './components/Listbox/Listbox.vue';
+import ListboxItem from './components/Listbox/ListboxItem.vue';
 import ColorWheel from './components/ColorWheel.vue';
 import Chip from './components/Chip.vue';
 import ChipEditor from './components/ChipEditor.vue';
@@ -32,11 +33,12 @@ import UploadButton from './components/UploadButton.vue';
 import Spinner from './components/Spinner.vue';
 import Progress from './components/Progress.vue';
 import Calendar from './components/Calendar.vue';
-import Tree from './components/Tree.vue';
+import Tree from './components/Tree/Tree.vue';
 import Scaffold from './components/Scaffold.vue';
 
 import ripple from './directives/ripple';
 import scroller from './directives/scroller';
+import "./assets/styles/index.scss";
 
 import * as utils from './utils';
 import { Config, set as setConfig } from './utils/config';

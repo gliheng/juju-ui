@@ -35,17 +35,3 @@ export default {
   components: { JSnackbar },
 }
 </script>
-
-<style lang="scss">
-.j-snackbar-manager {
-  position: fixed;
-  display: flex;
-  flex-direction: column-reverse;
-  align-items: center;
-  left: 50%;
-  bottom: 30px;
-  width: 0;
-  height: 0;
-  z-index: 2000;
-}
-</style>

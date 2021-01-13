@@ -28,7 +28,6 @@ export default {
     image(),
     typescript(),
     scss({
-      prefix: '@import "./src/assets/style.scss";',
       output: 'dist/style.css',
       sass: require('sass'),
     }),

@@ -25,38 +25,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.j-radio {
-  display: inline-flex;
-  align-items: center;
-  .j-radio-disc {
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-    border: 2px solid var(--neutral-color-light);
-    box-shadow: 0 0 3px inset rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.2s, border 0.2s;
-    display: inline-block;
-    margin-right: 0.2rem;
-    box-sizing: border-box;
-  }
-  &:focus {
-    outline: none;
-    .j-radio-disc {
-      box-shadow: $outline;
-    }
-  }
-  &:hover {
-    .j-radio-disc {
-      border-color: var(--primary-color);
-    }
-  }
-  &[data-checked="true"] {
-    .j-radio-disc {
-      border-width: 0.35rem;
-      border-color: var(--primary-color);
-    }
-  }
-}
-</style>

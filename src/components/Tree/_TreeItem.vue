@@ -13,9 +13,9 @@
 
 <script lang="ts">
 import { computed } from 'vue';
-import SvgIcon from './SvgIcon.vue';
-import ripple from '../directives/ripple';
-import { useSwitch } from '../utils/vue';
+import SvgIcon from '../SvgIcon.vue';
+import ripple from '../../directives/ripple';
+import { useSwitch } from '../../utils/vue';
 
 export default {
   name: 'tree-item',

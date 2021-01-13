@@ -1,0 +1,8 @@
+.j-split-button {
+  position: relative;
+  display: inline-block;
+  > .j-menu {
+    position: absolute;
+    min-width: 100%;
+  }
+}

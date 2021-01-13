@@ -78,26 +78,3 @@ export default {
   components: { JChip },
 }
 </script>
-
-<style lang="scss">
-.j-chip-editor {
-  > .j-input {
-    display: flex;
-    flex-wrap: wrap;
-    min-width: 0;
-    padding: $margin;
-    > .j-chip {
-      margin: $margin/2 $margin $margin/2 0;
-    }
-    > input {
-      min-width: 0;
-      flex: 1 1 3rem;
-      margin: .2rem .5rem .2rem 0;
-      padding: 0;
-      outline: none;
-      height: 24px;
-      border: none;
-    }
-  }
-}
-</style>

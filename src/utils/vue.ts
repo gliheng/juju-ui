@@ -80,7 +80,11 @@ export function useWindowSize() {
 
 declare let ResizeObserver: any;
 
-export function useElementSize(elementRef: Ref<HTMLElement | undefined>, nodeFetcher?: (node: Element) => Element) {
+export function useElementSize(
+  elementRef: Ref<HTMLElement | undefined>,
+  nodeFetcher?: (node: Element) => Element): {
+    width: number, height: number
+} {
   let size = reactive({ width: 0, height: 0 });
   let watchNode: Element;
   let observer = new ResizeObserver((entries: Array<any>) => {

@@ -240,26 +240,3 @@ function deg2rad(deg: number): number {
 // }
 
 </script>
-
-<style lang="scss">
-.j-color-wheel {
-  position: relative;
-  margin: 20px 10px;
-  .color-picker {
-    position: absolute;
-    svg path {
-      stroke-width: 2;
-      stroke: gray;
-    }
-  }
-  .handle {
-    pointer-events: none;
-  }
-  .values {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    text-align: left;
-  }
-}
-</style>

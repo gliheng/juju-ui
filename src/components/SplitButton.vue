@@ -36,14 +36,3 @@ export default {
   components: { ButtonGroup, JButton, JMenu },
 };
 </script>
-
-<style lang="scss">
-.j-split-button {
-  position: relative;
-  display: inline-block;
-  > .j-menu {
-    position: absolute;
-    min-width: 100%;
-  }
-}
-</style>

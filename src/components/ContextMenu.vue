@@ -34,12 +34,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.j-context-menu {
-  position: relative;
-  > .j-context-menu-popup {
-    position: absolute;
-  }
-}
-</style>

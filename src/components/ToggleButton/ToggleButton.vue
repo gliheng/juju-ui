@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { computed, inject, SetupContext, Ref } from 'vue';
-import { useSwitch } from '../utils/vue';
+import { useSwitch } from '../../utils/vue';
 
 export default {
   props: {
@@ -34,7 +34,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-
-</style>

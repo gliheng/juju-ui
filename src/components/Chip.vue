@@ -21,26 +21,3 @@ export default {
   components: { SvgIcon },
 };
 </script>
-
-<style lang="scss">
-.j-chip {
-  display: inline-flex;
-  align-items: center;
-  background-color: var(--primary-color);
-  color: var(--primary-color-text);
-  border-radius: 1rem;
-  padding: 0.2rem 0.5rem;
-  &[data-closable="true"] {
-    padding-right: 0.15rem;
-  }
-  >.j-icon {
-    vertical-align: middle;
-  }
-  > .j-icon:first-of-type {
-    margin-right: 0.2rem;
-  }
-  > .j-icon:last-of-type {
-    margin-left: 0.2rem;
-  }
-}
-</style>

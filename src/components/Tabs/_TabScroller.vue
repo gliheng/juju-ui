@@ -95,22 +95,3 @@ export default {
   components: { SvgIcon },
 }
 </script>
-
-<style lang="scss">
-.j-tab-scroller {
-  display: flex;
-  align-items: stretch;
-  > .j-tab-scroller-content {
-    flex: 1;
-    min-width: 0;
-    overflow: hidden;
-  }
-  > .j-tab-scroller-btn.j-icon {
-    position: relative;
-    overflow: hidden;
-    height: initial;
-    margin: 0 1px;
-    color: var(--neutral-color-light);
-  }
-}
-</style>

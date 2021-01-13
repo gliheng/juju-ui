@@ -7,7 +7,7 @@
 <script lang="ts">
 import { computed, SetupContext } from 'vue';
 import ToggleButton from './ToggleButton.vue';
-import Vnodes from './Vnodes';
+import Vnodes from '../Vnodes';
 
 export default {
   props: {
@@ -46,24 +46,3 @@ export default {
   components: { Vnodes },
 }
 </script>
-
-<style lang="scss">
-.j-toggle-button-group {
-  white-space: nowrap;
-  > .j-button {
-    border-radius: 0;
-    margin: 0!important;
-    &:first-child {
-      border-top-left-radius: 3px;
-      border-bottom-left-radius: 3px;
-    }
-    &:last-child {
-      border-top-right-radius: 3px;
-      border-bottom-right-radius: 3px;
-    }
-    &.is-outlined:not(:last-child) {
-      border-right: none;
-    }
-  }
-}
-</style>

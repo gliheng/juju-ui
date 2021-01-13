@@ -35,7 +35,7 @@
           <j-dropdown-item name="bicycle" icon="bicycle">Bicycle</j-dropdown-item>
           <j-dropdown-item name="car" icon="car-sport">Car</j-dropdown-item>
           <j-dropdown-item name="bus" icon="bus">Bus</j-dropdown-item>
-          <j-dropdown-item name="ship">Ship</j-dropdown-item>
+          <j-dropdown-item name="boat" icon="boat">Boat</j-dropdown-item>
         </j-dropdown>
       </section>
     </div>
