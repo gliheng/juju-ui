@@ -40,18 +40,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.j-menu-bar {
-  > .j-menu-entry {
-    display: inline-block;
-    min-width: initial;
-    > .j-menu-label {
-      padding: 0 0.6rem;
-      > .j-icon {
-        display: none;
-      }
-    }
-  }
-}
-</style>

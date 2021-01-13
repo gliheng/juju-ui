@@ -75,21 +75,3 @@ export default {
   components: { JPopup, SvgIcon },
 }
 </script>
-
-<style lang="scss">
-.j-popup-manager {
-  .j-popup {
-    main {
-      display: flex;
-      align-items: center;
-      > .j-popup-icon {
-        margin-right: 0.5rem;
-        color: var(--primary-color);
-      }
-      > .j-popup-content {
-        margin: 0;
-      }
-    }
-  }
-}
-</style>

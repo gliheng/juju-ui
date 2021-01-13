@@ -1,0 +1,61 @@
+.j-calendar {
+  width: 20rem;
+  text-align: center;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  color: var(--text-color);
+  .j-calendar-header {
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-bottom: 1px solid var(--neutral-color-light);
+    padding-bottom: 0.2rem;
+    margin-bottom: 1rem;
+    .j-button {
+      margin: 0;
+      &:focus {
+        box-shadow: none;
+      }
+    }
+    .date {
+      flex: 1;
+    }
+    .month, .year {
+      margin: 0 0.5rem;
+    }
+  }
+  .j-calendar-grid {
+    $gap: 0.5rem;
+    > header, > main {
+      margin-bottom: $gap;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      grid-column-gap: $gap;
+      grid-row-gap: $gap;
+      [data-prev], [data-next] {
+        color: var(--neutral-color-light);
+      }
+    }
+    .j-calendar-cell {
+      $size: 2rem;
+      align-self: center;
+      justify-self: center;
+      display: inline-block;
+      width: $size;
+      height: $size;
+      line-height: $size;
+      border-radius: 50%;
+      cursor: pointer;
+      &:hover {
+        background-color: var(--primary-color-lighter);
+      }
+      &[data-today="true"] {
+        background-color: var(--primary-color);
+        color: var(--primary-color-text);
+      }
+      &[data-picked="true"] {
+        box-shadow: $outline;
+      }
+    }
+  }
+}

@@ -30,9 +30,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss">
-.j-tab-pane {
-  padding: $margin 0;
-}
-</style>

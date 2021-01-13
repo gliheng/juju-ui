@@ -19,21 +19,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss">
-.j-textarea {
-  padding: 0.5rem;
-  border: 1px solid var(--neutral-color-light);
-  border-radius: 3px;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  &:focus:not([disabled]) {
-    box-shadow: $outline;
-    border-color: var(--primary-color);
-    outline: none;
-  }
-  &[disabled] {
-    background-color: #eee;
-    cursor: not-allowed;
-  }
-}
-</style>

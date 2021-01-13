@@ -9,7 +9,6 @@
 import { inject } from 'vue';
 import SvgIcon from '../SvgIcon.vue';
 import { useParent } from '../../utils/vue';
-import { DropdownItem } from '../..';
 
 export const DropdownItemSymbol = Symbol('DropdownItemSymbol');
 
@@ -19,7 +18,7 @@ export default {
     icon: String,
   },
   setup(props, { slots }) {    
-    let setActive = useParent<{ setActive: Function }>(DropdownItemSymbol)?.value?.setActive;
+    let setActive = useParent<{ setActive: Function }>(DropdownItemSymbol)?.data?.setActive;
 
     function onClick(evt: MouseEvent) {
       if (typeof setActive == 'function') {

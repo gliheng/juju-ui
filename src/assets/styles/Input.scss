@@ -1,0 +1,53 @@
+.j-input {
+  display: inline-flex;
+  border-radius: 3px;
+  border: 1px solid var(--neutral-color-light);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 16rem;
+  align-items: center;
+  > input {
+    padding: 0.5rem;
+    border: none;
+    outline: none;
+    background: none;
+    flex: 1;
+  }
+  &[data-focus="true"] {
+    box-shadow: $outline;
+    border-color: var(--primary-color);
+    outline: none;
+    z-index: 1;
+  }
+  &:hover:not([data-disabled="true"]) {
+    border-color: var(--primary-color);
+  }
+  &[data-disabled="true"] {
+    background-color: #eee;
+    cursor: not-allowed;
+    > input {
+      cursor: not-allowed;
+    }
+  }
+  > .j-icon {
+    margin: 0 0.5rem;
+  }
+  &[data-has-prepend="true"] {
+    > input {
+      margin-left: -0.5rem;
+    }
+  }
+  &[data-has-append="true"] {
+    > input {
+      margin-right: -0.5rem;
+    }
+  }
+  .j-input-clear {
+    visibility: hidden;
+    cursor: pointer;
+  }
+  &[data-can-clear="true"] {
+    .j-input-clear {
+      visibility: visible;
+    }
+  }
+}
