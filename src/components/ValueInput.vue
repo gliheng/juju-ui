@@ -2,7 +2,7 @@
   <div class="j-value-input" :class="{'j-focus': focus}">
     <template v-if="type == 'slider'">
       <div class="j-value-inner">
-        <input ref="ipt" v-model.lazy="value" @focus="onFocus" @blur="onBlur" />
+        <input v-model.lazy="value" @focus="onFocus" @blur="onBlur" />
         <j-button @click.stop="toggleSlider" icon="chevron-down" flat @mousedown.prevent />
       </div>
       <div class="j-slider-outer j-shadow-3" v-if="sliderOn" @click.stop>
@@ -12,7 +12,7 @@
     <template v-else-if="type == 'button'">
       <div class="j-value-inner">
         <j-button @click.stop="dec" icon="remove" flat @mousedown.prevent :disabled="!canDec" />
-        <input ref="ipt" v-model.lazy="value" @focus="onFocus" @blur="onBlur" />
+        <input v-model.lazy="value" @focus="onFocus" @blur="onBlur" />
         <j-button @click.stop="inc" icon="add" flat @mousedown.prevent :disabled="!canInc" />
       </div>
     </template>
@@ -54,7 +54,6 @@ export default {
     },
   },
   setup(props, { emit }: SetupContext) {
-    let ipt = ref();
     let focus = ref(false);
 
     function inc() {
@@ -108,7 +107,7 @@ export default {
     }
 
     return {
-      value, ipt, sliderOn, toggleSlider, onFocus, onBlur, focus,
+      value, sliderOn, toggleSlider, onFocus, onBlur, focus,
       inc, dec, canDec, canInc,
     };
   },
