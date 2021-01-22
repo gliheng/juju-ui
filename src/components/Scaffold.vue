@@ -17,22 +17,24 @@
     </main>
     <header class="j-appbar j-shadow-1" :data-align="wideLayout || titleAlign == 'left' ? 'left' : 'center'">
       <div class="j-appbar-left-actions" v-if="hasNav">
-        <j-button rounded icon="menu" @click="toggleNav" />
+        <j-button rounded size="md" icon="menu" @click="toggleNav" />
+        <slot v-if="$slots['left-actions']" name="left-actions"></slot>
       </div>
       <div class="j-appbar-title"><slot name="title"></slot></div>
       <div v-if="actions && actions.all.length" class="j-appbar-right-actions">
+        <slot v-if="$slots['right-actions']" name="right-actions"></slot>
         <template v-for="(act, i) in actions.sticky" :key="i">
           <a v-if="act.link" :href="act.link" :target="act.target">
-            <j-button rounded :icon="act.icon" @click="act.onClick"></j-button>
+            <j-button rounded size="md" :icon="act.icon" @click="act.onClick"></j-button>
           </a>
-          <j-button v-else rounded :icon="act.icon" @click="act.onClick"></j-button>
+          <j-button v-else rounded size="md" :icon="act.icon" @click="act.onClick"></j-button>
         </template>
         <j-dropdown v-if="!wideLayout && actions.others.length" align="right" @change="doAction">
           <template #button>
-            <j-button rounded icon="ellipsis-vertical" />
+            <j-button rounded size="md" icon="ellipsis-vertical" />
           </template>
           <j-dropdown-item v-for="(act, i) in actions.others" :key="i"
-            :with-icon="true" :name="act.label" :icon="act.icon">{{ act.label }}</j-dropdown-item>
+            :name="act.label" :icon="act.icon" size="md">{{ act.label }}</j-dropdown-item>
         </j-dropdown>
         <template v-else>
           <j-button v-for="(act, i) in actions.others" :key="i + actions.sticky.length"
@@ -65,14 +67,9 @@ export default {
   props: {
     actions: Array,
     titleAlign: String,
-    initialExpanded: {
-      // focus on the right pane in wide layout mode
-      type: Boolean,
-      default: true,
-    },
   },
   setup(props, { slots }: SetupContext) {
-    let [ expanded, toggleExpanded ] = useSwitch(props.initialExpanded);
+    let [ expanded, toggleExpanded ] = useSwitch(false);
     let [ drawerOn, toggleDrawer ] = useSwitch(false);
 
     let actions = computed(() => {

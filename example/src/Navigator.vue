@@ -82,7 +82,8 @@ section {
     .box {
       padding: 1rem;
       text-align: center;
-      background-color: #eee;
+      color: var(--text-color);
+      background-color: var(--background-color-1);
       &:hover {
         background-color: var(--primary-color-lighter);
       }

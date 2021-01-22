@@ -9,6 +9,9 @@
           <h1>🍄 juju-ui</h1>
         </router-link>
       </template>
+      <template #right-actions>
+        <j-switch class="j-secondary" v-model="dark" />
+      </template>
       <template #content>
         <component class="demo" :is="Component" />
         <footer>Copyright © 2020-2021 juju</footer>
@@ -19,15 +22,20 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 export default {
   setup() {
     let route = useRoute();
     let headless = computed(() => route.meta.fullPage || false);
+    let dark = ref(false);
+
+    watch(dark, v => {
+      document.documentElement.classList.toggle('j-dark');
+    });
     return {
-      headless,
+      headless, dark,
     };
   }
 }

@@ -24,14 +24,17 @@
     }
     .j-appbar-left-actions {
       position: relative;
+      display: flex;
+      align-items: center;
       > * {
         margin-right: 0.2rem;
       }
     } 
     .j-appbar-right-actions {
-      display: flex;
       position: absolute;
       right: $pad;
+      display: flex;
+      align-items: center;
       > * {
         margin-left: 0.2rem;
       }
@@ -54,6 +57,7 @@
     box-sizing: border-box;
     transition: transform 0.2s $curve;
     padding: $margin;
+    background-color: var(--background-color-1);
   }
   .j-scaffold-appbar {
     height: $hh;
@@ -70,6 +74,9 @@
     transition: margin-left 0.2s $curve;
     display: flow-root;
     margin-top: $hh;
+    min-height: calc(100vh - #{$hh});
+    box-sizing: border-box;
+    padding: $margin;
   }
   &[data-has-nav="true"][data-wide="true"][data-expanded="false"] {
     .j-appbar {
