@@ -18,9 +18,11 @@
     <header class="j-appbar j-shadow-1" :data-align="wideLayout || titleAlign == 'left' ? 'left' : 'center'">
       <div class="j-appbar-left-actions" v-if="hasNav">
         <j-button rounded icon="menu" @click="toggleNav" />
+        <slot v-if="$slots['left-actions']" name="left-actions"></slot>
       </div>
       <div class="j-appbar-title"><slot name="title"></slot></div>
       <div v-if="actions && actions.all.length" class="j-appbar-right-actions">
+        <slot v-if="$slots['right-actions']" name="right-actions"></slot>
         <template v-for="(act, i) in actions.sticky" :key="i">
           <a v-if="act.link" :href="act.link" :target="act.target">
             <j-button rounded :icon="act.icon" @click="act.onClick"></j-button>
@@ -65,14 +67,9 @@ export default {
   props: {
     actions: Array,
     titleAlign: String,
-    initialExpanded: {
-      // focus on the right pane in wide layout mode
-      type: Boolean,
-      default: true,
-    },
   },
   setup(props, { slots }: SetupContext) {
-    let [ expanded, toggleExpanded ] = useSwitch(props.initialExpanded);
+    let [ expanded, toggleExpanded ] = useSwitch(false);
     let [ drawerOn, toggleDrawer ] = useSwitch(false);
 
     let actions = computed(() => {

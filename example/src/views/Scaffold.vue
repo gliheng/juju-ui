@@ -1,6 +1,6 @@
 <template>
   <j-scaffold :actions="actions">
-    <template #title>juju-ui</template>
+    <template #title>juju-ui demo</template>
     <template #content>
       <div class="content">
         <p>Scaffold example</p>
@@ -12,7 +12,7 @@
         :icon="item.icon" :active="i == active">{{ item.label }}</j-listbox-item>
       </j-listbox>
     </template>
-    <template #nav-title></template>
+    <template #nav-title>🍄 JUJU-UI</template>
   </j-scaffold>
 </template>
 
