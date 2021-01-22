@@ -8,7 +8,7 @@
     'is-right': iconPos == 'right',
     ['is-' + size]: size,
   }" :disabled="disabled" v-ripple:center="iconOnly">
-    <svg-icon v-if="icon" :name="icon"></svg-icon>
+    <svg-icon v-if="icon" :size="size" :name="icon"></svg-icon>
     <span v-if="iconWithText">&nbsp;</span>
     <slot></slot>
   </button>

@@ -1,12 +1,11 @@
 <template>
-  <div class="j-dropdown-item" :data-has-icon="!!icon" @click="onClick" v-ripple>
-    <svg-icon :name="icon" />
+  <div class="j-dropdown-item" :data-size="size" :data-has-icon="!!icon" @click="onClick" v-ripple>
+    <svg-icon :size="size" :name="icon" />
     <slot></slot>
   </div>
 </template>
 
 <script lang="ts">
-import { inject } from 'vue';
 import SvgIcon from '../SvgIcon.vue';
 import { useParent } from '../../utils/vue';
 
@@ -16,6 +15,7 @@ export default {
   props: {
     name: String,
     icon: String,
+    size: String,
   },
   setup(props, { slots }) {    
     let setActive = useParent<{ setActive: Function }>(DropdownItemSymbol)?.data?.setActive;
