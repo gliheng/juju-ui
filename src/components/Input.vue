@@ -6,8 +6,12 @@
   :data-has-append="hasAppend"
   :data-can-clear="!!modelValue">
     <slot v-if="hasPrepend" name="prepend"></slot>
-    <input :value="modelValue" @input="onInput" @focus="focus = true" @blur="focus = false"
-      :disabled="disabled" :placeholder="placeholder" :autofocus="autofocus" :autocomplete="autocomplete" />
+    <input v-if="modelValue === undefined"
+      @input="onInput" @focus="focus = true" @blur="focus = false"
+      :disabled="disabled" v-bind="$attrs" />
+    <input v-else :value="modelValue"
+      @input="onInput" @focus="focus = true" @blur="focus = false"
+      :disabled="disabled" v-bind="$attrs" />
     <slot v-if="hasAppend" name="append"></slot>
     <j-svg-icon v-if="clearable" class="j-input-clear" name="close" @mousedown.prevent @click="clearIpt" />
   </div>
@@ -27,18 +31,6 @@ export default {
     clearable: {
       type: Boolean,
       default: false,
-    },
-    placeholder: {
-      type: String,
-      default: '',
-    },
-    autofocus: {
-      type: Boolean,
-      default: false,
-    },
-    autocomplete: {
-      type: String,
-      default: '',
     },
   },
   emits: ['update:modelValue'],
