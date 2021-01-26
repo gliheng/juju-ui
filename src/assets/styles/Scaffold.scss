@@ -2,14 +2,13 @@
   display: flow-root;
   min-height: 100vh;
   $left: 300px;
-  $hh: 60px;
-  $pad: 10px;
+  $hh: 56px;
   .j-appbar {
     position: relative;
     height: $hh;
     background-color: var(--primary-color);
     color: var(--primary-color-text);
-    padding: 0 $pad;
+    padding: 0 $margin;
     box-sizing: border-box;
     display: flex;
     justify-content: left;
@@ -32,7 +31,7 @@
     } 
     .j-appbar-right-actions {
       position: absolute;
-      right: $pad;
+      right: $margin;
       display: flex;
       align-items: center;
       > * {
@@ -63,7 +62,7 @@
     height: $hh;
     background-color: var(--primary-color);
     color: var(--primary-color-text);
-    padding: 0 $pad;
+    padding: 0 $margin;
     margin: -$margin;
     margin-bottom: initial;
     display: flex;
