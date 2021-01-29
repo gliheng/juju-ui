@@ -31,16 +31,6 @@
   > .j-icon {
     margin: 0 0.5rem;
   }
-  &[data-has-prepend="true"] {
-    > input {
-      margin-left: -0.5rem;
-    }
-  }
-  &[data-has-append="true"] {
-    > input {
-      margin-right: -0.5rem;
-    }
-  }
   .j-input-clear {
     visibility: hidden;
     cursor: pointer;
