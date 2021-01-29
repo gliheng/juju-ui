@@ -24,7 +24,7 @@
 
 <script>
 import { useRoute } from 'vue-router';
-import config from './config.json';
+import config from './config';
 import { routeMap } from './router';
 import { ref, computed } from 'vue';
 
