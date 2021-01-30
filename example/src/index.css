@@ -18,7 +18,7 @@ a {
   text-decoration: none;
 }
 a:link {
-  color: inherit;
+  color: var(--primary-color);
 }
 a:visited {
   color: inherit;

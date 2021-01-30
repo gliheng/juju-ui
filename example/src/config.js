@@ -88,7 +88,6 @@ export default {
     }, {
       "name": "Table",
       "device": ["pc", "mobile"],
-      "fullPage": true,
     },
   ],
   "Directives": [

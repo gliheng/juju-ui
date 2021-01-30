@@ -1,0 +1,26 @@
+.j-table table {
+  text-align: left;
+  border-collapse: collapse;
+  color: var(--text-color);
+  tr {
+    border-bottom: 1px solid var(--neutral-color-lighter);
+  }
+  th, td {
+    padding: 2 * $margin;
+    box-sizing: border-box;
+    word-break: break-all;
+  }
+  th {
+    font-weight: 500;
+  }
+  thead {
+    tr {
+      background-color: var(--background-color-1);
+    }
+  }
+  tbody {
+    tr[data-selected="true"] {
+      background-color: var(--primary-color-lighter);
+    }
+  }
+}

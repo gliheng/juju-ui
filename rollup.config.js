@@ -26,7 +26,12 @@ export default {
       ],
     }),
     image(),
-    typescript(),
+    typescript({
+      jsx: 'react',
+      jsxFactory: 'h',
+      jsxFragmentFactory: 'Fragment',
+      // jsxImportSource: 'vue',
+    }),
     scss({
       output: 'dist/style.css',
       sass: require('sass'),
