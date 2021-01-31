@@ -2,7 +2,8 @@
   <div class="j-dropdown" :data-align="align" :data-has-icon="hasIcon" @click.stop="toggleMenu">
     <slot v-if="hasButtonSlot" name="button"></slot>
     <div v-else class="j-dropdown-label" tabindex="0">
-      <vnodes :nodes="selectedNode"></vnodes>
+      <vnodes v-if="selected" :nodes="selectedNode"></vnodes>
+      <span class="j-placeholder" v-else>{{ placeholder }}</span>
       <svg-icon class="j-dropdown-icon" name="chevron-down"></svg-icon>
     </div>
     <div class="j-dropdown-menu" v-if="menuOn"><slot></slot></div>
@@ -10,26 +11,33 @@
 </template>
 
 <script lang="ts">
-import { provide, ref, computed, watch, SetupContext } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { useSwitch, useChildren } from '../../utils/vue';
-import DropdownSeperator from './DropdownSeperator.vue';
 import { DropdownItemSymbol } from './DropdownItem.vue';
 import SvgIcon from '../SvgIcon.vue';
 import Vnodes from '../Vnodes';
-import { Dropdown, DropdownItem } from '../..';
 
 export default {
   props: {
     type: String,
+    placeholder: String,
+    modelValue: {
+      type: [ String, Number, Array ],
+      required: true,
+    },
     align: {
       type: String,
       default: 'left',
     },
+    multiple: {
+      type: Boolean,
+      default: false,
+    },
   },
-  emits: ['change'],
-  setup(_, { slots, emit }: SetupContext) {
+  emits: ['update:modelValue'],
+  setup(props, { slots, emit }) {
     // add an index to dropdown-item
-    let selected = ref(0);
+    let selected = ref(props.modelValue);
     let [ menuOn, toggleMenu ] = useSwitch(false);
 
     watch(menuOn, (v) => {
@@ -43,10 +51,12 @@ export default {
     });
 
     let selectedNode = computed(() => {
-      let idx = selected.value;
       if (slots.default) {
-        let node = slots.default()[idx];
-        return (node as any).children.default();
+        for (let node of slots.default()) {
+          if (node.props && node.props.value == selected.value) {
+            return (node as any).children.default();
+          }
+        }
       }
       return [];
     });
@@ -57,9 +67,9 @@ export default {
 
     // dropdown-item use this callback to notify which item is clicked
     let children = useChildren(DropdownItemSymbol, {
-      setActive(idx: number) {
-        selected.value = idx;
-        emit('change', idx);
+      setActive(v: string) {
+        selected.value = v;
+        emit('update:modelValue', v);
       }
     });
 

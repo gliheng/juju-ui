@@ -16,15 +16,14 @@ export default {
     name: String,
     icon: String,
     size: String,
+    value: [ String, Number ],
   },
   setup(props, { slots }) {    
     let setActive = useParent<{ setActive: Function }>(DropdownItemSymbol)?.data?.setActive;
 
     function onClick(evt: MouseEvent) {
       if (typeof setActive == 'function') {
-        let tar = evt.currentTarget as Element;
-        let idx = Array.from(tar.parentNode!.children).indexOf(tar);
-        setActive(idx);
+        setActive(props.value);
       }
     }
     
