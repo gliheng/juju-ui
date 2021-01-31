@@ -1,17 +1,10 @@
-<template>
-  <div class="j-dropdown-item" :data-size="size" :data-has-icon="!!icon" @click="onClick" v-ripple>
-    <svg-icon :size="size" :name="icon" />
-    <slot></slot>
-  </div>
-</template>
-
-<script lang="ts">
+import { defineComponent } from 'vue';
 import SvgIcon from '../SvgIcon.vue';
 import { useParent } from '../../utils/vue';
 
 export const DropdownItemSymbol = Symbol('DropdownItemSymbol');
 
-export default {
+export default defineComponent({
   props: {
     name: String,
     icon: String,
@@ -26,9 +19,14 @@ export default {
         setActive(props.value);
       }
     }
-    
-    return { onClick };
+
+    return () => {
+      return (
+        <div class="j-dropdown-item" data-size={size} data-has-icon={!!icon} onClick={onClick} v-ripple>
+          <SvgIcon size={ size } name={ icon } />
+          <slot></slot>
+        </div>
+      );
+    }
   },
-  components: { SvgIcon },
-}
-</script>
+});

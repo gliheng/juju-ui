@@ -38,6 +38,18 @@
           <j-dropdown-item name="boat" icon="boat" value="boat">Boat</j-dropdown-item>
         </j-dropdown>
       </section>
+      <section>
+        <h2>Dropdown with multiple selection</h2>
+        <j-dropdown multiple v-model="multiValue1" placeholder="Select preferred tranport">
+          <!-- <template #button={selected}>
+
+          </template> -->
+          <j-dropdown-item name="bicycle" icon="bicycle" value="bicyle">Bicycle</j-dropdown-item>
+          <j-dropdown-item name="car" icon="car-sport" value="car">Car</j-dropdown-item>
+          <j-dropdown-item name="bus" icon="bus" value="bus">Bus</j-dropdown-item>
+          <j-dropdown-item name="boat" icon="boat" value="boat">Boat</j-dropdown-item>
+        </j-dropdown>
+      </section>
     </div>
   </div>
 </template>

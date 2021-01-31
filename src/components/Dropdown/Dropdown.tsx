@@ -1,19 +1,6 @@
-<template>
-  <div class="j-dropdown" :data-align="align" :data-has-icon="hasIcon" @click.stop="toggleMenu">
-    <slot v-if="hasButtonSlot" name="button"></slot>
-    <div v-else class="j-dropdown-label" tabindex="0">
-      <vnodes v-if="selected" :nodes="selectedNode"></vnodes>
-      <span class="j-placeholder" v-else>{{ placeholder }}</span>
-      <svg-icon class="j-dropdown-icon" name="chevron-down"></svg-icon>
-    </div>
-    <div class="j-dropdown-menu" v-if="menuOn"><slot></slot></div>
-  </div>
-</template>
-
-<script lang="ts">
 import { ref, computed, watch } from 'vue';
 import { useSwitch, useChildren } from '../../utils/vue';
-import { DropdownItemSymbol } from './DropdownItem.vue';
+import { DropdownItemSymbol } from './DropdownItem.tsx';
 import SvgIcon from '../SvgIcon.vue';
 import Vnodes from '../Vnodes';
 
