@@ -1,4 +1,4 @@
-{
+export default {
   "Components": [
     {
       "name": "Button",
@@ -84,8 +84,11 @@
     }, {
       "name": "Scaffold",
       "device": ["pc", "mobile"],
-      "fullPage": true
-    }
+      "fullPage": true,
+    }, {
+      "name": "Table",
+      "device": ["pc", "mobile"],
+    },
   ],
   "Directives": [
     {

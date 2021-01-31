@@ -35,6 +35,8 @@ import Progress from './components/Progress.vue';
 import Calendar from './components/Calendar.vue';
 import Tree from './components/Tree/Tree.vue';
 import Scaffold from './components/Scaffold.vue';
+import Table from './components/Table/Table';
+import Vnodes from './components/Vnodes';
 
 import ripple from './directives/ripple';
 import scroller from './directives/scroller';
@@ -82,6 +84,8 @@ export default function(conf: Partial<Config>) {
       .component(prefix + '-calendar', Calendar)
       .component(prefix + '-tree', Tree)
       .component(prefix + '-scaffold', Scaffold)
+      .component(prefix + '-table', Table)
+      .component(prefix + '-vnodes', Vnodes)
       .directive('ripple', ripple)
       .directive('scroller', scroller);
   };
@@ -121,6 +125,8 @@ export {
     Progress,
     Calendar,
     Tree,
+    Table,
+    Vnodes,
     ripple,
     scroller,
     utils,
