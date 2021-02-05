@@ -1,5 +1,5 @@
-import { defineComponent, ref, inject, h } from 'vue';
-import { Datum, ColumnConfig } from './types';
+import { defineComponent, h } from 'vue';
+import { Datum, ColumnConfig, RowConfig } from './types';
 
 export const TableRowSetCancelSelect = Symbol('TableRowSetConcelSelect');
 
@@ -16,6 +16,10 @@ export default defineComponent({
       type: Array,
       default: [],
     },
+    rowConfig: {
+      type: Object,
+      default: {},
+    },
   },
   setup(props, { emit }) {
     function getCellKey(datum: Datum, col: ColumnConfig, i: number): string {
@@ -30,13 +34,20 @@ export default defineComponent({
     }
 
     function getCellDisplay(datum: Datum, col: ColumnConfig) {
+      let s;
       if (col.field) {
         let parts = col.field.split('.');
-        return parts.reduce((d, key) => d[key], datum);
-      } else if (col.render) {
-        return col.render(datum);
+        s = parts.reduce((d, key) => d[key], datum);
       }
-      return col.default;
+      s = s || col.default;
+      if (col.render) {
+        if (s) {
+          return col.render(datum, s);
+        } else {
+          return col.render(datum);
+        }
+      }
+      return s;
     }
 
     function toggleSelect() {
@@ -44,19 +55,35 @@ export default defineComponent({
     }
     
     return () => {
+      let rowClass = '';
+      let { rowConfig } = props;
+      if ((rowConfig as RowConfig).class) {
+        if (typeof rowConfig.class == 'function') {
+          rowClass = rowConfig.class(props.datum);
+        } else {
+          rowClass = rowConfig.class;
+        }
+      }
+
       let cells = (props.columns as ColumnConfig[]).map((col, j) => {
-        let style = {};
+        let style: Record<string, string> = {};
         if (col.align) {
           style['text-align'] = col.align;
         }
+        let cellClass;
+        if (typeof col.class == 'function') {
+          cellClass = col.class(props.datum);
+        } else {
+          cellClass = col.class;
+        }
         return (
-          <td className={col.class} key={getCellKey(props.datum, col, j)} style={style}>
+          <td class={cellClass} key={getCellKey(props.datum, col, j)} style={style}>
             { getCellDisplay(props.datum, col) }
           </td>
         );
       });
       return (
-        <tr data-selected={props.selected} onClick={toggleSelect}>{ cells }</tr>
+        <tr class={rowClass} data-selected={props.selected} onClick={toggleSelect}>{ cells }</tr>
       );  
     };
   }

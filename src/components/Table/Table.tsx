@@ -1,8 +1,9 @@
-import { defineComponent, reactive, h } from 'vue';
+import { defineComponent, reactive, ref, h } from 'vue';
 import Row from './Row';
 import ColGroup from './ColGroup';
 import '../../assets/styles/Table.scss';
 import { ColumnConfig, Datum } from './types';
+import Scroller from '../Scroller.vue';
 
 export default defineComponent({
   props: {
@@ -15,6 +16,10 @@ export default defineComponent({
     columns: {
       type: Array,
       default: [],
+    },
+    rowConfig: {
+      type: Object,
+      default: {},
     },
     selectable: {
       type: Boolean,
@@ -75,13 +80,24 @@ export default defineComponent({
           <Row key={rowKey}
             datum={datum} 
             columns={props.columns}
+            rowConfig={props.rowConfig}
             selected={selected.has(rowKey)}
+            // @ts-ignore
             onSelect={selectRow.bind(null, rowKey)} />
         );
       });
 
       return <tbody>{ rows }</tbody>;
     }
+
+    function onBodyScroll(evt: Event) {
+      if (headerRef.value) {
+        let sl = (evt.currentTarget as HTMLElement).scrollLeft;
+        headerRef.value.scrollLeft = sl;
+      }
+    }
+
+    let headerRef = ref();
     
     return () => {
       if (props.fixedHeader) {
@@ -91,20 +107,26 @@ export default defineComponent({
         }
   
         return (
-          <table class="j-table" data-fixed-header={true}>
-            <div class="j-head-part">
+          <div class="j-table" data-fixed-header={ true }>
+            <div class="j-head-part" ref={ headerRef }>
               <table>
-                <ColGroup columns={props.columns} />
+                <ColGroup columns={ props.columns } />
                 { renderHead() }
               </table>
             </div>
-            <div class="j-body-part" style={bodyStyle}>
-              <table>
-                <ColGroup columns={props.columns} />
-                { props.data && renderBody() }
-              </table>
-            </div>
-          </table>
+            <Scroller class="j-body-part" style={ bodyStyle } onScroll={ onBodyScroll }>
+              {
+                () => {
+                  return (
+                    <table>
+                      <ColGroup columns={ props.columns } />
+                      { props.data && renderBody() }
+                    </table>
+                  );
+                }
+              }
+            </Scroller>
+          </div>
         );
       }
 

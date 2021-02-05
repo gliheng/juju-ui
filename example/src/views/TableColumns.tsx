@@ -54,6 +54,7 @@ export const fixedHeaderColumns = [{
 }, {
   label: 'Action',
   align: 'right',
+  width: 80,
   render() {
     return <a href="javascript:void(0)">edit</a>;
   },

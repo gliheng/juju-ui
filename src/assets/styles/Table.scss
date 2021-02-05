@@ -1,24 +1,33 @@
 @import "vars";
 
 .j-table {
+  color: var(--text-color);
+  text-align: left;
   &, table {
-    text-align: left;
     border-collapse: collapse;
-    color: var(--text-color);
   }
   &[data-fixed-header="true"] {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    table {
+      width: max-content;
+    }
+    > .j-head-part {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
     > .j-body-part {
-      overflow: auto,
+      max-width: 100%;
+      overflow-x: auto;
+      flex: 1;
     }
   }
   tr {
     border-bottom: 1px solid var(--neutral-color-lighter);
   }
   th, td {
-    padding: 2 * $margin;
+    padding: $margin 2*$margin;
     box-sizing: border-box;
     word-break: break-all;
   }
