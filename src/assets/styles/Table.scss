@@ -1,16 +1,29 @@
 @import "vars";
 
 .j-table {
+  $border: 1px solid var(--neutral-color-lighter);
   color: var(--text-color);
   text-align: left;
   &, table {
     border-collapse: collapse;
+  }
+  &[data-bordered="true"] {
+    thead {
+      border-top: $border;
+    }
+    td, th {
+      border-right: $border;
+    }
+    tr {
+      border-left: $border;
+    }
   }
   &[data-fixed-header="true"] {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     table {
+      table-layout: fixed;
       width: max-content;
     }
     > .j-head-part {
@@ -19,12 +32,11 @@
     }
     > .j-body-part {
       max-width: 100%;
-      overflow-x: auto;
       flex: 1;
     }
   }
   tr {
-    border-bottom: 1px solid var(--neutral-color-lighter);
+    border-bottom: $border;
   }
   th, td {
     padding: $margin 2*$margin;

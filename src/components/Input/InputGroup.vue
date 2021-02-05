@@ -1,31 +1,25 @@
 <template>
-  <div class="j-input-group" ref="el">
+  <div class="j-input-group">
     <i class="j-input-group-left-addons" v-if="hasLeftAddon"><slot name="left"></slot></i>
-    <j-input />
+    <j-input v-bind="$attrs" />
     <i class="j-input-group-right-addons" v-if="hasRightAddon"><slot name="right"></slot></i>
   </div>
 </template>
 
 <script lang="ts">
-import { ref, computed, SetupContext, onMounted } from 'vue';
+import { computed, defineComponent } from 'vue';
 import Input from './Input.vue';
 
-export default {
-  setup(_, context: SetupContext) {
-    let el = ref<HTMLElement | null>(null);
+export default defineComponent({
+  setup(_, context) {
     let hasLeftAddon = computed(() => {
       return !!context.slots.left;
     });
     let hasRightAddon = computed(() => {
       return !!context.slots.right;
     });
-    onMounted(() => {
-      el.value!.addEventListener('click', function(evt) {
-        console.log('el:', evt.target);
-      });
-    });
-    return { el, hasLeftAddon, hasRightAddon };
+    return { hasLeftAddon, hasRightAddon };
   },
   components: { JInput: Input },
-};
+});
 </script>

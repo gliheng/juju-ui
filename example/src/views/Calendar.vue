@@ -2,13 +2,18 @@
   <div>
     <h1>Calendar</h1>
     <div>
-      <j-calendar />
+      <j-calendar v-model="date" />
     </div>
   </div>
 </template>
 
 <script>
-export default {
+import { ref } from 'vue';
 
+export default {
+  setup() {
+    let date = ref();
+    return { date };
+  }
 }
 </script>

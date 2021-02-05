@@ -10,7 +10,7 @@ ul.j-listbox {
   overflow: hidden;
   margin: 0;
   border-radius: 3px;
-  padding: $margin 2*$margin;
+  padding: 2*$margin;
   cursor: default;
   &:hover {
     background-color: var(--primary-color-lighter);

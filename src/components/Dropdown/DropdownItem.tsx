@@ -9,7 +9,7 @@ export default defineComponent({
     name: String,
     icon: String,
     size: String,
-    value: [ String, Number ],
+    value: [ String, Number, Boolean ],
   },
   setup(props, { slots }) {    
     let setActive = useParent<{ setActive: Function }>(DropdownItemSymbol)?.data?.setActive;

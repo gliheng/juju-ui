@@ -53,7 +53,7 @@
     box-sizing: border-box;
   }
   &.is-rounded {
-    border-radius: 2rem;
+    border-radius: 10rem;
   }
   &.is-sm {
     font-size: 0.75rem;
@@ -62,5 +62,8 @@
   &.is-lg {
     font-size: 1.25rem;
     padding: 0.625rem 1.25rem;
+  }
+  .j-seperator {
+    width: $margin;
   }
 }

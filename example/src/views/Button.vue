@@ -50,6 +50,12 @@
       </div>
     </section>
     <section>
+      <h2>Loading</h2>
+      <div>
+        <j-button class="j-primary" :loading="loading" icon="at-outline" @click="doSave">Save</j-button>
+      </div>
+    </section>
+    <section>
       <h2>SplitButton</h2>
       <div>
         <j-split-button icon="add">
@@ -99,10 +105,19 @@ import { ref } from 'vue';
 
 export default {
   setup() {
+    let loading = ref(false);
+    function doSave() {
+      loading.value = true;
+      setTimeout(() => {
+        loading.value = false;
+      }, 10000);
+    }
+
     let toggleOn = ref(false);
     let toggleGroupIndex = ref();
     return {
       toggleOn, toggleGroupIndex,
+      loading, doSave,
     };
   }
 }

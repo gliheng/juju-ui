@@ -36,6 +36,10 @@ export default defineComponent({
     height: {
       type: Number,
     },
+    bordered: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props) {
     let selected = reactive(new Set());
@@ -101,13 +105,13 @@ export default defineComponent({
     
     return () => {
       if (props.fixedHeader) {
-        let bodyStyle = {};
+        let bodyStyle: Record<string, string | number> = {};
         if (typeof props.height == 'number') {
           bodyStyle.maxHeight = `${props.height}px`;
         }
   
         return (
-          <div class="j-table" data-fixed-header={ true }>
+          <div class="j-table" data-fixed-header={ true } data-bordered={ props.bordered }>
             <div class="j-head-part" ref={ headerRef }>
               <table>
                 <ColGroup columns={ props.columns } />
@@ -131,7 +135,7 @@ export default defineComponent({
       }
 
       return (
-        <table class="j-table">
+        <table class="j-table" data-bordered={ props.bordered }>
           { renderHead() }
           { props.data && renderBody() }
         </table>

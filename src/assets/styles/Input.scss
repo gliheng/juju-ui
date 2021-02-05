@@ -1,7 +1,7 @@
 .j-input {
   display: inline-flex;
   border-radius: 3px;
-  border: 1px solid var(--neutral-color-light);
+  border: 1px solid var(--neutral-color-lighter);
   transition: border-color 0.2s, box-shadow 0.2s;
   width: 16rem;
   align-items: center;
@@ -11,6 +11,7 @@
     outline: none;
     background: none;
     flex: 1;
+    min-width: 0;
   }
   &[data-focus="true"] {
     box-shadow: $outline;
@@ -28,8 +29,14 @@
       cursor: not-allowed;
     }
   }
-  > .j-icon {
-    margin: 0 0.5rem;
+  > .j-input-prepend, > .j-input-append {
+    color: var(--neutral-color);
+  }
+  > .j-input-prepend .j-icon {
+    margin-left: $margin;
+  }
+  > .j-input-append .j-icon, > input ~ .j-icon {
+    margin-right: $margin;
   }
   .j-input-clear {
     visibility: hidden;

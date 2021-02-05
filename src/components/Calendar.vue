@@ -13,54 +13,62 @@
         <span v-for="(d, i) in days" :key="i" class="j-calendar-cell">{{ d }}</span>
       </header>
       <main @click="pickDay">
-        <span v-for="(d, i) in prevMonth.remain" :key="i" class="j-calendar-cell" data-prev
-          :data-picked="pickedDate && pickedDate.date == prevMonth.total - prevMonth.remain + i + 1 && pickedDate.month == prevMonth.month && pickedDate.year == prevMonth.year"
-          :data-today="todayDate == prevMonth.total - prevMonth.remain + i + 1 && todayMonth == prevMonth.month && todayYear == prevMonth.year">
-          {{ prevMonth.total - prevMonth.remain + i + 1 }}
+        <!-- prev month cells -->
+        <span v-for="(d, i) in prevMonth.days" :key="i" class="j-calendar-cell" data-prev
+          :data-picked="d.picked"
+          :data-today="d.today">
+          {{ d.date }}
         </span>
-        <span v-for="(d, i) in thisMonthDays" :key="i" class="j-calendar-cell"
-          :data-picked="pickedDate && i + 1 == pickedDate.date && pickedDate.month == currentMonth && pickedDate.year == currentYear"
-          :data-today="todayDate == i + 1 && todayMonth == currentMonth && todayYear == currentYear">
-          {{ i + 1 }}
+        <!-- this month cells -->
+        <span v-for="(d, i) in thisMonth.days" :key="i" class="j-calendar-cell"
+          :data-picked="d.picked"
+          :data-today="d.today">
+          {{ d.date }}
         </span>
-        <span v-for="(d, i) in nextMonth.remain" :key="i" class="j-calendar-cell" data-next
-          :data-picked="pickedDate && pickedDate.date == i + 1 && pickedDate.month == nextMonth.month && pickedDate.year == nextMonth.year"
-          :data-today="todayDate == i + 1 && todayMonth == nextMonth.month && todayyear && nextYear.year">{{ i + 1 }}</span>
+        <!-- next month cells -->
+        <span v-for="(d, i) in nextMonth.days" :key="i" class="j-calendar-cell" data-next
+          :data-picked="d.picked"
+          :data-today="d.today">{{ d.date }}</span>
       </main>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { ref, computed, SetupContext } from 'vue';
+import { ref, computed, defineComponent } from 'vue';
 import JButton from './Button.vue';
 
-let monthes = [
+const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const MONTHES = [
   'January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December',
 ];
 
-export default {
-  emit: ['select'],
-  setup(_, { emit }: SetupContext) {
-    let today = new Date();
-    let todayDate = today.getDate();
-    let todayMonth = today.getMonth();
-    let todayYear = today.getFullYear();
-    let days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    let pickedDay = ref<Date>();
+function isSameDay(year: number, month: number, date: number, d?: Date): boolean {
+  if (!d) return false;
+  return year == d.getFullYear() && month == d.getMonth() && date == d.getDate();
+}
+
+export default defineComponent({
+  props: {
+    modelValue: Date,
+    dayLabels: Array,
+    monthLabels: Array,
+  },
+  emit: ['update:modelValue'],
+  setup(props, { emit }) {
+    let now = new Date();
+    // drop time value
+    let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    let days = props.dayLabels || DAYS;
     let pickedDate = computed(() => {
-      if (!pickedDay.value) return null;
-      return {
-        date: pickedDay.value.getDate(),
-        month: pickedDay.value.getMonth(),
-        year: pickedDay.value.getFullYear(),
-      };
+      return props.modelValue as unknown as Date;
     });
-    let currentYear = ref(today.getFullYear());
-    let currentMonth = ref(today.getMonth());
+
+    let currentYear = ref((props.modelValue as unknown as Date || today).getFullYear());
+    let currentMonth = ref((props.modelValue  as unknown as Date|| today).getMonth());
     let currentMonthLabel = computed(() => {
-      return monthes[currentMonth.value];
+      return (props.monthLabels || MONTHES)[currentMonth.value];
     });
 
     let prevMonth = computed(() => {
@@ -71,24 +79,57 @@ export default {
         year -= 1;
       }
       let month = (12 + currentMonth.value - 1) % 12;
+      let days = [];
+      for (let i = 1; i < remain + 1; i++) {
+        let date = total - remain + i;
+        days.push({
+          picked: isSameDay(year, month, date, pickedDate.value),
+          today: isSameDay(year, month, date, today),
+          date,
+        });
+      }
       return {
-        total, remain, year, month,
+        total, remain, year, month, days,
       };
     });
 
-    let thisMonthDays = computed(() => {
-      return new Date(currentYear.value, currentMonth.value + 1, 0).getDate();
+    let thisMonth = computed(() => {
+      // how many days in this month
+      let total = new Date(currentYear.value, currentMonth.value + 1, 0).getDate();
+      let days = [];
+      for (let i = 1; i <= total; i++) {
+        days.push({
+          picked: isSameDay(currentYear.value, currentMonth.value, i, pickedDate.value),
+          today: isSameDay(currentYear.value, currentMonth.value, i, today),
+          date: i,
+        });
+      }
+      return {
+        total,
+        days,
+      };
     });
 
     let nextMonth = computed(() => {
       let year = currentYear.value;
+      // if this month is December, next month belong to new year
       if (currentMonth.value == 11) {
         year += 1;
       }
       let month = (currentMonth.value + 1) % 12;
+      // We have 6 * 7 cells to display
+      // We need to generate this many days
+      let remain = 6 * 7 - prevMonth.value.remain - thisMonth.value.total;
+      let days = [];
+      for (let i = 1; i <= remain; i++) {
+        days.push({
+          date: i,
+          picked: isSameDay(year, month, i, pickedDate.value),
+          today: isSameDay(year, month, i, today),
+        });
+      }
       return {
-        remain: 6 * 7 - prevMonth.value.remain - thisMonthDays.value,
-        month, year,
+        month, year, days, remain,
       };
     });
 
@@ -110,7 +151,7 @@ export default {
       let cell = (evt.target! as HTMLElement).closest('.j-calendar-cell') as HTMLElement;
       if (!cell) return;
 
-      let date = parseInt(cell.innerText);
+      let day = parseInt(cell.innerText);
       let month = currentMonth.value;
       let year = currentYear.value;
 
@@ -129,17 +170,18 @@ export default {
           month += 1;
         }
       }
-      pickedDay.value = new Date(year, month, date);
-      emit('select', pickedDay);
+      let date = new Date(year, month, day);
+      emit('update:modelValue', date);
     }
+
     return {
       days, currentYear, currentMonth, currentMonthLabel,
-      prevMonth, thisMonthDays, nextMonth,
+      prevMonth, thisMonth, nextMonth,
       toPrevMonth, toNextMonth, pickDay,
-      todayDate, todayMonth, todayYear,
-      pickedDate,
+      today,
+      pickedDate, isSameDay,
     };
   },
   components: { JButton },
-}
+});
 </script>

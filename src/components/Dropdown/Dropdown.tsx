@@ -9,7 +9,7 @@ export default defineComponent({
     type: String,
     placeholder: String,
     modelValue: {
-      type: [ String, Number, Array ],
+      type: [ String, Number, Boolean ],
     },
     align: {
       type: String,
@@ -31,7 +31,7 @@ export default defineComponent({
     });
 
     let selectedNode = computed(() => {
-      if (props.modelValue && slots.default) {
+      if (props.modelValue !== undefined && slots.default) {
         for (let node of slots.default()) {
           if (node.props && node.props.value == props.modelValue) {
             return (node as any).children.default;
@@ -65,7 +65,7 @@ export default defineComponent({
         }
         content = (
           <div class="j-dropdown-label" tabindex={0}>
-            { label }
+            <div class="j-dropdown-label-inner">{ label }</div>
             <SvgIcon class="j-dropdown-icon" name="chevron-down" />
           </div>
         );

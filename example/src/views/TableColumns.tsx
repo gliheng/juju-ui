@@ -50,7 +50,15 @@ export const fixedHeaderColumns = [{
 }, {
   label: 'Address',
   field: 'address',
-  width: 100,
+  width: 200,
+}, {
+  label: 'Favorite Food',
+  field: 'favoriteFood',
+  width: 140,
+}, {
+  label: 'Favorite Sport',
+  field: 'favoriteSport',
+  width: 140,
 }, {
   label: 'Action',
   align: 'right',

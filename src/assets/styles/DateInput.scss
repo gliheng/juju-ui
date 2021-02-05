@@ -1,0 +1,8 @@
+.j-date-input {
+  display: inline-block;
+  position: relative;
+  .j-date-input-selector {
+    position: absolute;
+    z-index: 1;
+  }
+}

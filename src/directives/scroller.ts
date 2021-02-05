@@ -143,6 +143,10 @@ class Scroller {
         this.scrollbarY.updateScrollSize(ch, sh);
       });
       this.observer.observe(el);
+      if (el.firstElementChild) {
+        // in case content changes size
+        this.observer.observe(el.firstElementChild);
+      }
     }
   }
 
@@ -171,7 +175,7 @@ class Scroller {
 
   dispose() {
     if (this.observer) {
-      this.observer.unobserve(this.el);
+      this.observer.disconnect();
     }
   }
 }

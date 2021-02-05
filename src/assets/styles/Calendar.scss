@@ -1,14 +1,15 @@
 .j-calendar {
   width: 20rem;
   text-align: center;
-  padding: 0.5rem;
+  padding: $margin;
   box-sizing: border-box;
   color: var(--text-color);
+  background-color: var(--background-color);
   .j-calendar-header {
     display: flex;
     align-items: center;
     position: relative;
-    border-bottom: 1px solid var(--neutral-color-light);
+    border-bottom: 1px solid var(--neutral-color-lighter);
     padding-bottom: 0.2rem;
     margin-bottom: 1rem;
     .j-button {
@@ -50,11 +51,11 @@
         background-color: var(--primary-color-lighter);
       }
       &[data-today="true"] {
-        background-color: var(--primary-color);
-        color: var(--primary-color-text);
+        box-shadow: $outline;
       }
       &[data-picked="true"] {
-        box-shadow: $outline;
+        background-color: var(--primary-color);
+        color: var(--primary-color-text);
       }
     }
   }

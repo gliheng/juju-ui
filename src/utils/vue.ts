@@ -3,10 +3,10 @@ import {
   onMounted, onUnmounted,
   provide, inject,
   ComponentInternalInstance,
-  reactive,
+  reactive, watch,
 } from 'vue';
 
-export function useSwitch(v: boolean = false): [Ref, (v?: boolean) => void] {
+export function useSwitch(v: boolean = false): [Ref<boolean>, (v?: boolean) => void] {
   let on = ref(v);
   function toggle(v?: boolean) {
     if (typeof v === 'boolean') {
@@ -15,6 +15,18 @@ export function useSwitch(v: boolean = false): [Ref, (v?: boolean) => void] {
       on.value = !on.value;
     }
   }
+  return [on, toggle];
+}
+
+export function useBackdropAwareSwitch(v: boolean = false): [Ref<boolean>, (v?: boolean) => void] {
+  let [on, toggle] = useSwitch(v);
+  watch(on, (v) => {
+    if (v) {
+      document.addEventListener('click', () => {
+        toggle(false);
+      }, { once: true });
+    }
+  });
   return [on, toggle];
 }
 

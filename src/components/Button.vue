@@ -8,16 +8,18 @@
     'is-right': iconPos == 'right',
     ['is-' + size]: size,
   }" :disabled="disabled" v-ripple:center="iconOnly">
-    <svg-icon v-if="icon" :size="size" :name="icon"></svg-icon>
-    <span v-if="iconWithText">&nbsp;</span>
+    <j-spinner v-if="loading" />
+    <svg-icon v-else-if="icon" :size="size" :name="icon"></svg-icon>
+    <div class="j-seperator" v-if="iconWithText"></div>
     <slot></slot>
   </button>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, SetupContext } from 'vue';
+import { defineComponent, computed } from 'vue';
 import ripple from '../directives/ripple';
 import SvgIcon from './SvgIcon.vue';
+import JSpinner from './Spinner.vue';
 
 export default defineComponent({
   props: {
@@ -29,8 +31,9 @@ export default defineComponent({
     size: String,
     icon: String,
     iconPos: String,
+    loading: Boolean,
   },
-  setup(props, { slots }: SetupContext) {
+  setup(props, { slots }) {
     let hasLabel = computed<boolean>(() => {
       return slots.default && (slots.default() as any).length != 0 || false;
     });
@@ -38,7 +41,7 @@ export default defineComponent({
       return !!(props.icon && !hasLabel.value);
     });
     let iconWithText = computed(() => {
-      return !!(props.icon && hasLabel.value);
+      return !!((props.icon || props.loading) && hasLabel.value);
     });
     return {
       hasLabel, iconOnly, iconWithText,
@@ -47,6 +50,6 @@ export default defineComponent({
   directives: {
     ripple,
   },
-  components: { SvgIcon }
+  components: { SvgIcon, JSpinner }
 });
 </script>

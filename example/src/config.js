@@ -67,6 +67,9 @@ export default {
       "name": "ValueInput",
       "device": ["pc", "mobile"]
     }, {
+      "name": "DateInput",
+      "device": ["pc", "mobile"]
+    }, {
       "name": "UploadButton",
       "device": ["pc", "mobile"]
     }, {

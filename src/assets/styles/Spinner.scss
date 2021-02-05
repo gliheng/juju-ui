@@ -6,16 +6,16 @@
   display: inline-flex;
   vertical-align: middle;
   &[data-size="sm"] {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
   }
   &[data-size="md"] {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
   }
   &[data-size="lg"] {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
   }
   &:after {
     flex: 1;

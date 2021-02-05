@@ -21,11 +21,10 @@
 
 <script lang="ts">
 import { ref, computed, SetupContext } from 'vue';
-import SvgIcon from './SvgIcon.vue';
-import JSlider from './Slider.vue';
+import SvgIcon from '../SvgIcon.vue';
+import JSlider from '../Slider.vue';
+import JButton from '../Button.vue';
 import JInput from './Input.vue';
-import JButton from './Button.vue';
-import ButtonGroup from './ButtonGroup.vue';
 
 export default {
   props: {

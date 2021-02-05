@@ -8,8 +8,11 @@ import ToggleButtonGroup from './components/ToggleButton/ToggleButtonGroup.vue';
 import SvgIcon from './components/SvgIcon.vue';
 import Tabs from './components/Tabs/Tabs.vue';
 import TabPane from './components/Tabs/TabPane.vue';
-import Input from './components/Input.vue';
-import InputGroup from './components/InputGroup.vue';
+import Input from './components/Input/Input.vue';
+import InputGroup from './components/Input/InputGroup.vue';
+import ValueInput from './components/Input/ValueInput.vue';
+import DateInput from './components/Input/DateInput.vue';
+import DateRangeInput from './components/Input/DateRangeInput.vue';
 import Textarea from './components/Textarea.vue';
 import Radio from './components/Radio.vue';
 import Checkbox from './components/Checkbox.vue';
@@ -28,7 +31,6 @@ import ChipEditor from './components/ChipEditor.vue';
 import Menu from './components/Menu.vue';
 import MenuBar from './components/MenuBar.vue';
 import ContextMenu from './components/ContextMenu.vue';
-import ValueInput from './components/ValueInput.vue';
 import UploadButton from './components/UploadButton.vue';
 import Spinner from './components/Spinner.vue';
 import Progress from './components/Progress.vue';
@@ -59,6 +61,9 @@ export default function(conf: Partial<Config>) {
       .component(prefix + '-tab-pane', TabPane)
       .component(prefix + '-input', Input)
       .component(prefix + '-input-group', InputGroup)
+      .component(prefix + '-value-input', ValueInput)
+      .component(prefix + '-date-input', DateInput)
+      .component(prefix + '-date-range-input', DateRangeInput)
       .component(prefix + '-radio', Radio)
       .component(prefix + '-checkbox', Checkbox)
       .component(prefix + '-textarea', Textarea)
@@ -77,7 +82,6 @@ export default function(conf: Partial<Config>) {
       .component(prefix + '-menu', Menu)
       .component(prefix + '-menu-bar', MenuBar)
       .component(prefix + '-context-menu', ContextMenu)
-      .component(prefix + '-value-input', ValueInput)
       .component(prefix + '-upload-button', UploadButton)
       .component(prefix + '-spinner', Spinner)
       .component(prefix + '-progress', Progress)
@@ -120,6 +124,8 @@ export {
     MenuBar,
     ContextMenu,
     ValueInput,
+    DateInput,
+    DateRangeInput,
     UploadButton,
     Spinner,
     Progress,
