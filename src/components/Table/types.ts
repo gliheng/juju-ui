@@ -10,4 +10,5 @@ export interface ColumnConfig {
   align?: string, // cell text alignment
   render?: (d: Datum) => any, // custom render function for a cell
   class?: string, // add a css class to cell
+  width?: number,
 }

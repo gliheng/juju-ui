@@ -7,7 +7,7 @@ import image from '@rollup/plugin-image';
 
 let entries = [].concat(
   'src/index.ts',
-  glob.sync('src/components/**/!(_*).vue'),
+  glob.sync('src/components/**/!(_*).@(vue|tsx)'),
 );
 
 export default {
@@ -26,12 +26,7 @@ export default {
       ],
     }),
     image(),
-    typescript({
-      jsx: 'react',
-      jsxFactory: 'h',
-      jsxFragmentFactory: 'Fragment',
-      // jsxImportSource: 'vue',
-    }),
+    typescript(),
     scss({
       output: 'dist/style.css',
       sass: require('sass'),

@@ -24,6 +24,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    fixedHeader: {
+      type: Boolean,
+      default: false,
+    },
     height: {
       type: Number,
     },
@@ -80,22 +84,21 @@ export default defineComponent({
     }
     
     return () => {
-      if (typeof props.height == 'number') {
+      if (props.fixedHeader) {
         let bodyStyle = {};
         if (typeof props.height == 'number') {
-          bodyStyle.overflow = 'auto';
           bodyStyle.maxHeight = `${props.height}px`;
         }
   
         return (
-          <table class="j-table">
-            <div>
+          <table class="j-table" data-fixed-header={true}>
+            <div class="j-head-part">
               <table>
                 <ColGroup columns={props.columns} />
                 { renderHead() }
               </table>
             </div>
-            <div style={bodyStyle}>
+            <div class="j-body-part" style={bodyStyle}>
               <table>
                 <ColGroup columns={props.columns} />
                 { props.data && renderBody() }
@@ -106,12 +109,10 @@ export default defineComponent({
       }
 
       return (
-        <div class="j-table">
-          <table>
-            { renderHead() }
-            { props.data && renderBody() }
-          </table>
-        </div>
+        <table class="j-table">
+          { renderHead() }
+          { props.data && renderBody() }
+        </table>
       );
     };
   },

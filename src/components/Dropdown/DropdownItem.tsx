@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue';
+import { defineComponent, h } from 'vue';
 import SvgIcon from '../SvgIcon.vue';
 import { useParent } from '../../utils/vue';
 
@@ -20,11 +20,13 @@ export default defineComponent({
       }
     }
 
+    const { size, icon } = props;
+
     return () => {
       return (
         <div class="j-dropdown-item" data-size={size} data-has-icon={!!icon} onClick={onClick} v-ripple>
           <SvgIcon size={ size } name={ icon } />
-          <slot></slot>
+          <slots.default />
         </div>
       );
     }

@@ -16,7 +16,7 @@
     <section class="tabs">
       <h2>Fixed header</h2>
       <div>
-        <j-table :data="data" :columns="fixedHeaderColumns" :height="200" />
+        <j-table :data="data" :columns="fixedHeaderColumns" :fixed-header="true" :height="200" />
       </div>
     </section>
     <section class="tabs">

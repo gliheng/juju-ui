@@ -7,7 +7,7 @@
         <j-dropdown v-model="value1" placeholder="Blend Mode">
           <j-dropdown-item name="normal" value="normal">Normal</j-dropdown-item>
           <j-dropdown-seperator />
-          <j-dropdown-item name="darken" value="darknen">Darken</j-dropdown-item>
+          <j-dropdown-item name="darken" value="darken">Darken</j-dropdown-item>
           <j-dropdown-item name="multiply" value="multiply">Multiply</j-dropdown-item>
           <j-dropdown-seperator />
           <j-dropdown-item name="lighten" value="lighten">Lighten</j-dropdown-item>
@@ -41,9 +41,6 @@
       <section>
         <h2>Dropdown with multiple selection</h2>
         <j-dropdown multiple v-model="multiValue1" placeholder="Select preferred tranport">
-          <!-- <template #button={selected}>
-
-          </template> -->
           <j-dropdown-item name="bicycle" icon="bicycle" value="bicyle">Bicycle</j-dropdown-item>
           <j-dropdown-item name="car" icon="car-sport" value="car">Car</j-dropdown-item>
           <j-dropdown-item name="bus" icon="bus" value="bus">Bus</j-dropdown-item>

@@ -2,6 +2,9 @@
   "compilerOptions": {
     "incremental": true,
     "target": "es5",
+    "jsx": "react",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
     "lib": ["es2015", "dom"],
     "module": "commonjs",
     "sourceMap": true,

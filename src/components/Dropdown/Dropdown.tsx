@@ -1,30 +1,23 @@
-import { ref, computed, watch } from 'vue';
+import { defineComponent, h, computed, watch } from 'vue';
 import { useSwitch, useChildren } from '../../utils/vue';
-import { DropdownItemSymbol } from './DropdownItem.tsx';
+import { DropdownItemSymbol } from './DropdownItem';
 import SvgIcon from '../SvgIcon.vue';
-import Vnodes from '../Vnodes';
+import '../../assets/styles/Dropdown.scss';
 
-export default {
+export default defineComponent({
   props: {
     type: String,
     placeholder: String,
     modelValue: {
       type: [ String, Number, Array ],
-      required: true,
     },
     align: {
       type: String,
       default: 'left',
     },
-    multiple: {
-      type: Boolean,
-      default: false,
-    },
   },
   emits: ['update:modelValue'],
   setup(props, { slots, emit }) {
-    // add an index to dropdown-item
-    let selected = ref(props.modelValue);
     let [ menuOn, toggleMenu ] = useSwitch(false);
 
     watch(menuOn, (v) => {
@@ -38,34 +31,53 @@ export default {
     });
 
     let selectedNode = computed(() => {
-      if (slots.default) {
+      if (props.modelValue && slots.default) {
         for (let node of slots.default()) {
-          if (node.props && node.props.value == selected.value) {
-            return (node as any).children.default();
+          if (node.props && node.props.value == props.modelValue) {
+            return (node as any).children.default;
           }
         }
       }
-      return [];
-    });
-
-    let hasButtonSlot = computed<boolean>(() => {
-      return !!slots.button;
+      return null;
     });
 
     // dropdown-item use this callback to notify which item is clicked
     let children = useChildren(DropdownItemSymbol, {
       setActive(v: string) {
-        selected.value = v;
         emit('update:modelValue', v);
       }
     });
 
     let hasIcon = computed(() => children.some((c: any) => !!c.props.icon));
 
-    return {
-      selected, selectedNode, menuOn, toggleMenu, hasButtonSlot, hasIcon,
+    return () => {
+      let content: any;
+      if (slots.button) {
+        content = <slots.button />;
+      } else {
+        let label;
+        if (selectedNode.value) {
+          label = <selectedNode.value />;
+        } else {
+          label = (
+            <span class="j-placeholder">{ props.placeholder }</span>
+          );
+        }
+        content = (
+          <div class="j-dropdown-label" tabindex={0}>
+            { label }
+            <SvgIcon class="j-dropdown-icon" name="chevron-down" />
+          </div>
+        );
+      }
+  
+      return <div class="j-dropdown" data-align={ props.align } data-has-icon={ hasIcon.value } onClick={ (evt) => {
+        evt.stopPropagation();
+        toggleMenu();
+      } }>
+        { content }
+        { menuOn.value && <div class="j-dropdown-menu"><slots.default /></div>}
+      </div>;
     }
   },
-  components: { SvgIcon, Vnodes },
-}
-</script>
+});

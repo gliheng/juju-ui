@@ -1,7 +1,19 @@
-.j-table table {
-  text-align: left;
-  border-collapse: collapse;
-  color: var(--text-color);
+@import "vars";
+
+.j-table {
+  &, table {
+    text-align: left;
+    border-collapse: collapse;
+    color: var(--text-color);
+  }
+  &[data-fixed-header="true"] {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    > .j-body-part {
+      overflow: auto,
+    }
+  }
   tr {
     border-bottom: 1px solid var(--neutral-color-lighter);
   }
