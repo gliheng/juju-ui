@@ -61,6 +61,10 @@
     > .j-icon {
       margin-right: 0.2rem;
     }
+    > .j-checkbox {
+      vertical-align: middle;
+      margin: 0 $margin;
+    }
   }
   &[data-has-icon="false"] {
     .j-dropdown-item {

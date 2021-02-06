@@ -23,18 +23,16 @@
       <div class="j-appbar-title"><slot name="title"></slot></div>
       <div v-if="actions && actions.all.length" class="j-appbar-right-actions">
         <slot v-if="$slots['right-actions']" name="right-actions"></slot>
-        <template v-for="(act, i) in actions.sticky" :key="i">
-          <a v-if="act.link" :href="act.link" :target="act.target">
+        <template v-for="(act, i) in actions.sticky">
+          <a :key="`link-${i}`" v-if="act.link" :href="act.link" :target="act.target">
             <j-button rounded size="md" :icon="act.icon" @click="act.onClick"></j-button>
           </a>
-          <j-button v-else rounded size="md" :icon="act.icon" @click="act.onClick"></j-button>
+          <j-button :key="i" v-else rounded size="md" :icon="act.icon" @click="act.onClick"></j-button>
         </template>
-        <j-dropdown v-if="!wideLayout && actions.others.length" align="right" @change="doAction">
+        <j-dropdown v-if="!wideLayout && actions.others.length" align="right" iconSize="md" :options="actions.others">
           <template #button>
             <j-button rounded size="md" icon="ellipsis-vertical" />
           </template>
-          <j-dropdown-item v-for="(act, i) in actions.others" :key="i"
-            :name="act.label" :icon="act.icon" size="md">{{ act.label }}</j-dropdown-item>
         </j-dropdown>
         <template v-else>
           <j-button v-for="(act, i) in actions.others" :key="i + actions.sticky.length"
@@ -49,7 +47,6 @@
 import { ref, computed, SetupContext } from 'vue';
 import JButton from './Button.vue';
 import Dropdown from './Dropdown/Dropdown';
-import DropdownItem from './Dropdown/DropdownItem';
 import { useSwitch, useWindowSize } from '../utils/hooks';
 import { getScreenSizeClass } from '../utils/screen';
 import SvgIcon from './SvgIcon.vue';
@@ -76,14 +73,16 @@ export default {
       let actions = (props.actions || []) as Array<Action>;
       return {
         sticky: actions.filter(a => a.sticky),
-        others: actions.filter(a => !a.sticky),
+        others: actions.filter(a => !a.sticky).map(opt => {
+          return {
+            label: opt.label,
+            icon: opt.icon,
+            onClick: opt.onClick,
+          };
+        }),
         all: actions,
       };
     });
-
-    function doAction(i: number) {
-      actions.value.others[i].onClick?.();
-    }
 
     let size = useWindowSize();
     let sizeClass = computed(() => getScreenSizeClass(size.width, size.height));
@@ -98,8 +97,8 @@ export default {
       }
     }
 
-    return { drawerOn, toggleNav, actions, doAction, sizeClass, wideLayout, expanded, hasNav };
+    return { drawerOn, toggleNav, actions, sizeClass, wideLayout, expanded, hasNav };
   },
-  components: { JButton, Dropdown, DropdownItem, SvgIcon },
+  components: { JButton, Dropdown, SvgIcon },
 };
 </script>

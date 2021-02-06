@@ -1,6 +1,9 @@
 <template>
-  <label class="j-checkbox" tabindex="0" :data-checked="checked" :data-indeterminate="indeterminate">
-    <input type="checkbox" :name="name" :checked="checked" :indeterminate="indeterminate" hidden @change="onChange" />
+  <label class="j-checkbox" tabindex="0"
+    :data-checked="checked"
+    :data-indeterminate="indeterminate">
+    <input type="checkbox" :name="name" :checked="checked"
+      :indeterminate="indeterminate" hidden @change="onChange" />
     <i class="j-checkbox-check"></i>
     <slot></slot>
   </label>
@@ -19,12 +22,14 @@ export default {
   emits: ['update:modelValue'],
   setup(props, { emit }: SetupContext) {
     let indeterminate = computed(() => props.modelValue === null);
+
     let checked = computed(() => {
       if (Array.isArray(props.modelValue)) {
         return props.modelValue.indexOf(props.value) != -1
       }
       return props.modelValue === true;
     });
+
     function onChange(evt: Event) {
       if (props.toggleIndeterminate) {
         // tri state checkbox toggle 3 states
@@ -52,6 +57,7 @@ export default {
         }
       }
     }
+
     return { checked, onChange, indeterminate };
   },
 }

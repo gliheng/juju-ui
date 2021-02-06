@@ -1,54 +1,83 @@
-import { defineComponent, h, computed, watch } from 'vue';
-import { useSwitch, useChildren } from '../../utils/hooks';
-import { DropdownItemSymbol } from './DropdownItem';
+import { defineComponent, h, computed } from 'vue';
+import { useBackdropAwareSwitch } from '../../utils/hooks';
+import DropdownItem from './_DropdownItem';
+import DropdownSeperator from './_DropdownSeperator';
 import SvgIcon from '../SvgIcon.vue';
 import '../../assets/styles/Dropdown.scss';
 
+type OptionValue = string | number | boolean;
+
+interface SimpleOption {
+  label: string,
+  value: OptionValue,
+  icon?: string,
+  onClick?: () => void,
+};
+
+type Option = SimpleOption | {
+  type: string,
+};
+
 export default defineComponent({
   props: {
-    type: String,
     placeholder: String,
-    modelValue: {
-      type: [ String, Number, Boolean ],
+    modelValue: [ String, Number, Boolean, Array ],
+    multiple: Boolean,
+    options: {
+      type: Array,
+      default: [],
     },
     align: {
       type: String,
       default: 'left',
     },
+    iconSize: {
+      type: String,
+      default: 'md',
+    },
   },
   emits: ['update:modelValue'],
   setup(props, { slots, emit }) {
-    let [ menuOn, toggleMenu ] = useSwitch(false);
+    let [ menuOn, toggleMenu ] = useBackdropAwareSwitch(false);
 
-    watch(menuOn, (v) => {
-      if (v) {
-        document.addEventListener('click', function() {
-          menuOn.value = false;
-        }, {
-          once: true,
-        });
+    function getOptionByValue(value: OptionValue): SimpleOption | undefined {
+      return (props.options as Option[]).find(opt => {
+        return 'value' in opt && opt.value == value;
+      }) as SimpleOption | undefined;
+    }
+
+    let selected = computed(() => {
+      if (props.multiple) {
+        return (props.modelValue as OptionValue[]).map(v => {
+          return getOptionByValue(v)?.label;
+        }).filter(v => Boolean(v)).join(', ');
       }
+      let opt = getOptionByValue(props.modelValue as OptionValue);
+      return opt?.label || '';
     });
 
-    let selectedNode = computed(() => {
-      if (props.modelValue !== undefined && slots.default) {
-        for (let node of slots.default()) {
-          if (node.props && node.props.value == props.modelValue) {
-            return (node as any).children.default;
-          }
+    function select(value: OptionValue, evt: Event) {
+      if (props.multiple) {
+        let modelValue = props.modelValue as OptionValue[];
+        let idx = modelValue.indexOf(value);
+        if (idx != -1) {
+          modelValue.splice(idx, 1);
+        } else {
+          modelValue.push(value);
         }
+        evt.stopPropagation();
+      } else {
+        emit('update:modelValue', value);
       }
-      return null;
-    });
-
-    // dropdown-item use this callback to notify which item is clicked
-    let children = useChildren(DropdownItemSymbol, {
-      setActive(v: string) {
-        emit('update:modelValue', v);
+      
+      // trigger onClick on option defination
+      let opt = getOptionByValue(value);
+      if (opt && typeof opt.onClick == 'function') {
+        opt.onClick();
       }
-    });
+    }
 
-    let hasIcon = computed(() => children.some((c: any) => !!c.props.icon));
+    let hasIcon = computed(() => (props.options as Option[]).some(opt => 'icon' in opt));
 
     return () => {
       let content: any;
@@ -56,14 +85,15 @@ export default defineComponent({
         content = <slots.button />;
       } else {
         let label;
-        if (selectedNode.value) {
-          label = <selectedNode.value />;
+        if (selected.value) {
+          label = selected.value;
         } else {
           label = (
             <span class="j-placeholder">{ props.placeholder }</span>
           );
         }
         content = (
+          // tabindex 0 make the item tab focusable
           <div class="j-dropdown-label" tabindex={0}>
             <div class="j-dropdown-label-inner">{ label }</div>
             <SvgIcon class="j-dropdown-icon" name="chevron-down" />
@@ -71,12 +101,37 @@ export default defineComponent({
         );
       }
   
-      return <div class="j-dropdown" data-align={ props.align } data-has-icon={ hasIcon.value } onClick={ (evt) => {
-        evt.stopPropagation();
-        toggleMenu();
-      } }>
+      return <div class="j-dropdown"
+        data-align={ props.align }
+        data-has-icon={ hasIcon.value }
+        onClick={evt => {
+          evt.stopPropagation();
+          toggleMenu();
+        }}>
         { content }
-        { menuOn.value && <div class="j-dropdown-menu"><slots.default /></div>}
+        { menuOn.value && (
+          <div class="j-dropdown-menu">
+            {
+              props.options.map((opt: any, i) => {
+                if (opt.type == 'seperator') {
+                  return <DropdownSeperator key={i} />
+                }
+                let checked;
+                if (props.multiple) {
+                  checked = (props.modelValue as OptionValue[]).indexOf(opt.value) != -1;
+                }
+                return (
+                  <DropdownItem key={opt.value}
+                    checked={checked}
+                    value={opt.value}
+                    icon={opt.icon}
+                    size={props.iconSize} label={opt.label}
+                    onClick={select.bind(null, opt.value)} />
+                );
+              })
+            }
+          </div>
+        )}
       </div>;
     }
   },

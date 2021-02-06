@@ -53,6 +53,7 @@ export function useParent<T>(key: string | Symbol): DescendantInjection<T> | und
   return obj;
 }
 
+// inject data for children
 export function useChildren<T>(key: string | Symbol, data?: T): Array<ComponentInternalInstance> {
   let children = shallowReactive<Array<ComponentInternalInstance>>([]);
   function link(inst: ComponentInternalInstance) {

@@ -17,8 +17,6 @@ import Textarea from './components/Textarea.vue';
 import Radio from './components/Radio.vue';
 import Checkbox from './components/Checkbox.vue';
 import Dropdown from './components/Dropdown/Dropdown';
-import DropdownItem from './components/Dropdown/DropdownItem';
-import DropdownSeperator from './components/Dropdown/DropdownSeperator';
 import Switch from './components/Switch.vue';
 import Slider from './components/Slider.vue';
 import Drawer from './components/Drawer.vue';
@@ -68,8 +66,6 @@ export default function(conf: Partial<Config>) {
       .component(prefix + '-checkbox', Checkbox)
       .component(prefix + '-textarea', Textarea)
       .component(prefix + '-dropdown', Dropdown)
-      .component(prefix + '-dropdown-item', DropdownItem)
-      .component(prefix + '-dropdown-seperator', DropdownSeperator)
       .component(prefix + '-switch', Switch)
       .component(prefix + '-slider', Slider)
       .component(prefix + '-drawer', Drawer)
@@ -109,8 +105,6 @@ export {
     Radio,
     Checkbox,
     Dropdown,
-    DropdownItem,
-    DropdownSeperator,
     Switch,
     Slider,
     Drawer,
