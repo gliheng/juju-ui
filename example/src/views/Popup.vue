@@ -35,33 +35,33 @@
 </template>
 
 <script>
-import { utils } from 'juju-ui';
+import { popup } from 'juju-ui/utils.esm';
 
 export default {
   setup() {
-    let [alertOpen, toggleAlert] = utils.vue.useSwitch();
-    let [confirmOpen, toggleConfirm] = utils.vue.useSwitch();
-    let [modalOpen, toggleModal] = utils.vue.useSwitch();
+    let [alertOpen, toggleAlert] = vue.useSwitch();
+    let [confirmOpen, toggleConfirm] = vue.useSwitch();
+    let [modalOpen, toggleModal] = vue.useSwitch();
 
     async function showAlert() {
-      let ret = await utils.popup.alert("Shall we have dinner tonight?", {
+      let ret = await popup.alert("Shall we have dinner tonight?", {
         title: 'Invitation',
         icon: 'alert-circle',
         iconColor: 'j-success',
       });
-      utils.popup.alert('How nice that you accepted!', {
+      popup.alert('How nice that you accepted!', {
         width: 240,
         height: 150,
       });
     }
 
     async function showConfirm() {
-      let ret = await utils.popup.confirm("Shall we have dinner tonight?");
+      let ret = await popup.confirm("Shall we have dinner tonight?");
       utils.popup.alert('How nice that you accepted!');
     }
 
     async function showModal() {
-      let ret = await utils.popup.confirm("Shall we have dinner tonight?", {
+      let ret = await popup.confirm("Shall we have dinner tonight?", {
         icon: 'alert',
         modal: true,
       });

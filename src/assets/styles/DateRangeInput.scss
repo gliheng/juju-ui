@@ -13,22 +13,27 @@
       border: 1px solid var(--primary-color-light);
     }
   }
+  .j-date-range-input-clear {
+    visibility: hidden;
+    margin-right: $margin;
+    cursor: pointer;
+  }
+  &[data-has-input="true"] {
+    .j-date-range-input-clear {
+      visibility: visible;
+    }
+  }
   .j-date-range-input-inner {
     border-radius: 3px;
     border: 1px solid var(--neutral-color-lighter);
     transition: border-color 0.2s, box-shadow 0.2s;
+    position: relative;
     input {
       outline: none;
       border: none;
       text-align: center;
-      width: 6rem;
+      width: 5rem;
       padding: 0.5rem 0;
-      &:nth-child(1) {
-        padding-left: 0.5rem;
-      }
-      &:nth-child(3) {
-        padding-right: 0.5rem;
-      }
     }
     .j-icon {
       color: var(--neutral-color-light);

@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { watch, ref } from 'vue';
-import { useSwitch } from '../utils/vue';
+import { useSwitch } from '../utils/hooks';
 
 export default {
   setup() {

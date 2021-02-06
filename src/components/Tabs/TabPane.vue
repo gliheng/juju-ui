@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { computed, unref, getCurrentInstance, Ref } from 'vue';
-import { useParent } from '../../utils/vue';
+import { useParent } from '../../utils/hooks';
 
 export const TabPaneSymbol = Symbol('TabPaneSymbol');
 
@@ -19,12 +19,12 @@ export default {
   },
   setup() {
     let parent = useParent<{ active: Ref<number> }>(TabPaneSymbol);
-
+    let inst = getCurrentInstance();
     let active = computed(() => {
       if (!parent || !parent.data) return false;
       let active = parent.data.active.value;
       if (!parent.children[active]) return false;
-      return parent.children[active] == getCurrentInstance();
+      return parent.children[active] == inst;
     });
     return { active };
   },

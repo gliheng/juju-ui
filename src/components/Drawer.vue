@@ -37,18 +37,19 @@ export default {
   },
   setup(props, { emit }: SetupContext) {
     let inst = getCurrentInstance();
-    let zIndex = DepthManager.alloc(inst!.uid);
+    let uid = inst!.uid;
+    let zIndex = DepthManager.alloc(uid);
     watchEffect(() => {
       if (props.modelValue) {
-        DepthManager.open(inst!.uid, true, () => {
+        DepthManager.open(uid, true, () => {
           emit('update:modelValue', false);
         });
       } else {
-        DepthManager.close(inst!.uid)
+        DepthManager.close(uid)
       }
     });
     onUnmounted(() => {
-      DepthManager.revoke(inst!.uid);
+      DepthManager.revoke(uid);
     });
     return { zIndex };
   },

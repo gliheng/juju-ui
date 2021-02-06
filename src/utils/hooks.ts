@@ -40,9 +40,9 @@ type DescendantInjection<T> = {
 
 export function useParent<T>(key: string | Symbol): DescendantInjection<T> | undefined {
   let obj = inject<DescendantInjection<T>>(key);
+  let inst = getCurrentInstance();
   if (obj) {
     let { link, unlink } = obj;
-    let inst = getCurrentInstance();
     onMounted(() => {
      link(inst);
     });

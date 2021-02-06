@@ -50,7 +50,7 @@ import { ref, computed, SetupContext } from 'vue';
 import JButton from './Button.vue';
 import Dropdown from './Dropdown/Dropdown';
 import DropdownItem from './Dropdown/DropdownItem';
-import { useSwitch, useWindowSize } from '../utils/vue';
+import { useSwitch, useWindowSize } from '../utils/hooks';
 import { getScreenSizeClass } from '../utils/screen';
 import SvgIcon from './SvgIcon.vue';
 

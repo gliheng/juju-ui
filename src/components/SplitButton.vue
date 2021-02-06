@@ -15,7 +15,7 @@ import { ref } from 'vue';
 import JButton from './Button.vue';
 import JMenu from './Menu.vue';
 import ButtonGroup from './ButtonGroup.vue';
-import { useSwitch } from '../utils/vue';
+import { useSwitch } from '../utils/hooks';
 
 export default {
   props: {

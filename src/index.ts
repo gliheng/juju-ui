@@ -34,7 +34,7 @@ import ContextMenu from './components/ContextMenu.vue';
 import UploadButton from './components/UploadButton.vue';
 import Spinner from './components/Spinner.vue';
 import Progress from './components/Progress.vue';
-import Calendar from './components/Calendar.vue';
+import Calendar from './components/Calendar/Calendar.vue';
 import Tree from './components/Tree/Tree.vue';
 import Scaffold from './components/Scaffold.vue';
 import Table from './components/Table/Table';

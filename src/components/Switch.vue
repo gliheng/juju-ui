@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { ref, SetupContext } from 'vue';
-import { useSwitch } from '../utils/vue';
+import { useSwitch } from '../utils/hooks';
 
 export default {
   props: {

@@ -1,5 +1,5 @@
 import { defineComponent, h, computed, watch } from 'vue';
-import { useSwitch, useChildren } from '../../utils/vue';
+import { useSwitch, useChildren } from '../../utils/hooks';
 import { DropdownItemSymbol } from './DropdownItem';
 import SvgIcon from '../SvgIcon.vue';
 import '../../assets/styles/Dropdown.scss';

@@ -19,3 +19,18 @@ export function toDate(s: string): Date | undefined {
     }
   }
 }
+
+export function isSameDay(year: number, month: number, date: number, d?: Date): boolean {
+  if (!d) return false;
+  return year == d.getFullYear() && month == d.getMonth() && date == d.getDate();
+}
+
+export function isBetween(year: number, month: number, date: number, start?: Date, end?: Date): boolean {
+  if (!start || !end) {
+    return false;
+  }
+
+  let t = new Date(year, month, date).getTime();
+  let t0 = start.getTime(), t1 = end.getTime();
+  return t0 < t && t < t1;
+}

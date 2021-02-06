@@ -64,6 +64,7 @@ export default {
     let pos = reactive({ x: 0, y: 0 });
     let elm = ref<HTMLElement | null>(null);
     let inst = getCurrentInstance();
+    let uid = inst!.uid;
     
     let startX = 0, startY = 0, boundX = 0, boundY = 0;
     function startDrag(evt: MouseEvent) {
@@ -79,7 +80,7 @@ export default {
       document.addEventListener('mousemove', move);
       document.addEventListener('mouseup', stopDrag, { once: true });
 
-      DepthManager.touch(inst!.uid);
+      DepthManager.touch(uid);
     }
 
     function move(evt: MouseEvent) {
@@ -99,16 +100,16 @@ export default {
       document.removeEventListener('mouseup', stopDrag);
     }
 
-    let zIndex = DepthManager.alloc(inst!.uid);
+    let zIndex = DepthManager.alloc(uid);
     watchEffect(() => {
       if (props.modelValue) {
-        DepthManager.open(inst!.uid, props.modal);
+        DepthManager.open(uid, props.modal);
       } else {
-        DepthManager.close(inst!.uid)
+        DepthManager.close(uid)
       }
     });
     onUnmounted(() => {
-      DepthManager.revoke(inst!.uid);
+      DepthManager.revoke(uid);
     });
 
     return { elm, startDrag, pos, zIndex };

@@ -29,8 +29,20 @@
       cursor: not-allowed;
     }
   }
+  &[data-has-prepend="true"] {
+    input {
+      margin-left: 0.5rem;
+      padding-left: 0;
+    }
+  }
+  &[data-has-append="true"] {
+    input {
+      margin-right: 0.5rem;
+      padding-right: 0;
+    }
+  }
   > .j-input-prepend, > .j-input-append {
-    color: var(--neutral-color);
+    color: var(--neutral-color-light);
   }
   > .j-input-prepend .j-icon {
     margin-left: $margin;

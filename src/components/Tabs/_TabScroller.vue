@@ -17,7 +17,7 @@ import { ref, watch, onUpdated, onMounted, onUnmounted } from 'vue';
 import anime from 'animejs';
 import SvgIcon from '../SvgIcon.vue';
 import ContextMenuVue from '../ContextMenu.vue';
-import { useElementSize } from '../../utils/vue'
+import { useElementSize } from '../../utils/hooks'
 
 export default {
   setup() {
@@ -41,7 +41,6 @@ export default {
 
     let size = useElementSize(content, v => v.firstElementChild!);
     watch(size, _size => {
-      console.log('size update', _size);
       checkScroll();
     })
 

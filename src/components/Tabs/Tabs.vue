@@ -36,7 +36,7 @@ import {
 } from 'vue';
 import TabPane, { TabPaneSymbol } from './TabPane.vue';
 import TabScroller from './_TabScroller.vue';
-import { useChildren } from '../../utils/vue'
+import { useChildren } from '../../utils/hooks'
 import SvgIcon from '../SvgIcon.vue';
 import ripple from '../../directives/ripple';
 

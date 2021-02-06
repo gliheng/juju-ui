@@ -55,3 +55,14 @@
   opacity: 0;
   max-height: 0;
 }
+
+
+.j-fade-enter-active,
+.j-fade-leave-active {
+  transition: opacity 0.2s $curve;
+}
+
+.j-fade-enter-from,
+.j-fade-leave-to {
+  opacity: 0;
+}

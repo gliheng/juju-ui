@@ -9,6 +9,9 @@ export default defineConfig({
     jsxFactory: 'h',
     jsxFragment: 'Fragment'
   },
+  build: {
+    minify: false,
+  },
   optimizeDeps: {
     exclude: [
       'juju-ui',

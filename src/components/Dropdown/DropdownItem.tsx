@@ -1,6 +1,6 @@
 import { defineComponent, h } from 'vue';
 import SvgIcon from '../SvgIcon.vue';
-import { useParent } from '../../utils/vue';
+import { useParent } from '../../utils/hooks';
 
 export const DropdownItemSymbol = Symbol('DropdownItemSymbol');
 

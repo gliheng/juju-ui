@@ -8,12 +8,12 @@
 </template>
 
 <script>
-import { utils } from 'juju-ui';
+import { popup } from 'juju-ui/utils.esm';
 
 export default {
   methods: {
     showSnackbar() {
-      utils.popup.showSnackbar('hello world');
+      popup.showSnackbar('hello world');
     }
   }
 }

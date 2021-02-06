@@ -15,7 +15,7 @@
 import { computed } from 'vue';
 import SvgIcon from '../SvgIcon.vue';
 import ripple from '../../directives/ripple';
-import { useSwitch } from '../../utils/vue';
+import { useSwitch } from '../../utils/hooks';
 
 export default {
   name: 'tree-item',

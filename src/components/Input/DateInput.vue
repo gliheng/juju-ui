@@ -5,19 +5,21 @@
         <svg-icon name="calendar-outline" />
       </template>
     </j-input>
-    <div v-if="selectorOn" class="j-date-input-selector j-shadow-5" @click.stop>
-      <j-calendar :dayLabels="dayLabels" :monthLabels="monthLabels" @update:modelValue="onSelect" :modelValue="modelValue" />
-    </div>
+    <transition name="j-fade">
+      <div v-if="selectorOn" class="j-date-input-selector j-shadow-5" @click.stop>
+        <j-calendar :dayLabels="dayLabels" :monthLabels="monthLabels" @update:modelValue="onSelect" :modelValue="modelValue" />
+      </div>
+    </transition>
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { useBackdropAwareSwitch } from '../../utils/vue';
+import { useBackdropAwareSwitch } from '../../utils/hooks';
 import { formatDate, toDate } from '../../utils/date';
 import SvgIcon from '../SvgIcon.vue';
 import JInput from './Input.vue';
-import JCalendar from '../Calendar.vue';
+import JCalendar from '../Calendar/Calendar.vue';
 
 export default defineComponent({
   props: {
