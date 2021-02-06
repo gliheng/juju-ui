@@ -11,9 +11,9 @@
 </template>
 
 <script lang="ts">
-import { ref, reactive, nextTick, Ref } from 'vue';
-import JPopup from '../../components/Popup.vue';
-import SvgIcon from '../../components/SvgIcon.vue';
+import { reactive, nextTick, Ref } from 'vue';
+import JPopup from './Popup.vue';
+import SvgIcon from './SvgIcon.vue';
 
 export interface PopupOpts {
   title?: string,

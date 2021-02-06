@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import JButton from '../../components/Button.vue';
+import JButton from './Button.vue';
 
 export default {
   props: {
