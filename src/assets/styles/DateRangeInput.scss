@@ -31,13 +31,23 @@
     input {
       outline: none;
       border: none;
+      background: none;
       text-align: center;
       width: 5rem;
       padding: 0.5rem 0;
+      color: var(--text-color);
     }
     .j-icon {
       color: var(--neutral-color-light);
     }
+  }
+  &[data-which="1"] input[data-start="true"],
+  &[data-which="2"] input[data-end="true"] {
+    &::placeholder {
+      color: var(--neutral-color-lighter);
+    }
+    background-color: var(--primary-color);
+    color: var(--primary-color-text);
   }
   .j-date-range-input-selector {
     position: absolute;

@@ -12,6 +12,7 @@
     background: none;
     flex: 1;
     min-width: 0;
+    color: var(--text-color);
   }
   &[data-focus="true"] {
     box-shadow: $outline;

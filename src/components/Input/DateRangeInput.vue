@@ -1,5 +1,9 @@
 <template>
-  <div class="j-date-range-input" :data-disabled="disabled" :data-focus="selectorOn" :data-has-input="!!(startDate || endDate)">
+  <div class="j-date-range-input"
+    :data-disabled="disabled"
+    :data-focus="selectorOn"
+    :data-has-input="!!(startDate || endDate)"
+    :data-which="which">
     <div class="j-date-range-input-inner" @click.stop="!disabled && openSelector($event)">
       <input :placeholder="placeholder1 || 'Start date'" data-start="true" @focus="toggleFocus1(true)" @blur="toggleFocus1(false)" v-model="label1" />
       <svg-icon name="arrow-forward-outline" />
@@ -17,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from 'vue';
+import { defineComponent, computed, ref, watch } from 'vue';
 import SvgIcon from '../SvgIcon.vue';
 import { useBackdropAwareSwitch, useSwitch } from '../../utils/hooks';
 import { formatDate, toDate, isSameDay, isBetween } from '../../utils/date';
@@ -59,7 +63,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     let [selectorOn, toggleSelector] = useBackdropAwareSwitch();
-    let which = 0; // which value is editing
+    let which = ref(0); // which value is editing
     let [focus1, toggleFocus1] = useSwitch();
     let [focus2, toggleFocus2] = useSwitch();
     let focused = computed(() => focus1.value && focus2.value);
@@ -87,6 +91,12 @@ export default defineComponent({
       },
     });
 
+    watch(selectorOn, v => {
+      if (!v) {
+        which.value = 0;
+      }
+    });
+
     let refDate = ref(new Date());
 
     let cellThemingFunction = computed(() => {
@@ -98,14 +108,14 @@ export default defineComponent({
     });
 
     function pickDate(d: Date) {
-      if (which == 0) {
+      if (which.value == 1) {
         // ensure start < end
         if (props.endDate && d > (props.endDate as unknown as Date)) {
           return;
         }
         emit('update:startDate', d);
-        which = 1;
-      } else if (which == 1) {
+        which.value = 2;
+      } else if (which.value == 2) {
         // ensure start < end
         if (props.startDate && d < (props.startDate as unknown as Date)) {
           return;
@@ -121,9 +131,9 @@ export default defineComponent({
     function openSelector(evt: Event) {
       let ds = (evt.target as HTMLElement).dataset;
       if (ds.end == 'true') {
-        which = 1;
+        which.value = 2;
       } else {
-        which = 0;
+        which.value = 1;
       }
       toggleSelector(true);
     }
@@ -131,10 +141,11 @@ export default defineComponent({
     function clearIpt() {
       emit('update:startDate', null);
       emit('update:endDate', null);
+      which.value = 0;
     }
 
     return {
-      focused,
+      focused, which,
       label1, label2,
       selectorOn, toggleSelector,
       toggleFocus1, toggleFocus2,

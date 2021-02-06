@@ -7,8 +7,8 @@
   // --primary-color-lighter: #{color.scale($c, $lightness: 80%)};
   // however these transparent colors are better for dark mode
   --primary-color-light: #{rgba($c, 0.5)};
-  --primary-color-lighter: #{rgba($c, 0.3)};
-  --primary-color-text: #{$t};
+  --primary-color-lighter: #{rgba($c, 0.2)};
+  --primary-color-text: #{$t}; // the text color on primary colored background
 }
 
 :root {
