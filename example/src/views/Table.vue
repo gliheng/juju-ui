@@ -26,6 +26,13 @@
       </div>
     </section>
     <section>
+      <h2>Fixed columns</h2>
+      <div>
+        <j-table :data="data" :columns="fixedColumns" :fixed-header="true" :height="200" />
+      </div>
+      <p>Fixed column table needs fixed-header</p>
+    </section>
+    <section>
       <h2>Sortable columns</h2>
       <div>
         <!-- <j-table :data="data" :columns="columns" /> -->
@@ -35,13 +42,14 @@
 </template>
 
 <script lang="ts">
-import { columns, fixedHeaderColumns } from './TableColumns';
+import { columns, fixedHeaderColumns, fixedColumns } from './TableColumns';
 
 export default {
   setup() {
     return {
       columns,
       fixedHeaderColumns,
+      fixedColumns,
       data: [{
         name: 'Bill',
         age: 37,

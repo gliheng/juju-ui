@@ -1,4 +1,4 @@
-import { defineComponent, reactive, ref, h } from 'vue';
+import { defineComponent, reactive, ref, h, computed } from 'vue';
 import Row from './Row';
 import ColGroup from './ColGroup';
 import '../../assets/styles/Table.scss';
@@ -53,15 +53,66 @@ export default defineComponent({
       return String(i);
     }
 
+    let stickyPos = computed(() => {
+      let columns = props.columns as ColumnConfig[];
+      let m = new Map();
+      let v = 0;
+      for (let i = 0; i < columns.length; i++) {
+        m.set(columns[i], { left: v });
+        v += columns[i].width || 0;
+      }
+      v = 0;
+      for (let i = columns.length - 1; i >= 0; i--) {
+        m.get(columns[i]).right = v;
+        v += columns[i].width || 0;
+      }
+      return m;
+    });
+
     function renderHead() {
       let cells = (props.columns as ColumnConfig[]).map((col, i) => {
-        return <th key={i}>{ col.label || '' }</th>
+        let label = '' ;
+        if (col.label) {
+          label = col.label;
+        }
+        let style: Record<string, any> = {};
+        if (col.sticky) {
+          let d = stickyPos.value.get(col);
+          if (col.sticky == 'left') {
+            style.left = `${d.left}px`;
+          } else if (col.sticky == 'right') {
+            style.right = `${d.right}px`;
+          }
+        }
+        let className = '';
+        if (col.sticky) {
+          className = 'j-table-sticky';
+        }
+        return <th key={ i } class={ className } style={ style }>{ label }</th>
       });
       return (
         <thead>
           <tr>{ cells }</tr>
         </thead>
       );
+    }
+
+    function renderBody() {
+      let rows = (props.data! as Datum[]).map((datum, i) => {
+        let rowKey = getRowKey(datum as Datum, i);
+        return (
+          <Row key={rowKey}
+            datum={datum}
+            stickyPos={stickyPos.value}
+            columns={props.columns}
+            rowConfig={props.rowConfig}
+            selected={selected.has(rowKey)}
+            // @ts-ignore
+            onSelect={selectRow.bind(null, rowKey)} />
+        );
+      });
+
+      return <tbody>{ rows }</tbody>;
     }
 
     function selectRow(key: string) {
@@ -76,24 +127,10 @@ export default defineComponent({
         selected.add(key);
       }
     }
+    
+    let headerRef = ref();
 
-    function renderBody() {
-      let rows = (props.data! as Datum[]).map((datum, i) => {
-        let rowKey = getRowKey(datum as Datum, i);
-        return (
-          <Row key={rowKey}
-            datum={datum} 
-            columns={props.columns}
-            rowConfig={props.rowConfig}
-            selected={selected.has(rowKey)}
-            // @ts-ignore
-            onSelect={selectRow.bind(null, rowKey)} />
-        );
-      });
-
-      return <tbody>{ rows }</tbody>;
-    }
-
+    // sync header horizontal scroll with body
     function onBodyScroll(evt: Event) {
       if (headerRef.value) {
         let sl = (evt.currentTarget as HTMLElement).scrollLeft;
@@ -101,44 +138,42 @@ export default defineComponent({
       }
     }
 
-    let headerRef = ref();
-    
     return () => {
       if (props.fixedHeader) {
         let bodyStyle: Record<string, string | number> = {};
         if (typeof props.height == 'number') {
           bodyStyle.maxHeight = `${props.height}px`;
         }
-  
+
         return (
           <div class="j-table" data-fixed-header={ true } data-bordered={ props.bordered }>
-            <div class="j-head-part" ref={ headerRef }>
+            <div class="j-table-head-part" ref={ headerRef }>
               <table>
                 <ColGroup columns={ props.columns } />
                 { renderHead() }
               </table>
             </div>
-            <Scroller class="j-body-part" style={ bodyStyle } onScroll={ onBodyScroll }>
-              {
-                () => {
-                  return (
-                    <table>
-                      <ColGroup columns={ props.columns } />
-                      { props.data && renderBody() }
-                    </table>
-                  );
-                }
-              }
+            <Scroller class="j-table-body-part" style={ bodyStyle } onScroll={ onBodyScroll }>
+              {() => {
+                return (
+                  <table>
+                    <ColGroup columns={ props.columns } />
+                    { props.data && renderBody() }
+                  </table>
+                );
+              }}
             </Scroller>
           </div>
         );
       }
 
       return (
-        <table class="j-table" data-bordered={ props.bordered }>
-          { renderHead() }
-          { props.data && renderBody() }
-        </table>
+        <div class="j-table" data-bordered={ props.bordered }>
+          <table>
+            { renderHead() }
+            { props.data && renderBody() }
+          </table>
+        </div>
       );
     };
   },

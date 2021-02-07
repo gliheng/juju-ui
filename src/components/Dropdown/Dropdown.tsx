@@ -1,7 +1,6 @@
 import { defineComponent, h, computed } from 'vue';
 import { useBackdropAwareSwitch } from '../../utils/hooks';
 import DropdownItem from './_DropdownItem';
-import DropdownSeperator from './_DropdownSeperator';
 import SvgIcon from '../SvgIcon.vue';
 import '../../assets/styles/Dropdown.scss';
 
@@ -114,7 +113,7 @@ export default defineComponent({
             {
               props.options.map((opt: any, i) => {
                 if (opt.type == 'seperator') {
-                  return <DropdownSeperator key={i} />
+                  return <hr key={i} class="j-dropdown-seperator" />;
                 }
                 let checked;
                 if (props.multiple) {

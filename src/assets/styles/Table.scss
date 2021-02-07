@@ -26,13 +26,26 @@
       table-layout: fixed;
       width: max-content;
     }
-    > .j-head-part {
+    > .j-table-head-part {
       max-width: 100%;
       overflow-x: hidden;
     }
-    > .j-body-part {
+    > .j-table-body-part {
       max-width: 100%;
       flex: 1;
+    }
+    .j-table-sticky {
+      position: sticky;
+    }
+    thead {
+      th.j-table-sticky {
+        background-color: var(--background-color-1);
+      }
+    }
+    tbody {
+      td.j-table-sticky {
+        background-color: var(--background-color);
+      }
     }
   }
   tr {

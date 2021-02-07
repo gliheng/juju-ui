@@ -11,10 +11,15 @@ export default defineComponent({
     },
     datum: {
       type: Object,
+      required: true,
     },
     columns: {
       type: Array,
       default: [],
+    },
+    stickyPos: {
+      type: Map,
+      required: true,
     },
     rowConfig: {
       type: Object,
@@ -34,6 +39,7 @@ export default defineComponent({
     }
 
     function getCellDisplay(datum: Datum, col: ColumnConfig) {
+      // render nothing for empty column
       let s;
       if (col.field) {
         let parts = col.field.split('.');
@@ -70,20 +76,31 @@ export default defineComponent({
         if (col.align) {
           style['text-align'] = col.align;
         }
-        let cellClass;
+        let cellClass = '';
         if (typeof col.class == 'function') {
           cellClass = col.class(props.datum);
-        } else {
+        } else if (col.class) {
           cellClass = col.class;
         }
+        if (col.sticky) {
+          cellClass += ' j-table-sticky';
+          let pos = props.stickyPos.get(col) as any;
+          if (col.sticky == 'left') {
+            style.left = `${pos.left}px`;
+          }
+          if (col.sticky == 'right') {
+            style.right = `${pos.right}px`;
+          }
+        }
         return (
-          <td class={cellClass} key={getCellKey(props.datum, col, j)} style={style}>
+          <td class={ cellClass } key={ getCellKey(props.datum, col, j) } style={ style }>
             { getCellDisplay(props.datum, col) }
           </td>
         );
       });
       return (
-        <tr class={rowClass} data-selected={props.selected} onClick={toggleSelect}>{ cells }</tr>
+        <tr class={ rowClass } data-selected={ props.selected }
+          onClick={ toggleSelect }>{ cells }</tr>
       );  
     };
   }

@@ -12,6 +12,7 @@ export interface ColumnConfig {
   render?: (d: Datum, s?: any) => any, // custom render function for a cell
   class?: string | ((d: Datum) => string), // add a css class to cell
   width?: number,
+  sticky?: string,
 }
 
 export interface RowConfig {
