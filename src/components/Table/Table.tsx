@@ -1,9 +1,9 @@
 import { defineComponent, reactive, ref, h, computed } from 'vue';
-import Row from './Row';
-import ColGroup from './ColGroup';
-import '../../assets/styles/Table.scss';
-import { ColumnConfig, Datum } from './types';
+import Row from './_Row';
+import ColGroup from './_ColGroup';
+import { ColumnConfig, Datum } from './_types';
 import Scroller from '../Scroller.vue';
+import '../../assets/styles/Table.scss';
 
 export default defineComponent({
   props: {
@@ -70,23 +70,31 @@ export default defineComponent({
     });
 
     function renderHead() {
-      let cells = (props.columns as ColumnConfig[]).map((col, i) => {
+      let columns = props.columns as ColumnConfig[];
+      let cells = columns.map((col, i) => {
         let label = '' ;
         if (col.label) {
           label = col.label;
+        }
+        let className = '';
+        if (col.sticky) {
+          className = 'j-table-sticky';
         }
         let style: Record<string, any> = {};
         if (col.sticky) {
           let d = stickyPos.value.get(col);
           if (col.sticky == 'left') {
             style.left = `${d.left}px`;
+            // last left sticky column
+            if (i < columns.length - 1 && (!columns[i+1].sticky || columns[i+1].sticky != 'left')) {
+              className += ' j-table-sticky-left';
+            }
           } else if (col.sticky == 'right') {
             style.right = `${d.right}px`;
+            if (i != 0 && (!columns[i-1].sticky || columns[i-1].sticky != 'right')) {
+              className += ' j-table-sticky-right';
+            }
           }
-        }
-        let className = '';
-        if (col.sticky) {
-          className = 'j-table-sticky';
         }
         return <th key={ i } class={ className } style={ style }>{ label }</th>
       });
@@ -132,8 +140,9 @@ export default defineComponent({
 
     // sync header horizontal scroll with body
     function onBodyScroll(evt: Event) {
+      let tar = (evt.currentTarget as HTMLElement);
+      let sl = tar.scrollLeft;
       if (headerRef.value) {
-        let sl = (evt.currentTarget as HTMLElement).scrollLeft;
         headerRef.value.scrollLeft = sl;
       }
     }

@@ -1,7 +1,6 @@
 import { defineComponent, h } from 'vue';
-import { Datum, ColumnConfig, RowConfig } from './types';
+import { Datum, ColumnConfig, RowConfig } from './_types';
 
-export const TableRowSetCancelSelect = Symbol('TableRowSetConcelSelect');
 
 export default defineComponent({
   props: {
@@ -71,7 +70,8 @@ export default defineComponent({
         }
       }
 
-      let cells = (props.columns as ColumnConfig[]).map((col, j) => {
+      let columns = props.columns as ColumnConfig[];
+      let cells = columns.map((col, i) => {
         let style: Record<string, string> = {};
         if (col.align) {
           style['text-align'] = col.align;
@@ -87,13 +87,19 @@ export default defineComponent({
           let pos = props.stickyPos.get(col) as any;
           if (col.sticky == 'left') {
             style.left = `${pos.left}px`;
+            if (columns[i+1] && (!columns[i+1].sticky || columns[i+1].sticky != 'left')) {
+              cellClass += ' j-table-sticky-left';
+            }
           }
           if (col.sticky == 'right') {
             style.right = `${pos.right}px`;
+            if (columns[i-1] && (!columns[i-1].sticky || columns[i-1].sticky != 'right')) {
+              cellClass += ' j-table-sticky-right';
+            }
           }
         }
         return (
-          <td class={ cellClass } key={ getCellKey(props.datum, col, j) } style={ style }>
+          <td class={ cellClass } key={ getCellKey(props.datum, col, i) } style={ style }>
             { getCellDisplay(props.datum, col) }
           </td>
         );

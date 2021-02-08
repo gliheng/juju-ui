@@ -16,6 +16,7 @@ class Scrollbar extends Emitter {
   }
 
   updateScrollSize(clientSize: number, scrollSize: number) {
+    // able to scroll in this single direction
     if (clientSize < scrollSize) {
       if (!this.scrollEl) {
         // create scrollbar if not created
@@ -32,8 +33,14 @@ class Scrollbar extends Emitter {
         bar.style.height = `${barSize}px`;
       }
       this.maxScroll = clientSize - barSize;
+      // if (!this.scrollerEl.classList.contains(scrollClass)) {
+      //   this.scrollerEl.classList.add(scrollClass);
+      // }
     } else if (this.scrollEl) {
       this.scrollEl.hidden = true;
+      // if (this.scrollerEl.classList.contains(scrollClass)) {
+      //   this.scrollerEl.classList.remove(scrollClass);
+      // }
     }
   }
 

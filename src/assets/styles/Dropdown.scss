@@ -1,6 +1,7 @@
 .j-dropdown {
   display: inline-block;
   position: relative;
+  
   > .j-dropdown-label {
     display: flex;
     align-items: center;
@@ -15,6 +16,10 @@
       border: 1px solid var(--primary-color-light);
     }
     .j-dropdown-label-inner {
+      max-width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       padding: $margin;
       .j-placeholder {
         color: var(--neutral-color-light);

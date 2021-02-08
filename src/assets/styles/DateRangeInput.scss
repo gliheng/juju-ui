@@ -15,7 +15,7 @@
   }
   .j-date-range-input-clear {
     visibility: hidden;
-    margin-right: $margin;
+    margin: 0 $margin;
     cursor: pointer;
   }
   &[data-has-input="true"] {
@@ -33,7 +33,7 @@
       border: none;
       background: none;
       text-align: center;
-      width: 5rem;
+      width: 6rem;
       padding: 0.5rem 0;
       color: var(--text-color);
     }
