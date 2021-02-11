@@ -87,7 +87,7 @@ export default defineComponent({
         let label;
         if (selected.value) {
           let text = selected.value;
-          if (props.multiple && props.modelValue.length == props.options.length) {
+          if (props.multiple && Array.isArray(props.modelValue) && props.modelValue.length == props.options.length) {
             text = 'All';
           }
           label = <span title={ selected.value }>{ text }</span>;
