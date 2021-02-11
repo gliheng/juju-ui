@@ -185,11 +185,11 @@ class Scroller {
     let sh = this.el.scrollHeight, ch = this.el.clientHeight;
     // let oldSl = sl, oldSt = st;
     if (deltaX) {
-      sl -= deltaX * WHEEL_SPEED;
+      sl += deltaX * WHEEL_SPEED;
       sl = Math.max(0, Math.min(sl, sw - cw));
     }
     if (deltaY) {
-      st -= deltaY * WHEEL_SPEED;
+      st += deltaY * WHEEL_SPEED;
       st = Math.max(0, Math.min(st, sh - ch));
     }
     this.el.scrollLeft = sl;
@@ -237,13 +237,12 @@ export default {
   },
 };
 
-function getDeltaFromEvent(e: Event) {
+function getDeltaFromEvent(e: any) {
   let deltaX = e.deltaX;
-  let deltaY = -1 * e.deltaY;
+  let deltaY = e.deltaY;
 
   if (typeof deltaX === 'undefined' || typeof deltaY === 'undefined') {
-    // OS X Safari
-    deltaX = (-1 * e.wheelDeltaX) / 6;
+    deltaX = e.wheelDeltaX / 6;
     deltaY = e.wheelDeltaY / 6;
   }
 
@@ -251,12 +250,6 @@ function getDeltaFromEvent(e: Event) {
     // Firefox in deltaMode 1: Line scrolling
     deltaX *= 10;
     deltaY *= 10;
-  }
-
-  if (deltaX !== deltaX && deltaY !== deltaY /* NaN checks */) {
-    // IE in some mouse drivers
-    deltaX = 0;
-    deltaY = e.wheelDelta;
   }
 
   if (e.shiftKey) {
