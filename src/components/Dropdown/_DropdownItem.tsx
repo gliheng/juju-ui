@@ -1,4 +1,4 @@
-import { defineComponent, h } from 'vue';
+import { defineComponent, h, withDirectives } from 'vue';
 import SvgIcon from '../SvgIcon.vue';
 import Checkbox from '../Checkbox.vue';
 import ripple from '../../directives/ripple';
@@ -15,13 +15,14 @@ export default defineComponent({
   directives: { ripple },
   setup(props) {    
     return () => {
-      return (
+      return withDirectives(
+        // @ts-ignore
         <div class="j-dropdown-item" data-has-icon={ !!props.icon }
-          onClick={props.onClick as any} v-ripple>
+          onClick={props.onClick as any}>
           { props.checked !== undefined && <Checkbox modelValue={props.checked} />}
           <SvgIcon name={ props.icon } size={ props.size } />
           { props.label }
-        </div>
+        </div>, [[ripple]]
       );
     }
   },
