@@ -2,6 +2,7 @@ import { defineComponent, h, computed } from 'vue';
 import { useBackdropAwareSwitch } from '../../utils/hooks';
 import DropdownItem from './_DropdownItem';
 import SvgIcon from '../SvgIcon.vue';
+import Scroller from '../Scroller.vue';
 import '../../assets/styles/Dropdown.scss';
 
 type OptionValue = string | number | boolean;
@@ -115,25 +116,30 @@ export default defineComponent({
           { content }
           { menuOn.value && (
             <div class="j-dropdown-menu">
-              {
-                props.options.map((opt: any, i) => {
-                  if (opt.type == 'seperator') {
-                    return <hr key={i} class="j-dropdown-seperator" />;
+              <Scroller>
+                {() => (
+                  <div class="j-dropdonw-menu-inner">
+                    {props.options.map((opt: any, i) => {
+                      if (opt.type == 'seperator') {
+                        return <hr key={i} class="j-dropdown-seperator" />;
+                      }
+                      let checked;
+                      if (props.multiple) {
+                        checked = (props.modelValue as OptionValue[]).indexOf(opt.value) != -1;
+                      }
+                      return (
+                        <DropdownItem key={opt.value}
+                          checked={checked}
+                          value={opt.value}
+                          icon={opt.icon}
+                          size={props.iconSize} label={opt.label}
+                          onClick={select.bind(null, opt.value)} />
+                      );
+                    })
                   }
-                  let checked;
-                  if (props.multiple) {
-                    checked = (props.modelValue as OptionValue[]).indexOf(opt.value) != -1;
-                  }
-                  return (
-                    <DropdownItem key={opt.value}
-                      checked={checked}
-                      value={opt.value}
-                      icon={opt.icon}
-                      size={props.iconSize} label={opt.label}
-                      onClick={select.bind(null, opt.value)} />
-                  );
-                })
-              }
+                  </div>
+                )}
+              </Scroller>
             </div>
           )}
         </div>

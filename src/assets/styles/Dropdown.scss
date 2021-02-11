@@ -53,6 +53,9 @@
     background-color: var(--background-color-1);
     color: var(--text-color);
     border-radius: 3px;
+    .j-scroller {
+      max-height: 300px;
+    }
   }
   .j-dropdown-item {
     padding: $margin;
