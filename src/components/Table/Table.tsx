@@ -176,6 +176,7 @@ export default defineComponent({
         );
       }
 
+      // simple table
       return (
         <div class="j-table" data-bordered={ props.bordered }>
           <table>

@@ -1,5 +1,8 @@
 import Emitter from '../utils/emitter';
 
+
+const WHEEL_SPEED = 0.8;
+
 class Scrollbar extends Emitter {
   scrollEl?: HTMLElement;
   scroll: number = 0;
@@ -44,10 +47,10 @@ class Scrollbar extends Emitter {
     }
   }
 
-  updateScrollPos(scrollLeft: number, scrollTop: number, clientSize: number, scrollSize: number) {
+  updateScrollPos(scroll: number, clientSize: number, scrollSize: number) {
     if (this.scrollEl) {
       if (clientSize < scrollSize) {
-        this.scroll = (this.horizontal ? scrollLeft : scrollTop) / (scrollSize - clientSize) * this.maxScroll;
+        this.scroll = (scroll) / (scrollSize - clientSize) * this.maxScroll;
         (this.scrollEl.firstElementChild as HTMLElement).style.transform = `${this.scrollProp}(${this.scroll}px)`;
       } else {
         this.scrollEl.hidden = true;
@@ -118,7 +121,17 @@ class Scroller {
 
   constructor(el: HTMLElement) {
     this.el = el;
-    this.el.addEventListener('scroll', this);
+
+    if (typeof window.onwheel !== 'undefined') {
+      this.el.addEventListener('wheel', this);
+    } else if (typeof window.onmousewheel !== 'undefined') {
+      this.el.addEventListener('mousewheel', this);
+    }
+    // this.el.addEventListener('scroll', (evt: Event) => {
+    //   evt.preventDefault();
+    //   evt.stopPropagation();
+    // });
+
     let cw = el.clientWidth, sw = el.scrollWidth;
     let ch = el.clientHeight, sh = el.scrollHeight;
     let scrollbarEl = document.createElement('div');
@@ -165,18 +178,43 @@ class Scroller {
     this.scrollbarEl.style.transform = `translate(${left}px, ${top}px)`;
   }
 
-  handleEvent(_: MouseEvent) {
-    if (!this.drag) {
-      this.syncScroll();
+  handleEvent(evt: MouseEvent) {
+    let [ deltaX, deltaY ] = getDeltaFromEvent(evt);
+    let sl = this.el.scrollLeft, st = this.el.scrollTop;
+    let sw = this.el.scrollWidth, cw = this.el.clientWidth;
+    let sh = this.el.scrollHeight, ch = this.el.clientHeight;
+    // let oldSl = sl, oldSt = st;
+    if (deltaX) {
+      sl -= deltaX * WHEEL_SPEED;
+      sl = Math.max(0, Math.min(sl, sw - cw));
     }
+    if (deltaY) {
+      st -= deltaY * WHEEL_SPEED;
+      st = Math.max(0, Math.min(st, sh - ch));
+    }
+    this.el.scrollLeft = sl;
+    this.el.scrollTop = st;
+
+    sl = this.el.scrollLeft;
+    st = this.el.scrollTop;
+
+    this.scrollbarX.updateScrollPos(sl, cw, sw);
+    this.scrollbarY.updateScrollPos(st, ch, sh);
+    this.setScrollPos(sl, st);
+
+    // If scrolled in any direction, prevent the scroll event later
+    // if (sl != oldSl || st != oldSt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    // }
   }
 
   syncScroll() {
     let sl = this.el.scrollLeft, st = this.el.scrollTop;
     let sw = this.el.scrollWidth, cw = this.el.clientWidth;
-    this.scrollbarX.updateScrollPos(sl, st, cw, sw);
+    this.scrollbarX.updateScrollPos(sl, cw, sw);
     let sh = this.el.scrollHeight, ch = this.el.clientHeight;
-    this.scrollbarY.updateScrollPos(sl, st, ch, sh);
+    this.scrollbarY.updateScrollPos(st, ch, sh);
     this.setScrollPos(sl, st);
   }
 
@@ -198,3 +236,32 @@ export default {
     (el as any)[ScrollerSymbol].dispose();
   },
 };
+
+function getDeltaFromEvent(e: Event) {
+  let deltaX = e.deltaX;
+  let deltaY = -1 * e.deltaY;
+
+  if (typeof deltaX === 'undefined' || typeof deltaY === 'undefined') {
+    // OS X Safari
+    deltaX = (-1 * e.wheelDeltaX) / 6;
+    deltaY = e.wheelDeltaY / 6;
+  }
+
+  if (e.deltaMode && e.deltaMode === 1) {
+    // Firefox in deltaMode 1: Line scrolling
+    deltaX *= 10;
+    deltaY *= 10;
+  }
+
+  if (deltaX !== deltaX && deltaY !== deltaY /* NaN checks */) {
+    // IE in some mouse drivers
+    deltaX = 0;
+    deltaY = e.wheelDelta;
+  }
+
+  if (e.shiftKey) {
+    // reverse axis with shift key
+    return [-deltaY, -deltaX];
+  }
+  return [deltaX, deltaY];
+}
