@@ -87,15 +87,9 @@ export default defineComponent({
           let pos = props.stickyPos.get(col) as any;
           if (col.sticky == 'left') {
             style.left = `${pos.left}px`;
-            if (columns[i+1] && (!columns[i+1].sticky || columns[i+1].sticky != 'left')) {
-              cellClass += ' j-table-sticky-left';
-            }
           }
           if (col.sticky == 'right') {
             style.right = `${pos.right}px`;
-            if (columns[i-1] && (!columns[i-1].sticky || columns[i-1].sticky != 'right')) {
-              cellClass += ' j-table-sticky-right';
-            }
           }
         }
         return (

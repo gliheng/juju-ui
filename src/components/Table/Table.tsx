@@ -85,15 +85,8 @@ export default defineComponent({
           let d = stickyPos.value.get(col);
           if (col.sticky == 'left') {
             style.left = `${d.left}px`;
-            // last left sticky column
-            if (i < columns.length - 1 && (!columns[i+1].sticky || columns[i+1].sticky != 'left')) {
-              className += ' j-table-sticky-left';
-            }
           } else if (col.sticky == 'right') {
             style.right = `${d.right}px`;
-            if (i != 0 && (!columns[i-1].sticky || columns[i-1].sticky != 'right')) {
-              className += ' j-table-sticky-right';
-            }
           }
         }
         return <th key={ i } class={ className } style={ style }>{ label }</th>
@@ -154,6 +147,28 @@ export default defineComponent({
           bodyStyle.maxHeight = `${props.height}px`;
         }
 
+        const columns = props.columns as ColumnConfig[];
+        // last left sticky column
+        let hasLeftSticky = columns.length > 0 && columns[0].sticky == 'left';
+        let hasRightSticky = columns.length > 0 && (columns[columns.length - 1]).sticky == 'right';
+        let leftStickyPos = 0, rightStickyPos = 0;
+        if (hasLeftSticky) {
+          for (let i = 0; i < columns.length; i++) {
+            leftStickyPos += columns[i].width || 0;
+            if (i < columns.length - 1 && (!columns[i+1].sticky || columns[i+1].sticky != 'left')) {
+              break;
+            }
+          }
+        }
+        if (hasRightSticky) {
+          for (let i = columns.length - 1; i >= 0; i++) {
+            rightStickyPos += columns[i].width || 0;
+            if (i != 0 && (!columns[i-1].sticky || columns[i-1].sticky != 'right')) {
+              break;
+            }
+          }
+        }
+        
         return (
           <div class="j-table" data-fixed-header={ true } data-bordered={ props.bordered }>
             <div class="j-table-head-part" ref={ headerRef }>
@@ -172,6 +187,8 @@ export default defineComponent({
                 );
               }}
             </Scroller>
+            { hasLeftSticky && <div class="j-table-sticky-shadow j-left" style={{left: `${leftStickyPos}px`}}></div> }
+            { hasRightSticky && <div class="j-table-sticky-shadow j-right" style={{right: `${rightStickyPos}px`}}></div> }
           </div>
         );
       }

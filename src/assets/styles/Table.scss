@@ -4,6 +4,7 @@
   $border: 1px solid var(--neutral-color-lighter);
   color: var(--text-color);
   text-align: left;
+  position: relative;
   &, table {
     border-collapse: collapse;
   }
@@ -34,34 +35,21 @@
       max-width: 100%;
       flex: 1;
     }
+    .j-table-sticky-shadow {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 30px;
+      pointer-events: none;
+      &.j-left {
+        box-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, .15);
+      }
+      &.j-right {
+        box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, .15);
+      }
+    }
     .j-table-sticky {
       position: sticky;
-      &.j-table-sticky-left {
-        &:after {
-          content: '';
-          position: absolute;
-          top: 0;
-          bottom: 0px;
-          left: 100%;
-          width: 30px;
-          transition: box-shadow .3s;
-          pointer-events: none;
-          box-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, .15);
-        }
-      }
-      &.j-table-sticky-right {
-        &:after {
-          content: '';
-          position: absolute;
-          top: 0;
-          bottom: 0px;
-          width: 30px;
-          right: 100%;
-          transition: box-shadow .3s;
-          pointer-events: none;
-          box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, .15);
-        }
-      }
     }
     thead {
       th.j-table-sticky {
