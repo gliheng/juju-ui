@@ -26,7 +26,7 @@ export default {
   output: {
     format: 'esm',
     dir: 'dist',
-    entryFileNames: '[name].esm.js',
+    entryFileNames: '[name].js',
     sourcemap: true,
   },
   external: ['vue'],
