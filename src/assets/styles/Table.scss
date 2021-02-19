@@ -23,6 +23,8 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    position: relative;
+    max-width: max-content;
     table {
       table-layout: fixed;
       width: max-content;
@@ -62,13 +64,24 @@
       }
     }
   }
-  tr {
-    border-bottom: $border;
-  }
+  // border does not show for sticky positioned cells on firefox
+  // we have to use after to put a border inside cell
+  // tr {
+  //   border-bottom: $border;
+  // }
   th, td {
     padding: $margin 2*$margin;
     box-sizing: border-box;
     word-break: break-all;
+    position: relative;
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-bottom: $border;
+    }
   }
   th {
     font-weight: 500;
