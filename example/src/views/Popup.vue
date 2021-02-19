@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { popup } from 'juju-ui/utils.esm';
+import { popup } from 'juju-ui/utils';
 
 export default {
   setup() {
