@@ -36,6 +36,7 @@ import Calendar from './components/Calendar/Calendar.vue';
 import Tree from './components/Tree/Tree.vue';
 import Scaffold from './components/Scaffold.vue';
 import Table from './components/Table/Table';
+import DataTable from './components/Table/DataTable';
 import Vnodes from './components/Vnodes';
 
 import ripple from './directives/ripple';
@@ -85,6 +86,7 @@ export default function(conf: Partial<Config>) {
       .component(prefix + '-tree', Tree)
       .component(prefix + '-scaffold', Scaffold)
       .component(prefix + '-table', Table)
+      .component(prefix + '-data-table', DataTable)
       .component(prefix + '-vnodes', Vnodes)
       .directive('ripple', ripple)
       .directive('scroller', scroller);
@@ -126,6 +128,7 @@ export {
     Calendar,
     Tree,
     Table,
+    DataTable,
     Vnodes,
     ripple,
     scroller,

@@ -18,7 +18,6 @@ export default defineComponent({
     },
     stickyPos: {
       type: Map,
-      required: true,
     },
     rowConfig: {
       type: Object,
@@ -82,7 +81,7 @@ export default defineComponent({
         } else if (col.class) {
           cellClass = col.class;
         }
-        if (col.sticky) {
+        if (col.sticky && props.stickyPos) {
           cellClass += ' j-table-sticky';
           let pos = props.stickyPos.get(col) as any;
           if (col.sticky == 'left') {

@@ -19,58 +19,16 @@
       border-left: $border;
     }
   }
-  &[data-fixed-header="true"] {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    position: relative;
-    max-width: max-content;
-    table {
-      table-layout: fixed;
-      width: max-content;
-    }
-    > .j-table-head-part {
-      max-width: 100%;
-      overflow-x: hidden;
-    }
-    > .j-table-body-part {
-      max-width: 100%;
-      flex: 1;
-    }
-    .j-table-sticky-shadow {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 30px;
-      pointer-events: none;
-      &.j-left {
-        box-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, .15);
-      }
-      &.j-right {
-        box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, .15);
-      }
-    }
-    .j-table-sticky {
-      position: sticky;
-    }
-    thead {
-      th.j-table-sticky {
-        background-color: var(--background-color-1);
-      }
-    }
-    tbody {
-      td.j-table-sticky {
-        background-color: var(--background-color);
-      }
-    }
-  }
   // border does not show for sticky positioned cells on firefox
   // we have to use after to put a border inside cell
   // tr {
   //   border-bottom: $border;
   // }
+  tr {
+    line-height: 2;
+  }
   th, td {
-    padding: $margin 2*$margin;
+    padding: 0 $margin;
     box-sizing: border-box;
     word-break: break-all;
     position: relative;
@@ -94,6 +52,77 @@
   tbody {
     tr[data-selected="true"] {
       background-color: var(--primary-color-lighter);
+    }
+  }
+}
+
+// style for fixed-header table
+.j-table[data-fixed-header="true"] {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  max-width: min-content;
+  table {
+    table-layout: fixed;
+    width: min-content;
+    tr {
+      white-space: nowrap;
+      th, td {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+  > .j-table-head-part {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  > .j-table-body-part {
+    max-width: 100%;
+    flex: 1;
+    .j-scroll-bar {
+      z-index: 2;
+    }
+  }
+  .j-table-sticky-shadow {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    pointer-events: none;
+    &.j-left {
+      box-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, .15);
+    }
+    &.j-right {
+      box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, .15);
+    }
+  }
+  .j-table-sticky {
+    position: sticky;
+    z-index: 1;
+  }
+  thead {
+    th.j-table-sticky {
+      background-color: var(--background-color-1);
+    }
+  }
+  tbody {
+    td.j-table-sticky {
+      background-color: var(--background-color);
+    }
+  }
+  .j-data-table-group-row {
+    .j-icon {
+      margin-right: $margin;
+    }
+  }
+  &[data-has-left-sticky="true"] {
+    .j-data-table-group-row {
+      > td.j-table-sticky {
+        position: sticky;
+        left: 0;
+      }
     }
   }
 }

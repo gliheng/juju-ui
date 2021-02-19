@@ -1,6 +1,12 @@
 export type KeyFetcher = string | ((d: any) => string);
 
 export type Datum = Record<string, any>;
+export interface GroupDatum {
+  groupName: string | number | boolean,
+  groupPath: Array<string | number | boolean>,
+  groupValue: string | number | boolean,
+  groupChildren?: Array<GroupDatum | Datum>,
+}
 
 export interface ColumnConfig {
   label?: string, // table head
