@@ -78,3 +78,5 @@ export default {
   components: { JChip },
 }
 </script>
+
+<style src="../assets/styles/ChipEditor.scss"></style>

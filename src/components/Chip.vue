@@ -21,3 +21,5 @@ export default {
   components: { SvgIcon },
 };
 </script>
+
+<style src="../assets/styles/Chip.scss"></style>

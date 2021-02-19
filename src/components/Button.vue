@@ -19,7 +19,8 @@
 import { defineComponent, computed } from 'vue';
 import ripple from '../directives/ripple';
 import SvgIcon from './SvgIcon.vue';
-import JSpinner from './Spinner.vue';
+import JSpinner from './Spinner.vue'
+import '../assets/styles/Button.scss';
 
 export default defineComponent({
   props: {
@@ -53,3 +54,5 @@ export default defineComponent({
   components: { SvgIcon, JSpinner }
 });
 </script>
+
+<style src="../assets/styles/Button.scss"></style>

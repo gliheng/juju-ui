@@ -37,6 +37,7 @@ import Tree from './components/Tree/Tree.vue';
 import Scaffold from './components/Scaffold.vue';
 import Table from './components/Table/Table';
 import DataTable from './components/Table/DataTable';
+import Scroller from './components/Scroller.vue';
 import Vnodes from './components/Vnodes';
 
 import ripple from './directives/ripple';
@@ -81,6 +82,7 @@ export default function(conf: Partial<Config>) {
       .component(prefix + '-context-menu', ContextMenu)
       .component(prefix + '-upload-button', UploadButton)
       .component(prefix + '-spinner', Spinner)
+      .component(prefix + '-scroller', Scroller)
       .component(prefix + '-progress', Progress)
       .component(prefix + '-calendar', Calendar)
       .component(prefix + '-tree', Tree)
@@ -124,6 +126,7 @@ export {
     DateRangeInput,
     UploadButton,
     Spinner,
+    Scroller,
     Progress,
     Calendar,
     Tree,

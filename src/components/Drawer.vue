@@ -8,7 +8,6 @@
 
 <script lang="ts">
 import { getCurrentInstance, watchEffect, onUnmounted, SetupContext } from 'vue';
-import { show as showBackdrop, hide as hideBackdrop } from '../utils/backdrop';
 import * as DepthManager from '../utils/depth-manager';
 
 export default {
@@ -55,3 +54,5 @@ export default {
   },
 };
 </script>
+
+<style src="../assets/styles/Drawer.scss"></style>

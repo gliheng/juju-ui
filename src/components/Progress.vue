@@ -31,3 +31,5 @@ export default {
   },
 };
 </script>
+
+<style src="../assets/styles/Progress.scss"></style>

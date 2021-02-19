@@ -117,3 +117,5 @@ export default {
   components: { SvgIcon, JButton: Button },
 }
 </script>
+
+<style src="../assets/styles/Popup.scss"></style>

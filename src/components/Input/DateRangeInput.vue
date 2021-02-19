@@ -163,3 +163,5 @@ export default defineComponent({
 <style>
 
 </style>
+
+<style src="../../assets/styles/DateRangeInput.scss"></style>

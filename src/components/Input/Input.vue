@@ -57,3 +57,5 @@ export default {
   components: { JSvgIcon},
 };
 </script>
+
+<style src="../../assets/styles/Input.scss"></style>

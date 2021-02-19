@@ -62,3 +62,5 @@ export default {
   },
 }
 </script>
+
+<style src="../assets/styles/Checkbox.scss"></style>

@@ -23,3 +23,5 @@ export default {
   },
 }
 </script>
+
+<style src="../../assets/styles/Tree.scss"></style>

@@ -66,13 +66,13 @@
   table {
     table-layout: fixed;
     width: min-content;
-    tr {
-      white-space: nowrap;
-      th, td {
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-    }
+    // tr {
+    //   white-space: nowrap;
+    //   th, td {
+    //     overflow: hidden;
+    //     text-overflow: ellipsis;
+    //   }
+    // }
   }
   > .j-table-head-part {
     max-width: 100%;

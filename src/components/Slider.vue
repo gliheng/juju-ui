@@ -87,3 +87,5 @@ function pct2value(pct: number, min: number, max: number, step: number): number 
 }
 
 </script>
+
+<style src="../assets/styles/Slider.scss"></style>

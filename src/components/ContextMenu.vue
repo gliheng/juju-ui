@@ -34,3 +34,5 @@ export default {
   },
 };
 </script>
+
+<style src="../assets/styles/ContextMenu.scss"></style>

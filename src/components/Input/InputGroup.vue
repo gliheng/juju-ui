@@ -23,3 +23,5 @@ export default defineComponent({
   components: { JInput: Input },
 });
 </script>
+
+<style src="../../assets/styles/InputGroup.scss"></style>

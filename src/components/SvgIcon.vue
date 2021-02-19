@@ -51,3 +51,5 @@ function getIconSvg(name?: string): string {
   return str.substring(start);
 }
 </script>
+
+<style src="../assets/styles/SvgIcon.scss"></style>

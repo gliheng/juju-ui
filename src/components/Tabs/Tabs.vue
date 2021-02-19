@@ -143,3 +143,5 @@ export default {
   directives: { ripple },
 };
 </script>
+
+<style src="../../assets/styles/Tabs.scss"></style>

@@ -16,3 +16,5 @@ export default {
   components: { JButton },
 }
 </script>
+
+<style src="../assets/styles/Snackbar.scss"></style>

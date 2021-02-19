@@ -3,3 +3,5 @@
     <slot></slot>
   </div>
 </template>
+
+<style src="../assets/styles/ButtonGroup.scss"></style>

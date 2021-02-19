@@ -240,3 +240,5 @@ function deg2rad(deg: number): number {
 // }
 
 </script>
+
+<style src="../assets/styles/ColorWheel.scss"></style>

@@ -56,3 +56,5 @@ export default defineComponent({
   },
 });
 </script>
+
+<style src="../../assets/styles/DateInput.scss"></style>

@@ -17,3 +17,5 @@ export default {
   }
 }
 </script>
+
+<style src="../assets/styles/Calendar.scss"></style>

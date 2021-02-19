@@ -36,3 +36,5 @@ export default {
   components: { ButtonGroup, JButton, JMenu },
 };
 </script>
+
+<style src="../assets/styles/SplitButton.scss"></style>

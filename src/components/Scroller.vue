@@ -15,6 +15,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-
-</style>
+<style src="../assets/styles/Scroller.scss"></style>

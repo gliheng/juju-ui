@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { computed, unref, getCurrentInstance, Ref } from 'vue';
+import { computed, getCurrentInstance, Ref } from 'vue';
 import { useParent } from '../../utils/hooks';
 
 export const TabPaneSymbol = Symbol('TabPaneSymbol');

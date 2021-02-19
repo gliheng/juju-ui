@@ -7,8 +7,7 @@
 </template>
 
 <script lang="ts">
-import { computed, inject, SetupContext, Ref } from 'vue';
-import { useSwitch } from '../../utils/hooks';
+import { computed, SetupContext } from 'vue';
 
 export default {
   props: {

@@ -15,3 +15,5 @@ export default {
   }
 }
 </script>
+
+<style src="../assets/styles/Spinner.scss"></style>

@@ -46,3 +46,5 @@ export default {
   components: { Vnodes },
 }
 </script>
+
+<style src="../../assets/styles/ToggleButton.scss"></style>

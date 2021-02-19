@@ -102,3 +102,5 @@ export default {
   components: { JButton, Dropdown, SvgIcon },
 };
 </script>
+
+<style src="../assets/styles/Scaffold.scss"></style>

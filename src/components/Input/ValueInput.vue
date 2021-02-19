@@ -129,3 +129,5 @@ function round(value: number, min: number, step: number): number {
 }
 
 </script>
+
+<style src="../../assets/styles/ValueInput.scss"></style>
