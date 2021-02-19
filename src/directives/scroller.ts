@@ -18,6 +18,7 @@ class Scrollbar extends Emitter {
     super();
   }
 
+  // when the controlled view's site change, update scroll size accordingly
   updateScrollSize(clientSize: number, scrollSize: number) {
     // able to scroll in this single direction
     if (clientSize < scrollSize) {
@@ -36,6 +37,7 @@ class Scrollbar extends Emitter {
         bar.style.height = `${barSize}px`;
       }
       this.maxScroll = clientSize - barSize;
+      this.scrollEl.hidden = false;
       // if (!this.scrollerEl.classList.contains(scrollClass)) {
       //   this.scrollerEl.classList.add(scrollClass);
       // }
@@ -47,11 +49,13 @@ class Scrollbar extends Emitter {
     }
   }
 
+  // when view is scrolled, update handle location accordingly
   updateScrollPos(scroll: number, clientSize: number, scrollSize: number) {
     if (this.scrollEl) {
       if (clientSize < scrollSize) {
         this.scroll = (scroll) / (scrollSize - clientSize) * this.maxScroll;
         (this.scrollEl.firstElementChild as HTMLElement).style.transform = `${this.scrollProp}(${this.scroll}px)`;
+        this.scrollEl.hidden = false;
       } else {
         this.scrollEl.hidden = true;
       }
@@ -209,14 +213,14 @@ class Scroller {
     // }
   }
 
-  syncScroll() {
-    let sl = this.el.scrollLeft, st = this.el.scrollTop;
-    let sw = this.el.scrollWidth, cw = this.el.clientWidth;
-    this.scrollbarX.updateScrollPos(sl, cw, sw);
-    let sh = this.el.scrollHeight, ch = this.el.clientHeight;
-    this.scrollbarY.updateScrollPos(st, ch, sh);
-    this.setScrollPos(sl, st);
-  }
+  // syncScroll() {
+  //   let sl = this.el.scrollLeft, st = this.el.scrollTop;
+  //   let sw = this.el.scrollWidth, cw = this.el.clientWidth;
+  //   this.scrollbarX.updateScrollPos(sl, cw, sw);
+  //   let sh = this.el.scrollHeight, ch = this.el.clientHeight;
+  //   this.scrollbarY.updateScrollPos(st, ch, sh);
+  //   this.setScrollPos(sl, st);
+  // }
 
   dispose() {
     if (this.observer) {
