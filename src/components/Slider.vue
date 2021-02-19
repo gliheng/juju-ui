@@ -72,7 +72,7 @@ export default {
 function value2pct(value: number, min: number, max: number): number {
   let pct = (value - min) / (max - min);
   pct = Math.min(100, Math.max(pct, 0));
-  return pct;
+  return pct * 100;
 }
 
 function pct2value(pct: number, min: number, max: number, step: number): number {

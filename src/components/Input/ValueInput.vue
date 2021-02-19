@@ -63,12 +63,17 @@ export default {
     }
     let canDec = computed<boolean>(() => props.modelValue > props.min);
     let canInc = computed<boolean>(() => props.modelValue < props.max);
-    let value = computed<string>({
+    let value = computed<number>({
       get() {
-        return props.modelValue + '';
+        return props.modelValue;
       },
       set(v) {
-        let v2 = parseInt(v);
+        let v2;        
+        if (typeof v == 'string') {
+          v2 = parseInt(v);
+        } else {
+          v2 = v;
+        }
         v2 = round(v2, props.min, props.step);
         if (typeof props.min === 'number') {
           v2 = Math.max(props.min, v2);
