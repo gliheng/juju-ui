@@ -47,8 +47,7 @@
 import { ref, computed, SetupContext } from 'vue';
 import JButton from './Button.vue';
 import Dropdown from './Dropdown/Dropdown';
-import { useSwitch, useWindowSize } from '../utils/hooks';
-import { getScreenSizeClass } from '../utils/screen';
+import { useSwitch, useWindowSizeClass } from '../utils/hooks';
 import SvgIcon from './SvgIcon.vue';
 
 type Action = {
@@ -84,8 +83,7 @@ export default {
       };
     });
 
-    let size = useWindowSize();
-    let sizeClass = computed(() => getScreenSizeClass(size.width, size.height));
+    let sizeClass = useWindowSizeClass();
     let wideLayout = computed(() => sizeClass.value != 'sm');
     let hasNav = computed(() => !!slots.nav);
 

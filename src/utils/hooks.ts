@@ -3,8 +3,10 @@ import {
   onMounted, onUnmounted,
   provide, inject,
   ComponentInternalInstance,
-  reactive, watch,
+  computed, reactive, watch,
 } from 'vue';
+import { getScreenSizeClass } from './screen';
+
 
 export function useSwitch(v: boolean = false): [Ref<boolean>, (v?: boolean) => void] {
   let on = ref(v);
@@ -89,6 +91,13 @@ export function useWindowSize() {
     window.removeEventListener('resize', onResize);
   });
   return size;
+}
+
+export function useWindowSizeClass() {
+  let size = useWindowSize();
+  return computed(() => {
+    return getScreenSizeClass(size.width, size.height);
+  });
 }
 
 declare let ResizeObserver: any;
