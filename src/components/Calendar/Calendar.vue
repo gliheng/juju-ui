@@ -43,6 +43,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-
-</style>
+<style src="../../assets/styles/Calendar.scss"></style>

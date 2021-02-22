@@ -247,7 +247,7 @@ export default defineComponent({
     return () => {
       let bodyStyle: Record<string, string | number> = {};
       if (typeof props.height == 'number') {
-        bodyStyle.maxHeight = `${props.height}px`;
+        bodyStyle.height = `${props.height}px`;
       }
 
       const columns = props.columns as ColumnConfig[];
@@ -271,6 +271,13 @@ export default defineComponent({
       let hasLeftSticky = leftStickyCount > 0,
         hasRightSticky = rightStickyCount > 0;
       
+      let coverContent;
+      if (slots.cover) {
+        coverContent = <div class="j-table-body-cover">{ slots.cover() }</div>;
+      }
+
+      let hasData = groupedData.value && groupedData.value.length;
+
       return (
         <div class="j-table"
           data-fixed-header={ true }
@@ -283,20 +290,23 @@ export default defineComponent({
               { renderHead() }
             </table>
           </div>
-          <Scroller class="j-table-body-part" style={ bodyStyle } onScroll={ onBodyScroll }>
-            {() => {
-              return (
-                <table>
-                  <ColGroup columns={ props.columns } />
-                  { groupedData.value && renderBody(groupedData.value as Datum[], {
-                    leftStickyCount, rightStickyCount,
-                  }) }
-                </table>
-              );
-            }}
-          </Scroller>
-          { hasLeftSticky && <div class="j-table-sticky-shadow j-left" style={{left: `${leftStickyPos}px`}}></div> }
-          { hasRightSticky && <div class="j-table-sticky-shadow j-right" style={{right: `${rightStickyPos}px`}}></div> }
+          <div class="j-table-body-part">
+            <Scroller style={ bodyStyle } onScroll={ onBodyScroll }>
+              {() => {
+                return (
+                  <table>
+                    <ColGroup columns={ props.columns } />
+                    { groupedData.value && renderBody(groupedData.value as Datum[], {
+                      leftStickyCount, rightStickyCount,
+                    }) }
+                  </table>
+                );
+              }}
+            </Scroller>
+            { coverContent }
+          </div>
+          { hasLeftSticky && hasData && <div class="j-table-sticky-shadow j-left" style={{left: `${leftStickyPos}px`}}></div> }
+          { hasRightSticky && hasData && <div class="j-table-sticky-shadow j-right" style={{right: `${rightStickyPos}px`}}></div> }
         </div>
       );
     };

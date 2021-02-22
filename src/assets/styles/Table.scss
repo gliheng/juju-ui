@@ -80,9 +80,26 @@
   }
   > .j-table-body-part {
     max-width: 100%;
+    overflow: hidden;;
     flex: 1;
+    position: relative;
+    > .j-scroller {
+      height: 100%;
+      width: 100%;
+    }
     .j-scroll-bar {
       z-index: 2;
+    }
+    .j-table-body-cover {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
     }
   }
   .j-table-sticky-shadow {

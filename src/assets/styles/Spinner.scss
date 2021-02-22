@@ -3,7 +3,7 @@
 .j-spinner {
   position: relative;
   box-sizing: border-box;
-  border: 2px solid var(--primary-color-text);
+  border: 2px solid transparent;
   border-radius: 50%;
   display: inline-flex;
   vertical-align: middle;
@@ -25,7 +25,8 @@
     display: block;
     border-radius: 50%;
     margin: -2px;
-    border-top: 2px solid var(--primary-color);
+    // use currentColor to control spinner color
+    border-top: 2px solid currentColor;
     border-right: 2px solid transparent;
     animation: j-spinner-rotate .6s linear infinite;
   }
