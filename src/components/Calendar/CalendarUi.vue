@@ -223,3 +223,5 @@ export default defineComponent({
   components: { JButton },
 });
 </script>
+
+<style src="../../assets/styles/Calendar.scss"></style>
