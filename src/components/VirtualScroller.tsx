@@ -75,10 +75,9 @@ export default defineComponent({
     function onScroll(evt: Event) {
       if (props.onScroll) props.onScroll(evt);
       let st = (evt.target as HTMLElement).scrollTop;
-
       let idx = Math.floor(st / props.itemHeight / BATCH_SIZE) * BATCH_SIZE;
-      startIdx.value = idx;
       let mod = st % (props.itemHeight * BATCH_SIZE);
+      startIdx.value = idx;
       yOffset.value = st - mod;
     }
 
@@ -110,7 +109,7 @@ export default defineComponent({
             // apply virtual scroll viewport
             let totalHeight = props.itemHeight * props.items.length;
             content = (
-              <div style={{
+              <div class="j-scroller-frame" style={{
                 height: `${ totalHeight }px`
               }}>
                 <div class="j-scroller-viewport" style={{

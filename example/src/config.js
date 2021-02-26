@@ -75,6 +75,9 @@ export default {
     }, {
       "name": "Spinner",
       "device": ["pc", "mobile"]
+    },  {
+      "name": "Scroller",
+      "device": ["pc", "mobile"]
     }, {
       "name": "Progress",
       "device": ["pc", "mobile"]
@@ -97,9 +100,6 @@ export default {
     {
       "name": "ripple",
       "device": ["pc", "mobile"]
-    }, {
-      "name": "scroller",
-      "device": ["pc", "mobile"]
-    }
+    },
   ]
 }

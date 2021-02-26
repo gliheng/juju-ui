@@ -2,11 +2,16 @@
 
 .j-scroller {
   position: relative;
-  overflow: scroll;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    width: 0;
-    height: 0;
+  > main {
+    width: 100%;
+    height: 100%;
+    max-height: inherit;
+    overflow: scroll;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
   }
   .j-scroll-bar {
     position: absolute;
@@ -38,10 +43,6 @@
     .j-scroll-x, .j-scroll-y {
       opacity: 0.8;
     }
-  }
-
-  .j-scroller-viewport {
-    position: absolute;
   }
 
   $size: 4px;

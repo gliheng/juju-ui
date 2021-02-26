@@ -41,7 +41,6 @@ import Scroller from './components/Scroller.vue';
 import Vnodes from './components/Vnodes';
 
 import ripple from './directives/ripple';
-import scroller from './directives/scroller';
 import "./assets/styles/index.scss";
 
 import * as utils from './utils';
@@ -90,8 +89,7 @@ export default function(conf: Partial<Config>) {
       .component(prefix + '-table', Table)
       .component(prefix + '-data-table', DataTable)
       .component(prefix + '-vnodes', Vnodes)
-      .directive('ripple', ripple)
-      .directive('scroller', scroller);
+      .directive('ripple', ripple);
   };
 }
 
@@ -134,6 +132,5 @@ export {
     DataTable,
     Vnodes,
     ripple,
-    scroller,
     utils,
 };

@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { provide, inject, ref, SetupContext, Ref, watchEffect } from 'vue';
+import { provide, inject, ref, SetupContext, Ref } from 'vue';
 import { watch } from 'vue';
 import SvgIcon from './SvgIcon.vue';
 

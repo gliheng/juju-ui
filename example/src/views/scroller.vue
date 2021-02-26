@@ -3,24 +3,21 @@
     <h1>scroller</h1>
     <section>
       <h2>Both directions</h2>
-      <div class="outer" v-scroller>
-        <div class="inner">
-        </div>
-      </div>
+      <j-scroller class="outer">
+        <div class="inner"></div>
+      </j-scroller>
     </section>
     <section>
       <h2>Vertical</h2>
-      <div class="outer" v-scroller>
-        <div class="inner vertical">
-        </div>
-      </div>
+      <j-scroller class="outer">
+        <div class="inner vertical"></div>
+      </j-scroller>
     </section>
     <section>
       <h2>Horizontal</h2>
-      <div class="outer" v-scroller>
-        <div class="inner horizontal">
-        </div>
-      </div>
+      <j-scroller class="outer">
+        <div class="inner horizontal"></div>
+      </j-scroller>
     </section>
   </div>
 </template>
@@ -43,6 +40,5 @@
       width: 100%;
     }
   }
-
 }
 </style>
