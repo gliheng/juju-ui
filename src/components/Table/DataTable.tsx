@@ -2,12 +2,13 @@ import { defineComponent, reactive, ref, computed, h } from 'vue';
 import Row from './_Row';
 import ColGroup from './_ColGroup';
 import { ColumnConfig, Datum, GroupDatum } from './_types';
-import Scroller from '../Scroller.vue';
+import VirtualScroller from '../VirtualScroller';
 import SvgIcon from '../SvgIcon.vue';
 import '../../assets/styles/Table.scss';
 
+
 // recursive group data according to grouping rules
-function groupData(grouping: string[], data: any[], cur: number = 0, groupPath: string[] = []): any[] {
+function groupData(grouping: string[], data: any[], cur: number = 0, groupPath: string[] = []): Array<Datum | GroupDatum> {
   if (cur >= grouping.length) {
     return data;
   }
@@ -64,6 +65,12 @@ export default defineComponent({
       default: false,
     },
     grouping: Array,
+    // virtualScroll and itemHeight are used for virtual scroll of content
+    virtualScroll: {
+      type: Boolean,
+      default: false,
+    },
+    itemHeight: Number,
   },
   setup(props, { slots }) {
     let selected = reactive(new Set());
@@ -73,6 +80,32 @@ export default defineComponent({
       let { grouping, data } = props;
       if (grouping && data) {
         return groupData(grouping as string[], data);
+      }
+      return data as Array<Datum>;
+    });
+
+    let rowData = computed(() => {
+      function traverse(
+        data: Array<Datum | GroupDatum>,
+        collect: any[],
+      ) {
+        // flattern grouped data for row rendering
+        data.forEach((d, i) => {
+          if (d.groupChildren) {
+            let groupKey = `${d.groupPath.join('::')}`;
+            collect.push([groupKey, d]);
+            let expanded = d.groupChildren && groupExpand[groupKey] !== false;
+            if (expanded) {
+              traverse(d.groupChildren, collect);
+            }
+          } else {
+            collect.push([getRowKey(d, i), d]);
+          }
+        });
+      }
+      let data: any[] = [];
+      if (groupedData.value) {
+        traverse(groupedData.value, data);
       }
       return data;
     });
@@ -144,80 +177,64 @@ export default defineComponent({
     }
 
     function renderRow(
-      data: Array<Datum | GroupDatum>,
-      collect: any[],
       opts: { leftStickyCount: number, rightStickyCount: number },
+      datum: [ string, Datum | GroupDatum ],
     ) {
-      data.forEach((d, i) => {
-        if (d.groupName) {
-          // render group row
-          let groupKey = `${d.groupPath.join('::')}`;
-          let colspan = props.columns.length;
-          let rendererName = `${d.groupName}-renderer`;
-          let content = d.groupValue;
-          let indentMargin = (d.groupPath.length - 1) * props.groupIndent;
-          let expanded = d.groupChildren && groupExpand[groupKey] !== false;
-          let renderer = slots[rendererName] as Function;
-          if (renderer) {
-            content = renderer(d);
-          }
+      let [ key, d ] = datum;
+      if (d.groupName) {
+        // render group row
+        let colspan = props.columns.length;
+        let rendererName = `${d.groupName}-renderer`;
+        let content = d.groupValue;
+        let indentMargin = (d.groupPath.length - 1) * props.groupIndent;
+        let expanded = d.groupChildren && groupExpand[key] !== false;
+        let renderer = slots[rendererName] as Function;
+        if (renderer) {
+          content = renderer(d);
+        }
+        content = (
+          <div class="j-data-table-group-cell">
+            <i class="j-data-table-group-margin" style={{ margin: indentMargin + 'px' }} />
+            <SvgIcon name={ expanded ? 'chevron-down' : 'chevron-forward' } />
+            { content }
+          </div>
+        );
+        // In edge possibly chrome, full colspan make the td scroll with content event with sticky positioning
+        // it's probably a bug
+        // here we only put td with colspan equal to leftStickyCount
+        if (opts.leftStickyCount) {
           content = (
-            <div class="j-data-table-group-cell">
-              <i class="j-data-table-group-margin" style={{ margin: indentMargin + 'px' }} />
-              <SvgIcon name={ expanded ? 'chevron-down' : 'chevron-forward' } />
-              { content }
-            </div>
+            <tr class="j-data-table-group-row" key={ 'group::' + key } onClick={ toggleGroup.bind(null, d.groupPath) }>
+              <td class="j-table-sticky" colspan={ opts.leftStickyCount }>
+                { content }
+              </td>
+              <td colspan={ colspan - opts.leftStickyCount - opts.rightStickyCount }></td>
+              {opts.rightStickyCount != 0 ? <td class="j-table-sticky" colspan={ opts.rightStickyCount }></td> : null}
+            </tr>
           );
-          // In edge possibly chrome, full colspan make the td scroll with content event with sticky positioning
-          // it's probably a bug
-          // here we only put td with colspan equal to leftStickyCount
-          if (opts.leftStickyCount) {
-            content = (
-              <tr class="j-data-table-group-row" key={ 'group::' + groupKey } onClick={ toggleGroup.bind(null, d.groupPath) }>
-                <td class="j-table-sticky" colspan={ opts.leftStickyCount }>
-                  { content }
-                </td>
-                <td colspan={ colspan - opts.leftStickyCount - opts.rightStickyCount }></td>
-                {opts.rightStickyCount != 0 ? <td class="j-table-sticky" colspan={ opts.rightStickyCount }></td> : null}
-              </tr>
-            );
-          } else {
-            content = (
-              <tr class="j-data-table-group-row" key={ 'group::' + groupKey } onClick={ toggleGroup.bind(null, d.groupPath) }>
-                <td class="j-table-sticky" colspan={ colspan }>
-                  { content }
-                </td>
-              </tr>
-            );
-          }
-          collect.push(content);
-          if (expanded) {
-            renderRow(d.groupChildren, collect, opts);
-          }
         } else {
-          // render normal data row
-          let rowKey = getRowKey(d, i);
-          collect.push(
-            <Row key={rowKey}
-              datum={d}
-              stickyPos={stickyPos.value}
-              columns={props.columns}
-              rowConfig={props.rowConfig}
-              selected={selected.has(rowKey)}
-              // @ts-ignore
-              onSelect={selectRow.bind(null, rowKey)} />
+          content = (
+            <tr class="j-data-table-group-row" key={ 'group::' + key } onClick={ toggleGroup.bind(null, d.groupPath) }>
+              <td class="j-table-sticky" colspan={ colspan }>
+                { content }
+              </td>
+            </tr>
           );
         }
-      });
-    }
-
-    function renderBody(
-      data: Array<Datum | GroupDatum>,
-      opts: { leftStickyCount: number, rightStickyCount: number },
-    ) {
-      let rows: any[] = [];
-      renderRow(data, rows, opts);
-      return <tbody>{ rows }</tbody>;
+        return content;
+      } else {
+        // render normal data row
+        return (
+          <Row key={key}
+            datum={d}
+            stickyPos={stickyPos.value}
+            columns={props.columns}
+            rowConfig={props.rowConfig}
+            selected={selected.has(key)}
+            // @ts-ignore
+            onSelect={selectRow.bind(null, key)} />
+        );
+      }
     }
 
     function selectRow(key: string) {
@@ -242,6 +259,17 @@ export default defineComponent({
       if (headerRef.value) {
         headerRef.value.scrollLeft = sl;
       }
+    }
+
+    function containerRenderer(items: any) {
+      return (
+        <table>
+          <ColGroup columns={ props.columns } />
+          <tbody>
+            { items }
+          </tbody>
+        </table>
+      );
     }
 
     return () => {
@@ -276,7 +304,7 @@ export default defineComponent({
         coverContent = <div class="j-table-body-cover">{ slots.cover() }</div>;
       }
 
-      let hasData = groupedData.value && groupedData.value.length;
+      let hasData = rowData.value && rowData.value.length;
 
       return (
         <div class="j-table"
@@ -291,22 +319,20 @@ export default defineComponent({
             </table>
           </div>
           <div class="j-table-body-part">
-            <Scroller style={ bodyStyle } onScroll={ onBodyScroll }>
-              {() => {
-                return (
-                  <table>
-                    <ColGroup columns={ props.columns } />
-                    { groupedData.value && renderBody(groupedData.value as Datum[], {
-                      leftStickyCount, rightStickyCount,
-                    }) }
-                  </table>
-                );
-              }}
-            </Scroller>
+            <VirtualScroller style={ bodyStyle }
+              onScroll={ onBodyScroll }
+              virtual={ props.virtualScroll }
+              itemHeight={ props.itemHeight }
+              items={ rowData.value }
+              containerRenderer = { containerRenderer }
+              itemRenderer={ renderRow.bind(null, {
+                leftStickyCount, rightStickyCount,
+              }) }
+            />
             { coverContent }
           </div>
-          { hasLeftSticky && hasData && <div class="j-table-sticky-shadow j-left" style={{left: `${leftStickyPos}px`}}></div> }
-          { hasRightSticky && hasData && <div class="j-table-sticky-shadow j-right" style={{right: `${rightStickyPos}px`}}></div> }
+          { hasLeftSticky && hasData ? <div class="j-table-sticky-shadow j-left" style={{left: `${leftStickyPos}px`}}></div> : undefined}
+          { hasRightSticky && hasData ? <div class="j-table-sticky-shadow j-right" style={{right: `${rightStickyPos}px`}}></div> : undefined}
         </div>
       );
     };
