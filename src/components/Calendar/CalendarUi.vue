@@ -224,4 +224,4 @@ export default defineComponent({
 });
 </script>
 
-<style src="../../assets/styles/Calendar.scss"></style>
+<style lang="scss" src="../../assets/styles/Calendar.scss"></style>

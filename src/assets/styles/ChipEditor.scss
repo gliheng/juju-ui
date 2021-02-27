@@ -5,7 +5,7 @@
     display: flex;
     flex-wrap: wrap;
     min-width: 0;
-    padding: $margin;
+    padding: $margin/2 $margin;
     > .j-chip {
       margin: $margin/2 $margin $margin/2 0;
     }

@@ -7,7 +7,6 @@ import { computed, defineComponent } from 'vue';
 import CalendarUi from './CalendarUi.vue';
 import { isSameDay } from '../../utils/date';
 
-
 function themingFunction(pickedDate: Date, year: number, month: number, date: number) {
   if (isSameDay(year, month, date, pickedDate)) {
     return 'j-calendar-cell-picked';
@@ -42,5 +41,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style src="../../assets/styles/Calendar.scss"></style>
