@@ -1,29 +1,32 @@
 <template>
   <div class="j-input"
-  :data-focus="focus"
-  :data-disabled="disabled"
-  :data-has-prepend="hasPrepend"
-  :data-has-append="hasAppend"
-  :data-can-clear="!!modelValue">
+    :data-focus="focus"
+    :data-disabled="disabled"
+    :data-has-prepend="hasPrepend"
+    :data-has-append="hasAppend"
+    :data-can-clear="!!modelValue"
+  >
     <div v-if="hasPrepend" class="j-input-prepend">
       <slot name="prepend"></slot>
     </div>
+    <!-- non-controlled -->
     <input v-if="modelValue === undefined"
-      @input="onInput" @focus="focus = true" @blur="focus = false"
+      @focus="focus = true" @blur="focus = false"
       :disabled="disabled" v-bind="$attrs" />
+    <!-- controlled -->
     <input v-else :value="modelValue"
       @input="onInput" @focus="focus = true" @blur="focus = false"
       :disabled="disabled" v-bind="$attrs" />
     <div v-if="hasAppend" class="j-input-append">
       <slot name="append"></slot>
     </div>
-    <j-svg-icon v-if="clearable" class="j-input-clear" name="close" @mousedown.prevent @click="clearIpt" />
+    <svg-icon v-if="clearable" class="j-input-clear" name="close" @mousedown.prevent @click="clearIpt" />
   </div>
 </template>
 
 <script lang="ts">
 import { ref, computed, SetupContext } from 'vue';
-import JSvgIcon from '../SvgIcon.vue';
+import SvgIcon from '../SvgIcon.vue';
 
 export default {
   props: {
@@ -54,7 +57,7 @@ export default {
     }
     return { focus, onInput, hasPrepend, hasAppend, clearIpt };
   },
-  components: { JSvgIcon},
+  components: { SvgIcon },
 };
 </script>
 
