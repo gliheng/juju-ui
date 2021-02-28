@@ -9,11 +9,6 @@
     <div v-if="hasPrepend" class="j-input-prepend">
       <slot name="prepend"></slot>
     </div>
-    <!-- non-controlled -->
-    <input v-if="modelValue === undefined"
-      @focus="focus = true" @blur="focus = false"
-      :disabled="disabled" v-bind="$attrs" />
-    <!-- controlled -->
     <input v-else :value="modelValue"
       @input="onInput" @focus="focus = true" @blur="focus = false"
       :disabled="disabled" v-bind="$attrs" />
