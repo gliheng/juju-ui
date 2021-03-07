@@ -38,6 +38,8 @@ import Scaffold from './components/Scaffold.vue';
 import Table from './components/Table/Table';
 import DataTable from './components/Table/DataTable';
 import Scroller from './components/Scroller.vue';
+import MenuOpener from './components/AnimatedIcon/MenuOpener.vue';
+import MenuToggle from './components/AnimatedIcon/MenuToggle.vue';
 import Vnodes from './components/Vnodes';
 
 import ripple from './directives/ripple';
@@ -89,6 +91,8 @@ export default function(conf: Partial<Config>) {
       .component(prefix + '-table', Table)
       .component(prefix + '-data-table', DataTable)
       .component(prefix + '-vnodes', Vnodes)
+      .component(prefix + '-animated-icon:menu-opener', MenuOpener)
+      .component(prefix + '-animated-icon:menu-toggle', MenuToggle)
       .directive('ripple', ripple);
   };
 }

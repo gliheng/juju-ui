@@ -94,6 +94,9 @@ export default {
     }, {
       "name": "Table",
       "device": ["pc", "mobile"],
+    }, {
+      "name": "AnimatedIcon",
+      "device": ["pc", "mobile"],
     },
   ],
   "Directives": [

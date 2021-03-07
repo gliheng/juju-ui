@@ -69,6 +69,6 @@
     height: 42px;
   }
   .j-seperator {
-    width: $margin;
+    min-width: $margin;
   }
 }
