@@ -9,9 +9,8 @@
     <div v-if="hasPrepend" class="j-input-prepend">
       <slot name="prepend"></slot>
     </div>
-    <input v-else :value="modelValue"
-      @input="onInput" @focus="focus = true" @blur="focus = false"
-      :disabled="disabled" v-bind="$attrs" />
+    <input :value="modelValue" :disabled="disabled"
+      @input="onInput" @focus="focus = true" @blur="focus = false" v-bind="$attrs" />
     <div v-if="hasAppend" class="j-input-append">
       <slot name="append"></slot>
     </div>
@@ -24,6 +23,7 @@ import { ref, computed, SetupContext } from 'vue';
 import SvgIcon from '../SvgIcon.vue';
 
 export default {
+  inheritAttrs: false,
   props: {
     modelValue: String,
     disabled: {

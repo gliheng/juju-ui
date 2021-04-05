@@ -11,6 +11,7 @@ import { computed, defineComponent } from 'vue';
 import Input from './Input.vue';
 
 export default defineComponent({
+  inheritAttrs: false,
   setup(_, context) {
     let hasLeftAddon = computed(() => {
       return !!context.slots.left;

@@ -22,6 +22,7 @@ import JInput from './Input.vue';
 import JCalendar from '../Calendar/Calendar.vue';
 
 export default defineComponent({
+  inheritAttrs: false,
   props: {
     modelValue: Date,
     dayLabels: Array,

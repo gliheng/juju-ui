@@ -2,11 +2,11 @@
   <div>
     <div class="device-list">
       <j-toggle-button-group v-model="device">
-        <j-toggle-button icon="list" size="sm">All</j-toggle-button>
-        <j-toggle-button size="sm">
+        <j-toggle-button icon="list">All</j-toggle-button>
+        <j-toggle-button>
           <j-svg-icon :svg="pcIcon" view-box="0 0 100 100" />&nbsp;PC
         </j-toggle-button>
-        <j-toggle-button size="sm">
+        <j-toggle-button>
           <j-svg-icon :svg="mobileIcon" view-box="0 0 93.169 93.169" />&nbsp;Mobile
         </j-toggle-button>
       </j-toggle-button-group>
