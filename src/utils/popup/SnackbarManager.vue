@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import JSnackbar from './Snackbar.vue';
+import JSnackbar from '../../components/Snackbar.vue';
 
 export default {
   data() {

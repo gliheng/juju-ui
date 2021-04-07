@@ -46,7 +46,7 @@ import Vnodes from './components/Vnodes';
 import ripple from './directives/ripple';
 import "./assets/styles/index.scss";
 
-import * as utils from './utils';
+export * from './utils';
 import { Config, set as setConfig } from './utils/config';
 
 export default function(conf: Partial<Config>) {
@@ -138,5 +138,4 @@ export {
     DataTable,
     Vnodes,
     ripple,
-    utils,
 };
