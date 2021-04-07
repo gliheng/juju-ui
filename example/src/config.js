@@ -97,6 +97,9 @@ export default {
     }, {
       "name": "AnimatedIcon",
       "device": ["pc", "mobile"],
+    }, {
+      "name": "AutoComplete",
+      "device": ["pc", "mobile"],
     },
   ],
   "Directives": [
