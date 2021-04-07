@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import TreeItem from './_TreeItem.vue';
+import TreeItem from './TreeItem.vue';
 
 export default {
   name: 'j-tree',

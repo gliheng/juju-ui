@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { computed, SetupContext } from 'vue';
+import { computed } from 'vue';
 
 export default {
   props: {
@@ -19,7 +19,7 @@ export default {
     offIcon: String,
   },
   emit: ['update:modelValue'],
-  setup(props, { emit, slots }: SetupContext) {
+  setup(props, { emit, slots }) {
     let hasAlt = computed(() => {
       return slots.on && slots.off;
     });

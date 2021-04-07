@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { ref, SetupContext } from 'vue';
+import { ref } from 'vue';
 
 export default {
   props: {
@@ -31,7 +31,7 @@ export default {
       default: 1,
     },
   },
-  setup(props, { emit }: SetupContext) {
+  setup(props, { emit }) {
     let pct = ref(value2pct(props.modelValue, props.min, props.max));
     let trackRef = ref<HTMLElement>();
 

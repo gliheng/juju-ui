@@ -13,10 +13,9 @@
 </template>
 
 <script lang="ts">
-import { ref, watch, onUpdated, onMounted, onUnmounted } from 'vue';
+import { ref, watch, onUpdated } from 'vue';
 import anime from 'animejs';
 import SvgIcon from '../SvgIcon.vue';
-import ContextMenuVue from '../ContextMenu.vue';
 import { useElementSize } from '../../utils/hooks'
 
 export default {

@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { provide, inject, ref, SetupContext, Ref } from 'vue';
+import { provide, inject, ref, Ref } from 'vue';
 import { watch } from 'vue';
 import SvgIcon from './SvgIcon.vue';
 
@@ -39,7 +39,7 @@ export default {
       default: 'right',
     },
   },
-  setup(props, { emit }: SetupContext) {
+  setup(props, { emit }) {
     if (props.type == 'seperator') return;
 
     // lastCloseHandle is for exclusive menu display

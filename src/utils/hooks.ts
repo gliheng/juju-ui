@@ -1,6 +1,6 @@
 import {
   ref, shallowReactive, Ref, getCurrentInstance,
-  onMounted, onUnmounted,
+  onBeforeMount, onMounted, onUnmounted,
   provide, inject,
   ComponentInternalInstance,
   computed, reactive, watch,
@@ -45,7 +45,7 @@ export function useParent<T>(key: string | Symbol): DescendantInjection<T> | und
   let inst = getCurrentInstance();
   if (obj) {
     let { link, unlink } = obj;
-    onMounted(() => {
+    onBeforeMount(() => {
      link(inst);
     });
     onUnmounted(() => {

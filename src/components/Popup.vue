@@ -24,7 +24,7 @@
 <script lang="ts">
 import {
   reactive, ref, watchEffect, onUnmounted,
-  getCurrentInstance, SetupContext,
+  getCurrentInstance,
 } from 'vue';
 import SvgIcon from './SvgIcon.vue';
 import Button from './Button.vue';
@@ -60,7 +60,7 @@ export default {
     },
   },
   emits: ['dismiss', 'accept'],
-  setup(props, { emit }: SetupContext) {
+  setup(props, { emit }) {
     let pos = reactive({ x: 0, y: 0 });
     let elm = ref<HTMLElement | null>(null);
     let inst = getCurrentInstance();

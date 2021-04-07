@@ -1,6 +1,6 @@
 import { createApp, ComponentPublicInstance } from 'vue';
-import SnackbarManager from '../components/_SnackbarManager.vue';
-import PopupManager from '../components/_PopupManager.vue';
+import SnackbarManager from '../components/SnackbarManager.vue';
+import PopupManager from '../components/PopupManager.vue';
 
 let snackbar: ComponentPublicInstance;
 export function showSnackbar(title: string, timeout: number) {

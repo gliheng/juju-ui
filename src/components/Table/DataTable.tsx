@@ -1,7 +1,7 @@
 import { defineComponent, reactive, ref, computed, h } from 'vue';
-import Row from './_Row';
-import ColGroup from './_ColGroup';
-import { ColumnConfig, Datum, GroupDatum } from './_types';
+import Row from './Row';
+import ColGroup from './ColGroup';
+import { ColumnConfig, Datum, GroupDatum } from './types';
 import VirtualScroller from '../VirtualScroller';
 import SvgIcon from '../SvgIcon.vue';
 import '../../assets/styles/Table.scss';

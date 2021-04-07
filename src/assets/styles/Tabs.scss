@@ -55,7 +55,7 @@
       flex: 1;
     }
     .j-tabs-active-bar {
-      transition: left .2s cubic-bezier(.645,.045,.355,1);
+      transition: left .2s cubic-bezier(.645,.045,.355,1), width .2s;
       height: 2px;
       background-color: var(--primary-color);
       position: absolute;

@@ -1,5 +1,5 @@
 import { defineComponent, h } from 'vue';
-import { ColumnConfig } from './_types';
+import { ColumnConfig } from './types';
 
 export default defineComponent({
   props: {

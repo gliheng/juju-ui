@@ -1,6 +1,6 @@
 import { defineComponent, reactive, h } from 'vue';
-import Row from './_Row';
-import { ColumnConfig, Datum } from './_types';
+import Row from './Row';
+import { ColumnConfig, Datum } from './types';
 import '../../assets/styles/Table.scss';
 
 export default defineComponent({

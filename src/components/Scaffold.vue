@@ -44,7 +44,7 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, SetupContext } from 'vue';
+import { computed } from 'vue';
 import JButton from './Button.vue';
 import Dropdown from './Dropdown/Dropdown';
 import { useSwitch, useWindowSizeClass } from '../utils/hooks';
@@ -64,7 +64,7 @@ export default {
     actions: Array,
     titleAlign: String,
   },
-  setup(props, { slots }: SetupContext) {
+  setup(props, { slots }) {
     let [ expanded, toggleExpanded ] = useSwitch(false);
     let [ drawerOn, toggleDrawer ] = useSwitch(false);
 
