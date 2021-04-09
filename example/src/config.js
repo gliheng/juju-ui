@@ -100,6 +100,9 @@ export default {
     }, {
       "name": "AutoComplete",
       "device": ["pc", "mobile"],
+    }, {
+      "name": "CustomLayout",
+      "device": ["pc"],
     },
   ],
   "Directives": [
