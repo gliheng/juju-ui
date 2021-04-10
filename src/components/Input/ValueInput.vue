@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, SetupContext } from 'vue';
+import { ref, computed } from 'vue';
 import SvgIcon from '../SvgIcon.vue';
 import JSlider from '../Slider.vue';
 import JButton from '../Button.vue';
@@ -52,7 +52,7 @@ export default {
       default: 1,
     },
   },
-  setup(props, { emit }: SetupContext) {
+  setup(props, { emit }) {
     let focus = ref(false);
 
     function inc() {

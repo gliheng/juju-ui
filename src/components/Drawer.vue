@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { getCurrentInstance, watchEffect, onUnmounted, SetupContext } from 'vue';
+import { getCurrentInstance, watchEffect, onUnmounted } from 'vue';
 import * as DepthManager from '../utils/depth-manager';
 
 export default {
@@ -34,7 +34,7 @@ export default {
       required: true,
     },
   },
-  setup(props, { emit }: SetupContext) {
+  setup(props, { emit }) {
     let inst = getCurrentInstance();
     let uid = inst!.uid;
     let zIndex = DepthManager.alloc(uid);

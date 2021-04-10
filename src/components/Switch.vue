@@ -5,14 +5,13 @@
 </template>
 
 <script lang="ts">
-import { ref, SetupContext } from 'vue';
 import { useSwitch } from '../utils/hooks';
 
 export default {
   props: {
     modelValue: Boolean,
   },
-  setup(props, { emit }: SetupContext) {
+  setup(props, { emit }) {
     let [on, toggleValue] = useSwitch(props.modelValue);
 
     function toggle() {

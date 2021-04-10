@@ -48,7 +48,7 @@ function getIconSvg(name?: string): string {
   let str = (icons as Record<string, string>)[camelCase(name)];
   if (!str) return '';
   let start = str.indexOf('<');
-  return str.substring(start);
+  return str.substring(start).replace(/<title>.*?<\/title>/, '');
 }
 </script>
 

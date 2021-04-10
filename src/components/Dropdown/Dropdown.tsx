@@ -1,6 +1,6 @@
 import { defineComponent, h, computed } from 'vue';
 import { useBackdropAwareSwitch } from '../../utils/hooks';
-import DropdownItem from './_DropdownItem';
+import DropdownItem from './DropdownItem';
 import SvgIcon from '../SvgIcon.vue';
 import Scroller from '../Scroller.vue';
 import '../../assets/styles/Dropdown.scss';

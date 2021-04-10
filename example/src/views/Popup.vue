@@ -35,7 +35,8 @@
 </template>
 
 <script>
-import { popup } from 'juju-ui/utils';
+import { popup } from 'juju-ui';
+
 
 export default {
   setup() {

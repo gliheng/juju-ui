@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { computed, SetupContext } from 'vue';
+import { computed } from 'vue';
 
 export default {
   props: {
@@ -16,7 +16,7 @@ export default {
     modelValue: null,
   },
   emit: ['update:modelValue'],
-  setup(props, { emit }: SetupContext) {
+  setup(props, { emit }) {
     let checked = computed(() => props.modelValue == props.value);
     function onChange(evt: Event) {
       emit('update:modelValue', props.value);

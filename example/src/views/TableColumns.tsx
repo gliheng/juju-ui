@@ -1,5 +1,3 @@
-import { h } from 'vue';
-
 export const columns = [{
   label: 'Name',
   field: 'name',

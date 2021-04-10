@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { reactive, ref, onMounted, computed, SetupContext } from 'vue';
+import { reactive, ref, computed } from 'vue';
 import color from '../utils/color';
 
 const OUTER_CIRCLE_RATIO = 2.1;
@@ -52,7 +52,7 @@ export default {
       default: DEFAULT_COLOR,
     },
   },
-  setup(props: { modelValue: string, size: number }, { emit }: SetupContext) {
+  setup(props: { modelValue: string, size: number }, { emit }) {
     let colorStr = props.modelValue;
     let colorObj = reactive({
       str: colorStr,

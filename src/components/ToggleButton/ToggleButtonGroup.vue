@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { computed, SetupContext } from 'vue';
+import { computed } from 'vue';
 import ToggleButton from './ToggleButton.vue';
 import Vnodes from '../Vnodes';
 
@@ -18,7 +18,7 @@ export default {
       default: true,
     },
   },
-  setup(props, { slots, emit }: SetupContext) {
+  setup(props, { slots, emit }) {
     let nodes = computed(() => {
       if (slots.default) {
         let nodes = slots.default();

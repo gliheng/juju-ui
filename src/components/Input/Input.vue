@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, SetupContext } from 'vue';
+import { ref, computed } from 'vue';
 import SvgIcon from '../SvgIcon.vue';
 
 export default {
@@ -36,7 +36,7 @@ export default {
     },
   },
   emits: ['update:modelValue'],
-  setup(props, { slots, emit }: SetupContext) {
+  setup(props, { slots, emit }) {
     function onInput(evt: InputEvent) {
       emit('update:modelValue', (evt.target as HTMLInputElement).value);
     }

@@ -5,8 +5,6 @@
 </template>
 
 <script lang="ts">
-import { SetupContext } from 'vue';
-
 export default {
   props: {
     modelValue: String,
@@ -25,9 +23,9 @@ export default {
     },
   },
   emits: ['update:modelValue'],
-  setup(_, context: SetupContext) {
+  setup(_, { emit }) {
     function onInput(evt: InputEvent) {
-      context.emit('update:modelValue', (evt.target as HTMLInputElement).value);
+      emit('update:modelValue', (evt.target as HTMLInputElement).value);
     }
     return { onInput };
   },

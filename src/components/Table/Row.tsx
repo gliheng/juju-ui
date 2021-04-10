@@ -1,5 +1,5 @@
 import { defineComponent, h } from 'vue';
-import { Datum, ColumnConfig, RowConfig } from './_types';
+import { Datum, ColumnConfig, RowConfig } from './types';
 
 
 export default defineComponent({
