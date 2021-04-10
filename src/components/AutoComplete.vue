@@ -5,7 +5,7 @@
       @keydown.up="onKeyUp" @keydown.down="onKeyDown" @keyup.enter="onEnter" />
     <j-scroller v-if="listOn && suggestions.length" class="j-shadow-5">
       <j-listbox>
-        <j-listbox-item v-for="(item, i) in suggestions" :key="item.value"
+        <j-listbox-item v-for="(item, i) in suggestions" :key="String(item.value)"
           :class="{ 'j-active': selected == i}"
           @click="choose(item.value, i)">{{ item.label }}</j-listbox-item>
       </j-listbox>
@@ -16,10 +16,11 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 // @ts-ignore
-import { hooks } from 'juju-ui/utils';
+import { useBackdropAwareSwitch } from '../utils/hooks';
+import { debounce } from '../utils/timer';
+import JInput from '../components/Input/Input.vue';
 
-
-interface Suggestion {
+export interface Suggestion {
   label: string,
   value: string | number,
 }
@@ -34,12 +35,12 @@ export default defineComponent({
   },
   emits: ['select'],
   setup(props, { emit }) {
-    let [ listOn, toggleList ] = hooks.useBackdropAwareSwitch(false);
+    let [ listOn, toggleList ] = useBackdropAwareSwitch(false);
     let searchKey = ref('');
     let selected = ref(0);
     let suggestions = ref<Suggestion[]>([]);
 
-    async function onInput(key: string) {
+    let onInput = debounce(async (key: string) => {
       if (!key) return;
 
       let res = await props.query(key);
@@ -48,19 +49,18 @@ export default defineComponent({
         selected.value = 0;
         suggestions.value = res;
       }
-    }
+    }, 1000);
 
-    function choose(key: string, i?: number) {
+    function choose(value: string | number, i?: number) {
       if (typeof i == 'number') {
         selected.value = i;
       }
-      searchKey.value = key;
+      searchKey.value = String(value);
       toggleList(false);
-      emit('select', key);
+      emit('select', value);
     }
 
     function onClick(evt: Event) {
-      console.log('onClick');
       // show suggestion list when clicked
       if (suggestions.value.length) {
         evt.stopPropagation();
@@ -71,7 +71,7 @@ export default defineComponent({
     function onEnter() {
       if (listOn.value && suggestions.value.length) {
         let v = suggestions.value[selected.value].value;
-        choose(String(v));
+        choose(v);
       } else {
         emit('select', searchKey.value);
       }
@@ -97,23 +97,9 @@ export default defineComponent({
       onKeyUp,
       onKeyDown,
     };
-  }
+  },
+  components: { JInput },
 });
 </script>
 
-<style lang="scss">
-.j-auto-complete {
-  position: relative;
-  .j-scroller {
-    position: absolute;
-    width: 100%;
-    max-height: 300px;
-    background-color: white;
-    .j-listbox-item {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
-}
-</style>
+<style src="../assets/styles/AutoComplete.scss"></style>
