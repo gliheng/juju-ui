@@ -9,9 +9,7 @@
       <section>
         <h2>Dropdown button</h2>
         <j-dropdown v-model="value2" placeholder="Blend Mode" :options="blendOptions">
-          <template #button>
-            <j-button>Press me</j-button>
-          </template>
+          <j-button>Press me</j-button>
         </j-dropdown>
       </section>
       <section>

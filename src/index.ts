@@ -39,7 +39,7 @@ import Table from './components/Table/Table';
 import DataTable from './components/Table/DataTable';
 import Scroller from './components/Scroller.vue';
 import AutoComplete from './components/AutoComplete.vue';
-import CustomLayout from './components/CustomLayout/CustomLayout';
+import FlexLayout from './components/FlexLayout/FlexLayout';
 import MenuOpener from './components/AnimatedIcon/MenuOpener.vue';
 import MenuToggle from './components/AnimatedIcon/MenuToggle.vue';
 import Vnodes from './components/Vnodes';
@@ -94,7 +94,7 @@ export default function(conf: Partial<Config>) {
       .component('j-data-table', DataTable)
       .component('j-vnodes', Vnodes)
       .component('j-auto-complete', AutoComplete)
-      .component('j-custom-layout', CustomLayout)
+      .component('j-flex-layout', FlexLayout)
       .component('j-animated-icon:menu-opener', MenuOpener)
       .component('j-animated-icon:menu-toggle', MenuToggle)
       .directive('ripple', ripple);

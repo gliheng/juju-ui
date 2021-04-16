@@ -58,7 +58,8 @@ export default defineComponent({
       }) as SimpleOption | undefined;
     }
 
-    function select(value: OptionValue, evt: Event) {
+    function select(opt: SimpleOption, evt: Event) {
+      let { value } = opt;
       if (props.multiple) {
         let modelValue = props.modelValue as OptionValue[];
         let idx = modelValue.indexOf(value);
@@ -71,18 +72,16 @@ export default defineComponent({
       } else {
         emit('update:modelValue', value);
       }
-      
-      // trigger onClick on option defination
-      let opt = getOptionByValue(value);
-      if (opt && typeof opt.onClick == 'function') {
+
+      if (typeof opt.onClick == 'function') {
         opt.onClick();
       }
     }
 
     return () => {
       let content: any;
-      if (slots.button) {
-        content = <slots.button />;
+      if (slots.default) {
+        content = <slots.default />;
       } else {
         let label;
         if (selected.value) {
@@ -133,7 +132,7 @@ export default defineComponent({
                           value={opt.value}
                           icon={opt.icon}
                           size={props.iconSize} label={opt.label}
-                          onClick={select.bind(null, opt.value)} />
+                          onClick={select.bind(null, opt)} />
                       );
                     })
                   }

@@ -1,62 +1,62 @@
-export default {
-  a: {
+export default [
+  {
+    name: 'pane-a',
+    label: 'Component A',
     render() {
       return <div style={{
         backgroundColor: 'purple',
         color: 'white',
         fontSize: '3em',
-        width: '100%',
-        height: '100%',
-        display: 'flow-root',
+        flex: 1,
       }}><span>A</span></div>;
     },
   },
-  b: {
+  {
+    name: 'pane-b',
+    label: 'Component B',
     render() {
       return <div style={{
         backgroundColor: 'crimson',
         color: 'white',
         fontSize: '3em',
-        width: '100%',
-        height: '100%',
-        display: 'flow-root',
+        flex: 1,
       }}><span>B</span></div>;
     },
   },
-  c: {
+  {
+    name: 'pane-c',
+    label: 'Component C',
     render() {
       return <div style={{
         backgroundColor: 'blue',
         color: 'white',
         fontSize: '3em',
-        width: '100%',
-        height: '100%',
-        display: 'flow-root',
+        flex: 1,
       }}><span>C</span></div>;
     },
   },
-  d: {
+  {
+    name: 'pane-d',
+    label: 'Component D',
     render() {
       return <div style={{
         backgroundColor: 'navy',
         color: 'white',
         fontSize: '3em',
-        width: '100%',
-        height: '100%',
-        display: 'flow-root',
+        flex: 1,
       }}><span>D</span></div>;
     },
   },
-  e: {
+  {
+    name: 'pane-e',
+    label: 'Component E',
     render() {
       return <div style={{
-        backgroundColor: 'lime',
+        backgroundColor: 'steelblue',
         color: 'white',
         fontSize: '3em',
-        width: '100%',
-        height: '100%',
-        display: 'flow-root',
+        flex: 1,
       }}><span>E</span></div>;
     },
   },
-};
+];
