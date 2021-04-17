@@ -38,7 +38,7 @@ export type RenderBox = {
   layoutContext?: LayoutContext,
   parent?: RenderBox,
   children?: RenderBox[],
-  layout: () => void,
+  layout: (x?: number, y?: number, width?: number, height?: number) => void,
   removeChild: (id: number) => boolean,
 } & PaneOptionalAttrs;
 

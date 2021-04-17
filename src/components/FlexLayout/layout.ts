@@ -120,8 +120,16 @@ export function layout(
 
 const layoutProto = {
   // layout the box's children
-  layout(this: RenderBox) {
-    layout.call(this, this, this.x, this.y, this.width, this.height, this.parent);
+  layout(this: RenderBox, x?: number, y?: number, width?: number, height?: number) {
+    layout.call(
+      this,
+      this,
+      x || this.x,
+      y || this.y,
+      width || this.width,
+      height || this.height,
+      this.parent,
+    );
   },
   removeChild(this: RenderBox, id: number): boolean {
     let parent = this.parent;

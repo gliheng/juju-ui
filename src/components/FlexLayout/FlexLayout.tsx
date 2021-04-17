@@ -1,4 +1,4 @@
-import { defineComponent, ref, h, onMounted, PropType } from 'vue';
+import { defineComponent, ref, h, PropType, watch } from 'vue';
 import Pane from './Pane';
 import Divider from './Divider';
 import { useElementSize } from '../../utils/hooks';
@@ -25,13 +25,16 @@ export default defineComponent({
       r.value += 1;
     }
 
-    onMounted(() => {
-      let w = elm.value!.clientWidth;
-      let h = elm.value!.clientHeight;
-      let preset = normalizePreset(idGenerator(), props.preset as PaneAttrs, undefined);
-      let box = layout(preset, 0, 0, w!, h!);
-      // console.log('after layout', box);
-      renderBox = box;
+    let viewSize = useElementSize(elm);
+    watch(viewSize, (size) => {
+      if (!renderBox) {
+        let preset = normalizePreset(idGenerator(), props.preset as PaneAttrs, undefined);
+        let box = layout(preset, 0, 0, size.width, size.height);
+        // console.log('after layout', box);
+        renderBox = box;
+      } else {
+        renderBox.layout(0, 0, size.width, size.height);
+      }
       forceUpdate();
     });
 
