@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { ref, provide, watchEffect } from 'vue';
-import { MenuSetCloseSymbol, MenuBarActivateSymbol } from './Menu.vue';
+import { MenuSetCloseSymbol, MenuBarActivateSymbol } from './helper';
 
 export default {
   setup() {
@@ -41,4 +41,4 @@ export default {
 };
 </script>
 
-<style src="../assets/styles/MenuBar.scss"></style>
+<style src="../../assets/styles/MenuBar.scss"></style>

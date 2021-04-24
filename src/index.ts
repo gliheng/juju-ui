@@ -26,8 +26,10 @@ import ListboxItem from './components/Listbox/ListboxItem.vue';
 import ColorWheel from './components/ColorWheel.vue';
 import Chip from './components/Chip.vue';
 import ChipEditor from './components/ChipEditor.vue';
-import Menu from './components/Menu.vue';
-import MenuBar from './components/MenuBar.vue';
+import Menu from './components/Menu/Menu.vue';
+import MenuBar from './components/Menu/MenuBar.vue';
+import MenuList from './components/Menu/MenuList.vue';
+import MenuSeperator from './components/Menu/MenuSeperator.vue';
 import ContextMenu from './components/ContextMenu.vue';
 import UploadButton from './components/UploadButton.vue';
 import Spinner from './components/Spinner.vue';
@@ -82,6 +84,8 @@ export default function(conf: Partial<Config>) {
       .component('j-chip-editor', ChipEditor)
       .component('j-menu', Menu)
       .component('j-menu-bar', MenuBar)
+      .component('j-menu-list', MenuList)
+      .component('j-menu-seperator', MenuSeperator)
       .component('j-context-menu', ContextMenu)
       .component('j-upload-button', UploadButton)
       .component('j-spinner', Spinner)
@@ -126,6 +130,8 @@ export {
     ChipEditor,
     Menu,
     MenuBar,
+    MenuList,
+    MenuSeperator,
     ContextMenu,
     ValueInput,
     DateInput,

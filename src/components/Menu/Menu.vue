@@ -1,9 +1,5 @@
 <template>
-  <hr class="j-seperator" v-if="type == 'seperator'" v-bind="$attrs" />
-  <div class="j-menu j-shadow-3" v-else-if="type == 'list'" v-bind="$attrs">
-    <slot></slot>
-  </div>
-  <div v-else class="j-menu-entry" :data-side="side">
+  <div class="j-menu-entry" :data-side="side">
     <div class="j-menu-label" v-on="{
       click: showMenu,
       mouseenter: onMouseEnter,
@@ -21,10 +17,8 @@
 <script lang="ts">
 import { provide, inject, ref, Ref } from 'vue';
 import { watch } from 'vue';
-import SvgIcon from './SvgIcon.vue';
-
-export const MenuSetCloseSymbol = Symbol('MenuSetCloseSymbol');
-export const MenuBarActivateSymbol = Symbol('MenuBarActivateSymbol');
+import SvgIcon from '../SvgIcon.vue';
+import { MenuSetCloseSymbol, MenuBarActivateSymbol, provideCloseHandler } from './helper';
 
 type SetLastCloseFunction = (cbk: Function) => void;
 
@@ -33,28 +27,17 @@ export default {
   props: {
     label: String,
     icon: String,
-    type: String,
+    list: Boolean,
     side: {
       type: String,
       default: 'right',
     },
   },
-  setup(props, { emit }) {
-    if (props.type == 'seperator') return;
-
-    // lastCloseHandle is for exclusive menu display
+  setup(_, { emit }) {
     let setCloseLast = inject<SetLastCloseFunction | null>(MenuSetCloseSymbol, null);
     let activated = inject<Ref<boolean> | null>(MenuBarActivateSymbol, null);
 
-    let lastCloseHandle: Function;
-    provide<(cbk: Function) => void>(MenuSetCloseSymbol, (closeThis) => {
-      if (lastCloseHandle) {
-        lastCloseHandle();
-      }
-      lastCloseHandle = closeThis;
-    });
-
-    if (props.type == 'list') return;
+    provideCloseHandler();
 
     // clicking non-menu area hides the menu
     let menuOn = ref(false);
@@ -95,4 +78,4 @@ export default {
 
 </script>
 
-<style src="../assets/styles/Menu.scss"></style>
+<style src="../../assets/styles/Menu.scss"></style>

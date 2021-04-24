@@ -4,12 +4,12 @@
     <section>
       <j-context-menu class="box">
         <template #menu>
-          <j-menu class="menu" type="list">
+          <j-menu-list class="menu">
             <j-menu label="Windows" icon="logo-windows" @click="onClick('logo-windows')" />
             <j-menu label="Google" icon="logo-google" @click="onClick('logo-google')" />
             <j-menu label="Linux" icon="logo-tux" @click="onClick('logo-tux')" />
             <j-menu label="Slack" icon="logo-slack" @click="onClick('logo-slack')" />
-          </j-menu>
+          </j-menu-list>
         </template>
         <div v-if="!sel">Please select an app from context menu</div>
         <j-svg-icon v-else :name="sel" size="lg" />

@@ -11,9 +11,8 @@
 </template>
 
 <script lang="ts">
-import { ref } from 'vue';
 import JButton from './Button.vue';
-import JMenu from './Menu.vue';
+import JMenu from './Menu/Menu.vue';
 import ButtonGroup from './ButtonGroup.vue';
 import { useSwitch } from '../utils/hooks';
 

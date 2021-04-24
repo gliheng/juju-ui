@@ -1,6 +1,7 @@
 @import "vars";
 
 .j-menu-bar {
+  background-color: var(--background-color);
   > .j-menu-entry {
     display: inline-block;
     min-width: initial;
