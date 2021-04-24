@@ -11,7 +11,7 @@
     cursor: default;
     outline: none;
     // padding-left: 1rem;
-    border: 1px solid var(--neutral-color-lighter);
+    border: 1px solid var(--neutral-color-light);
     transition: border-color 0.2s, box-shadow 0.2s;
     &:focus {
       box-shadow: $outline;
@@ -86,7 +86,7 @@
 
   hr.j-dropdown-seperator {
     margin: $margin/2 $margin;
-    border-color: var(--neutral-color-lighter);
+    border-color: var(--neutral-color-light);
     border-top: none;
   }
 }
