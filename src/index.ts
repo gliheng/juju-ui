@@ -16,7 +16,8 @@ import DateRangeInput from './components/Input/DateRangeInput.vue';
 import Textarea from './components/Textarea.vue';
 import Radio from './components/Radio.vue';
 import Checkbox from './components/Checkbox.vue';
-import Dropdown from './components/Dropdown/Dropdown';
+import Dropdown from './components/Dropdown.vue';
+import Select from './components/Select/Select';
 import Switch from './components/Switch.vue';
 import Slider from './components/Slider.vue';
 import Drawer from './components/Drawer.vue';
@@ -28,7 +29,6 @@ import Chip from './components/Chip.vue';
 import ChipEditor from './components/ChipEditor.vue';
 import Menu from './components/Menu/Menu.vue';
 import MenuBar from './components/Menu/MenuBar.vue';
-import MenuList from './components/Menu/MenuList.vue';
 import MenuSeperator from './components/Menu/MenuSeperator.vue';
 import ContextMenu from './components/ContextMenu.vue';
 import UploadButton from './components/UploadButton.vue';
@@ -73,6 +73,7 @@ export default function(conf: Partial<Config>) {
       .component('j-checkbox', Checkbox)
       .component('j-textarea', Textarea)
       .component('j-dropdown', Dropdown)
+      .component('j-select', Select)
       .component('j-switch', Switch)
       .component('j-slider', Slider)
       .component('j-drawer', Drawer)
@@ -84,7 +85,6 @@ export default function(conf: Partial<Config>) {
       .component('j-chip-editor', ChipEditor)
       .component('j-menu', Menu)
       .component('j-menu-bar', MenuBar)
-      .component('j-menu-list', MenuList)
       .component('j-menu-seperator', MenuSeperator)
       .component('j-context-menu', ContextMenu)
       .component('j-upload-button', UploadButton)
@@ -119,6 +119,7 @@ export {
     Radio,
     Checkbox,
     Dropdown,
+    Select,
     Switch,
     Slider,
     Drawer,
@@ -130,7 +131,6 @@ export {
     ChipEditor,
     Menu,
     MenuBar,
-    MenuList,
     MenuSeperator,
     ContextMenu,
     ValueInput,

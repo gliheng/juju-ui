@@ -1,9 +1,9 @@
 import { defineComponent, h, computed } from 'vue';
 import { useBackdropAwareSwitch } from '../../utils/hooks';
-import DropdownItem from './DropdownItem';
+import SelectItem from './SelectItem';
 import SvgIcon from '../SvgIcon.vue';
 import Scroller from '../Scroller.vue';
-import '../../assets/styles/Dropdown.scss';
+import '../../assets/styles/Select.scss';
 
 type OptionValue = string | number | boolean;
 
@@ -97,15 +97,15 @@ export default defineComponent({
         }
         content = (
           // tabindex 0 make the item tab focusable
-          <div class="j-dropdown-label" tabindex={0}>
-            <div class="j-dropdown-label-inner">{ label }</div>
-            <SvgIcon class="j-dropdown-icon" name="chevron-down" />
+          <div class="j-select-label" tabindex={0}>
+            <div class="j-select-label-inner">{ label }</div>
+            <SvgIcon class="j-select-icon" name="chevron-down" />
           </div>
         );
       }
   
       return (
-        <div class="j-dropdown"
+        <div class="j-select"
           data-align={ props.align }
           data-has-icon={ hasIcon.value }
           onClick={evt => {
@@ -114,20 +114,20 @@ export default defineComponent({
           }}>
           { content }
           { menuOn.value && (
-            <div class="j-dropdown-menu">
+            <div class="j-select-menu">
               <Scroller>
                 {() => (
                   <div class="j-dropdonw-menu-inner">
                     {props.options.map((opt: any, i) => {
                       if (opt.type == 'seperator') {
-                        return <hr key={i} class="j-dropdown-seperator" />;
+                        return <hr key={i} class="j-select-seperator" />;
                       }
                       let checked;
                       if (props.multiple) {
                         checked = (props.modelValue as OptionValue[]).indexOf(opt.value) != -1;
                       }
                       return (
-                        <DropdownItem key={opt.value}
+                        <SelectItem key={opt.value}
                           checked={checked}
                           value={opt.value}
                           icon={opt.icon}

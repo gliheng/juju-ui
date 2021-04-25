@@ -1,0 +1,92 @@
+@import "vars";
+
+.j-select {
+  display: inline-block;
+  position: relative;
+  
+  > .j-select-label {
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+    cursor: default;
+    outline: none;
+    // padding-left: 1rem;
+    border: 1px solid var(--neutral-color-light);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    &:focus {
+      box-shadow: $outline;
+      border: 1px solid var(--primary-color-light);
+    }
+    .j-select-label-inner {
+      max-width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: $margin;
+      .j-placeholder {
+        color: var(--neutral-color-light);
+      }
+    }
+    .j-select-icon {
+      margin-right: $margin;
+      color: var(--neutral-color-light);
+    }
+  }
+  &[data-align="left"] {
+    > .j-select-menu {
+      left: 0;
+    }
+  }
+  &[data-align="right"] {
+    > .j-select-menu {
+      right: 0;
+    }
+  }
+  > .j-select-menu {
+    position: absolute;
+    top: 100%;
+    z-index: 1;
+    padding: $margin 0;
+    margin-top: 2px;
+    box-sizing: border-box;
+    min-width: 100%;
+    text-align: left;
+    box-shadow: $shadow;
+    background-color: var(--background-color-1);
+    color: var(--text-color);
+    border-radius: 3px;
+    .j-scroller {
+      max-height: 300px;
+    }
+  }
+  .j-select-item {
+    padding: $margin;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    &:hover {
+      background-color: var(--primary-color-lighter);
+    }
+    > .j-icon {
+      margin-right: 0.2rem;
+    }
+    > .j-checkbox {
+      vertical-align: middle;
+      margin: 0 $margin;
+    }
+  }
+  &[data-has-icon="false"] {
+    .j-select-item {
+      > .j-icon {
+        display: none;
+      }
+    }
+  }
+
+  hr.j-select-seperator {
+    margin: $margin/2 $margin;
+    border-color: var(--neutral-color-light);
+    border-top: none;
+  }
+}

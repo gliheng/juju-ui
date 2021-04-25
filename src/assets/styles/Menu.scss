@@ -51,7 +51,14 @@
     padding: 0.3rem 0;
   }
 }
-
+.j-menu-entry[data-side="left"] {
+  > .j-menu {
+    position: absolute;
+    right: 100%;
+    margin-right: -10px;
+    top: 0;
+  }
+}
 .j-menu-entry[data-side="right"] {
   > .j-menu {
     position: absolute;

@@ -19,6 +19,7 @@ export default defineComponent({
   },
   setup(props) {
     let elm = ref<HTMLDivElement>();
+    let resizing = ref(false);
     let renderBox: RenderBox;
     let r = ref(0);
     function forceUpdate() {
@@ -39,6 +40,7 @@ export default defineComponent({
     });
 
     function onDragStart(box: RenderBox) {
+      resizing.value = true;
     }
   
     function onDragMove(box: RenderBox, d: number) {
@@ -89,6 +91,7 @@ export default defineComponent({
     }
   
     function onDragEnd(box: RenderBox) {
+      resizing.value = false;
     }
   
     function onAction(action: string, box: RenderBox, arg: any) {
@@ -97,7 +100,7 @@ export default defineComponent({
           forceUpdate();
         }
       } else if (action == 'replace') {
-        box.use = arg;
+        box.use = arg as string;
         forceUpdate();
       }
     }
@@ -138,7 +141,7 @@ export default defineComponent({
         // console.log('rendering', renderBox, nodes, nodes.length);
       }
       return (
-        <div class="j-flex-layout" ref={elm}>
+        <div class="j-flex-layout" ref={ elm } data-resizing={ resizing.value }>
           { r.value && renderBox && nodes }
         </div>
       );

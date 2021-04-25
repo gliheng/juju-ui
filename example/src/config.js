@@ -5,10 +5,10 @@ export default {
       "device": ["pc", "mobile"]
     }, {
       "name": "Tabs",
-      "device": ["pc"]
+      "device": ["pc", "mobile"]
     }, {
       "name": "Dropdown",
-      "device": ["pc"]
+      "device": ["pc", "mobile"]
     }, {
       "name": "Switch",
       "device": ["pc", "mobile"]
@@ -36,6 +36,9 @@ export default {
     }, {
       "name": "Checkbox",
       "device": ["pc", "mobile"]
+    }, {
+      "name": "Select",
+      "device": ["pc"]
     }, {
       "name": "Listbox",
       "device": ["pc", "mobile"]

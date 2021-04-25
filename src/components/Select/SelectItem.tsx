@@ -17,7 +17,7 @@ export default defineComponent({
     return () => {
       return withDirectives(
         // @ts-ignore
-        <div class="j-dropdown-item" data-has-icon={ !!props.icon }
+        <div class="j-select-item" data-has-icon={ !!props.icon }
           onClick={props.onClick}>
           { props.checked !== undefined && <Checkbox modelValue={props.checked} />}
           <SvgIcon name={ props.icon } size={ props.size } />

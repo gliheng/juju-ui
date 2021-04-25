@@ -5,6 +5,11 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  &[data-resizing="false"] {
+    .j-flex-layout-pane {
+      transition: top 0.2s, left 0.2s, right 0.2s, bottom 0.2s;
+    }
+  }
   .j-flex-layout-pane {
     position: absolute;
     overflow: hidden;

@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { ref, provide, watchEffect } from 'vue';
-import { MenuSetCloseSymbol, MenuBarActivateSymbol } from './helper';
+import { MenuSetCloseSymbol, MenuBarActivateSymbol } from './Menu.vue';
 
 export default {
   setup() {

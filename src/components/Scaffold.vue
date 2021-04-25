@@ -29,9 +29,12 @@
           </a>
           <j-button :key="i" v-else rounded size="md" :icon="act.icon" @click="act.onClick"></j-button>
         </template>
-        <j-dropdown v-if="!wideLayout && actions.others.length" align="right" iconSize="md" :options="actions.others">
-          <template #button>
-            <j-button rounded size="md" icon="ellipsis-vertical" />
+        <j-dropdown v-if="!wideLayout && actions.others.length" align="right" :menu-offset="10">
+          <j-button rounded size="md" icon="ellipsis-vertical" />
+          <template #menu>
+            <j-menu list>
+              <j-menu v-for="(item, i) in actions.others" :key="i" :label="item.label" :icon="item.icon" />
+            </j-menu>
           </template>
         </j-dropdown>
         <template v-else>
@@ -46,7 +49,8 @@
 <script lang="ts">
 import { computed } from 'vue';
 import JButton from './Button.vue';
-import Dropdown from './Dropdown/Dropdown';
+import JDropdown from './Dropdown.vue';
+import JMenu from './Menu/Menu.vue';
 import { useSwitch, useWindowSizeClass } from '../utils/hooks';
 import SvgIcon from './SvgIcon.vue';
 
@@ -97,7 +101,7 @@ export default {
 
     return { drawerOn, toggleNav, actions, sizeClass, wideLayout, expanded, hasNav };
   },
-  components: { JButton, Dropdown, SvgIcon },
+  components: { JButton, JDropdown, JMenu, SvgIcon },
 };
 </script>
 
