@@ -32,7 +32,7 @@
     </section>
     
     <section class="tabs">
-      <h2>Managable tabs</h2>
+      <h2>Managed tabs</h2>
       <j-tabs type="card" :add="true" @tab-add="addTab" @tab-remove="removeTab($event)">
         <j-tab-pane label="Home" icon="home">Add more by clicking the add button</j-tab-pane>
         <j-tab-pane v-for="(tab, i) in tabs" :key="i"
