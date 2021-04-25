@@ -40,7 +40,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--primary-color);
-  color: var(--primary-color-text);
+  background-color: var(--background-color-2);
+  color: var(--text-color);
 }
 </style>
