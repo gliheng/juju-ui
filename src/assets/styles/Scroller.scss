@@ -29,8 +29,8 @@
     opacity: 0.4;
     border: 1px solid transparent;
     &[data-dragging], &:hover {
-      background-color: var(--neutral-color-lighter);
-      border-color: var(--neutral-color-lighter);
+      background-color: var(--foreground-color-2);
+      border-color: var(--foreground-color-2);
     }
     .j-scroll-handle {
       background-color: var(--neutral-color);

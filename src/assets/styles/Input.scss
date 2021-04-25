@@ -3,7 +3,7 @@
 .j-input {
   display: inline-flex;
   border-radius: 3px;
-  border: 1px solid var(--neutral-color-light);
+  border: 1px solid var(--foreground-color-1);
   transition: border-color 0.2s, box-shadow 0.2s;
   width: 16rem;
   align-items: center;
@@ -45,7 +45,7 @@
     }
   }
   > .j-input-prepend, > .j-input-append {
-    color: var(--neutral-color-light);
+    color: var(--foreground-color-1);
   }
   > .j-input-prepend .j-icon {
     margin-left: $margin;

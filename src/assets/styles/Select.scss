@@ -11,7 +11,7 @@
     cursor: default;
     outline: none;
     // padding-left: 1rem;
-    border: 1px solid var(--neutral-color-light);
+    border: 1px solid var(--foreground-color-1);
     transition: border-color 0.2s, box-shadow 0.2s;
     &:focus {
       box-shadow: $outline;
@@ -24,12 +24,12 @@
       text-overflow: ellipsis;
       padding: $margin;
       .j-placeholder {
-        color: var(--neutral-color-light);
+        color: var(--foreground-color-1);
       }
     }
     .j-select-icon {
       margin-right: $margin;
-      color: var(--neutral-color-light);
+      color: var(--foreground-color-1);
     }
   }
   &[data-align="left"] {
@@ -86,7 +86,7 @@
 
   hr.j-select-seperator {
     margin: $margin/2 $margin;
-    border-color: var(--neutral-color-light);
+    border-color: var(--foreground-color-1);
     border-top: none;
   }
 }

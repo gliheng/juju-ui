@@ -3,7 +3,7 @@
 .j-tabs {
   text-align: left;
   .j-tabs-bar {
-    border-bottom: 2px solid var(--neutral-color-lighter);
+    border-bottom: 2px solid var(--foreground-color-2);
     position: relative;
     display: flex;
     white-space: nowrap;
@@ -47,7 +47,7 @@
         display: inline-block;
         line-height: 0;
         &:hover {
-          background-color: var(--neutral-color-light);
+          background-color: var(--foreground-color-1);
         }
       }
     }
@@ -103,7 +103,7 @@
     }
   }
   &[data-type="card"] {
-    $border: 1px solid var(--neutral-color-lighter);
+    $border: 1px solid var(--foreground-color-2);
     .j-tabs-bar {
       border-bottom: none;
       .j-tabs-btn {
@@ -143,7 +143,7 @@
     overflow: hidden;
     height: initial;
     margin: 0 1px;
-    color: var(--neutral-color-light);
+    color: var(--foreground-color-1);
   }
 }
 

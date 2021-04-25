@@ -2,7 +2,7 @@
 
 .j-textarea {
   padding: 0.5rem;
-  border: 1px solid var(--neutral-color-light);
+  border: 1px solid var(--foreground-color-1);
   border-radius: 3px;
   transition: border-color 0.2s, box-shadow 0.2s;
   &:focus:not([disabled]) {
