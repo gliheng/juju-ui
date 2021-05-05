@@ -71,10 +71,6 @@
     <section>
       <h2>ToggleButton</h2>
       <div>
-        <j-toggle-button on-icon="heart" off-icon="heart-dislike" v-model="toggleOn">
-          <template #on>Like</template>
-          <template #off>Dislike</template>
-        </j-toggle-button>
       </div>
     </section>
     <section>

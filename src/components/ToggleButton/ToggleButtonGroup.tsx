@@ -1,15 +1,8 @@
-<template>
-  <div class="j-toggle-button-group">
-    <vnodes :nodes="nodes" />
-  </div>
-</template>
+import { defineComponent, computed, h } from 'vue';
+import ToggleButton from './ToggleButton';
+import "../../assets/styles/ToggleButton.scss";
 
-<script lang="ts">
-import { computed } from 'vue';
-import ToggleButton from './ToggleButton.vue';
-import Vnodes from '../Vnodes';
-
-export default {
+export default defineComponent({
   props: {
     modelValue: Number,
     // When this option is on, this group can not be toggled off by clicked an on button
@@ -41,10 +34,13 @@ export default {
       }
       return [];
     });
-    return { nodes };
-  },
-  components: { Vnodes },
-}
-</script>
 
-<style src="../../assets/styles/ToggleButton.scss"></style>
+    return () => {
+      return (
+        <div class="j-toggle-button-group">
+          { nodes.value }
+        </div>
+      );
+    }
+  },
+});

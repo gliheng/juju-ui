@@ -10,7 +10,6 @@
         </router-link>
       </template>
       <template #right-actions>
-        <j-switch class="j-secondary" v-model="dark" />
       </template>
       <template #content>
         <component class="demo" :is="Component" />

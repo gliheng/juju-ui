@@ -1,149 +1,239 @@
 import { App } from 'vue';
 
-import Button from './components/Button.vue';
-import ButtonGroup from './components/ButtonGroup.vue';
-import SplitButton from './components/SplitButton.vue';
-import ToggleButton from './components/ToggleButton/ToggleButton.vue';
-import ToggleButtonGroup from './components/ToggleButton/ToggleButtonGroup.vue';
-import SvgIcon from './components/SvgIcon.vue';
-import Tabs from './components/Tabs/Tabs.vue';
-import TabPane from './components/Tabs/TabPane.vue';
-import Input from './components/Input/Input.vue';
-import InputGroup from './components/Input/InputGroup.vue';
-import ValueInput from './components/Input/ValueInput.vue';
-import DateInput from './components/Input/DateInput.vue';
-import DateRangeInput from './components/Input/DateRangeInput.vue';
-import Textarea from './components/Textarea.vue';
-import Radio from './components/Radio.vue';
-import Checkbox from './components/Checkbox.vue';
-import Dropdown from './components/Dropdown.vue';
-import Select from './components/Select/Select';
-import Switch from './components/Switch.vue';
-import Slider from './components/Slider.vue';
-import Drawer from './components/Drawer.vue';
-import Popup from './components/Popup.vue';
-import Listbox from './components/Listbox/Listbox.vue';
-import ListboxItem from './components/Listbox/ListboxItem.vue';
-import ColorWheel from './components/ColorWheel.vue';
-import Chip from './components/Chip.vue';
-import ChipEditor from './components/ChipEditor.vue';
-import Menu from './components/Menu/Menu.vue';
-import MenuBar from './components/Menu/MenuBar.vue';
-import MenuSeperator from './components/Menu/MenuSeperator.vue';
-import ContextMenu from './components/ContextMenu.vue';
-import UploadButton from './components/UploadButton.vue';
-import Spinner from './components/Spinner.vue';
-import Progress from './components/Progress.vue';
-import Calendar from './components/Calendar/Calendar.vue';
-import Tree from './components/Tree/Tree.vue';
-import Scaffold from './components/Scaffold.vue';
-import Table from './components/Table/Table';
-import DataTable from './components/Table/DataTable';
-import Scroller from './components/Scroller.vue';
-import AutoComplete from './components/AutoComplete.vue';
-import FlexLayout from './components/FlexLayout/FlexLayout';
-import MenuOpener from './components/AnimatedIcon/MenuOpener.vue';
-import MenuToggle from './components/AnimatedIcon/MenuToggle.vue';
-import Vnodes from './components/Vnodes';
-
-import ripple from './directives/ripple';
+import _Button from './components/Button.vue';
+import _ButtonGroup from './components/ButtonGroup.vue';
+import _SplitButton from './components/SplitButton.vue';
+import _ToggleButton from './components/ToggleButton/ToggleButton';
+import _ToggleButtonGroup from './components/ToggleButton/ToggleButtonGroup';
+import _SvgIcon from './components/SvgIcon.vue';
+import _Tabs from './components/Tabs/Tabs.vue';
+import _TabPane from './components/Tabs/TabPane.vue';
+import _Input from './components/Input/Input.vue';
+import _InputGroup from './components/Input/InputGroup.vue';
+import _ValueInput from './components/Input/ValueInput.vue';
+import _DateInput from './components/Input/DateInput.vue';
+import _DateRangeInput from './components/Input/DateRangeInput.vue';
+import _Textarea from './components/Textarea.vue';
+import _Radio from './components/Radio.vue';
+import _Checkbox from './components/Checkbox.vue';
+import _Dropdown from './components/Dropdown.vue';
+import _Select from './components/Select/Select';
+import _Switch from './components/Switch.vue';
+import _Slider from './components/Slider.vue';
+import _Drawer from './components/Drawer.vue';
+import _Popup from './components/Popup.vue';
+import _Listbox from './components/Listbox/Listbox.vue';
+import _ListboxItem from './components/Listbox/ListboxItem.vue';
+import _ColorWheel from './components/ColorWheel.vue';
+import _Chip from './components/Chip.vue';
+import _ChipEditor from './components/ChipEditor.vue';
+import _Menu from './components/Menu/Menu.vue';
+import _MenuBar from './components/Menu/MenuBar.vue';
+import _MenuSeperator from './components/Menu/MenuSeperator.vue';
+import _ContextMenu from './components/ContextMenu.vue';
+import _UploadButton from './components/UploadButton.vue';
+import _Spinner from './components/Spinner.vue';
+import _Progress from './components/Progress.vue';
+import _Calendar from './components/Calendar/Calendar.vue';
+import _Tree from './components/Tree/Tree.vue';
+import _Scaffold from './components/Scaffold.vue';
+import _Table from './components/Table/Table';
+import _DataTable from './components/Table/DataTable';
+import _Scroller from './components/Scroller.vue';
+import _AutoComplete from './components/AutoComplete.vue';
+import _FlexLayout from './components/FlexLayout/FlexLayout';
+import _MenuOpener from './components/AnimatedIcon/MenuOpener.vue';
+import _MenuToggle from './components/AnimatedIcon/MenuToggle.vue';
+import _ripple from './directives/ripple';
 import "./assets/styles/index.scss";
 
 export * from './utils';
 import { Config, set as setConfig } from './utils/config';
 
+export function Button(app: App) {
+  app.component('j-button', _Button);
+};
+export function ButtonGroup(app: App) {
+  app.component('j-button-group', _ButtonGroup);
+};
+export function SplitButton(app: App) {
+  app.component('j-split-button', _SplitButton);
+};
+export function ToggleButton(app: App) {
+  app.component('j-toggle-button', _ToggleButton);
+};
+export function ToggleButtonGroup(app: App) {
+  app.component('j-toggle-button-group', _ToggleButtonGroup);
+};
+export function SvgIcon(app: App) {
+  app.component('j-svg-icon', _SvgIcon);
+};
+export function Tabs(app: App) {
+  app.component('j-tabs', _Tabs);
+};
+export function TabPane(app: App) {
+  app.component('j-tab-pane', _TabPane);
+};
+export function Input(app: App) {
+  app.component('j-input', _Input);
+};
+export function InputGroup(app: App) {
+  app.component('j-input-group', _InputGroup);
+};
+export function ValueInput(app: App) {
+  app.component('j-value-input', _ValueInput);
+};
+export function DateInput(app: App) {
+  app.component('j-date-input', _DateInput);
+};
+export function DateRangeInput(app: App) {
+  app.component('j-date-range-input', _DateRangeInput);
+};
+export function Radio(app: App) {
+  app.component('j-radio', _Radio);
+};
+export function Checkbox(app: App) {
+  app.component('j-checkbox', _Checkbox);
+};
+export function Textarea(app: App) {
+  app.component('j-textarea', _Textarea);
+};
+export function Dropdown(app: App) {
+  app.component('j-dropdown', _Dropdown);
+};
+export function Select(app: App) {
+  app.component('j-select', _Select);
+};
+export function Switch(app: App) {
+  app.component('j-switch', _Switch);
+};
+export function Slider(app: App) {
+  app.component('j-slider', _Slider);
+};
+export function Drawer(app: App) {
+  app.component('j-drawer', _Drawer);
+};
+export function Popup(app: App) {
+  app.component('j-popup', _Popup);
+};
+export function Listbox(app: App) {
+  app.component('j-listbox', _Listbox);
+};
+export function ListboxItem(app: App) {
+  app.component('j-listbox-item', _ListboxItem);
+};
+export function ColorWheel(app: App) {
+  app.component('j-color-wheel', _ColorWheel);
+};
+export function Chip(app: App) {
+  app.component('j-chip', _Chip);
+};
+export function ChipEditor(app: App) {
+  app.component('j-chip-editor', _ChipEditor);
+};
+export function Menu(app: App) {
+  app.component('j-menu', _Menu);
+};
+export function MenuBar(app: App) {
+  app.component('j-menu-bar', _MenuBar);
+};
+export function MenuSeperator(app: App) {
+  app.component('j-menu-seperator', _MenuSeperator);
+};
+export function ContextMenu(app: App) {
+  app.component('j-context-menu', _ContextMenu);
+};
+export function UploadButton(app: App) {
+  app.component('j-upload-button', _UploadButton);
+};
+export function Spinner(app: App) {
+  app.component('j-spinner', _Spinner);
+};
+export function Scroller(app: App) {
+  app.component('j-scroller', _Scroller);
+};
+export function Progress(app: App) {
+  app.component('j-progress', _Progress);
+};
+export function Calendar(app: App) {
+  app.component('j-calendar', _Calendar);
+};
+export function Tree(app: App) {
+  app.component('j-tree', _Tree);
+};
+export function Scaffold(app: App) {
+  app.component('j-scaffold', _Scaffold);
+};
+export function Table(app: App) {
+  app.component('j-table', _Table);
+};
+export function DataTable(app: App) {
+  app.component('j-data-table', _DataTable);
+};
+export function AutoComplete(app: App) {
+  app.component('j-auto-complete', _AutoComplete);
+};
+export function FlexLayout(app: App) {
+  app.component('j-flex-layout', _FlexLayout);
+};
+export function MenuOpener(app: App) {
+  app.component('j-animated-icon:menu-opener', _MenuOpener);
+};
+export function MenuToggle(app: App) {
+  app.component('j-animated-icon:menu-toggle', _MenuToggle);
+};
+export function ripple(app: App) {
+  app.directive('ripple', _ripple);
+}
+
 export default function(conf: Partial<Config>) {
   if (conf) setConfig(conf);
 
   return function(vue: App<Element>) {
-    vue.component('j-button', Button)
-      .component('j-button-group', ButtonGroup)
-      .component('j-split-button', SplitButton)
-      .component('j-toggle-button', ToggleButton)
-      .component('j-toggle-button-group', ToggleButtonGroup)
-      .component('j-svg-icon', SvgIcon)
-      .component('j-tabs', Tabs)
-      .component('j-tab-pane', TabPane)
-      .component('j-input', Input)
-      .component('j-input-group', InputGroup)
-      .component('j-value-input', ValueInput)
-      .component('j-date-input', DateInput)
-      .component('j-date-range-input', DateRangeInput)
-      .component('j-radio', Radio)
-      .component('j-checkbox', Checkbox)
-      .component('j-textarea', Textarea)
-      .component('j-dropdown', Dropdown)
-      .component('j-select', Select)
-      .component('j-switch', Switch)
-      .component('j-slider', Slider)
-      .component('j-drawer', Drawer)
-      .component('j-popup', Popup)
-      .component('j-listbox', Listbox)
-      .component('j-listbox-item', ListboxItem)
-      .component('j-color-wheel', ColorWheel)
-      .component('j-chip', Chip)
-      .component('j-chip-editor', ChipEditor)
-      .component('j-menu', Menu)
-      .component('j-menu-bar', MenuBar)
-      .component('j-menu-seperator', MenuSeperator)
-      .component('j-context-menu', ContextMenu)
-      .component('j-upload-button', UploadButton)
-      .component('j-spinner', Spinner)
-      .component('j-scroller', Scroller)
-      .component('j-progress', Progress)
-      .component('j-calendar', Calendar)
-      .component('j-tree', Tree)
-      .component('j-scaffold', Scaffold)
-      .component('j-table', Table)
-      .component('j-data-table', DataTable)
-      .component('j-vnodes', Vnodes)
-      .component('j-auto-complete', AutoComplete)
-      .component('j-flex-layout', FlexLayout)
-      .component('j-animated-icon:menu-opener', MenuOpener)
-      .component('j-animated-icon:menu-toggle', MenuToggle)
-      .directive('ripple', ripple);
+    vue.component('j-button', _Button)
+      .component('j-button-group', _ButtonGroup)
+      .component('j-split-button', _SplitButton)
+      .component('j-toggle-button', _ToggleButton)
+      .component('j-toggle-button-group', _ToggleButtonGroup)
+      .component('j-svg-icon', _SvgIcon)
+      .component('j-tabs', _Tabs)
+      .component('j-tab-pane', _TabPane)
+      .component('j-input', _Input)
+      .component('j-input-group', _InputGroup)
+      .component('j-value-input', _ValueInput)
+      .component('j-date-input', _DateInput)
+      .component('j-date-range-input', _DateRangeInput)
+      .component('j-radio', _Radio)
+      .component('j-checkbox', _Checkbox)
+      .component('j-textarea', _Textarea)
+      .component('j-dropdown', _Dropdown)
+      .component('j-select', _Select)
+      .component('j-switch', _Switch)
+      .component('j-slider', _Slider)
+      .component('j-drawer', _Drawer)
+      .component('j-popup', _Popup)
+      .component('j-listbox', _Listbox)
+      .component('j-listbox-item', _ListboxItem)
+      .component('j-color-wheel', _ColorWheel)
+      .component('j-chip', _Chip)
+      .component('j-chip-editor', _ChipEditor)
+      .component('j-menu', _Menu)
+      .component('j-menu-bar', _MenuBar)
+      .component('j-menu-seperator', _MenuSeperator)
+      .component('j-context-menu', _ContextMenu)
+      .component('j-upload-button', _UploadButton)
+      .component('j-spinner', _Spinner)
+      .component('j-scroller', _Scroller)
+      .component('j-progress', _Progress)
+      .component('j-calendar', _Calendar)
+      .component('j-tree', _Tree)
+      .component('j-scaffold', _Scaffold)
+      .component('j-table', _Table)
+      .component('j-data-table', _DataTable)
+      .component('j-auto-complete', _AutoComplete)
+      .component('j-flex-layout', _FlexLayout)
+      .component('j-animated-icon:menu-opener', _MenuOpener)
+      .component('j-animated-icon:menu-toggle', _MenuToggle)
+      .directive('ripple', _ripple);
   };
 }
-
-export {
-    Button,
-    ButtonGroup,
-    SplitButton,
-    ToggleButton,
-    ToggleButtonGroup,
-    SvgIcon,
-    Tabs,
-    TabPane,
-    Input,
-    InputGroup,
-    Radio,
-    Checkbox,
-    Dropdown,
-    Select,
-    Switch,
-    Slider,
-    Drawer,
-    Popup,
-    Listbox,
-    ListboxItem,
-    ColorWheel,
-    Chip,
-    ChipEditor,
-    Menu,
-    MenuBar,
-    MenuSeperator,
-    ContextMenu,
-    ValueInput,
-    DateInput,
-    DateRangeInput,
-    UploadButton,
-    Spinner,
-    Scroller,
-    Progress,
-    Calendar,
-    Tree,
-    Table,
-    DataTable,
-    Vnodes,
-    ripple,
-};
