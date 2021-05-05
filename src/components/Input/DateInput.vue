@@ -15,11 +15,11 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { useBackdropAwareSwitch } from '../../utils/hooks';
-import { formatDate, toDate } from '../../utils/date';
-import SvgIcon from '../SvgIcon.vue';
+import SvgIcon from '../SvgIcon/SvgIcon.vue';
 import JInput from './Input.vue';
 import JCalendar from '../Calendar/Calendar.vue';
+import { useBackdropAwareSwitch } from '../../utils/hooks';
+import { formatDate, toDate } from '../../utils/date';
 
 export default defineComponent({
   inheritAttrs: false,
@@ -58,4 +58,4 @@ export default defineComponent({
 });
 </script>
 
-<style src="../../assets/styles/DateInput.scss"></style>
+<style src="./DateInput.scss"></style>

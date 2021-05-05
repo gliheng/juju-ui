@@ -1,9 +1,9 @@
 import { defineComponent, h, computed } from 'vue';
 import { useBackdropAwareSwitch } from '../../utils/hooks';
 import SelectItem from './SelectItem';
-import SvgIcon from '../SvgIcon.vue';
-import Scroller from '../Scroller.vue';
-import '../../assets/styles/Select.scss';
+import SvgIcon from '../SvgIcon/SvgIcon.vue';
+import Scroller from '../Scroller/Scroller.vue';
+import './Select.scss';
 
 type OptionValue = string | number | boolean;
 

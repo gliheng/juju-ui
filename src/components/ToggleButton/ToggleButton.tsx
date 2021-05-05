@@ -1,5 +1,5 @@
 import { defineComponent, computed, h } from 'vue';
-import Button from '../Button.vue';
+import Button from '../Button/Button.vue';
 
 export default defineComponent({
   props: {

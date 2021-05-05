@@ -1,6 +1,6 @@
 import { defineComponent, computed, h } from 'vue';
 import ToggleButton from './ToggleButton';
-import "../../assets/styles/ToggleButton.scss";
+import "./ToggleButton.scss";
 
 export default defineComponent({
   props: {

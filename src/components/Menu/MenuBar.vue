@@ -41,4 +41,4 @@ export default {
 };
 </script>
 
-<style src="../../assets/styles/MenuBar.scss"></style>
+<style src="./MenuBar.scss"></style>

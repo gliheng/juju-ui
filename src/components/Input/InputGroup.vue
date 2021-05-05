@@ -25,4 +25,4 @@ export default defineComponent({
 });
 </script>
 
-<style src="../../assets/styles/InputGroup.scss"></style>
+<style src="./InputGroup.scss"></style>

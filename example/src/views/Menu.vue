@@ -3,7 +3,7 @@
     <h1>Menu</h1>
     <section>
       <h2>Menu</h2>
-      <j-menu-list class="menu">
+      <j-menu class="menu" list>
         <j-menu label="Transform">
           <j-menu label="Rotate Left" />
           <j-menu label="Rotate Right" />
@@ -25,18 +25,18 @@
           <j-menu label="Distribute Vertically" />
           <j-menu label="Distribute Vertically" />
         </j-menu>
-      </j-menu-list>
+      </j-menu>
     </section>
     <section>
       <h2>Menu with icon</h2>
-      <j-menu-list class="menu">
+      <j-menu class="menu" list>
         <j-menu label="Apps" icon="apps">
           <j-menu label="Windows" icon="logo-windows" />
           <j-menu label="Google" icon="logo-google" />
           <j-menu label="Linux" icon="logo-tux" />
           <j-menu label="Slack" icon="logo-slack" />
         </j-menu>
-      </j-menu-list>
+      </j-menu>
     </section>
   </div>
 </template>

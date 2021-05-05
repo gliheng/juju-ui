@@ -39,7 +39,7 @@
 
 <script lang="ts">
 import { ref, computed, defineComponent } from 'vue';
-import JButton from '../Button.vue';
+import JButton from '../Button/Button.vue';
 import { isSameDay } from '../../utils/date';
 
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -224,4 +224,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" src="../../assets/styles/Calendar.scss"></style>
+<style lang="scss" src="./Calendar.scss"></style>

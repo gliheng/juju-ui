@@ -1,7 +1,6 @@
 import { defineComponent, h } from 'vue';
 import { Datum, ColumnConfig, RowConfig } from './types';
 
-
 export default defineComponent({
   props: {
     selected: {

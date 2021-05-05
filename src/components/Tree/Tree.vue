@@ -24,4 +24,4 @@ export default {
 }
 </script>
 
-<style src="../../assets/styles/Tree.scss"></style>
+<style src="./Tree.scss"></style>

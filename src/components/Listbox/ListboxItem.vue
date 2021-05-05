@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import SvgIcon from '../SvgIcon.vue';
+import SvgIcon from '../SvgIcon/SvgIcon.vue';
 import ripple from '../../directives/ripple';
 
 export default {

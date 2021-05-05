@@ -1,7 +1,7 @@
 import { defineComponent, h, PropType } from 'vue';
 import { RenderBox, Library } from './types';
-import Button from '../Button.vue';
-import Dropdown from '../Dropdown.vue';
+import Button from '../Button/Button.vue';
+import Dropdown from '../Dropdown/Dropdown.vue';
 import Menu from '../Menu/Menu.vue';
 
 export default defineComponent({

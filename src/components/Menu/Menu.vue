@@ -1,5 +1,5 @@
 <template>
-  <div v-if="list" class="j-menu j-shadow-3">
+  <div v-if="list" v-bind="$attrs" class="j-menu j-shadow-3">
     <slot></slot>
   </div>
   <div v-else class="j-menu-entry" :data-side="side">
@@ -20,7 +20,7 @@
 <script lang="ts">
 import { provide, inject, ref, Ref } from 'vue';
 import { watch } from 'vue';
-import SvgIcon from '../SvgIcon.vue';
+import SvgIcon from '../SvgIcon/SvgIcon.vue';
 
 type SetLastCloseFunction = (cbk: Function) => void;
 
@@ -98,4 +98,4 @@ export function provideCloseHandler(onClose?: () => void) {
 
 </script>
 
-<style src="../../assets/styles/Menu.scss"></style>
+<style src="./Menu.scss"></style>

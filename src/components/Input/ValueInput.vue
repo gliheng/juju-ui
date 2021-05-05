@@ -21,9 +21,9 @@
 
 <script lang="ts">
 import { ref, computed } from 'vue';
-import SvgIcon from '../SvgIcon.vue';
-import JSlider from '../Slider.vue';
-import JButton from '../Button.vue';
+import SvgIcon from '../SvgIcon/SvgIcon.vue';
+import JSlider from '../Slider/Slider.vue';
+import JButton from '../Button/Button.vue';
 import JInput from './Input.vue';
 
 export default {
@@ -130,4 +130,4 @@ function round(value: number, min: number, step: number): number {
 
 </script>
 
-<style src="../../assets/styles/ValueInput.scss"></style>
+<style src="./ValueInput.scss"></style>

@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { ref, computed } from 'vue';
-import SvgIcon from '../SvgIcon.vue';
+import SvgIcon from '../SvgIcon/SvgIcon.vue';
 
 export default {
   inheritAttrs: false,
@@ -56,4 +56,4 @@ export default {
 };
 </script>
 
-<style src="../../assets/styles/Input.scss"></style>
+<style src="./Input.scss"></style>

@@ -2,9 +2,9 @@ import { defineComponent, reactive, ref, computed, h } from 'vue';
 import Row from './Row';
 import ColGroup from './ColGroup';
 import { ColumnConfig, Datum, GroupDatum } from './types';
-import VirtualScroller from '../VirtualScroller';
-import SvgIcon from '../SvgIcon.vue';
-import '../../assets/styles/Table.scss';
+import VirtualScroller from '../Scroller/VirtualScroller';
+import SvgIcon from '../SvgIcon/SvgIcon.vue';
+import './Table.scss';
 
 
 // recursive group data according to grouping rules

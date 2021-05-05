@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { computed } from 'vue';
-import SvgIcon from '../SvgIcon.vue';
+import SvgIcon from '../SvgIcon/SvgIcon.vue';
 import ripple from '../../directives/ripple';
 import { useSwitch } from '../../utils/hooks';
 

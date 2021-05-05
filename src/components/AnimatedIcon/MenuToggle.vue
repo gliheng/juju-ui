@@ -21,4 +21,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" src="../../assets/styles/AnimatedIcon.scss"></style>
+<style lang="scss" src="./AnimatedIcon.scss"></style>

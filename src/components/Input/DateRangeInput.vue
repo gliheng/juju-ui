@@ -22,10 +22,10 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref, watch } from 'vue';
-import SvgIcon from '../SvgIcon.vue';
+import SvgIcon from '../SvgIcon/SvgIcon.vue';
+import CalendarUi from '../Calendar/CalendarUi.vue';
 import { useBackdropAwareSwitch, useSwitch } from '../../utils/hooks';
 import { formatDate, toDate, isSameDay, isBetween } from '../../utils/date';
-import CalendarUi from '../Calendar/CalendarUi.vue';
 
 
 function themingFunction(startDate: Date, endDate: Date, year: number, month: number, date: number): string {
@@ -164,4 +164,4 @@ export default defineComponent({
 
 </style>
 
-<style src="../../assets/styles/DateRangeInput.scss"></style>
+<style src="./DateRangeInput.scss"></style>

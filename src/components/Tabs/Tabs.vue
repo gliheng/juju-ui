@@ -37,7 +37,7 @@ import {
 import TabPane, { TabPaneSymbol } from './TabPane.vue';
 import TabScroller from './TabScroller.vue';
 import { useChildren } from '../../utils/hooks'
-import SvgIcon from '../SvgIcon.vue';
+import SvgIcon from '../SvgIcon/SvgIcon.vue';
 import ripple from '../../directives/ripple';
 
 interface TabDef {
@@ -145,4 +145,4 @@ export default {
 };
 </script>
 
-<style src="../../assets/styles/Tabs.scss"></style>
+<style src="./Tabs.scss"></style>

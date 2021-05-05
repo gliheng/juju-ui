@@ -1,6 +1,6 @@
 import { defineComponent, h, PropType, withDirectives } from 'vue';
-import SvgIcon from '../SvgIcon.vue';
-import Checkbox from '../Checkbox.vue';
+import SvgIcon from '../SvgIcon/SvgIcon.vue';
+import Checkbox from '../Checkbox/Checkbox.vue';
 import ripple from '../../directives/ripple';
 
 export default defineComponent({

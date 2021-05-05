@@ -4,7 +4,7 @@ import Divider from './Divider';
 import { useElementSize } from '../../utils/hooks';
 import { DIVIDER, idGenerator, normalizePreset, layout } from './layout';
 import { PaneAttrs, RenderBox, Library } from './types';
-import '../../assets/styles/FlexLayout.scss';
+import './FlexLayout.scss';
 
 export default defineComponent({
   props: {
@@ -136,13 +136,13 @@ export default defineComponent({
   
     return () => {
       let nodes: JSX.Element[] = [];
-      if (renderBox) {
+      // using r.value here makes the render function reactive to r
+      if (r.value >= 0 && renderBox) {
         renderLayout(renderBox, nodes);
-        // console.log('rendering', renderBox, nodes, nodes.length);
       }
       return (
         <div class="j-flex-layout" ref={ elm } data-resizing={ resizing.value }>
-          { r.value && renderBox && nodes }
+          { nodes }
         </div>
       );
     };

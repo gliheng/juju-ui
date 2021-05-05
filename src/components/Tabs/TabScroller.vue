@@ -15,7 +15,7 @@
 <script lang="ts">
 import { ref, watch, onUpdated } from 'vue';
 import anime from 'animejs';
-import SvgIcon from '../SvgIcon.vue';
+import SvgIcon from '../SvgIcon/SvgIcon.vue';
 import { useElementSize } from '../../utils/hooks'
 
 export default {

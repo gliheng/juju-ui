@@ -4,4 +4,4 @@
   </ul>
 </template>
 
-<style src="../../assets/styles/Listbox.scss"></style>
+<style src="./Listbox.scss"></style>
