@@ -4,7 +4,7 @@
       <j-button :icon="icon"><slot></slot></j-button>
       <j-button icon="chevron-down" @click.stop="showMenu"></j-button>
     </button-group>
-    <j-menu v-if="menuOn" type="list">
+    <j-menu v-if="menuOn" list>
       <slot name="menu"></slot>
     </j-menu>
   </div>

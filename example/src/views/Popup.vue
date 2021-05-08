@@ -35,14 +35,13 @@
 </template>
 
 <script>
-import { popup } from 'juju-ui';
-
+import { popup, hooks } from 'juju-ui';
 
 export default {
   setup() {
-    let [alertOpen, toggleAlert] = vue.useSwitch();
-    let [confirmOpen, toggleConfirm] = vue.useSwitch();
-    let [modalOpen, toggleModal] = vue.useSwitch();
+    let [alertOpen, toggleAlert] = hooks.useSwitch();
+    let [confirmOpen, toggleConfirm] = hooks.useSwitch();
+    let [modalOpen, toggleModal] = hooks.useSwitch();
 
     async function showAlert() {
       let ret = await popup.alert("Shall we have dinner tonight?", {
@@ -63,7 +62,7 @@ export default {
 
     async function showModal() {
       let ret = await popup.confirm("Shall we have dinner tonight?", {
-        icon: 'alert',
+        icon: 'alert-circle',
         modal: true,
       });
       utils.popup.alert('How nice that you accepted!', {
