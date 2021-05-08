@@ -1,4 +1,4 @@
-import { defineComponent, h, PropType } from 'vue';
+import { defineComponent, PropType, h, Fragment } from 'vue';
 import { RenderBox, Library } from './types';
 import Button from '../Button/Button.vue';
 import Dropdown from '../Dropdown/Dropdown.vue';
@@ -70,12 +70,14 @@ export default defineComponent({
             {{
               default: () => <Button rounded flat size="sm" icon="ellipsis-horizontal" />,
               menu: () => <Menu list>
-                <Menu label="Remove" icon="trash" onClick={ remove } />
-                <Menu label="Replace" icon="repeat" side="left">
-                  {props.library.map(lib => (
-                    <Menu label={lib.name} onClick={ replace.bind(null, lib.name) } />
-                  ))}
-                </Menu>
+                {() => (<>
+                  <Menu label="Remove" icon="trash" onClick={ remove } />
+                  <Menu label="Replace" icon="repeat" side="left">
+                    {() => props.library.map(lib => (
+                      <Menu label={lib.name} onClick={ replace.bind(null, lib.name) } />
+                    ))}
+                  </Menu>
+                </>)}
               </Menu>
             }}
           </Dropdown>
