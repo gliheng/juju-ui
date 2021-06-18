@@ -27,7 +27,7 @@
           <a :key="`link-${i}`" v-if="act.link" :href="act.link" :target="act.target">
             <j-button rounded size="md" :icon="act.icon" @click="act.onClick"></j-button>
           </a>
-          <j-button :key="i" v-else rounded size="md" :icon="act.icon" @click="act.onClick"></j-button>
+          <j-button :key="i" v-else rounded size="md" :icon="act.icon" @click="act.onClick">{{ act.label }}</j-button>
         </template>
         <j-dropdown v-if="!wideLayout && actions.others.length" align="right" :menu-offset="10">
           <j-button rounded size="md" icon="ellipsis-vertical" />
