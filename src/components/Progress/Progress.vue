@@ -1,4 +1,4 @@
-<template functional>
+<template>
   <div class="j-progress" :data-indeterminate="indeterminate" :data-striped="striped">
     <div class="j-progress-bar" :style="{width: `${length}%`}"></div>
   </div>
