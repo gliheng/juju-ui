@@ -1,0 +1,27 @@
+.j-arrow {
+  width: 0;
+  height: 0;
+  border: $arrow solid var(--background-color);
+  &[data-side="left"],
+  &[data-side="right"] {
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+  }
+  &[data-side="left"] {
+    border-left-color: transparent;
+  }
+  &[data-side="right"] {
+    border-right-color: transparent;
+  }
+  &[data-side="top"],
+  &[data-side="bottom"] {
+    border-left-color: transparent;
+    border-right-color: transparent;
+  }
+  &[data-side="top"] {
+    border-top-color: transparent;
+  }
+  &[data-side="bottom"] {
+    border-bottom-color: transparent;
+  }
+}

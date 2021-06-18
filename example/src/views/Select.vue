@@ -4,21 +4,22 @@
     <div>
       <section>
         <h2>Simple select</h2>
-        <j-select v-model="value1" placeholder="Blend Mode" :options="blendOptions" />
-      </section>
-      <section>
-        <h2>Customize select display</h2>
-        <j-select v-model="value2" placeholder="Blend Mode" :options="blendOptions">
-          <j-button>Press me</j-button>
-        </j-select>
+        <j-select v-model="value1" placeholder="Blend mode" :options="blendOptions" />
       </section>
       <section>
         <h2>Select with icon</h2>
-        <j-select v-model="value3" placeholder="Select a transport" :options="transportOptions" />
+        <j-select v-model="value2" placeholder="Select a transport" :options="transportOptions" />
       </section>
       <section>
         <h2>Select with multiple selection</h2>
-        <j-select multiple v-model="multiValue1" placeholder="Select preferred tranport" :options="transportOptions" />
+        <j-select multiple v-model="value3" placeholder="Select preferred tranport" :options="transportOptions" />
+      </section>
+      <section>
+        <h2>Customize select display</h2>
+        <j-select v-model="value4" placeholder="Blend mode" :options="blendOptions">
+          <j-button v-if="value4">Blend mode: {{ value4 }}</j-button>
+          <j-button v-else>Press me</j-button>
+        </j-select>
       </section>
     </div>
   </div>
@@ -31,8 +32,8 @@ export default {
   setup() {
     let value1 = ref();
     let value2 = ref();
-    let value3 = ref();
-    let multiValue1 = ref([]);
+    let value3 = ref([]);
+    let value4 = ref();
 
     let blendOptions = [{
       value: 'normal',
@@ -74,7 +75,7 @@ export default {
     }];
 
     return {
-      value1, value2, value3, multiValue1,
+      value1, value2, value3, value4,
       blendOptions, transportOptions,
     };
   }

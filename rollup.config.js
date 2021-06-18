@@ -3,6 +3,7 @@ import copy from 'rollup-plugin-copy';
 import typescript from 'rollup-plugin-typescript';
 import scss from 'rollup-plugin-scss';
 import image from '@rollup/plugin-image';
+import alias from '@rollup/plugin-alias';
 
 
 export default {
@@ -17,6 +18,11 @@ export default {
   },
   external: ['vue'],
   plugins: [
+    alias({
+      entries: {
+        '@utils': 'src/utils'
+      },
+    }),
     copy({
       targets: [
         { src: 'package.json', dest: 'dist/' },

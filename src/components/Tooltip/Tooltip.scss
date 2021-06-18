@@ -1,0 +1,70 @@
+@import "vars";
+
+.j-tooltip {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  > .j-tooltip-title {
+    position: absolute;
+    padding: $margin;
+    color: var(--foreground-color);
+    background-color: var(--background-color);
+    border-radius: 4px;
+    max-width: 350px;
+    word-wrap: break-word;
+  }
+  $margin: 8px;
+  $arrow: 6px;
+  &[data-side="left"] {
+    .j-tooltip-title {
+      top: 50%;
+      right: calc(100% + #{$margin});
+      transform: translateY(-50%);
+      .j-arrow {
+        position: absolute;
+        right: -2*$arrow;
+        top: 50%;
+        margin-top: -$arrow;
+      }
+    }
+  }
+  &[data-side="right"] {
+    .j-tooltip-title {
+      top: 50%;
+      left: calc(100% + #{$margin});
+      transform: translateY(-50%);
+      .j-arrow {
+        position: absolute;
+        left: -2*$arrow;
+        top: 50%;
+        margin-top: -$arrow;
+      }
+    }
+  }
+  &[data-side="top"] {
+    .j-tooltip-title {
+      left: 50%;
+      bottom: calc(100% + #{$margin});
+      transform: translateX(-50%);
+      .j-arrow {
+        position: absolute;
+        left: 50%;
+        bottom: -2*$arrow;
+        margin-left: -$arrow;
+      }
+    }
+  }
+  &[data-side="bottom"] {
+    .j-tooltip-title {
+      left: 50%;
+      top: calc(100% + #{$margin});
+      transform: translateX(-50%);
+      .j-arrow {
+        position: absolute;
+        left: 50%;
+        top: -2*$arrow;
+        margin-left: -$arrow;
+      }
+    }
+  }
+}

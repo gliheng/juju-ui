@@ -104,6 +104,9 @@ export default {
       "name": "AutoComplete",
       "device": ["pc", "mobile"],
     }, {
+      "name": "Tooltip",
+      "device": ["pc", "mobile"],
+    }, {
       "name": "FlexLayout",
       "device": ["pc"],
     },

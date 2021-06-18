@@ -57,7 +57,7 @@ export default {
 
     async function showConfirm() {
       let ret = await popup.confirm("Shall we have dinner tonight?");
-      utils.popup.alert('How nice that you accepted!');
+      popup.alert('How nice that you accepted!');
     }
 
     async function showModal() {
@@ -65,7 +65,7 @@ export default {
         icon: 'alert-circle',
         modal: true,
       });
-      utils.popup.alert('How nice that you accepted!', {
+      popup.alert('How nice that you accepted!', {
         modal: true,
       });
     }
