@@ -44,6 +44,6 @@ function mapRoute(c) {
     path: `/${kName}`,
     name: c.name,
     meta: { fullPage: c.fullPage || false },
-    component: () => import(`./views/${c.name}.vue`),
+    component: () => import(`./views/${c.name}/${c.name}.vue`),
   };
 }

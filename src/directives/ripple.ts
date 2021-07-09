@@ -77,5 +77,5 @@ export default {
     if (handler) {
       el.removeEventListener('mousedown', handler);
     }
-  }
+  },
 }

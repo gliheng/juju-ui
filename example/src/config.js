@@ -25,9 +25,6 @@ export default {
       "name": "Input",
       "device": ["pc", "mobile"]
     }, {
-      "name": "InputGroup",
-      "device": ["pc", "mobile"]
-    }, {
       "name": "Textarea",
       "device": ["pc", "mobile"]
     }, {
@@ -73,9 +70,6 @@ export default {
       "name": "DateInput",
       "device": ["pc", "mobile"]
     }, {
-      "name": "UploadButton",
-      "device": ["pc", "mobile"]
-    }, {
       "name": "Spinner",
       "device": ["pc", "mobile"]
     },  {
@@ -105,6 +99,9 @@ export default {
       "device": ["pc", "mobile"],
     }, {
       "name": "Tooltip",
+      "device": ["pc", "mobile"],
+    }, {
+      "name": "Layout",
       "device": ["pc", "mobile"],
     }, {
       "name": "FlexLayout",

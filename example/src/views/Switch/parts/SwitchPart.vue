@@ -1,0 +1,3 @@
+<template>
+  <j-switch />
+</template>

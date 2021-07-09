@@ -6,16 +6,18 @@
     "build": "vite build"
   },
   "dependencies": {
+    "highlight.js": "^11.0.1",
+    "highlightjs-vue": "^1.0.0",
     "juju-ui": "file:../dist",
     "vue": "^3.0.5",
     "vue-router": "^4.0.0-rc.5"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^1.1.4",
+    "@vitejs/plugin-vue": "^1.2.3",
     "@vitejs/plugin-vue-jsx": "^1.1.0",
-    "@vue/compiler-sfc": "^3.0.2",
+    "@vue/compiler-sfc": "^3.0.5",
     "sass": "^1.29.0",
     "scss": "^0.2.4",
-    "vite": "^2.1.5"
+    "vite": "^2.3.8"
   }
 }

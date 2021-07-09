@@ -37,6 +37,8 @@ export default defineComponent({
         renderBox.layout(0, 0, size.width, size.height);
       }
       forceUpdate();
+    }, {
+      flush: 'post',
     });
 
     function onDragStart(box: RenderBox) {
@@ -136,7 +138,7 @@ export default defineComponent({
   
     return () => {
       let nodes: JSX.Element[] = [];
-      // using r.value here makes the render function reactive to r
+      // checking r.value is useless but it makes the render function reactive to r
       if (r.value >= 0 && renderBox) {
         renderLayout(renderBox, nodes);
       }

@@ -42,6 +42,7 @@ import _DataTable from './components/Table/DataTable';
 import _Scroller from './components/Scroller/Scroller.vue';
 import _AutoComplete from './components/AutoComplete/AutoComplete.vue';
 import _Tooltip from './components/Tooltip/Tooltip.vue';
+import _Space from './components/Space/Space';
 import _FlexLayout from './components/FlexLayout/FlexLayout';
 import _MenuOpener from './components/AnimatedIcon/MenuOpener.vue';
 import _MenuToggle from './components/AnimatedIcon/MenuToggle.vue';
@@ -177,6 +178,9 @@ export function AutoComplete(app: App) {
 export function Tooltip(app: App) {
   app.component('j-auto-complete', _Tooltip);
 };
+export function Space(app: App) {
+  app.component('j-space', _Space);
+};
 export function FlexLayout(app: App) {
   app.component('j-flex-layout', _FlexLayout);
 };
@@ -236,6 +240,7 @@ export default function(conf: Partial<Config>) {
       .component('j-data-table', _DataTable)
       .component('j-auto-complete', _AutoComplete)
       .component('j-tooltip', _Tooltip)
+      .component('j-space', _Space)
       .component('j-flex-layout', _FlexLayout)
       .component('j-animated-icon:menu-opener', _MenuOpener)
       .component('j-animated-icon:menu-toggle', _MenuToggle)
