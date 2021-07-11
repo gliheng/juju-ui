@@ -17,10 +17,56 @@
 <script>
 import { defineComponent, computed, ref } from 'vue';
 import { hooks } from 'juju-ui';
-import highlightjs from 'highlight.js';
-import highlightVue from 'highlightjs-vue';
+import hljs from 'highlight.js';
 
-highlightVue(highlightjs);
+// This is from highlightjs-vue, it does not support vite with esm
+// I had to copy it here
+
+hljs.registerLanguage("vue", {
+  subLanguage: "xml",
+  contains: [
+    hljs.COMMENT("<!--", "-->", {
+      relevance: 10,
+    }),
+    {
+      begin: /^(\s*)(<script>)/gm,
+      end: /^(\s*)(<\/script>)/gm,
+      subLanguage: "javascript",
+      excludeBegin: true,
+      excludeEnd: true,
+    },
+    {
+      begin: /^(\s*)(<script lang=["']ts["']>)/gm,
+      end: /^(\s*)(<\/script>)/gm,
+      subLanguage: "typescript",
+      excludeBegin: true,
+      excludeEnd: true,
+    },
+    {
+      begin: /^(\s*)(<style(\sscoped)?>)/gm,
+      end: /^(\s*)(<\/style>)/gm,
+      subLanguage: "css",
+      excludeBegin: true,
+      excludeEnd: true,
+    },
+    {
+      begin: /^(\s*)(<style lang=["'](scss|sass)["'](\sscoped)?>)/gm,
+      end: /^(\s*)(<\/style>)/gm,
+      subLanguage: "scss",
+      excludeBegin: true,
+      excludeEnd: true,
+    },
+    {
+      begin: /^(\s*)(<style lang=["']stylus["'](\sscoped)?>)/gm,
+      end: /^(\s*)(<\/style>)/gm,
+      subLanguage: "stylus",
+      excludeBegin: true,
+      excludeEnd: true,
+    },
+  ]
+});
+
+// highlightVue(highlightjs);
 
 
 export default defineComponent({
@@ -36,7 +82,7 @@ export default defineComponent({
   },
   setup(props) {
     let html = computed(() => {
-      return highlightjs.highlight(props.code, {language: props.lang}).value;
+      return hljs.highlight(props.code, {language: props.lang}).value;
     });
     let [showCode, toggleCode] = hooks.useSwitch();
     let codeRef = ref(null);
