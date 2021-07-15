@@ -7,7 +7,6 @@
   },
   "dependencies": {
     "highlight.js": "^11.0.1",
-    "highlightjs-vue": "^1.0.0",
     "juju-ui": "file:../dist",
     "vue": "^3.0.5",
     "vue-router": "^4.0.0-rc.5"
