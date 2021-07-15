@@ -19,10 +19,13 @@ import { defineComponent, computed, ref } from 'vue';
 import { hooks } from 'juju-ui';
 import hljs from 'highlight.js';
 
-// This is from highlightjs-vue, it does not support vite with esm
-// I had to copy it here
+// This is from highlightjs-vue, it does not support vite and esm
+// I had to copy it here.
 
-hljs.registerLanguage("vue", {
+// import highlightVue from 'hightlightjs-vue';
+// highlightVue(hljs);
+
+hljs.registerLanguage("vue", hljs => ({
   subLanguage: "xml",
   contains: [
     hljs.COMMENT("<!--", "-->", {
@@ -64,9 +67,7 @@ hljs.registerLanguage("vue", {
       excludeEnd: true,
     },
   ]
-});
-
-// highlightVue(highlightjs);
+}));
 
 
 export default defineComponent({
