@@ -1,18 +1,23 @@
-import { defineComponent, h } from 'vue';
+import { computed, defineComponent, h } from 'vue';
 import './Space.scss';
 
 export default defineComponent({
   props: {
-    size: Number,
+    size: {
+      type: [Number, String],
+      default: 10,
+    },
   },
   setup(props, { slots }) {
+    let style = computed(() => ({
+      marginRight: typeof props.size == 'number' ? `${props.size}px` : props.size,
+    }));
     return () => {
       let nodes;
       if (slots.default) {
         nodes = slots.default();
-        let style = { marginRight: `${props.size}px` };
         nodes = nodes.map((node, i) => {
-          return <div class="j-space-item" style={ i != nodes.length - 1 ? style : undefined }>{ node }</div>;
+          return <div class="j-space-item" style={ i != nodes.length - 1 ? style.value : undefined }>{ node }</div>;
         });
       }
       return <div class="j-space">{ nodes }</div>;
