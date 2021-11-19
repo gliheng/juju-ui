@@ -8,8 +8,8 @@
   </transition-group>
 </template>
 
-<script>
-import JSnackbar from '../../components/Snackbar/Snackbar.vue';
+<script lang="ts">
+import JSnackbar from '../../Snackbar/Snackbar.vue';
 
 export default {
   data() {

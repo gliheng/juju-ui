@@ -9,6 +9,6 @@ import CodeBlock from './components/CodeBlock.vue';
 createApp(App)
   .component('code-block', CodeBlock)
   .use(router)
-  .use(ui({
+  .use(ui, {
     popupBaseDepth: 2000,
-  })).mount('#app')
+  }).mount('#app')

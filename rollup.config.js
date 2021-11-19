@@ -1,14 +1,15 @@
 import vue from 'rollup-plugin-vue';
-import copy from 'rollup-plugin-copy';
-import typescript from 'rollup-plugin-typescript';
+import typescript from 'rollup-plugin-typescript2';
 import scss from 'rollup-plugin-scss';
 import image from '@rollup/plugin-image';
 import alias from '@rollup/plugin-alias';
-
+// import url from '@rollup/plugin-url';
+// import copy from '@rollup/plugin-copy';
 
 export default {
   input: {
     index: 'src/index.ts',
+    utils: "src/utils/index.ts",
   },
   output: {
     format: 'esm',
@@ -18,18 +19,15 @@ export default {
   },
   external: ['vue'],
   plugins: [
+    typescript({
+      check: false,
+    }),
     alias({
       entries: {
-        '@utils': 'src/utils'
-      },
-    }),
-    copy({
-      targets: [
-        { src: 'package.json', dest: 'dist/' },
-      ],
+        "@assets": "src/assets"
+      }
     }),
     image(),
-    typescript(),
     scss({
       output: 'dist/style.css',
       sass: require('sass'),

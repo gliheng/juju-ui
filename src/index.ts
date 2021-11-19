@@ -1,51 +1,51 @@
 import { App } from 'vue';
 
-import _Button from './components/Button/Button.vue';
-import _ButtonGroup from './components/Button/ButtonGroup.vue';
-import _SplitButton from './components/Button/SplitButton.vue';
-import _ToggleButton from './components/ToggleButton/ToggleButton';
-import _ToggleButtonGroup from './components/ToggleButton/ToggleButtonGroup';
-import _SvgIcon from './components/SvgIcon/SvgIcon.vue';
-import _Tabs from './components/Tabs/Tabs.vue';
-import _TabPane from './components/Tabs/TabPane.vue';
-import _Input from './components/Input/Input.vue';
-import _InputGroup from './components/Input/InputGroup.vue';
-import _ValueInput from './components/Input/ValueInput.vue';
-import _DateInput from './components/Input/DateInput.vue';
-import _DateRangeInput from './components/Input/DateRangeInput.vue';
-import _Textarea from './components/Textarea/Textarea.vue';
-import _Radio from './components/Radio/Radio.vue';
-import _Checkbox from './components/Checkbox/Checkbox.vue';
-import _Dropdown from './components/Dropdown/Dropdown.vue';
-import _Select from './components/Select/Select';
-import _Switch from './components/Switch/Switch.vue';
-import _Slider from './components/Slider/Slider.vue';
-import _Drawer from './components/Drawer/Drawer.vue';
-import _Popup from './components/Popup/Popup.vue';
-import _Listbox from './components/Listbox/Listbox.vue';
-import _ListboxItem from './components/Listbox/ListboxItem.vue';
-import _ColorWheel from './components/ColorWheel/ColorWheel.vue';
-import _Chip from './components/Chip/Chip.vue';
-import _ChipEditor from './components/Chip/ChipEditor.vue';
-import _Menu from './components/Menu/Menu.vue';
-import _MenuBar from './components/Menu/MenuBar.vue';
-import _MenuSeperator from './components/Menu/MenuSeperator.vue';
-import _ContextMenu from './components/ContextMenu/ContextMenu.vue';
-import _UploadButton from './components/Button/UploadButton.vue';
-import _Spinner from './components/Spinner/Spinner.vue';
-import _Progress from './components/Progress/Progress.vue';
-import _Calendar from './components/Calendar/Calendar.vue';
-import _Tree from './components/Tree/Tree.vue';
-import _Scaffold from './components/Scaffold/Scaffold.vue';
-import _Table from './components/Table/Table';
-import _DataTable from './components/Table/DataTable';
-import _Scroller from './components/Scroller/Scroller.vue';
-import _AutoComplete from './components/AutoComplete/AutoComplete.vue';
-import _Tooltip from './components/Tooltip/Tooltip.vue';
-import _Space from './components/Space/Space';
-import _FlexLayout from './components/FlexLayout/FlexLayout';
-import _MenuOpener from './components/AnimatedIcon/MenuOpener.vue';
-import _MenuToggle from './components/AnimatedIcon/MenuToggle.vue';
+import _Button from './Button/Button.vue';
+import _ButtonGroup from './Button/ButtonGroup.vue';
+import _SplitButton from './Button/SplitButton.vue';
+import _ToggleButton from './ToggleButton/ToggleButton';
+import _ToggleButtonGroup from './ToggleButton/ToggleButtonGroup';
+import _SvgIcon from './SvgIcon/SvgIcon.vue';
+import _Tabs from './Tabs/Tabs.vue';
+import _TabPane from './Tabs/TabPane.vue';
+import _Input from './Input/Input.vue';
+import _InputGroup from './Input/InputGroup.vue';
+import _ValueInput from './Input/ValueInput.vue';
+import _DateInput from './Input/DateInput.vue';
+import _DateRangeInput from './Input/DateRangeInput.vue';
+import _Textarea from './Textarea/Textarea.vue';
+import _Radio from './Radio/Radio.vue';
+import _Checkbox from './Checkbox/Checkbox.vue';
+import _Dropdown from './Dropdown/Dropdown.vue';
+import _Select from './Select/Select';
+import _Switch from './Switch/Switch.vue';
+import _Slider from './Slider/Slider.vue';
+import _Drawer from './Drawer/Drawer.vue';
+import _Popup from './Popup/Popup.vue';
+import _Listbox from './Listbox/Listbox.vue';
+import _ListboxItem from './Listbox/ListboxItem.vue';
+import _ColorWheel from './ColorWheel/ColorWheel.vue';
+import _Chip from './Chip/Chip.vue';
+import _ChipEditor from './Chip/ChipEditor.vue';
+import _Menu from './Menu/Menu.vue';
+import _MenuBar from './Menu/MenuBar.vue';
+import _MenuSeperator from './Menu/MenuSeperator.vue';
+import _ContextMenu from './ContextMenu/ContextMenu.vue';
+import _UploadButton from './Button/UploadButton.vue';
+import _Spinner from './Spinner/Spinner.vue';
+import _Progress from './Progress/Progress.vue';
+import _Calendar from './Calendar/Calendar.vue';
+import _Tree from './Tree/Tree.vue';
+import _Scaffold from './Scaffold/Scaffold.vue';
+import _Table from './Table/Table';
+import _DataTable from './Table/DataTable';
+import _Scroller from './Scroller/Scroller.vue';
+import _AutoComplete from './AutoComplete/AutoComplete.vue';
+import _Tooltip from './Tooltip/Tooltip.vue';
+import _Space from './Space/Space';
+import _FlexLayout from './FlexLayout/FlexLayout';
+import _MenuOpener from './AnimatedIcon/MenuOpener.vue';
+import _MenuToggle from './AnimatedIcon/MenuToggle.vue';
 import _ripple from './directives/ripple';
 import "./assets/styles/index.scss";
 
@@ -194,56 +194,53 @@ export function ripple(app: App) {
   app.directive('ripple', _ripple);
 }
 
-export default function(conf: Partial<Config>) {
+export default function(app: App, conf: Partial<Config>) {
   if (conf) setConfig(conf);
-
-  return function(vue: App<Element>) {
-    vue.component('j-button', _Button)
-      .component('j-button-group', _ButtonGroup)
-      .component('j-split-button', _SplitButton)
-      .component('j-toggle-button', _ToggleButton)
-      .component('j-toggle-button-group', _ToggleButtonGroup)
-      .component('j-svg-icon', _SvgIcon)
-      .component('j-tabs', _Tabs)
-      .component('j-tab-pane', _TabPane)
-      .component('j-input', _Input)
-      .component('j-input-group', _InputGroup)
-      .component('j-value-input', _ValueInput)
-      .component('j-date-input', _DateInput)
-      .component('j-date-range-input', _DateRangeInput)
-      .component('j-radio', _Radio)
-      .component('j-checkbox', _Checkbox)
-      .component('j-textarea', _Textarea)
-      .component('j-dropdown', _Dropdown)
-      .component('j-select', _Select)
-      .component('j-switch', _Switch)
-      .component('j-slider', _Slider)
-      .component('j-drawer', _Drawer)
-      .component('j-popup', _Popup)
-      .component('j-listbox', _Listbox)
-      .component('j-listbox-item', _ListboxItem)
-      .component('j-color-wheel', _ColorWheel)
-      .component('j-chip', _Chip)
-      .component('j-chip-editor', _ChipEditor)
-      .component('j-menu', _Menu)
-      .component('j-menu-bar', _MenuBar)
-      .component('j-menu-seperator', _MenuSeperator)
-      .component('j-context-menu', _ContextMenu)
-      .component('j-upload-button', _UploadButton)
-      .component('j-spinner', _Spinner)
-      .component('j-scroller', _Scroller)
-      .component('j-progress', _Progress)
-      .component('j-calendar', _Calendar)
-      .component('j-tree', _Tree)
-      .component('j-scaffold', _Scaffold)
-      .component('j-table', _Table)
-      .component('j-data-table', _DataTable)
-      .component('j-auto-complete', _AutoComplete)
-      .component('j-tooltip', _Tooltip)
-      .component('j-space', _Space)
-      .component('j-flex-layout', _FlexLayout)
-      .component('j-animated-icon:menu-opener', _MenuOpener)
-      .component('j-animated-icon:menu-toggle', _MenuToggle)
-      .directive('ripple', _ripple);
-  };
+  app.component('j-button', _Button)
+    .component('j-button-group', _ButtonGroup)
+    .component('j-split-button', _SplitButton)
+    .component('j-toggle-button', _ToggleButton)
+    .component('j-toggle-button-group', _ToggleButtonGroup)
+    .component('j-svg-icon', _SvgIcon)
+    .component('j-tabs', _Tabs)
+    .component('j-tab-pane', _TabPane)
+    .component('j-input', _Input)
+    .component('j-input-group', _InputGroup)
+    .component('j-value-input', _ValueInput)
+    .component('j-date-input', _DateInput)
+    .component('j-date-range-input', _DateRangeInput)
+    .component('j-radio', _Radio)
+    .component('j-checkbox', _Checkbox)
+    .component('j-textarea', _Textarea)
+    .component('j-dropdown', _Dropdown)
+    .component('j-select', _Select)
+    .component('j-switch', _Switch)
+    .component('j-slider', _Slider)
+    .component('j-drawer', _Drawer)
+    .component('j-popup', _Popup)
+    .component('j-listbox', _Listbox)
+    .component('j-listbox-item', _ListboxItem)
+    .component('j-color-wheel', _ColorWheel)
+    .component('j-chip', _Chip)
+    .component('j-chip-editor', _ChipEditor)
+    .component('j-menu', _Menu)
+    .component('j-menu-bar', _MenuBar)
+    .component('j-menu-seperator', _MenuSeperator)
+    .component('j-context-menu', _ContextMenu)
+    .component('j-upload-button', _UploadButton)
+    .component('j-spinner', _Spinner)
+    .component('j-scroller', _Scroller)
+    .component('j-progress', _Progress)
+    .component('j-calendar', _Calendar)
+    .component('j-tree', _Tree)
+    .component('j-scaffold', _Scaffold)
+    .component('j-table', _Table)
+    .component('j-data-table', _DataTable)
+    .component('j-auto-complete', _AutoComplete)
+    .component('j-tooltip', _Tooltip)
+    .component('j-space', _Space)
+    .component('j-flex-layout', _FlexLayout)
+    .component('j-animated-icon:menu-opener', _MenuOpener)
+    .component('j-animated-icon:menu-toggle', _MenuToggle)
+    .directive('ripple', _ripple);
 }
