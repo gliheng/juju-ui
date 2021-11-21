@@ -1,4 +1,4 @@
-import mitt, { Emitter as EmitterBase } from 'mitt';
+import mitt, { Emitter as EmitterBase, EventType } from 'mitt';
 
 class Emitter {
   constructor() {
@@ -6,6 +6,10 @@ class Emitter {
   }
 }
 
-export default Emitter as unknown as {
-  new(): EmitterBase;
-} & EmitterBase;
+type Events = Record<EventType, unknown>;
+
+type ClassEmitter<T> = {
+  new(): ClassEmitter<T>;
+} & EmitterBase<Events>;
+
+export default Emitter as unknown as ClassEmitter<Events>;

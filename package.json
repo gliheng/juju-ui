@@ -34,7 +34,7 @@
     "@ctrl/tinycolor": "^3.4.0",
     "animejs": "^3.2.1",
     "ionicons": "^5.2.3",
-    "mitt": "^2.1.0",
+    "mitt": "^3.0.0",
     "rollup-plugin-typescript2": "^0.31.0"
   },
   "peerDependencies": {
