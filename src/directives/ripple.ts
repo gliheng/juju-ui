@@ -23,7 +23,10 @@ class RippleHandler {
     return ink as HTMLElement;
   }
   
-  handleEvent(evt: MouseEvent) {
+  handleEvent(evt: PointerEvent) {
+    // only accept primary mouse button click
+    if (evt.buttons != 1) return;
+
     let target = evt.currentTarget as Element;
     let ink = this.getInk(target);
     let rect = target.getBoundingClientRect();
@@ -59,7 +62,8 @@ interface RippleDef {
 
 export default {
   mounted(el: HTMLElement, binding: DirectiveBinding<boolean | string | RippleDef>) {
-    let color = '', center = false;
+    let color = '',
+      center = false;
     if (binding.arg == 'center') {
       center = binding.value as boolean;
     } else if (binding.arg == 'color') {

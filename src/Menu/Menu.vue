@@ -18,8 +18,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, inject, ref, Ref } from 'vue';
-import { watch } from 'vue';
+import { defineComponent, provide, inject, ref, watch, Ref } from 'vue';
 import SvgIcon from '../SvgIcon/SvgIcon.vue';
 
 type SetLastCloseFunction = (cbk: Function) => void;

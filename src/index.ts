@@ -46,6 +46,7 @@ import _Space from './Space/Space';
 import _FlexLayout from './FlexLayout/FlexLayout';
 import _MenuOpener from './AnimatedIcon/MenuOpener.vue';
 import _MenuToggle from './AnimatedIcon/MenuToggle.vue';
+import _Vnodes from './Vnodes';
 import _ripple from './directives/ripple';
 import "./assets/styles/index.scss";
 
@@ -190,6 +191,9 @@ export function MenuOpener(app: App) {
 export function MenuToggle(app: App) {
   app.component('j-animated-icon:menu-toggle', _MenuToggle);
 };
+export function VNodes(app: App) {
+  app.component('j-vnodes', _Vnodes);
+};
 export function ripple(app: App) {
   app.directive('ripple', _ripple);
 }
@@ -240,6 +244,7 @@ export default function(app: App, conf: Partial<Config>) {
     .component('j-tooltip', _Tooltip)
     .component('j-space', _Space)
     .component('j-flex-layout', _FlexLayout)
+    .component('j-vnodes', _Vnodes)
     .component('j-animated-icon:menu-opener', _MenuOpener)
     .component('j-animated-icon:menu-toggle', _MenuToggle)
     .directive('ripple', _ripple);
