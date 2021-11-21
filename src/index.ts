@@ -10,7 +10,7 @@ import _Tabs from './Tabs/Tabs.vue';
 import _TabPane from './Tabs/TabPane.vue';
 import _Input from './Input/Input.vue';
 import _InputGroup from './Input/InputGroup.vue';
-import _ValueInput from './Input/ValueInput.vue';
+import _NumberInput from './Input/NumberInput.vue';
 import _DateInput from './Input/DateInput.vue';
 import _DateRangeInput from './Input/DateRangeInput.vue';
 import _Textarea from './Textarea/Textarea.vue';
@@ -83,8 +83,8 @@ export function Input(app: App) {
 export function InputGroup(app: App) {
   app.component('j-input-group', _InputGroup);
 };
-export function ValueInput(app: App) {
-  app.component('j-value-input', _ValueInput);
+export function NumberInput(app: App) {
+  app.component('j-number-input', _NumberInput);
 };
 export function DateInput(app: App) {
   app.component('j-date-input', _DateInput);
@@ -210,7 +210,7 @@ export default function(app: App, conf: Partial<Config>) {
     .component('j-tab-pane', _TabPane)
     .component('j-input', _Input)
     .component('j-input-group', _InputGroup)
-    .component('j-value-input', _ValueInput)
+    .component('j-number-input', _NumberInput)
     .component('j-date-input', _DateInput)
     .component('j-date-range-input', _DateRangeInput)
     .component('j-radio', _Radio)

@@ -1,5 +1,5 @@
 <template>
-  <div class="j-value-input" :class="{'j-focus': focus}">
+  <div class="j-number-input" :class="{'j-focus': focus}" :data-type="type">
     <template v-if="type == 'slider'">
       <div class="j-value-inner">
         <input v-model.lazy="value" @focus="onFocus" @blur="onBlur" />
@@ -9,11 +9,20 @@
         <j-slider v-model="value" :min="min" :max="max" :step="step" />
       </div>
     </template>
-    <template v-else-if="type == 'button'">
+    <template v-else-if="type == 'horizontal'">
       <div class="j-value-inner">
         <j-button @click.stop="dec" icon="remove" flat @mousedown.prevent :disabled="!canDec" />
         <input v-model.lazy="value" @focus="onFocus" @blur="onBlur" />
         <j-button @click.stop="inc" icon="add" flat @mousedown.prevent :disabled="!canInc" />
+      </div>
+    </template>
+    <template v-else-if="type == 'vertical'">
+      <div class="j-value-inner">
+        <input v-model.lazy="value" @focus="onFocus" @blur="onBlur" />
+        <div class="btns">
+          <j-button @click.stop="inc" icon="add" flat @mousedown.prevent :disabled="!canInc" />
+          <j-button @click.stop="dec" icon="remove" flat @mousedown.prevent :disabled="!canDec" />
+        </div>
       </div>
     </template>
   </div>
@@ -31,7 +40,7 @@ export default defineComponent({
   props: {
     type: {
       type: String,
-      default: 'button',
+      default: 'vertical',
       // validator(v: string) {
       //   return v == 'button' || v == 'slider';
       // },
@@ -129,4 +138,4 @@ function round(value: number, min: number, step: number): number {
 }
 </script>
 
-<style src="./ValueInput.scss"></style>
+<style src="./NumberInput.scss"></style>

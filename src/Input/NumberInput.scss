@@ -1,10 +1,13 @@
 @import "vars";
 
-.j-value-input {
+.j-number-input {
   padding: 0 0.1rem;
   border: 1px solid var(--foreground-color-1);
   border-radius: 3px;
   transition: border-color 0.2s, box-shadow 0.2s;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
 
   &.j-focus {
     box-shadow: $outline;
@@ -13,13 +16,13 @@
   &:hover {
     border-color: var(--primary-color);
   }
-
-  position: relative;
-  display: inline-block;
+  
   .j-value-inner {
     display: flex;
     align-items: stretch;
-    > .j-button {
+    .j-button {
+      border: 
+      none;
       padding: 0;
       margin: 0;
       &:focus {
@@ -42,5 +45,15 @@
     line-height: 0;
     background-color: var(--background-color);
     margin-top: 2px;
+  }
+
+  &[data-type="vertical"] .btns {
+    display: flex;
+    flex-direction: column;
+    .j-button {
+      padding-left: 2px;
+      padding-right: 2px;
+      height: 50%;
+    }
   }
 }

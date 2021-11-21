@@ -64,7 +64,7 @@ export default {
       "name": "ContextMenu",
       "device": ["pc"]
     }, {
-      "name": "ValueInput",
+      "name": "NumberInput",
       "device": ["pc", "mobile"]
     }, {
       "name": "DateInput",

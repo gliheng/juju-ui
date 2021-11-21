@@ -1,5 +1,5 @@
 <template>
-  <j-value-input type="slider" v-model="num" />
+  <j-number-input v-model="num" :min="50" :max="100" :step="10" />
   <p>Value: {{ num }}</p>
 </template>
 
@@ -8,9 +8,9 @@ import { ref } from 'vue';
 
 export default {
   setup() {
-    let num = ref(0);
+    let num = ref(50);
     return {
-      num
+      num,
     };
   },
 }
