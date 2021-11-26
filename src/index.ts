@@ -47,8 +47,6 @@ import Space from './Space/Space';
 import FlexLayout from './FlexLayout/FlexLayout';
 import MenuOpener from './AnimatedIcon/MenuOpener.vue';
 import MenuToggle from './AnimatedIcon/MenuToggle.vue';
-import Form from './Form/Form';
-import FormItem from './Form/FormItem';
 import Vnodes from './Vnodes';
 import ripple from './directives/ripple';
 
@@ -102,8 +100,6 @@ export {
   FlexLayout,
   MenuOpener,
   MenuToggle,
-  Form,
-  FormItem,
   Vnodes,
   ripple,
 };
@@ -156,8 +152,6 @@ export default function(app: App, conf: Partial<Config>) {
     .component('j-flex-layout', FlexLayout)
     .component('j-animated-icon:menu-opener', MenuOpener)
     .component('j-animated-icon:menu-toggle', MenuToggle)
-    .component('j-form', Form)
-    .component('j-form-item', FormItem)
     .component('j-vnodes', Vnodes)
     .directive('ripple', ripple);
 }

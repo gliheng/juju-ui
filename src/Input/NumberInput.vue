@@ -20,8 +20,8 @@
       <div class="j-value-inner">
         <input v-model.lazy="value" @focus="onFocus" @blur="onBlur" />
         <div class="btns">
-          <j-button @click.stop="inc" icon="add" flat @mousedown.prevent :disabled="!canInc" />
-          <j-button @click.stop="dec" icon="remove" flat @mousedown.prevent :disabled="!canDec" />
+          <j-button @click.stop="inc" icon="chevron-up" flat @mousedown.prevent :disabled="!canInc" />
+          <j-button @click.stop="dec" icon="chevron-down" flat @mousedown.prevent :disabled="!canDec" />
         </div>
       </div>
     </template>
