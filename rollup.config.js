@@ -3,13 +3,11 @@ import alias from '@rollup/plugin-alias';
 import vue from 'rollup-plugin-vue';
 import typescript from 'rollup-plugin-typescript2';
 import scss from 'rollup-plugin-scss';
-import copy from 'rollup-plugin-copy';
 // import url from '@rollup/plugin-url';
 
 export default {
   input: {
     index: 'src/index.ts',
-    utils: "src/utils/index.ts",
   },
   output: {
     format: 'esm',
@@ -19,12 +17,6 @@ export default {
   },
   external: ['vue'],
   plugins: [
-    copy({
-      targets: {
-        src: './src/package.json',
-        dest: './dist/'
-      }
-    }),
     typescript({
       check: false,
     }),
