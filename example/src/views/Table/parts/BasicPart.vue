@@ -1,5 +1,8 @@
 <template>
-  <j-table :data="data" :columns="columns" />
+  <j-table
+    :data="data"
+    :columns="columns"
+  />
 </template>
 
 <script>

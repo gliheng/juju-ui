@@ -1,5 +1,10 @@
 <template>
-  <j-data-table :data="data" :columns="fixedHeaderColumns" :height="200" />
+  <j-table
+    fixed-header
+    :data="data"
+    :columns="fixedHeaderColumns"
+    :height="200"
+  />
 </template>
 
 <script>

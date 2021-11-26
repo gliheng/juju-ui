@@ -39,7 +39,6 @@ import Calendar from './Calendar/Calendar.vue';
 import Tree from './Tree/Tree.vue';
 import Scaffold from './Scaffold/Scaffold.vue';
 import Table from './Table/Table';
-import DataTable from './Table/DataTable';
 import Scroller from './Scroller/Scroller.vue';
 import AutoComplete from './AutoComplete/AutoComplete.vue';
 import Tooltip from './Tooltip/Tooltip.vue';
@@ -93,7 +92,6 @@ export {
   Tree,
   Scaffold,
   Table,
-  DataTable,
   AutoComplete,
   Tooltip,
   Space,
@@ -145,7 +143,6 @@ export default function(app: App, conf: Partial<Config>) {
     .component('j-tree', Tree)
     .component('j-scaffold', Scaffold)
     .component('j-table', Table)
-    .component('j-data-table', DataTable)
     .component('j-auto-complete', AutoComplete)
     .component('j-tooltip', Tooltip)
     .component('j-space', Space)

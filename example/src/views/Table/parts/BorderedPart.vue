@@ -1,5 +1,9 @@
 <template>
-  <j-table bordered :data="data" :columns="columns" />
+  <j-table
+    bordered
+    :data="data"
+    :columns="columns"
+  />
 </template>
 <script>
 import { columns, data } from './TableColumns.tsx';

@@ -91,14 +91,21 @@ export default defineComponent({
           }
         }
         return (
-          <td class={ cellClass } key={ getCellKey(props.datum, col, i) } style={ style }>
+          <td
+            class={ cellClass }
+            key={ getCellKey(props.datum, col, i) }
+            style={ style }
+          >
             { getCellDisplay(props.datum, col) }
           </td>
         );
       });
       return (
-        <tr class={ rowClass } data-selected={ props.selected }
-          onClick={ toggleSelect }>{ cells }</tr>
+        <tr
+          class={ rowClass }
+          data-selected={ props.selected }
+          onClick={ toggleSelect }
+        >{ cells }</tr>
       );  
     };
   }
