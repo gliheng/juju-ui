@@ -109,6 +109,9 @@ export default {
     }, {
       "name": "Splitter",
       "device": ["pc"],
+    }, {
+      "name": "Form",
+      "device": ["pc", "mobile"],
     },
   ],
   "Directives": [
