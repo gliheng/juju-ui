@@ -1,3 +1,5 @@
+@import "vars";
+
 .j-scale-enter-active,
 .j-scale-leave-active {
   transition: opacity 0.2s $curve, transform 0.2s $curve;
