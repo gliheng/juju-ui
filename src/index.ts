@@ -44,6 +44,8 @@ import AutoComplete from './AutoComplete/AutoComplete.vue';
 import Tooltip from './Tooltip/Tooltip.vue';
 import Space from './Space/Space';
 import FlexLayout from './FlexLayout/FlexLayout';
+import Splitter from './Splitter/Splitter';
+import SplitterPanel from './Splitter/SplitterPanel';
 import MenuOpener from './AnimatedIcon/MenuOpener.vue';
 import MenuToggle from './AnimatedIcon/MenuToggle.vue';
 import Vnodes from './Vnodes';
@@ -96,6 +98,8 @@ export {
   Tooltip,
   Space,
   FlexLayout,
+  Splitter,
+  SplitterPanel,
   MenuOpener,
   MenuToggle,
   Vnodes,
@@ -147,6 +151,8 @@ export default function(app: App, conf: Partial<Config>) {
     .component('j-tooltip', Tooltip)
     .component('j-space', Space)
     .component('j-flex-layout', FlexLayout)
+    .component('j-splitter', Splitter)
+    .component('j-splitter-panel', SplitterPanel)
     .component('j-animated-icon:menu-opener', MenuOpener)
     .component('j-animated-icon:menu-toggle', MenuToggle)
     .component('j-vnodes', Vnodes)

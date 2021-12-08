@@ -106,6 +106,9 @@ export default {
     }, {
       "name": "FlexLayout",
       "device": ["pc"],
+    }, {
+      "name": "Splitter",
+      "device": ["pc"],
     },
   ],
   "Directives": [
