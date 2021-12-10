@@ -9,6 +9,10 @@ export default defineComponent({
   name: 'Pane',
   inheritAttrs: false,
   props: {
+    id: {
+      type: Number,
+      required: true,
+    },
     use: {
       type: String,
       required: true,
@@ -90,6 +94,7 @@ export default defineComponent({
         <div
           class="j-flex-layout-pane"
           data-expanded={expanded}
+          data-id={props.id}
           style={style}
         >
           <Dropdown align="right">

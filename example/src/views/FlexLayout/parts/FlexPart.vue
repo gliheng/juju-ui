@@ -1,11 +1,24 @@
 <template>
   <div>
     <div class="pool" @dragstart="onDragStart">
-      <div class="j-shadow-5 pill" data-use="pane-a" draggable="true">Component A</div>
-      <div class="j-shadow-5 pill" data-use="pane-b" draggable="true">Component B</div>
-      <div class="j-shadow-5 pill" data-use="pane-c" draggable="true">Component C</div>
-      <div class="j-shadow-5 pill" data-use="pane-d" draggable="true">Component D</div>
-      <div class="j-shadow-5 pill" data-use="pane-e" draggable="true">Component E</div>
+      <div>
+        <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-a">
+          Component A
+        </j-flex-layout-drag-source>
+        <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-b">
+          Component B
+        </j-flex-layout-drag-source>
+        <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-c">
+          Component C
+        </j-flex-layout-drag-source>
+        <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-d">
+          Component D
+        </j-flex-layout-drag-source>
+        <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-e">
+          Component E
+        </j-flex-layout-drag-source>
+      </div>
+      <p>Drag these pills to the panel bellow to modify layout</p>
     </div>
     <j-flex-layout class="layout" :library="library" :preset="preset" />
   </div>
@@ -16,11 +29,6 @@ import library from './FlexLayoutLibrary';
 
 export default {
   setup() {
-    function onDragStart(evt) {
-      let use = evt.target.dataset['use'];
-      evt.dataTransfer.setData("application/j-flex-layout", use);
-    }
-
     let preset = {
       use: '$col',
       children: [
@@ -43,14 +51,13 @@ export default {
           children: [
             'pane-d', '$divider', 'pane-e',
           ],
-        }, 
+        },
       ]
     };
 
     return {
       library,
       preset,
-      onDragStart,
     };
   },
 };
@@ -69,6 +76,9 @@ export default {
     margin: 0 8px;
     border-radius: 20px;
     padding: 5px;
+  }
+  p {
+    color: grey;
   }
 }
 </style>

@@ -23,10 +23,10 @@ export type PaneAttrs = {
 
 export type NormalizedPaneAttrs = {
   use: string,
-  id: number,
   children?: NormalizedPaneAttrs[],
 } & PaneOptionalAttrs;
 
 export interface LayoutContext {
   flexSize: number,
+  totalFlex: number;
 }

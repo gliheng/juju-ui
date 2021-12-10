@@ -1,13 +1,12 @@
+import style from "./style.module.scss";
+
 export default [
   {
     name: 'pane-a',
     label: 'Component A',
     render() {
-      return <div style={{
+      return <div class={style.box} style={{
         backgroundColor: 'purple',
-        color: 'white',
-        fontSize: '3em',
-        flex: 1,
       }}><span>A</span></div>;
     },
   },
@@ -15,11 +14,8 @@ export default [
     name: 'pane-b',
     label: 'Component B',
     render() {
-      return <div style={{
+      return <div class={style.box} style={{
         backgroundColor: 'crimson',
-        color: 'white',
-        fontSize: '3em',
-        flex: 1,
       }}><span>B</span></div>;
     },
   },
@@ -27,11 +23,8 @@ export default [
     name: 'pane-c',
     label: 'Component C',
     render() {
-      return <div style={{
+      return <div class={style.box} style={{
         backgroundColor: 'blue',
-        color: 'white',
-        fontSize: '3em',
-        flex: 1,
       }}><span>C</span></div>;
     },
   },
@@ -39,11 +32,8 @@ export default [
     name: 'pane-d',
     label: 'Component D',
     render() {
-      return <div style={{
+      return <div class={style.box} style={{
         backgroundColor: 'navy',
-        color: 'white',
-        fontSize: '3em',
-        flex: 1,
       }}><span>D</span></div>;
     },
   },
@@ -51,11 +41,8 @@ export default [
     name: 'pane-e',
     label: 'Component E',
     render() {
-      return <div style={{
+      return <div class={style.box} style={{
         backgroundColor: 'steelblue',
-        color: 'white',
-        fontSize: '3em',
-        flex: 1,
       }}><span>E</span></div>;
     },
   },

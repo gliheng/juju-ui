@@ -7,56 +7,51 @@ export const DIVIDER = '$divider';
 export const COL = '$col';
 export const ROW = '$row';
 
+export enum HitTestAlignment {
+  Top,
+  Left,
+  Right,
+  Bottom,
+  Center,
+}
+
+enum Axis {
+  X,
+  Y,
+}
+
+interface Box {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
 // This function normalize a user provided preset.
 // String is accepted to be convenient
 export function normalizePreset(
-  genId: Generator<number, number, unknown>,
   preset: PaneAttrs,
-  parent?: NormalizedPaneAttrs,
 ): NormalizedPaneAttrs {
-  let id = genId.next().value;
   // simple string name
   if (typeof preset == 'string') {
     let props, flex = 1;
     if (preset == DIVIDER) {
       flex = 0;
-      props = {
-        vertical: parent?.use == COL ? false : true,
-      };
     }
     return {
-      id,
       use: preset,
       flex,
       props,
     };
   }
   let ret = {
-    id, ...preset
+    ...preset
   } as NormalizedPaneAttrs;
 
   if (preset.children) {
-    let children = preset.children.map(
-      (item: any) => normalizePreset(genId, item, ret)
+    ret.children = preset.children.map(
+      (item: any) => normalizePreset(item)
     );
-    // normalize children flex values
-    // This converted flex to float <= 1
-
-    // calc totalFlex of the same level
-    let totalFlex = children.reduce((prev, curr) => {
-      return (curr.flex || 0) + prev;
-    }, 0);
-    if (totalFlex != 0) {
-      children.forEach(item => {
-        if (typeof item.flex == 'number') {
-          item.flex = item.flex / totalFlex;
-        }
-      });
-      ret.children = children;
-    }
-    if (ret.flex === undefined) {
-      ret.flex = 1;
-    }
   }
 
   return ret;
@@ -70,6 +65,7 @@ export class RenderBox {
   minSize?: number;
   maxSize?: number;
   flex?: number;
+  ratio?: number;
 
   parent?: RenderBox;
   children?: RenderBox[];
@@ -90,15 +86,19 @@ export class RenderBox {
 
   constructor(args: NormalizedPaneAttrs, context: any, parent?: RenderBox) {
     this.use = args.use;
-    this.id = args.id;
+    this.id = context.idGen.next().value;
     this.props = args.props;
     this.size = args.size;
     this.minSize = args.minSize;
     this.maxSize = args.maxSize;
-    this.flex = args.flex;
     this.children = args.children?.map(
-      e => new RenderBox(e, context, this)
+      e => {
+        return new RenderBox(e, context, this)
+      },
     );
+    if (this.size === undefined) {
+      this.flex = args.flex !== undefined ? args.flex : 1;
+    }
     this.parent = parent;
     this.context = context;
     markRaw(this);
@@ -108,7 +108,101 @@ export class RenderBox {
     this.use = c;
   }
 
-  hitTest(x: number, y: number): RenderBox | undefined {
+  splitComponent(c: string, alignment?: HitTestAlignment) {
+    if (alignment == HitTestAlignment.Center) {
+      if (this.isRoot) {
+        this.use = ROW;
+        this.appendChildren([c]);
+        this.doLayout();
+      } else {
+        this.use = c;
+      }
+    } else {
+      // If this box is already inside a parent container (row or col)
+      // insert c into parent container
+      if (
+        this.parent?.use == ROW &&
+        (alignment == HitTestAlignment.Left || alignment == HitTestAlignment.Right)
+      ) {
+        let i = this.elementIndex;
+        if (alignment == HitTestAlignment.Right) {
+          i++;
+          this.parent.insertChild(c, i);
+          this.parent.insertChild(DIVIDER, i);
+        } else {
+          this.parent.insertChild(DIVIDER, i);
+          this.parent.insertChild(c, i);
+        }
+        this.parent.doLayout();
+      } else if (
+        this.parent?.use == COL &&
+        (alignment == HitTestAlignment.Top || alignment == HitTestAlignment.Bottom)
+      ) {
+        let i = this.elementIndex;
+        if (alignment == HitTestAlignment.Bottom) {
+          i++;
+          this.parent.insertChild(c, i);
+          this.parent.insertChild(DIVIDER, i);
+        } else {
+          this.parent.insertChild(DIVIDER, i);
+          this.parent.insertChild(c, i);
+        }
+        this.parent.doLayout();
+      } else {
+        let oldUse = this.use;
+        if (!this.children) {
+          this.children = [];
+        }
+        if (alignment == HitTestAlignment.Left) {
+          this.use = ROW;
+          this.appendChildren([
+            c, DIVIDER, oldUse,
+          ]);
+        } else if (alignment == HitTestAlignment.Right) {
+          this.use = ROW;
+          this.appendChildren([
+            oldUse, DIVIDER, c,
+          ]);
+        } else if (alignment == HitTestAlignment.Top) {
+          this.use = COL;
+          this.appendChildren([
+            c, DIVIDER, oldUse,
+          ]);
+        } else if (alignment == HitTestAlignment.Bottom) {
+          this.use = COL;
+          this.appendChildren([
+            oldUse, DIVIDER, c,
+          ]);
+        }
+        this.doLayout();
+      }
+    }
+    console.log('box???', this);
+  }
+
+  appendChildren(children: PaneAttrs[]) {
+    let c = normalizePreset({
+      use: '',
+      children
+    });
+
+    this.children = c.children!.map(
+      e => new RenderBox(e, this.context, this),
+    );
+  }
+
+  insertChild(c: PaneAttrs, i: number): RenderBox {
+    let newBox = new RenderBox(
+      normalizePreset(c), this.context, this,
+    );
+    this.children?.splice(i, 0, newBox);
+    return newBox
+  }
+
+  hitTest(x: number, y: number): {
+    box: RenderBox;
+    alignment: HitTestAlignment;
+  } | undefined {
     if (
       x < this.x ||
       y < this.y ||
@@ -125,13 +219,25 @@ export class RenderBox {
       }
     }
 
-    if (this.isLeaf) {
-      return this;
+    if (this.isLeaf || this.isRoot) {      
+      let xScale = makeScale(this.x, this.width);
+      let yScale = makeScale(this.y, this.height);
+      let boxes: [Axis, number[], HitTestAlignment][] = [
+        [Axis.X, xScale([0, 0.2]), HitTestAlignment.Left],
+        [Axis.X, xScale([0.8, 1]), HitTestAlignment.Right],
+        [Axis.Y, yScale([0, 0.2]), HitTestAlignment.Top],
+        [Axis.Y, yScale([0.8, 1]), HitTestAlignment.Bottom],
+      ];
+      let alignment = this.getAlignment(boxes, x, y);
+      return {
+        box: this,
+        alignment,
+      };
     }
   }
 
   get isLeaf() {
-    return this.use != COL && this.use != ROW;
+    return !this.children;
   }
 
   get root(): RenderBox {
@@ -140,6 +246,11 @@ export class RenderBox {
       node = node.parent;
     }
     return node;
+  }
+
+  get elementIndex() {
+    let i = this.parent?.children?.indexOf(this);
+    return i === undefined ? -1 : i;
   }
 
   expand() {
@@ -200,7 +311,13 @@ export class RenderBox {
           totalFlex += flex;
         }
      
+        // 2 pass: layout children using flex values
         let pos = 0;
+        if (vertical) {
+          pos = this.y;
+        } else {
+          pos = this.x;
+        }
         children.forEach(item => {
           let size;
           if (typeof item.size == 'number') {
@@ -216,6 +333,7 @@ export class RenderBox {
           pos += size;
         });
         this.layoutContext = {
+          totalFlex,
           flexSize: totalSize - fixedSize,
         };
       }
@@ -229,6 +347,7 @@ export class RenderBox {
     this.children.splice(i, 1);
     this.fixDividers();
     if (this.isEmpty && !this.isRoot) {
+      // If this container is empty, remove itself
       this.remove();
     } else {
       // relayout self
@@ -270,6 +389,20 @@ export class RenderBox {
     }
   }
 
+  getAlignment(
+    boxes: [Axis, number[], HitTestAlignment][],
+    x: number, y: number,
+  ): HitTestAlignment {
+    for (let [kind, [start, end], align] of boxes) {
+      if (kind == Axis.X) {
+        if (x >= start && x <= end) return align;
+      } else if (kind == Axis.Y) {
+        if (y >= start && y <= end) return align;
+      }
+    }
+    return HitTestAlignment.Center;
+  }
+
   render(collect: JSX.Element[]) {
     if (this.children) {
       this.children.forEach(item => {
@@ -278,39 +411,48 @@ export class RenderBox {
       return;
     }
 
+    let node;
     if (this.use == DIVIDER) {
-      collect.push(
+      node = (
         <Divider
           key={ this.id }
           x={this.x}
           y={this.y}
           width={this.width}
           height={this.height}
-          {...this.props}
+          vertical={this.parent?.use == ROW}
           box={ this }
           onDragStart={ this.context.onDividerDragStart }
           onDragMove={ this.context.onDividerDragMove }
           onDragEnd={ this.context.onDividerDragEnd }
         />
       );
+    } else {
+      node = (
+        <Pane
+          key={ this.id }
+          id={ this.id }
+          use={this.use}
+          x={this.x}
+          y={this.y}
+          width={this.width}
+          height={this.height}
+          expanded={this.expanded}
+          box={ this }
+          library={ this.context.library }
+          onAction={ this.context.onAction }
+        />
+      );
     }
 
-    let node = (
-      <Pane
-        key={ this.id }
-        use={this.use}
-        x={this.x}
-        y={this.y}
-        width={this.width}
-        height={this.height}
-        expanded={this.expanded}
-        box={ this }
-        library={ this.context.library }
-        onAction={ this.context.onAction }
-      />
-    );
     collect.push(node);
   }
+}
+
+function makeScale(start: number, extent: number) {
+  return (pts: number[]): number[] => {
+    return pts.map(e => start + extent * e);
+  };
 }
 
 export function *idGenerator() {

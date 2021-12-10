@@ -1,6 +1,6 @@
 import { defineComponent, ref, h, PropType, watch } from 'vue';
 import { useElementSize } from '@utils/hooks';
-import { idGenerator, normalizePreset, RenderBox } from './layout';
+import { idGenerator, normalizePreset, RenderBox, HitTestAlignment } from './layout';
 import { PaneAttrs, Library } from './types';
 import './FlexLayout.scss';
 
@@ -29,10 +29,9 @@ export default defineComponent({
     let viewSize = useElementSize(elm);
     watch(viewSize, (size) => {
       if (!renderBox) {
-        let preset = normalizePreset(
-          idGenerator(), props.preset,
-        );
+        let preset = normalizePreset(props.preset);
         renderBox = new RenderBox(preset, {
+          idGen: idGenerator(), 
           library: props.library,
           onDividerDragStart,
           onDividerDragMove,
@@ -47,6 +46,7 @@ export default defineComponent({
     });
 
     function onDividerDragStart(box: RenderBox) {
+      // When resizing, css transition is disabled
       resizing.value = true;
     }
   
@@ -79,9 +79,10 @@ export default defineComponent({
             }
             next.size -= d;
           } else if (typeof prev.flex == 'number' && typeof next.flex == 'number') {
+            // in case two sides are flex
             let ctx = parent.layoutContext!;
-            let { flexSize } = ctx;
-            let flex = d / flexSize;
+            let { flexSize, totalFlex } = ctx;
+            let flex = d / flexSize * totalFlex;
             if (flex > 0) {
               flex = Math.min(next.flex, flex);
             } else {
@@ -101,7 +102,10 @@ export default defineComponent({
       resizing.value = false;
     }
 
-    let hintBox = ref<RenderBox>();
+    let hintBox = ref<{
+      box: RenderBox,
+      alignment: HitTestAlignment,
+    }>();
 
     function validData(dt?: DataTransfer | null): boolean {
       return dt ? dt.types.includes(MIME) : false;
@@ -118,7 +122,6 @@ export default defineComponent({
       }
     }
 
-    // TODO: This event triggers a lots, may use a mousemove handler to optimize
     function onDragover(evt: DragEvent) {
       if (rect) {
         evt.preventDefault();
@@ -134,7 +137,6 @@ export default defineComponent({
     }
 
     function onDragleave(evt: DragEvent) {
-      console.log('dragleave');
       hintBox.value = undefined;
     }
 
@@ -142,7 +144,10 @@ export default defineComponent({
       evt.preventDefault();
       const data = evt.dataTransfer?.getData(MIME);
       if (data) {
-        hintBox.value?.swapComponent(data);
+        hintBox.value?.box.splitComponent(
+          data,
+          hintBox.value?.alignment,
+        );
       }
       hintBox.value = undefined;
       forceUpdate();
@@ -173,7 +178,19 @@ export default defineComponent({
 
       let hintBoxNode: JSX.Element | undefined;
       if (hintBox.value) {
-        let { x, y, width, height } = hintBox.value;
+        let { box, alignment } = hintBox.value;
+        let { x, y, width, height } = box;
+        if (alignment == HitTestAlignment.Left) {
+          width /= 2;
+        } else if (alignment == HitTestAlignment.Right) {
+          width /= 2;
+          x += width;
+        } else if (alignment == HitTestAlignment.Top) {
+          height /= 2;
+        } else if (alignment == HitTestAlignment.Bottom) {
+          height /= 2;
+          y += height;
+        }
         let style: Record<string, any> = {
           top: `${y}px`,
           left: `${x}px`,
