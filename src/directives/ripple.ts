@@ -55,7 +55,7 @@ class RippleHandler {
 
 const RippleEventHandlerSymbol = Symbol('RippleEventHandlerSymbol');
 
-interface RippleDef {
+export interface RippleDef {
   color: string,
   center: boolean,
 }

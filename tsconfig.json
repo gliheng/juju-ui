@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "baseUrl": "./src",
-    "incremental": true,
     "removeComments": true,
     "target": "es5",
     "jsx": "react",
