@@ -1,5 +1,5 @@
 import { defineComponent, h, PropType } from 'vue';
-import { RenderBox } from './types';
+import { RenderBox } from './layout';
 
 
 export default defineComponent({
@@ -24,7 +24,7 @@ export default defineComponent({
     },
     vertical: {
       type: Boolean,
-      required: true,
+      default: true,
     },
     box: Object as PropType<RenderBox>,
     onDragStart: {

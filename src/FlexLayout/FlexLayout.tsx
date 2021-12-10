@@ -1,10 +1,10 @@
 import { defineComponent, ref, h, PropType, watch } from 'vue';
-import Pane from './Pane';
-import Divider from './Divider';
 import { useElementSize } from '@utils/hooks';
-import { DIVIDER, idGenerator, normalizePreset, layout } from './layout';
-import { PaneAttrs, RenderBox, Library } from './types';
+import { idGenerator, normalizePreset, RenderBox, HitTestAlignment } from './layout';
+import { PaneAttrs, Library } from './types';
 import './FlexLayout.scss';
+
+export const MIME = "application/j-flex-layout";
 
 export default defineComponent({
   props: {
@@ -13,7 +13,7 @@ export default defineComponent({
       required: true,
     },
     preset: {
-      type: Object,
+      type: Object as PropType<PaneAttrs>,
       required: true,
     },
   },
@@ -29,23 +29,28 @@ export default defineComponent({
     let viewSize = useElementSize(elm);
     watch(viewSize, (size) => {
       if (!renderBox) {
-        let preset = normalizePreset(idGenerator(), props.preset as PaneAttrs, undefined);
-        let box = layout(preset, 0, 0, size.width, size.height);
-        // console.log('after layout', box);
-        renderBox = box;
-      } else {
-        renderBox.layout(0, 0, size.width, size.height);
+        let preset = normalizePreset(props.preset);
+        renderBox = new RenderBox(preset, {
+          idGen: idGenerator(), 
+          library: props.library,
+          onDividerDragStart,
+          onDividerDragMove,
+          onDividerDragEnd,
+          onAction,
+        });
       }
+      renderBox.layout(0, 0, size.width, size.height);
       forceUpdate();
     }, {
       flush: 'post',
     });
 
-    function onDragStart(box: RenderBox) {
+    function onDividerDragStart(box: RenderBox) {
+      // When resizing, css transition is disabled
       resizing.value = true;
     }
   
-    function onDragMove(box: RenderBox, d: number) {
+    function onDividerDragMove(box: RenderBox, d: number) {
       let parent = box.parent;
       if (parent && parent.children) {
         let idx = parent.children.findIndex(item => item.id == box.id);
@@ -74,9 +79,10 @@ export default defineComponent({
             }
             next.size -= d;
           } else if (typeof prev.flex == 'number' && typeof next.flex == 'number') {
+            // in case two sides are flex
             let ctx = parent.layoutContext!;
-            let { flexSize } = ctx;
-            let flex = d / flexSize;
+            let { flexSize, totalFlex } = ctx;
+            let flex = d / flexSize * totalFlex;
             if (flex > 0) {
               flex = Math.min(next.flex, flex);
             } else {
@@ -86,53 +92,80 @@ export default defineComponent({
             next.flex -= flex;
           }
           // relayout self
-          parent.layout();
+          parent.doLayout();
           forceUpdate();
         }
       }
     }
   
-    function onDragEnd(box: RenderBox) {
+    function onDividerDragEnd(box: RenderBox) {
       resizing.value = false;
     }
-  
-    function onAction(action: string, box: RenderBox, arg: any) {
-      if (action == 'remove') {
-        if (box.removeChild(box.id)) {
-          forceUpdate();
-        }
-      } else if (action == 'replace') {
-        box.use = arg as string;
-        forceUpdate();
+
+    let hintBox = ref<{
+      box: RenderBox,
+      alignment: HitTestAlignment,
+    }>();
+
+    function validData(dt?: DataTransfer | null): boolean {
+      return dt ? dt.types.includes(MIME) : false;
+    }
+
+    let rect: DOMRect | undefined;
+    function onDragenter(evt: DragEvent) {
+      if (validData(evt.dataTransfer)) {
+        evt.preventDefault();
+        evt.dataTransfer!.dropEffect = "copy";
+        rect = elm.value?.getBoundingClientRect();
+      } else {
+        rect = undefined;
       }
     }
+
+    function onDragover(evt: DragEvent) {
+      if (rect) {
+        evt.preventDefault();
+        let { clientX, clientY } = evt;
+        let offsetX = clientX - rect.left, offsetY = clientY - rect.top;
+        let hit = renderBox.hitTest(offsetX, offsetY);
+        if (hit) {
+          hintBox.value = hit;
+        } else {
+          hintBox.value = undefined;
+        }
+      }
+    }
+
+    function onDragleave(evt: DragEvent) {
+      hintBox.value = undefined;
+    }
+
+    function onDrop(evt: DragEvent) {
+      evt.preventDefault();
+      const data = evt.dataTransfer?.getData(MIME);
+      if (data) {
+        hintBox.value?.box.splitComponent(
+          data,
+          hintBox.value?.alignment,
+        );
+      }
+      hintBox.value = undefined;
+      forceUpdate();
+    }
   
-    function renderLayout(box: RenderBox, collect: JSX.Element[]) {
-      if (box.children) {
-        box.children.forEach(item => {
-          renderLayout(item, collect);
-        });
-      } else if (box.use == DIVIDER) {
-        collect.push(
-          <Divider
-            key={ box.id }
-            {...box}
-            {...box.props}
-            box={ box }
-            onDragStart={ onDragStart }
-            onDragMove={ onDragMove }
-            onDragEnd={ onDragEnd }
-          />
-        );
-      } else {
-        collect.push(
-          <Pane key={ box.id } 
-            {...box}
-            box={ box }
-            library={ props.library }
-            onAction={ onAction }
-          />
-        );
+    function onAction(action: string, box: RenderBox, arg: unknown) {
+      if (action == 'remove') {
+        box.remove();
+        forceUpdate();
+      } else if (action == 'replace') {
+        box.swapComponent(arg as string);
+        forceUpdate();
+      } else if (action == 'expand') {
+        box.expand();
+        forceUpdate();
+      } else if (action == 'contract') {
+        box.contract();
+        forceUpdate();
       }
     }
   
@@ -140,11 +173,49 @@ export default defineComponent({
       let nodes: JSX.Element[] = [];
       // checking r.value is useless but it makes the render function reactive to r
       if (r.value >= 0 && renderBox) {
-        renderLayout(renderBox, nodes);
+        renderBox.render(nodes);
       }
+
+      let hintBoxNode: JSX.Element | undefined;
+      if (hintBox.value) {
+        let { box, alignment } = hintBox.value;
+        let { x, y, width, height } = box;
+        if (alignment == HitTestAlignment.Left) {
+          width /= 2;
+        } else if (alignment == HitTestAlignment.Right) {
+          width /= 2;
+          x += width;
+        } else if (alignment == HitTestAlignment.Top) {
+          height /= 2;
+        } else if (alignment == HitTestAlignment.Bottom) {
+          height /= 2;
+          y += height;
+        }
+        let style: Record<string, any> = {
+          top: `${y}px`,
+          left: `${x}px`,
+          width: `${width}px`,
+          height: `${height}px`,
+        };
+        hintBoxNode = (
+          <div
+            class="j-flex-layout-hint"
+            style={style}
+          ></div>
+        );
+      }
+
       return (
-        <div class="j-flex-layout" ref={ elm } data-resizing={ resizing.value }>
+        <div class="j-flex-layout"
+          ref={ elm }
+          data-resizing={ resizing.value }
+          onDragenter={ onDragenter }
+          onDragleave={ onDragleave }
+          onDragover={ onDragover }
+          onDrop={ onDrop }
+        >
           { nodes }
+          { hintBoxNode }
         </div>
       );
     };
