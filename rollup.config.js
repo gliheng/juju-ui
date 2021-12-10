@@ -9,12 +9,21 @@ export default {
   input: {
     index: 'src/index.ts',
   },
-  output: {
-    format: 'esm',
-    dir: 'dist',
-    entryFileNames: '[name].js',
-    sourcemap: true,
-  },
+  output: [
+    {
+      format: 'esm',
+      dir: 'dist',
+      entryFileNames: '[name].js',
+      sourcemap: true,
+    },
+    // {
+    //   name: 'juju-ui',
+    //   format: 'umd',
+    //   dir: 'dist',
+    //   entryFileNames: '[name].[format].js',
+    //   sourcemap: true,
+    // },
+  ],
   external: ['vue'],
   plugins: [
     typescript({

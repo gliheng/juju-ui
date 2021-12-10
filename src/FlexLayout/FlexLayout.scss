@@ -7,13 +7,21 @@
   overflow: hidden;
   &[data-resizing="false"] {
     .j-flex-layout-pane {
-      transition: top 0.2s, left 0.2s, right 0.2s, bottom 0.2s;
+      transition: top $t, left $t, width $t, height $t, z-index 0s $t;
+      // When in expanded state, a delay is applied to z-index to allow animation to show
+      &[data-expanded="true"] {
+        transition: top $t, left $t, width $t, height $t;
+      }
     }
   }
   .j-flex-layout-pane {
     position: absolute;
     overflow: hidden;
     display: flex;
+    z-index: 0;
+    &[data-expanded="true"] {
+      z-index: 1001;
+    }
     > .j-dropdown {
       position: absolute;
       top: $gap;
@@ -50,5 +58,12 @@
         margin-top: -3px;
       }
     }
+  }
+  .j-flex-layout-hint {
+    pointer-events: none;
+    position: absolute;
+    background-color: var(--foreground-color-2);
+    opacity: 0.5;
+    transition: top $t, left $t, width $t, height $t;
   }
 }

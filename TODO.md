@@ -3,7 +3,8 @@
 [✓] Make a tooltip component
 [✓] Support viewing snippet code
 [✓] Space component
-[ ] Webcomponent table
+[ ] FlexLayout support drag and drop to split view
+[ ] FlexLayout resize support snapping and divider's intersection support moving in two directions
+[ ] Splitter component
+[ ] Data table
 [ ] Form component
-[ ] Spliter component
-[ ] FlexLayout support drag and drop

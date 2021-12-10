@@ -9,7 +9,7 @@ export type LibraryItem = {
 export type Library = Array<LibraryItem>;
 
 export type PaneOptionalAttrs = Partial<{
-  props: any,
+  props: any, // This props is passed to inner component
   size: number,
   minSize: number,
   maxSize: number,
@@ -21,27 +21,11 @@ export type PaneAttrs = {
   children?: PaneAttrs[],
 } & PaneOptionalAttrs | string;
 
-export type StrictPaneAttrs = {
+export type NormalizedPaneAttrs = {
   use: string,
   id: number,
-  children?: StrictPaneAttrs[],
+  children?: NormalizedPaneAttrs[],
 } & PaneOptionalAttrs;
-
-export type RenderBox = {
-  x: number,
-  y: number,
-  width: number,
-  height: number,
-  use: string,
-  id: number,
-  props?: any,
-  layoutContext?: LayoutContext,
-  parent?: RenderBox,
-  children?: RenderBox[],
-  layout: (x?: number, y?: number, width?: number, height?: number) => void,
-  removeChild: (id: number) => boolean,
-} & PaneOptionalAttrs;
-
 
 export interface LayoutContext {
   flexSize: number,
