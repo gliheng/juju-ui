@@ -1,6 +1,7 @@
 {
   "name": "juju-ui",
   "description": "juju's ui library",
+  "version": "1.0.25",
   "files": [
     "dist"
   ],
