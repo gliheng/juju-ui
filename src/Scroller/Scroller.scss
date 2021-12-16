@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "vars";
 
 .j-scroller {
@@ -57,13 +58,13 @@
     border-right: none;
     > .j-scroll-handle {
       height: $size;
-      border-radius: $size/2;
+      border-radius: math.div($size, 2);
     }
     &[data-dragging], &:hover {
       height: $hover-size;
       > .j-scroll-handle {
         height: $hover-size;
-        border-radius: $hover-size/2;
+        border-radius: math.div($hover-size, 2);
       }
     }
   }
@@ -77,13 +78,13 @@
     border-bottom: none;
     > .j-scroll-handle {
       width: $size;
-      border-radius: $size/2;
+      border-radius: math.div($size, 2);
     }
     &[data-dragging], &:hover {
       width: $hover-size;
       > .j-scroll-handle {
         width: $hover-size;
-        border-radius: $hover-size/2;
+        border-radius: math.div($hover-size, 2);
       }
     }
   }
