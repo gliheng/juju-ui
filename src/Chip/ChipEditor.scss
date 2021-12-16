@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "vars";
 
 .j-chip-editor {
@@ -5,9 +6,9 @@
     display: flex;
     flex-wrap: wrap;
     min-width: 0;
-    padding: $margin/2 $margin;
+    padding: math.div($margin, 2) $margin;
     > .j-chip {
-      margin: $margin/2 $margin $margin/2 0;
+      margin: math.div($margin, 2) $margin math.div($margin, 2) 0;
     }
     > input {
       min-width: 0;

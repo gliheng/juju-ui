@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "vars";
 
 .j-select {
@@ -85,7 +86,7 @@
   }
 
   hr.j-select-seperator {
-    margin: $margin/2 $margin;
+    margin: math.div($margin, 2) $margin;
     border-color: var(--foreground-color-1);
     border-top: none;
   }
