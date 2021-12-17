@@ -3,15 +3,17 @@
     <slot></slot>
   </div>
   <div v-else class="j-menu-entry" :data-side="side">
-    <div class="j-menu-label" v-on="{
-      click: showMenu,
-      mouseenter: onMouseEnter,
-    }" v-bind="$attrs" v-ripple>
-      <svg-icon class="j-menu-icon" v-if="icon" :name="icon"></svg-icon>
+    <div class="j-menu-label"
+      @click="showMenu"
+      @mouseenter="onMouseEnter"
+      v-bind="$attrs"
+      v-ripple
+    >
+      <svg-icon v-if="icon" class="j-menu-icon" :name="icon"></svg-icon>
       <span>{{ label }}</span>
       <svg-icon v-if="$slots.default" name="chevron-forward"></svg-icon>
     </div>
-    <div class="j-menu j-shadow-3" v-if="menuOn">
+    <div v-if="menuOn" class="j-menu j-shadow-3">
       <slot />
     </div>
   </div>
@@ -24,6 +26,9 @@ import SvgIcon from '../SvgIcon/SvgIcon.vue';
 type SetLastCloseFunction = (cbk: Function) => void;
 
 export default defineComponent({
+  components: {
+    SvgIcon,
+  },
   inheritAttrs: false,
   props: {
     label: String,
@@ -71,13 +76,13 @@ export default defineComponent({
       }
     }
 
-    return { menuOn, showMenu, onMouseEnter };
-  },
-  components: {
-    SvgIcon,
+    return {
+      menuOn,
+      showMenu,
+      onMouseEnter,
+    };
   },
 });
-
 
 export const MenuSetCloseSymbol = Symbol('MenuSetCloseSymbol');
 export const MenuBarActivateSymbol = Symbol('MenuBarActivateSymbol');
@@ -94,7 +99,6 @@ export function provideCloseHandler(onClose?: () => void) {
     }
   });
 }
-
 </script>
 
 <style src="./Menu.scss"></style>

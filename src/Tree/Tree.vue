@@ -1,14 +1,25 @@
 <template>
   <div class="j-tree">
-    <tree-item v-for="(item, i) in data" :key="keyField ? item[keyField] : i"
-      :label="item.label" :icon="item.icon" :key-field="keyField"
-      :children="item.children" />
+    <tree-item
+      v-for="(item, i) in data"
+      :key="keyField ? item[keyField] : i"
+      :label="item.label"
+      :icon="item.icon"
+      :key-field="keyField"
+      :children="item.children"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import TreeItem from './TreeItem.vue';
+
+type TreeItem = {
+  [key: string]: string;
+} & {
+  children?: TreeItem[];
+}
 
 export default defineComponent({
   components: {
@@ -17,8 +28,10 @@ export default defineComponent({
   name: 'j-tree',
   props: {
     data: {
-      type: Array,
-      default: [],
+      type: Array as PropType<TreeItem[]>,
+      default() {
+        return [];
+      },
     },
     keyField: String,
   },
