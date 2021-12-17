@@ -6,9 +6,9 @@
     "dist"
   ],
   "scripts": {
-    "dev": "vite",
+    "dev": "vite build -w",
     "build": "vite build",
-    "release": "vue-tsc --declaration --emitDeclarationOnly && gulp buildCss",
+    "release": "gulp buildCss && vue-tsc --declaration --emitDeclarationOnly || true",
     "prerelease": "npm run build"
   },
   "keywords": [
@@ -22,7 +22,8 @@
   "module": "./dist/juju-ui.es.js",
   "exports": {
     ".": "./dist/juju-ui.es.js",
-    "./style.css": "./dist/style.css"
+    "./style.css": "./dist/style.css",
+    "./styles/": "./dist/styles/"
   },
   "devDependencies": {
     "@mr-hope/gulp-sass": "^2.0.0",
