@@ -31,34 +31,6 @@
       }
     }
   }
-  .j-flex-layout-divider {
-    position: absolute;
-    background-color: #ccc;
-    z-index: 1000;
-    opacity: 0.1;
-    padding: 1px;
-    box-sizing: border-box;
-    transition: opacity 0.3s, backgrond-color 0.3s;
-    &[data-vertical="true"] {
-      margin-left: -1px;
-      cursor: col-resize;
-    }
-    &[data-vertical="false"] {
-      margin-top: -1px;
-      cursor: row-resize;
-    }
-    &:hover {
-      opacity: 1;
-      padding: 3px;
-      background-color: rgb(33, 126, 248);
-      &[data-vertical="true"] {
-        margin-left: -3px;
-      }
-      &[data-vertical="false"] {
-        margin-top: -3px;
-      }
-    }
-  }
   .j-flex-layout-hint {
     pointer-events: none;
     position: absolute;

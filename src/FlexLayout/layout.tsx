@@ -415,16 +415,16 @@ export class RenderBox {
     if (this.use == DIVIDER) {
       node = (
         <Divider
-          key={ this.id }
+          key={this.id}
+          positioned={true}
           x={this.x}
           y={this.y}
           width={this.width}
           height={this.height}
           vertical={this.parent?.use == ROW}
-          box={ this }
-          onDragStart={ this.context.onDividerDragStart }
-          onDragMove={ this.context.onDividerDragMove }
-          onDragEnd={ this.context.onDividerDragEnd }
+          onDragStart={this.context.onDividerDragStart.bind(null, this)}
+          onDragMove={this.context.onDividerDragMove.bind(null, this)}
+          onDragEnd={this.context.onDividerDragEnd.bind(null, this)}
         />
       );
     } else {

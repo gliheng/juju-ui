@@ -1,9 +1,7 @@
 import { defineComponent, h } from 'vue';
-import { useParent } from '@utils/hooks';
-
-export const SplitterSymbol = Symbol('SplitterSymbol');
 
 export default defineComponent({
+  inheritAttrs: false,
   props: {
     flex: {
       type: Number,
@@ -22,13 +20,23 @@ export default defineComponent({
       required: false,
     },
   },
-  setup(props) {
-    let parent = useParent(SplitterSymbol);
-
+  setup(_, { slots, attrs }) {
     return () => {
+      let content;
+      if (slots.default) {
+        content = slots.default();
+      }
+
+      
+      let style: Record<string, any> = {};
+      let { actualSize } = attrs;
+      if (actualSize) {
+        style.flexBasis = actualSize;
+      }
+
       return (
-        <div class="j-splitter-panel">
-          Splitter Panel
+        <div class={['j-splitter-panel', attrs.class]} style={style}>
+          { content }
         </div>
       );
     }
