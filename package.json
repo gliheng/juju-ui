@@ -6,7 +6,9 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build && gulp buildCss"
+    "build": "vite build",
+    "release": "vue-tsc --declaration --emitDeclarationOnly && gulp buildCss",
+    "prerelease": "npm run build"
   },
   "keywords": [
     "vue",
