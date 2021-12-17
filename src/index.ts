@@ -45,6 +45,8 @@ import Tooltip from './Tooltip/Tooltip.vue';
 import Space from './Space/Space';
 import FlexLayout from './FlexLayout/FlexLayout';
 import FlexLayoutDragSource from './FlexLayout/DragSource';
+import Splitter from './Splitter/Splitter';
+import SplitterPanel from './Splitter/SplitterPanel';
 import MenuOpener from './AnimatedIcon/MenuOpener.vue';
 import MenuToggle from './AnimatedIcon/MenuToggle.vue';
 import Vnodes from './Vnodes';
@@ -98,6 +100,8 @@ export {
   Space,
   FlexLayout,
   FlexLayoutDragSource,
+  Splitter,
+  SplitterPanel,
   MenuOpener,
   MenuToggle,
   Vnodes,
@@ -150,6 +154,8 @@ export default function(app: App, conf: Partial<Config>) {
     .component('j-space', Space)
     .component('j-flex-layout', FlexLayout)
     .component('j-flex-layout-drag-source', FlexLayoutDragSource)
+    .component('j-splitter', Splitter)
+    .component('j-splitter-panel', SplitterPanel)
     .component('j-animated-icon:menu-opener', MenuOpener)
     .component('j-animated-icon:menu-toggle', MenuToggle)
     .component('j-vnodes', Vnodes)
