@@ -3,7 +3,7 @@
 .j-arrow {
   width: 0;
   height: 0;
-  border: $arrow solid var(--background-color);
+  border: 6px solid var(--background-color);
   &[data-side="left"],
   &[data-side="right"] {
     border-top-color: transparent;

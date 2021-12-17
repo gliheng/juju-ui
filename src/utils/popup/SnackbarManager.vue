@@ -1,6 +1,6 @@
 <template>
-  <transition-group class="j-snackbar-manager" name="j-list" tag="div" v-if="snackBars.lengh != 0">
-    <j-snackbar v-for="item in snackBars"
+  <transition-group class="j-snackbar-manager" name="j-list" tag="div" v-if="snackbars.length != 0">
+    <j-snackbar v-for="item in snackbars"
       :key="item.timestamp"
       :title="item.title"
       :closable="!item.timeout"
@@ -9,29 +9,44 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
 import JSnackbar from '../../Snackbar/Snackbar.vue';
 
-export default {
+interface SnackbarItem {
+  title: string;
+  timestamp: number;
+  timeout?: number;
+}
+
+export default defineComponent({
+  components: { JSnackbar },
   data() {
     return {
-      snackBars: [],
+      snackbarTimer: undefined as ReturnType<typeof setTimeout> | undefined,
+      snackbars: [] as Array<SnackbarItem>,
     };
   },
   methods: {
-    showSnackbar(args) {
-      args.timestamp = Date.now();
-      this.snackBars.push(args);
+    showSnackbar(args: {
+      title: string;
+      timeout?: number;
+    }) {
+      let item = {
+        ...args,
+        timestamp: Date.now(),
+      };
+      this.snackbars.push(item);
       if (args && args.timeout) {
-        this.snackBarTimer = setTimeout(this.hideSnackBar.bind(this, args), args.timeout);
+        
+        this.snackbarTimer = setTimeout(this.hideSnackbar.bind(this, item), args.timeout);
       }
     },
-    hideSnackbar(which) {
-      let idx = this.snackBars.indexOf(which);
+    hideSnackbar(which: SnackbarItem) {
+      let idx = this.snackbars.indexOf(which);
       if (idx != -1) {
-        this.snackBars.splice(idx, 1);
+        this.snackbars.splice(idx, 1);
       }
     },
   },
-  components: { JSnackbar },
-}
+});
 </script>

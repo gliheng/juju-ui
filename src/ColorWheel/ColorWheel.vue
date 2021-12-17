@@ -1,7 +1,8 @@
 <template>
   <div class="j-color-wheel">
     <svg ref="svg" :width="size" :height="size"
-      xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <defs>
         <mask id="color-wheel-donut">
           <circle :cx="size/2" :cy="size/2" :r="shapes.ro" fill="white" />
