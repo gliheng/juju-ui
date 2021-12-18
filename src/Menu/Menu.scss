@@ -14,7 +14,6 @@
   .j-menu-label {
     min-height: 2rem;
     box-sizing: border-box;
-    display: flex;
     height: 100%;
     align-items: center;
     cursor: default;
@@ -37,9 +36,7 @@
   }
   .j-menu-icon {
     position: absolute;
-    left: 0rem;
-    top: 50%;
-    margin-top: -10px;
+    left: 0;
   }
 }
 

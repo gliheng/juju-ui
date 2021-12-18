@@ -21,6 +21,7 @@
 
 <script lang="ts">
 import { defineComponent, provide, inject, ref, watch, Ref } from 'vue';
+import ripple from '@directives/ripple';
 import SvgIcon from '../SvgIcon/SvgIcon.vue';
 
 type SetLastCloseFunction = (cbk: Function) => void;
@@ -29,6 +30,7 @@ export default defineComponent({
   components: {
     SvgIcon,
   },
+  directives: { ripple },
   inheritAttrs: false,
   props: {
     label: String,

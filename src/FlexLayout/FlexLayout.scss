@@ -16,16 +16,32 @@
   }
   .j-flex-layout-pane {
     position: absolute;
-    overflow: hidden;
     display: flex;
+    flex-direction: column;
     z-index: 0;
+    > header.j-flex-layout-pane-title {
+      line-height: 16px;
+      padding: 4px;
+      color: var(--text-color);
+      background-color: var(--background-color-1);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    > main.j-flex-layout-pane-content {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+      justify-content: stretch;
+      align-items: stretch;
+    }
     &[data-expanded="true"] {
       z-index: 1001;
     }
     > .j-dropdown {
       position: absolute;
-      top: $gap;
-      right: $gap;
+      top: 0;
+      right: 0;
       > .j-button {
         padding: 0.1rem;
       }

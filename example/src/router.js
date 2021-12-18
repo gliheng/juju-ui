@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from './views/Home.vue';
+import NotFound from './views/NotFound.vue';
 import config from './config';
 
 const routes = [
@@ -10,6 +11,11 @@ const routes = [
   },
   ...config.Components.map(mapRoute),
   ...config.Directives.map(mapRoute),
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: NotFound,
+  },
 ];
 
 const routeMap = {};

@@ -20,18 +20,14 @@ enum Axis {
   Y,
 }
 
-interface Box {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
-
 // This function normalize a user provided preset.
 // String is accepted to be convenient
 export function normalizePreset(
-  preset: PaneAttrs,
+  preset?: PaneAttrs,
 ): NormalizedPaneAttrs {
+  if (!preset) return {
+    use: '',
+  };
   // simple string name
   if (typeof preset == 'string') {
     let props, flex = 1;
@@ -44,6 +40,7 @@ export function normalizePreset(
       props,
     };
   }
+
   let ret = {
     ...preset
   } as NormalizedPaneAttrs;
@@ -65,7 +62,6 @@ export class RenderBox {
   minSize?: number;
   maxSize?: number;
   flex?: number;
-  ratio?: number;
 
   parent?: RenderBox;
   children?: RenderBox[];
@@ -76,6 +72,7 @@ export class RenderBox {
     onDividerDragMove: () => void;
     onDividerDragEnd: () => void;
     onAction: () => void;
+    placeholder: any,
   };
 
   x = 0;
@@ -118,7 +115,7 @@ export class RenderBox {
         this.use = c;
       }
     } else {
-      // If this box is already inside a parent container (row or col)
+      // If this box is already inside a parent row container
       // insert c into parent container
       if (
         this.parent?.use == ROW &&
@@ -138,6 +135,8 @@ export class RenderBox {
         this.parent?.use == COL &&
         (alignment == HitTestAlignment.Top || alignment == HitTestAlignment.Bottom)
       ) {
+        // If this box is already inside a parent col container
+        // insert c into parent container
         let i = this.elementIndex;
         if (alignment == HitTestAlignment.Bottom) {
           i++;
@@ -177,7 +176,6 @@ export class RenderBox {
         this.doLayout();
       }
     }
-    console.log('box???', this);
   }
 
   appendChildren(children: PaneAttrs[]) {
@@ -346,9 +344,15 @@ export class RenderBox {
 
     this.children.splice(i, 1);
     this.fixDividers();
-    if (this.isEmpty && !this.isRoot) {
-      // If this container is empty, remove itself
-      this.remove();
+    if (this.isEmpty) {
+      if (this.isRoot) {
+        // If the root container is empty, change it to an empty pane
+        this.use = '';
+        this.children = undefined;
+      } else {
+        // If non-root container is empty, remove itself
+        this.remove();
+      }
     } else {
       // relayout self
       this.doLayout();
@@ -439,8 +443,7 @@ export class RenderBox {
           height={this.height}
           expanded={this.expanded}
           box={ this }
-          library={ this.context.library }
-          onAction={ this.context.onAction }
+          context={ this.context }
         />
       );
     }

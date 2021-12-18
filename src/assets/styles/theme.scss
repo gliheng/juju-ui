@@ -11,22 +11,18 @@
   --primary-color-text: #{$t}; // the text color on primary colored background
 }
 
-:root {
-  @include use-theme(#2196f3);
+@mixin light-theme {
+  --text-color: #333;
   --neutral-color: #555;
   --foreground-color: #888;
   --foreground-color-1: #aaa;
   --foreground-color-2: #ddd;
-  --text-color: #333;
   --background-color: white;
   --background-color-1: #f0f0f0;
   --background-color-2: #eee;
-
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
-.j-dark {
+
+@mixin dark-theme {
   --text-color: #dedede;
   --neutral-color: #ddd;
   --foreground-color: #ccc;
@@ -36,6 +32,23 @@
   --background-color-1: #464547;
   --background-color-2: #494949;
 }
+
+.j-theme-default {
+  @include use-theme(#2196f3);
+  @include light-theme;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.j-light {
+  @include light-theme;
+}
+
+.j-dark {
+  @include dark-theme;
+}
+
 .j-primary {
   @include use-theme(#2196f3);
 }

@@ -14,10 +14,10 @@ export default defineComponent({
     },
     preset: {
       type: Object as PropType<PaneAttrs>,
-      required: true,
+      required: false,
     },
   },
-  setup(props) {
+  setup(props, { slots }) {
     let elm = ref<HTMLDivElement>();
     let resizing = ref(false);
     let renderBox: RenderBox;
@@ -37,6 +37,7 @@ export default defineComponent({
           onDividerDragMove,
           onDividerDragEnd,
           onAction,
+          placeholder: slots.placeholder,
         });
       }
       renderBox.layout(0, 0, size.width, size.height);

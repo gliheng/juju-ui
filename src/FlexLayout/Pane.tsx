@@ -38,42 +38,52 @@ export default defineComponent({
       required: true,
     },
     props: Object,
-    library: {
-      type: Object as PropType<Library>,
-      required: true,
-    },
-    onAction: {
-      type: Function as PropType<(action: string, box: RenderBox, args?: any) => void>,
-      required: true,
-    },
     expanded: {
       type: Boolean,
       default: false,
     },
+    context: {
+      type: Object as PropType<{
+        library: Library
+        onAction: (action: string, box: RenderBox, args?: any) => void,
+        placeholder: any,
+      }>,
+      required: true,
+    },
   },
   setup(props) {
     function expand() {
-      props.onAction('expand', props.box);
+      props.context.onAction('expand', props.box);
     }
 
     function contract() {
-      props.onAction('contract', props.box);
+      props.context.onAction('contract', props.box);
     }
 
     function remove() {
-      props.onAction('remove', props.box);
+      props.context.onAction('remove', props.box);
     }
 
     function replace(target: string) {
-      props.onAction('replace', props.box, target);
+      props.context.onAction('replace', props.box, target);
     }
     
     return () => {
       let { x, y, width, height, expanded } = props;
-      let C = props.library.find(item => item.name == props.use) as any;
-      let child;
+      let C = props.context.library.find(item => item.name == props.use) as any;
+      let child, title, useFrame = false;
       if (C) {
         child = <C {...props.props}></C>;
+        title = (
+          <header class="j-flex-layout-pane-title">
+            { C.label }
+          </header>
+        );
+        useFrame = true;
+      } else if (props.use) {
+        child = `Cannot find component: ${props.use}`;
+      } else if (props.context.placeholder) {
+        child = props.context.placeholder();
       }
 
       let expandMenu: JSX.Element;
@@ -90,6 +100,34 @@ export default defineComponent({
         height: `${height}px`,
       };
 
+      let titleBar;
+      if (useFrame) {
+        titleBar = (
+          <>
+            {title}
+            <Dropdown align="right">
+              {{
+                default: () => <Button rounded flat size="sm" icon="ellipsis-horizontal" />,
+                menu: () => <Menu list>
+                  {() => (<>
+                    { expandMenu }
+                    <Menu label="Remove" icon="trash" onClick={ remove } />
+                    <Menu label="Replace" icon="repeat" side="left">
+                      {() => props.context.library.map(lib => (
+                        <Menu
+                          label={lib.name}
+                          onClick={ replace.bind(null, lib.name) }
+                        />
+                      ))}
+                    </Menu>
+                  </>)}
+                </Menu>
+              }}
+            </Dropdown>
+          </>
+        );
+      }
+
       return (
         <div
           class="j-flex-layout-pane"
@@ -97,26 +135,10 @@ export default defineComponent({
           data-id={props.id}
           style={style}
         >
-          <Dropdown align="right">
-            {{
-              default: () => <Button rounded flat size="sm" icon="ellipsis-horizontal" />,
-              menu: () => <Menu list>
-                {() => (<>
-                  { expandMenu }
-                  <Menu label="Remove" icon="trash" onClick={ remove } />
-                  <Menu label="Replace" icon="repeat" side="left">
-                    {() => props.library.map(lib => (
-                      <Menu
-                        label={lib.name}
-                        onClick={ replace.bind(null, lib.name) }
-                      />
-                    ))}
-                  </Menu>
-                </>)}
-              </Menu>
-            }}
-          </Dropdown>
-          { child }
+          {titleBar}
+          <main class="j-flex-layout-pane-content">
+            { child }
+          </main>
         </div>
       );
     };
