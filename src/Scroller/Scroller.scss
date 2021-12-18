@@ -2,7 +2,21 @@
 @import "vars";
 
 .j-scroller {
+  $size: 6px;
+  $hover-size: 12px;
+
   position: relative;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  
+  &[data-overlay-scrollbar="false"][data-x-scroll="true"] {
+    padding-bottom: $size;
+  }
+  &[data-overlay-scrollbar="false"][data-y-scroll="true"] {
+    padding-right: $size;
+  }
+
   > main {
     width: 100%;
     height: 100%;
@@ -28,7 +42,6 @@
     transition: background-color 0.2s $curve, opacity 0.2s $curve, width 0.2s $curve, height 0.2s $curve, border-color 0.2s $curve;
     background-color: transparent;
     opacity: 0.4;
-    border: 1px solid transparent;
     &[data-dragging], &:hover {
       background-color: var(--foreground-color-2);
       border-color: var(--foreground-color-2);
@@ -45,9 +58,6 @@
       opacity: 0.8;
     }
   }
-
-  $size: 4px;
-  $hover-size: 12px;
 
   .j-scroll-x {
     bottom: 0;

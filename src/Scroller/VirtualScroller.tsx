@@ -32,6 +32,7 @@ const BatchRenderer = defineComponent({
 
 // This virtual scroller only support fixed height items
 export default defineComponent({
+  name: "VirtualScroller",
   props: {
     items: {
       type: Array,
@@ -52,6 +53,10 @@ export default defineComponent({
     virtual: {
       type: Boolean,
       default: false,
+    },
+    overlayScrollbar: {
+      type: Boolean,
+      default: true,
     },
   },
   setup(props, { expose }) {
@@ -90,7 +95,12 @@ export default defineComponent({
 
     return () => {
       return (
-        <Scroller style={ props.style } onScroll={ onScroll } ref={ containerRef }>
+        <Scroller
+          ref={ containerRef }
+          style={ props.style }
+          overlayScrollbar={ props.overlayScrollbar }
+          onScroll={ onScroll }
+        >
         {() => {
           let content;
 

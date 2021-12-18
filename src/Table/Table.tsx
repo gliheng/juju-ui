@@ -367,14 +367,17 @@ export default defineComponent({
             </table>
           </div>
           <div class="j-table-body-part">
-            <VirtualScroller style={ bodyStyle }
+            <VirtualScroller
+              style={ bodyStyle }
               onScroll={ onBodyScroll }
               virtual={ props.virtualScroll }
               itemHeight={ props.itemHeight }
               items={ rowData.value }
               containerRenderer = { containerRenderer }
+              overlayScrollbar={ false }
               itemRenderer={ renderRow.bind(null, {
-                leftStickyCount, rightStickyCount,
+                leftStickyCount,
+                rightStickyCount,
               }) }
             />
             { coverContent }

@@ -1,35 +1,46 @@
 <template>
-  <div class="j-scroller">
-    <main ref="scrollerContent" @scroll="$emit('scroll', $event)">
+  <div
+    ref="scrollerEl"
+    class="j-scroller"
+    :data-overlay-scrollbar="overlayScrollbar"
+  >
+    <main @scroll="$emit('scroll', $event)">
       <slot />
     </main>
-    <div class="j-scroll-bar" ref="scrollBar"></div>
+    <div class="j-scroll-bar"></div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onUnmounted, ref } from 'vue';
-import Emitter from '@utils/emitter';
-import './Scroller.scss';
+import { defineComponent, onMounted, onUnmounted, ref } from "vue";
+import Emitter from "../utils/emitter";
+import "./Scroller.scss";
 
 export default defineComponent({
-  emits: ['scroll'],
+  emits: ["scroll"],
+  props: {
+    overlayScrollbar: {
+      type: Boolean,
+      default: true,
+    },
+  },
   setup() {
-    let scrollerContent = ref();
-    let scrollBar = ref();
+    let scrollerEl = ref();
     let scroller: Scroller;
+
     onMounted(() => {
-      scroller = new Scroller(scrollerContent.value, scrollBar.value);
+      scroller = new Scroller(scrollerEl.value);
     });
+
     onUnmounted(() => {
       scroller.dispose();
     });
+
     return {
-      scrollerContent, scrollBar,
+      scrollerEl,
     };
   },
 });
-
 
 class Scrollbar extends Emitter {
   scrollEl?: HTMLElement;
@@ -37,18 +48,20 @@ class Scrollbar extends Emitter {
   maxScroll: number = 0;
   scrollStart: number = 0;
   mouseStart: number = 0;  
+  hidden = true;
 
   constructor(
     public scrollbarEl: HTMLElement,
-    public horizontal: boolean = false,
+    public horizontal: boolean = false
   ) {
     super();
   }
 
   // when the controlled view's site change, update scroll size accordingly
   updateScrollSize(clientSize: number, scrollSize: number) {
-    // able to scroll in this single direction
-    if (clientSize < scrollSize) {
+    this.hidden = clientSize >= scrollSize;
+    if (!this.hidden) {
+      // able to scroll in this single direction
       if (!this.scrollEl) {
         // create scrollbar if not created
         this.scrollEl = this.createScroll(this.horizontal ? 'j-scroll-x' : 'j-scroll-y');
@@ -135,17 +148,20 @@ class Scrollbar extends Emitter {
 declare let ResizeObserver: any;
 
 class Scroller {
+  root: HTMLElement;
   el: HTMLElement;
   scrollbarEl: HTMLElement;
   scrollbarX: Scrollbar;
   scrollbarY: Scrollbar;
-  drag: boolean = false;
-  // @ts-ignore
-  observer: ResizeObserver;
+  drag = false;
+  observer?: ResizeObserver;
 
-  constructor(el: HTMLElement, scrollbarEl: HTMLElement) {
+  constructor(root: HTMLElement) {
+    let el = root.firstElementChild as HTMLElement;
+    let scrollbarEl = root.lastElementChild as HTMLElement;
     this.el = el;
     this.scrollbarEl = scrollbarEl;
+    this.root = root;
 
     this.el.addEventListener('scroll', this);
 
@@ -165,6 +181,8 @@ class Scroller {
       let containerScroll = (el.scrollHeight - el.clientHeight) * scroll / maxScroll;
       el.scrollTop = containerScroll;
     });
+
+    this.updateScrollPadding();
 
     if (typeof ResizeObserver == 'function') {
       // @ts-ignore
@@ -190,6 +208,11 @@ class Scroller {
     this.drag = v!;
   }
 
+  updateScrollPadding() {
+    this.root.dataset.xScroll = this.scrollbarX.hidden ? "false" : "true";
+    this.root.dataset.yScroll = this.scrollbarY.hidden ? "false" : "true";
+  }
+
   updateScrollPos() {
     let sl = this.el.scrollLeft, st = this.el.scrollTop;
     let sw = this.el.scrollWidth, cw = this.el.clientWidth;
@@ -197,6 +220,7 @@ class Scroller {
 
     this.scrollbarX.updateScrollPos(sl, cw, sw);
     this.scrollbarY.updateScrollPos(st, ch, sh);
+    this.updateScrollPadding();
   }
 
   handleEvent(_: MouseEvent) {
