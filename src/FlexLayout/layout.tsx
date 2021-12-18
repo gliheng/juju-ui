@@ -1,7 +1,7 @@
 import { markRaw, h } from 'vue';
 import { PaneAttrs, NormalizedPaneAttrs, LayoutContext, Library } from './types';
 import Pane from './Pane';
-import Divider from './Divider';
+import Divider from '../Divider/Divider';
 
 export const DIVIDER = '$divider';
 export const COL = '$col';

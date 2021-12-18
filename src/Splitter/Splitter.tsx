@@ -1,6 +1,9 @@
-import { defineComponent, h, computed, watch, provide, reactive, ref } from 'vue';
+import {
+  defineComponent, h, computed,
+  watch, reactive, ref,
+} from 'vue';
 import { useElementSize } from '../utils/hooks';
-import Divider from '../FlexLayout/Divider';
+import Divider from '../Divider/Divider';
 import "./Splitter.scss";
 
 export default defineComponent({
@@ -30,7 +33,7 @@ export default defineComponent({
       resizing.value = false;
     }
 
-    let panels = computed<Array<JSX.Element[]>>(() => {
+    let panels = computed<Array<any>>(() => {
       if (!slots.default) return [];
       let panels = slots.default();
       return panels;
@@ -59,7 +62,7 @@ export default defineComponent({
         p.key = i;
         p.props = {
           ...p.props,
-          actualSize: `calc(${parseInt(sizes[i])}% - ${dividerSize}px`,
+          actualSize: `calc(${Math.floor(sizes[i])}% - ${dividerSize}px`,
         };
         content.push(p);
         if (i != panels.value.length - 1) {
