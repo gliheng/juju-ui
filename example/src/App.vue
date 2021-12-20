@@ -46,6 +46,7 @@ export default {
   .j-appbar-title, .j-scaffold-title {
     h1 {
       font-size: 1.6em;
+      margin: 0;
     }
   }
   .j-scaffold-content {

@@ -25,7 +25,7 @@ export default defineComponent({
       default: false,
     },
   },
-  emit: ['select'],
+  emits: ['select'],
   setup() {
     let fileInput = ref();
     function onClick() {

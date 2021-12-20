@@ -15,7 +15,7 @@ export default defineComponent({
     value: null,
     modelValue: null,
   },
-  emit: ['update:modelValue'],
+  emits: ['update:modelValue'],
   setup(props, { emit }) {
     let checked = computed(() => props.modelValue == props.value);
     function onChange(evt: Event) {

@@ -44,6 +44,9 @@ function themingFunction(startDate: Date, endDate: Date, year: number, month: nu
 }
 
 export default defineComponent({
+  components: {
+    CalendarUi, SvgIcon,
+  },
   props: {
     placeholder1: String,
     placeholder2: String,
@@ -153,9 +156,6 @@ export default defineComponent({
       pickDate, openSelector,
       clearIpt,
     };
-  },
-  components: {
-    CalendarUi, SvgIcon,
   },
 });
 </script>

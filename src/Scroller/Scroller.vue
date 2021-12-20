@@ -154,7 +154,7 @@ class Scroller {
   scrollbarX: Scrollbar;
   scrollbarY: Scrollbar;
   drag = false;
-  observer?: ResizeObserver;
+  observer?: typeof ResizeObserver;
 
   constructor(root: HTMLElement) {
     let el = root.firstElementChild as HTMLElement;

@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "vite build -w",
     "build": "vite build",
-    "release": "gulp buildCss && vue-tsc --declaration --emitDeclarationOnly || true",
+    "release": "gulp buildCss && vue-tsc --declaration --emitDeclarationOnly",
     "prerelease": "npm run build"
   },
   "keywords": [

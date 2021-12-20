@@ -1,9 +1,17 @@
 const { dest, src } = require("gulp");
 const sass = require("sass");
-const through = require("through2");
 const rename = require('gulp-rename');
-
 const { Transform } = require('stream');
+
+
+const src = [
+  './src/**/*.scss',
+];
+const loadPaths = [
+  'src/assets/styles',
+];
+const sourceMap = false;
+const destDir = './dist/styles';
 
 const sassTransform = new Transform({
   objectMode: true,
@@ -11,23 +19,24 @@ const sassTransform = new Transform({
     let ret = await sass.compileStringAsync(
       obj.contents.toString(encoding),
       {
-        loadPaths: ['src/assets/styles'],
+        loadPaths,
+        sourceMap,
       },
     );
     obj.contents = Buffer.from(ret.css, encoding);
+    if (ret.sourceMap) {
+      // sourceMap output is not supported
+    }
     this.push(obj);
     callback();
   }
 });
 
 const buildCss = function() {
-  return src([
-    './src/**/*.scss',
-    './src/assets/styles/index.scss',
-  ])
+  return src(src)
   .pipe(sassTransform)
   .pipe(rename({dirname: ''}))
-  .pipe(dest("./dist/styles"));
+  .pipe(dest(destDir));
 }
 
 exports.buildCss = buildCss;

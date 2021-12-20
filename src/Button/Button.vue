@@ -23,6 +23,10 @@ import ripple from '@directives/ripple';
 import './Button.scss';
 
 export default defineComponent({
+  components: { SvgIcon, JSpinner },
+  directives: {
+    ripple,
+  },
   props: {
     disabled: Boolean,
     flat: Boolean,
@@ -48,10 +52,6 @@ export default defineComponent({
       hasLabel, iconOnly, iconWithText,
     };
   },
-  directives: {
-    ripple,
-  },
-  components: { SvgIcon, JSpinner }
 });
 </script>
 

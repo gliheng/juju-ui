@@ -22,7 +22,6 @@
           <div v-for="(d, i) in panel.current.days" :key="i" :class="['j-calendar-cell', d.className]"
             :data-active="true"
             :data-date="d.date"
-            :data-picked="d.picked"
             :data-today="d.today"
             @mouseenter="$emit('hover', panel.year, panel.month, d.date)">
             <div class="j-calendar-cell-inner">{{ d.date }}</div>
@@ -136,7 +135,7 @@ export default defineComponent({
     cellThemingFunction: Function,
     refDate: Date,
   },
-  emit: [
+  emits: [
     'select',
     'hover',
     'hover-cancel',
@@ -213,9 +212,13 @@ export default defineComponent({
     }
 
     return {
-      dayLabels, currentYear, currentMonth,
+      dayLabels,
+      currentYear,
+      currentMonth,
       panels,
-      toPrevMonth, toNextMonth, pickDay,
+      toPrevMonth,
+      toNextMonth,
+      pickDay,
       today,
       isSameDay,
     };

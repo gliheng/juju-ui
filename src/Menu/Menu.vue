@@ -32,6 +32,7 @@ export default defineComponent({
   },
   directives: { ripple },
   inheritAttrs: false,
+  emits: ['open', 'close'],
   props: {
     label: String,
     icon: String,

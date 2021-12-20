@@ -19,7 +19,7 @@ export default defineComponent({
       default: false,
     },
   },
-  emit: ['close'],
+  emits: ['close'],
 });
 </script>
 

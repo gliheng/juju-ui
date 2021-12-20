@@ -38,7 +38,7 @@
           </template>
         </j-dropdown>
         <template v-else>
-          <j-button v-for="(act, i) in actions.others" :key="i + actions.sticky.length"
+          <j-button v-for="(act, i) in actions.others" :key="`${i}:${actions.sticky.length}`"
             rounded :icon="act.icon" @click="act.onClick">{{ act.label }}</j-button>
         </template>
       </div>

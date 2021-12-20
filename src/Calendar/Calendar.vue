@@ -1,5 +1,9 @@
 <template>
-  <calendar-ui :refDate="modelValue" @select="selectDate" :cellThemingFunction="cellThemingFunction" />
+  <calendar-ui
+    :refDate="modelValue"
+    :cellThemingFunction="cellThemingFunction"
+    @select="selectDate"
+  />
 </template>
 
 <script lang="ts">
@@ -7,7 +11,12 @@ import { computed, defineComponent } from 'vue';
 import CalendarUi from './CalendarUi.vue';
 import { isSameDay } from '@utils/date';
 
-function themingFunction(pickedDate: Date, year: number, month: number, date: number) {
+function themingFunction(
+  pickedDate: Date,
+  year: number,
+  month: number,
+  date: number,
+) {
   if (isSameDay(year, month, date, pickedDate)) {
     return 'j-calendar-cell-picked';
   }

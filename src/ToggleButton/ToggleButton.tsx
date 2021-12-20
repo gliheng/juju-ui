@@ -1,4 +1,4 @@
-import { defineComponent, computed, h } from 'vue';
+import { defineComponent, computed, h, VNode } from 'vue';
 import Button from '../Button/Button.vue';
 
 export default defineComponent({
@@ -10,7 +10,7 @@ export default defineComponent({
     onIcon: String,
     offIcon: String,
   },
-  emit: ['update:modelValue'],
+  emits: ['update:modelValue'],
   setup(props, { emit, slots }) {
     let hasAlt = computed(() => {
       return slots.on && slots.off;
@@ -23,13 +23,15 @@ export default defineComponent({
     }
     return () => {
       let { onIcon, offIcon } = props;
-      let content: JSX.Element;
+      let content: VNode[];
       if (slots.on && hasAlt.value && on.value) {
-        content = <slots.on />;
+        content = slots.on();
       } else if (slots.off && hasAlt.value) {
-        content = <slots.off />;
+        content = slots.off();
       } else if (slots.default) {
-        content = <slots.default />;
+        content = slots.default();
+      } else {
+        throw 'no content';
       }
       return (
         <Button
@@ -37,7 +39,7 @@ export default defineComponent({
           icon={ on.value ? onIcon : offIcon }
           outlined={ !on.value }
         >
-          { () => content }
+          { content }
         </Button>
       );
     };

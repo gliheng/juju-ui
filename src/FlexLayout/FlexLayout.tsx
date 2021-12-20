@@ -109,7 +109,7 @@ export default defineComponent({
     }>();
 
     function validData(dt?: DataTransfer | null): boolean {
-      return dt ? dt.types.includes(MIME) : false;
+      return dt ? dt.types.indexOf(MIME) != -1 : false;
     }
 
     let rect: DOMRect | undefined;

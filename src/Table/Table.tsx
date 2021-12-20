@@ -1,4 +1,11 @@
-import { defineComponent, reactive, ref, computed, h } from 'vue';
+import {
+  defineComponent,
+  reactive,
+  ref,
+  computed,
+  h,
+  PropType,
+} from 'vue';
 import Row from './Row';
 import ColGroup from './ColGroup';
 import { ColumnConfig, Datum, GroupDatum } from './types';
@@ -8,7 +15,7 @@ import './Table.scss';
 
 
 // recursive group data according to grouping rules
-function groupData(grouping: string[], data: any[], cur: number = 0, groupPath: string[] = []): Array<Datum | GroupDatum> {
+function groupData(grouping: string[], data: Datum[], cur: number = 0, groupPath: string[] = []): Array<Datum | GroupDatum> {
   if (cur >= grouping.length) {
     return data;
   }
@@ -37,7 +44,7 @@ export default defineComponent({
     rowKey: {
       type: [String, Function],
     },
-    data: Array,
+    data: Array as PropType<Datum[]>,
     columns: {
       type: Array,
       default: [],
@@ -311,7 +318,7 @@ export default defineComponent({
       let hasData = rowData.value && rowData.value.length;
 
       if (!props.fixedHeader) {
-        let rows = props.data.map((datum, i) => {
+        let rows = (props.data || []).map((datum, i) => {
           // let rowKey = getRowKey(datum as Datum, i);
           return renderRow({
             leftStickyCount: 0,

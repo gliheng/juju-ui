@@ -19,10 +19,11 @@
 </template>
 
 <script lang="ts">
-import { ref, computed } from 'vue';
+import { defineComponent, ref, computed } from 'vue';
 import SvgIcon from '../SvgIcon/SvgIcon.vue';
 
-export default {
+export default defineComponent({
+  components: { SvgIcon },
   inheritAttrs: false,
   props: {
     modelValue: String,
@@ -52,8 +53,7 @@ export default {
     }
     return { focus, onInput, hasPrepend, hasAppend, clearIpt };
   },
-  components: { SvgIcon },
-};
+});
 </script>
 
 <style src="./Input.scss"></style>

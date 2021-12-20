@@ -1,4 +1,4 @@
-import { defineComponent, h, computed } from 'vue';
+import { defineComponent, h, computed, VNode } from 'vue';
 import { useBackdropAwareSwitch } from '../utils/hooks';
 import SelectItem from './SelectItem';
 import SvgIcon from '../SvgIcon/SvgIcon.vue';
@@ -79,9 +79,9 @@ export default defineComponent({
     }
 
     return () => {
-      let content: any;
+      let content: VNode[];
       if (slots.default) {
-        content = <slots.default />;
+        content = slots.default();
       } else {
         let label;
         if (selected.value) {
@@ -95,13 +95,12 @@ export default defineComponent({
             <span class="j-placeholder">{ props.placeholder }</span>
           );
         }
-        content = (
-          // tabindex 0 make the item tab focusable
+        content = [
           <div class="j-select-label" tabindex={0}>
             <div class="j-select-label-inner">{ label }</div>
             <SvgIcon class="j-select-icon" name="chevron-down" />
           </div>
-        );
+        ];
       }
   
       return (
