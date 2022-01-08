@@ -4,6 +4,8 @@ import { RenderBox } from './layout';
 import Button from '../Button/Button.vue';
 import Dropdown from '../Dropdown/Dropdown.vue';
 import Menu from '../Menu/Menu.vue';
+import Tabs from '../Tabs/Tabs.vue';
+import TabPane from '../Tabs/TabPane.vue';
 
 export default defineComponent({
   name: 'Pane',
@@ -70,27 +72,48 @@ export default defineComponent({
     
     return () => {
       let { x, y, width, height, expanded } = props;
-      let C = props.context.library.find(item => item.name == props.use) as any;
-      let child, title, useFrame = false;
-      if (C) {
-        child = <C {...props.props}></C>;
-        title = (
-          <header class="j-flex-layout-pane-title">
-            { C.label }
-          </header>
-        );
-        useFrame = true;
+      let Component = props.context.library.find(item => item.name == props.use) as any;
+      let child, title;
+
+      if (Component) {
+        title = Component.label;
+        let expandMenu: JSX.Element;
+        if (expanded) {
+          expandMenu = <Menu label="Contract" icon="contract" onClick={ contract } />;
+        } else {
+          expandMenu = <Menu label="Expand" icon="expand" onClick={ expand } />;
+        }
+
+        child = <>
+          <Tabs>
+            <TabPane label={title}>
+              <Component {...props.props}></Component>
+            </TabPane>
+          </Tabs>
+          <Dropdown align="right">
+            {{
+              default: () => <Button rounded flat size="sm" icon="ellipsis-horizontal" />,
+              menu: () => <Menu list>
+                {() => (<>
+                  { expandMenu }
+                  <Menu label="Remove" icon="trash" onClick={ remove } />
+                  <Menu label="Replace" icon="repeat" side="left">
+                    {() => props.context.library.map(lib => (
+                      <Menu
+                        label={lib.name}
+                        onClick={ replace.bind(null, lib.name) }
+                      />
+                    ))}
+                  </Menu>
+                </>)}
+              </Menu>
+            }}
+          </Dropdown>
+        </>;
       } else if (props.use) {
         child = `Cannot find component: ${props.use}`;
       } else if (props.context.placeholder) {
         child = props.context.placeholder();
-      }
-
-      let expandMenu: JSX.Element;
-      if (expanded) {
-        expandMenu = <Menu label="Contract" icon="contract" onClick={ contract } />;
-      } else {
-        expandMenu = <Menu label="Expand" icon="expand" onClick={ expand } />;
       }
 
       let style: Record<string, any> = {
@@ -100,34 +123,6 @@ export default defineComponent({
         height: `${height}px`,
       };
 
-      let titleBar;
-      if (useFrame) {
-        titleBar = (
-          <>
-            {title}
-            <Dropdown align="right">
-              {{
-                default: () => <Button rounded flat size="sm" icon="ellipsis-horizontal" />,
-                menu: () => <Menu list>
-                  {() => (<>
-                    { expandMenu }
-                    <Menu label="Remove" icon="trash" onClick={ remove } />
-                    <Menu label="Replace" icon="repeat" side="left">
-                      {() => props.context.library.map(lib => (
-                        <Menu
-                          label={lib.name}
-                          onClick={ replace.bind(null, lib.name) }
-                        />
-                      ))}
-                    </Menu>
-                  </>)}
-                </Menu>
-              }}
-            </Dropdown>
-          </>
-        );
-      }
-
       return (
         <div
           class="j-flex-layout-pane"
@@ -135,10 +130,7 @@ export default defineComponent({
           data-id={props.id}
           style={style}
         >
-          {titleBar}
-          <main class="j-flex-layout-pane-content">
-            { child }
-          </main>
+          {child}
         </div>
       );
     };

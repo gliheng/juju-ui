@@ -24,15 +24,15 @@
         <div class="j-tabs-active-bar" :style="activeBarStyle"></div>
       </div>
     </tab-scroller>
-    <div class="j-tabs-inner">
+    <main class="j-tabs-content">
       <slot></slot>
-    </div>
+    </main>
   </div>
 </template>
 
 <script lang="ts">
 import {
-  defineComponent, ref, watch, computed, nextTick, onMounted,
+  defineComponent, ref, watch, computed, nextTick,
 } from 'vue';
 import TabPane, { TabPaneSymbol } from './TabPane.vue';
 import TabScroller from './TabScroller.vue';
@@ -47,6 +47,8 @@ interface TabDef {
 };
 
 export default defineComponent({
+  components: { SvgIcon, TabScroller },
+  directives: { ripple },
   props: {
     type: String,
     iconSide: {
@@ -140,8 +142,6 @@ export default defineComponent({
       addTab, scroller,
     };
   },
-  components: { SvgIcon, TabScroller },
-  directives: { ripple },
 });
 </script>
 
