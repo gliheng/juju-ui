@@ -1,5 +1,5 @@
-import { markRaw, h } from 'vue';
-import { PaneAttrs, NormalizedPaneAttrs, LayoutContext, Library } from './types';
+import { markRaw, h, reactive } from 'vue';
+import { PaneAttrs, NormalizedPaneAttrs, LayoutContext, Library, Dimension } from './types';
 import Divider from '../Divider/Divider';
 import Pane from './Pane';
 import PaneContent from './PaneContent';
@@ -10,6 +10,7 @@ export const ROW = '$row';
 export const TAB = '$tab';
 
 export enum HitTestAlignment {
+  Tabbar,
   Top,
   Left,
   Right,
@@ -64,6 +65,7 @@ export class RenderBox {
   minSize?: number;
   maxSize?: number;
   flex?: number;
+  tabs?: string[];
 
   parent?: RenderBox;
   children?: RenderBox[];
@@ -86,12 +88,24 @@ export class RenderBox {
   expanded = false;
 
   constructor(args: NormalizedPaneAttrs, context: any, parent?: RenderBox) {
-    this.use = args.use;
     this.id = context.idGen.next().value;
+    this.use = args.use;
     this.props = args.props;
     this.size = args.size;
     this.minSize = args.minSize;
     this.maxSize = args.maxSize;
+    if (this.use) {
+      if (this.use == TAB) {
+        let tabsProp = this.props?.tabs as string[];
+        if (!tabsProp) {
+          console.error('tabs prop not set for $tab component');
+        } else {
+          this.tabs = reactive([...tabsProp]);
+        }
+      } else {
+        this.tabs = reactive([this.use]);
+      }
+    }
     this.children = args.children?.map(
       e => {
         return new RenderBox(e, context, this)
@@ -107,8 +121,12 @@ export class RenderBox {
 
   swapComponent(c: string) {
     this.use = c;
+    this.tabs = [c];
   }
 
+  /**
+   * Make changes When a drag is dropped onto this box
+   */
   splitComponent(c: string, alignment?: HitTestAlignment) {
     if (alignment == HitTestAlignment.Center) {
       if (this.isRoot) {
@@ -116,69 +134,72 @@ export class RenderBox {
         this.appendChildren([c]);
         this.doLayout();
       } else {
-        this.use = c;
+        // replace the current component
+        this.swapComponent(c);
       }
-    } else {
+    } else if (
+      this.parent?.use == ROW &&
+      (alignment == HitTestAlignment.Left || alignment == HitTestAlignment.Right)
+      ) {
       // If this box is already inside a parent row container
       // insert c into parent container
-      if (
-        this.parent?.use == ROW &&
-        (alignment == HitTestAlignment.Left || alignment == HitTestAlignment.Right)
-      ) {
-        let i = this.elementIndex;
-        if (alignment == HitTestAlignment.Right) {
-          i++;
-          this.parent.insertChild(c, i);
-          this.parent.insertChild(DIVIDER, i);
-        } else {
-          this.parent.insertChild(DIVIDER, i);
-          this.parent.insertChild(c, i);
-        }
-        this.parent.doLayout();
-      } else if (
-        this.parent?.use == COL &&
-        (alignment == HitTestAlignment.Top || alignment == HitTestAlignment.Bottom)
-      ) {
-        // If this box is already inside a parent col container
-        // insert c into parent container
-        let i = this.elementIndex;
-        if (alignment == HitTestAlignment.Bottom) {
-          i++;
-          this.parent.insertChild(c, i);
-          this.parent.insertChild(DIVIDER, i);
-        } else {
-          this.parent.insertChild(DIVIDER, i);
-          this.parent.insertChild(c, i);
-        }
-        this.parent.doLayout();
+      let i = this.elementIndex;
+      if (alignment == HitTestAlignment.Right) {
+        i++;
+        this.parent.insertChild(c, i);
+        this.parent.insertChild(DIVIDER, i);
       } else {
-        let oldUse = this.use;
-        if (!this.children) {
-          this.children = [];
-        }
-        if (alignment == HitTestAlignment.Left) {
-          this.use = ROW;
-          this.appendChildren([
-            c, DIVIDER, oldUse,
-          ]);
-        } else if (alignment == HitTestAlignment.Right) {
-          this.use = ROW;
-          this.appendChildren([
-            oldUse, DIVIDER, c,
-          ]);
-        } else if (alignment == HitTestAlignment.Top) {
-          this.use = COL;
-          this.appendChildren([
-            c, DIVIDER, oldUse,
-          ]);
-        } else if (alignment == HitTestAlignment.Bottom) {
-          this.use = COL;
-          this.appendChildren([
-            oldUse, DIVIDER, c,
-          ]);
-        }
-        this.doLayout();
+        this.parent.insertChild(DIVIDER, i);
+        this.parent.insertChild(c, i);
       }
+      this.parent.doLayout();
+    } else if (
+      this.parent?.use == COL &&
+      (alignment == HitTestAlignment.Top || alignment == HitTestAlignment.Bottom)
+    ) {
+      // If this box is already inside a parent col container
+      // insert c into parent container
+      let i = this.elementIndex;
+      if (alignment == HitTestAlignment.Bottom) {
+        i++;
+        this.parent.insertChild(c, i);
+        this.parent.insertChild(DIVIDER, i);
+      } else {
+        this.parent.insertChild(DIVIDER, i);
+        this.parent.insertChild(c, i);
+      }
+      this.parent.doLayout();
+    } else if (alignment == HitTestAlignment.Tabbar) {
+      this.use = TAB;
+      this.tabs?.push(c);
+    } else {
+      // normal split
+      let oldUse = this.use;
+      if (!this.children) {
+        this.children = [];
+      }
+      if (alignment == HitTestAlignment.Left) {
+        this.use = ROW;
+        this.appendChildren([
+          c, DIVIDER, oldUse,
+        ]);
+      } else if (alignment == HitTestAlignment.Right) {
+        this.use = ROW;
+        this.appendChildren([
+          oldUse, DIVIDER, c,
+        ]);
+      } else if (alignment == HitTestAlignment.Top) {
+        this.use = COL;
+        this.appendChildren([
+          c, DIVIDER, oldUse,
+        ]);
+      } else if (alignment == HitTestAlignment.Bottom) {
+        this.use = COL;
+        this.appendChildren([
+          oldUse, DIVIDER, c,
+        ]);
+      }
+      this.doLayout();
     }
   }
 
@@ -207,6 +228,7 @@ export class RenderBox {
   */
   hitTest(x: number, y: number): {
     box: RenderBox;
+    dimension: Dimension;
     alignment: HitTestAlignment;
   } | undefined {
     if (
@@ -218,6 +240,7 @@ export class RenderBox {
       return;
     }
 
+    // If this is a container, delegate hitTest to children
     if (this.children) {
       for (let c of this.children) {
         let box = c.hitTest(x, y);
@@ -227,15 +250,22 @@ export class RenderBox {
 
     if (this.isLeaf || this.isRoot) {      
       let alignment = this.getAlignment(x, y);
+      let dimension = this.alignmentToDimensions(alignment);
+      
       return {
         box: this,
+        dimension,
         alignment,
       };
     }
   }
 
   get isLeaf() {
-    return this.use == TAB || !this.children;
+    return !this.children;
+  }
+
+  get isDummy() {
+    return !this.use;
   }
 
   get isEmpty() {
@@ -395,7 +425,10 @@ export class RenderBox {
     }
   }
 
-  getAlignment(x: number, y: number): HitTestAlignment {
+  /**
+   * When a drag is over this box, determine the alignment of the hint box
+   */
+  getAlignment(cursorX: number, cursorY: number): HitTestAlignment {
     let xScale = makeScale(this.x, this.width);
     let yScale = makeScale(this.y, this.height);
     let boxes: [Axis, number[], HitTestAlignment][] = [
@@ -405,34 +438,77 @@ export class RenderBox {
       [Axis.Y, yScale([0.8, 1]), HitTestAlignment.Bottom],
     ];
 
+    // only do tabbar match when there's tabbar
+    if (!this.isDummy) {
+      boxes.unshift([Axis.Y, yScale([0, 0.1]), HitTestAlignment.Tabbar]);
+    }
+
     for (let [kind, [start, end], align] of boxes) {
       if (kind == Axis.X) {
-        if (x >= start && x <= end) return align;
+        if (cursorX >= start && cursorX <= end) {
+          return align;
+        }
       } else if (kind == Axis.Y) {
-        if (y >= start && y <= end) return align;
+        if (cursorY >= start && cursorY <= end) {
+          return align;
+        }
       }
     }
     return HitTestAlignment.Center;
+  }
+
+  alignmentToDimensions(align: HitTestAlignment): Dimension {
+    let { x, y, width, height } = this;
+    if (align == HitTestAlignment.Left) {
+      width /= 2;
+    } else if (align == HitTestAlignment.Right) {
+      width /= 2;
+      x += width;
+    } else {
+      // TODO: get tab height from dom
+      let tabHeight = 33;
+      if (this.isDummy) {
+        tabHeight = 0;
+      }
+      if (align == HitTestAlignment.Tabbar) {
+        height = tabHeight;
+      } else {
+        height -= tabHeight;
+        y += tabHeight;
+        if (align == HitTestAlignment.Top) {
+          height /= 2;
+        } else if (align == HitTestAlignment.Bottom) {
+          height /= 2;
+          y += height;
+        }
+      }
+    }
+    return {
+      x,
+      y,
+      width,
+      height,
+    };
   }
 
   renderLeafContent(): JSX.Element {
     if (!this.use) {
       return this.context.placeholder();
     }
-    const onRemove = () => {
-      this.context.onAction('remove', this);
-    }
-    let tabs;
-    if (this.use == TAB) {
-      tabs = this.props?.tabs as string[] || [];
-    } else if (this.use) {
-      tabs = [this.use];
-    }
+    const onRemove = (i: number) => {
+      this.tabs?.splice(i, 1);
+      if (this.tabs?.length == 0) {
+        this.context.onAction('remove', this);
+      }
+    };
+
     return (
       <PaneContent
-        library={this.context.library}
+        expanded={this.expanded}
+        context={this.context}
+        box={this}
         closable={this.context.closable}
-        tabs={tabs}
+        tabs={this.tabs}
         onRemove={onRemove}
       />
     );

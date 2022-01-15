@@ -42,10 +42,9 @@
     &[data-expanded="true"] {
       z-index: 1001;
     }
-    > .j-dropdown {
-      position: absolute;
-      top: 6px;
-      right: 2px;
+    .j-flex-layout-pane-action-menu {
+      margin-top: 4px;
+      margin-right: 2px;
       > .j-button {
         padding: 0.1rem;
       }

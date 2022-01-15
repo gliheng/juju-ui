@@ -30,3 +30,10 @@ export interface LayoutContext {
   flexSize: number,
   totalFlex: number;
 }
+
+export interface Dimension {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
