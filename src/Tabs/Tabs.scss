@@ -146,7 +146,9 @@
     color: var(--foreground-color-1);
   }
 }
-
 .j-tabs-content {
   padding: $margin 0;
+  .j-tab-pane {
+    width: 100%;
+  }
 }

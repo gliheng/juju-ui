@@ -47,10 +47,12 @@ export default {
         },
         '$divider',
         {
-          use: '$row',
-          children: [
-            'pane-d', '$divider', 'pane-e',
-          ],
+          use: '$tab',
+          props: {
+            tabs: [
+              'pane-d', 'pane-e',
+            ],
+          }
         },
       ]
     };

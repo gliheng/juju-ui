@@ -4,8 +4,6 @@ import { RenderBox } from './layout';
 import Button from '../Button/Button.vue';
 import Dropdown from '../Dropdown/Dropdown.vue';
 import Menu from '../Menu/Menu.vue';
-import Tabs from '../Tabs/Tabs.vue';
-import TabPane from '../Tabs/TabPane.vue';
 
 export default defineComponent({
   name: 'Pane',
@@ -13,10 +11,6 @@ export default defineComponent({
   props: {
     id: {
       type: Number,
-      required: true,
-    },
-    use: {
-      type: String,
       required: true,
     },
     x: {
@@ -39,7 +33,6 @@ export default defineComponent({
       type: Object as PropType<RenderBox>,
       required: true,
     },
-    props: Object,
     expanded: {
       type: Boolean,
       default: false,
@@ -49,11 +42,12 @@ export default defineComponent({
         library: Library
         onAction: (action: string, box: RenderBox, args?: any) => void,
         placeholder: any,
+        showActionMenu: boolean,
       }>,
       required: true,
     },
   },
-  setup(props) {
+  setup(props, { slots }) {
     function expand() {
       props.context.onAction('expand', props.box);
     }
@@ -72,25 +66,22 @@ export default defineComponent({
     
     return () => {
       let { x, y, width, height, expanded } = props;
-      let Component = props.context.library.find(item => item.name == props.use) as any;
-      let child, title;
-
-      if (Component) {
-        title = Component.label;
-        let expandMenu: JSX.Element;
-        if (expanded) {
-          expandMenu = <Menu label="Contract" icon="contract" onClick={ contract } />;
-        } else {
-          expandMenu = <Menu label="Expand" icon="expand" onClick={ expand } />;
-        }
-
-        child = <>
-          <Tabs>
-            <TabPane label={title}>
-              <Component {...props.props}></Component>
-            </TabPane>
-          </Tabs>
-          <Dropdown align="right">
+      let content;
+      if (slots.default) {
+        content = slots.default();
+      }
+      
+      if (content) {
+        let actionMenu;
+        if (props.context.showActionMenu) {
+          let expandMenu: JSX.Element;
+          if (expanded) {
+            expandMenu = <Menu label="Contract" icon="contract" onClick={ contract } />;
+          } else {
+            expandMenu = <Menu label="Expand" icon="expand" onClick={ expand } />;
+          }
+          actionMenu = (
+            <Dropdown align="right">
             {{
               default: () => <Button rounded flat size="sm" icon="ellipsis-horizontal" />,
               menu: () => <Menu list>
@@ -108,12 +99,16 @@ export default defineComponent({
                 </>)}
               </Menu>
             }}
-          </Dropdown>
+            </Dropdown>
+          );
+        }
+
+        content = <>
+          {content}
+          {actionMenu}
         </>;
-      } else if (props.use) {
-        child = `Cannot find component: ${props.use}`;
       } else if (props.context.placeholder) {
-        child = props.context.placeholder();
+        content = props.context.placeholder();
       }
 
       let style: Record<string, any> = {
@@ -130,7 +125,7 @@ export default defineComponent({
           data-id={props.id}
           style={style}
         >
-          {child}
+          {content}
         </div>
       );
     };

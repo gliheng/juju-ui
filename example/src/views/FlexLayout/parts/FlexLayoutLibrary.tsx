@@ -42,7 +42,7 @@ export default [
     label: 'Component E',
     render() {
       return <div class={style.box} style={{
-        backgroundColor: 'steelblue',
+        backgroundColor: 'orange',
       }}><span>E</span></div>;
     },
   },

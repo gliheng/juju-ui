@@ -17,9 +17,11 @@ import { defineComponent, ref, watch, onUpdated } from 'vue';
 import anime from 'animejs';
 import SvgIcon from '../SvgIcon/SvgIcon.vue';
 import { useElementSize } from '@utils/hooks'
+import ripple from '@directives/ripple';
 
 export default defineComponent({
   components: { SvgIcon },
+  directives: { ripple },
   setup() {
     let content = ref<HTMLElement>();
     let needAdjustBtns = ref<boolean>(false);

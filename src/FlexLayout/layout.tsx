@@ -1,11 +1,13 @@
 import { markRaw, h } from 'vue';
 import { PaneAttrs, NormalizedPaneAttrs, LayoutContext, Library } from './types';
-import Pane from './Pane';
 import Divider from '../Divider/Divider';
+import Pane from './Pane';
+import TabsPane from './TabsPane';
 
 export const DIVIDER = '$divider';
 export const COL = '$col';
 export const ROW = '$row';
+export const TAB = '$tab';
 
 export enum HitTestAlignment {
   Top,
@@ -20,8 +22,8 @@ enum Axis {
   Y,
 }
 
-// This function normalize a user provided preset.
-// String is accepted to be convenient
+/**
+ * Normalize a user provided preset. */ 
 export function normalizePreset(
   preset?: PaneAttrs,
 ): NormalizedPaneAttrs {
@@ -72,7 +74,8 @@ export class RenderBox {
     onDividerDragMove: () => void;
     onDividerDragEnd: () => void;
     onAction: () => void;
-    placeholder: any,
+    placeholder: any;
+    showActionMenu: boolean;
   };
 
   x = 0;
@@ -197,6 +200,10 @@ export class RenderBox {
     return newBox
   }
 
+  /**
+   * Drag behavior use this method to determine drop location
+   * x, y are relative positions
+  */
   hitTest(x: number, y: number): {
     box: RenderBox;
     alignment: HitTestAlignment;
@@ -218,15 +225,7 @@ export class RenderBox {
     }
 
     if (this.isLeaf || this.isRoot) {      
-      let xScale = makeScale(this.x, this.width);
-      let yScale = makeScale(this.y, this.height);
-      let boxes: [Axis, number[], HitTestAlignment][] = [
-        [Axis.X, xScale([0, 0.2]), HitTestAlignment.Left],
-        [Axis.X, xScale([0.8, 1]), HitTestAlignment.Right],
-        [Axis.Y, yScale([0, 0.2]), HitTestAlignment.Top],
-        [Axis.Y, yScale([0.8, 1]), HitTestAlignment.Bottom],
-      ];
-      let alignment = this.getAlignment(boxes, x, y);
+      let alignment = this.getAlignment(x, y);
       return {
         box: this,
         alignment,
@@ -235,7 +234,15 @@ export class RenderBox {
   }
 
   get isLeaf() {
-    return !this.children;
+    return this.use == TAB || !this.children;
+  }
+
+  get isEmpty() {
+    return !this.children || this.children.length == 0;
+  }
+
+  get isRoot() {
+    return !this.parent;
   }
 
   get root(): RenderBox {
@@ -261,7 +268,8 @@ export class RenderBox {
     this.parent?.doLayout();
   }
 
-  // This layout method do layout using cached value
+  /**
+   * Do layout using cached dimensions */
   doLayout() {
     this.layout(this.x, this.y, this.width, this.height, this.parent);
   }
@@ -338,7 +346,8 @@ export class RenderBox {
     }
   }
 
-  // remove children at index i
+  /**
+   * remove children at index i */
   removeChild(i: number) {
     if (i == -1 || !this.children) return;
 
@@ -358,16 +367,8 @@ export class RenderBox {
       this.doLayout();
     }
   }
-  
-  get isEmpty() {
-    return !this.children || this.children.length == 0;
-  }
 
-  get isRoot() {
-    return !this.parent;
-  }
-
-  // remove self
+  /** remove self */
   remove() {
     if (!this.parent) throw 'Cannot remove root node';
     let parent = this.parent;
@@ -376,10 +377,10 @@ export class RenderBox {
     parent.removeChild(idx);
   }
 
+  /** Remove potential duplicate dividers caused by modifying layout */
   fixDividers() {
     if (!this.children) return;
     let { children } = this;
-    // Remove potential duplicate dividers
     for (let i = 0; i < children.length;) {
       let item = children[i];
       if (children[i-1]?.use == DIVIDER && item?.use == DIVIDER) {
@@ -393,10 +394,16 @@ export class RenderBox {
     }
   }
 
-  getAlignment(
-    boxes: [Axis, number[], HitTestAlignment][],
-    x: number, y: number,
-  ): HitTestAlignment {
+  getAlignment(x: number, y: number): HitTestAlignment {
+    let xScale = makeScale(this.x, this.width);
+    let yScale = makeScale(this.y, this.height);
+    let boxes: [Axis, number[], HitTestAlignment][] = [
+      [Axis.X, xScale([0, 0.2]), HitTestAlignment.Left],
+      [Axis.X, xScale([0.8, 1]), HitTestAlignment.Right],
+      [Axis.Y, yScale([0, 0.2]), HitTestAlignment.Top],
+      [Axis.Y, yScale([0.8, 1]), HitTestAlignment.Bottom],
+    ];
+
     for (let [kind, [start, end], align] of boxes) {
       if (kind == Axis.X) {
         if (x >= start && x <= end) return align;
@@ -407,48 +414,57 @@ export class RenderBox {
     return HitTestAlignment.Center;
   }
 
+  renderLeafContent(): JSX.Element {
+    if (this.use == TAB) {
+      let tabs = this.props?.tabs as string[] || [];
+      return <TabsPane library={this.context.library} tabs={tabs} />
+    } else if (this.use) {
+      return <TabsPane library={this.context.library} tabs={[this.use]} />;
+    }
+    return this.context.placeholder();
+  }
+
   render(collect: JSX.Element[]) {
-    if (this.children) {
-      this.children.forEach(item => {
+    if (this.isLeaf) {
+      let node;
+      if (this.use == DIVIDER) {
+        node = (
+          <Divider
+            key={this.id}
+            positioned={true}
+            x={this.x}
+            y={this.y}
+            width={this.width}
+            height={this.height}
+            vertical={this.parent?.use == ROW}
+            onDragStart={this.context.onDividerDragStart.bind(null, this)}
+            onDragMove={this.context.onDividerDragMove.bind(null, this)}
+            onDragEnd={this.context.onDividerDragEnd.bind(null, this)}
+          />
+        );
+      } else {
+        node = (
+          <Pane
+            key={this.id}
+            id={this.id}
+            x={this.x}
+            y={this.y}
+            width={this.width}
+            height={this.height}
+            expanded={this.expanded}
+            box={this}
+            context={this.context}
+          >
+            {() => this.renderLeafContent()}
+          </Pane>
+        );
+      }
+      collect.push(node);
+    } else {
+      this.children!.forEach(item => {
         item.render(collect);
       });
-      return;
     }
-
-    let node;
-    if (this.use == DIVIDER) {
-      node = (
-        <Divider
-          key={this.id}
-          positioned={true}
-          x={this.x}
-          y={this.y}
-          width={this.width}
-          height={this.height}
-          vertical={this.parent?.use == ROW}
-          onDragStart={this.context.onDividerDragStart.bind(null, this)}
-          onDragMove={this.context.onDividerDragMove.bind(null, this)}
-          onDragEnd={this.context.onDividerDragEnd.bind(null, this)}
-        />
-      );
-    } else {
-      node = (
-        <Pane
-          key={ this.id }
-          id={ this.id }
-          use={this.use}
-          x={this.x}
-          y={this.y}
-          width={this.width}
-          height={this.height}
-          expanded={this.expanded}
-          box={ this }
-          context={ this.context }
-        />
-      );
-    }
-
-    collect.push(node);
   }
 }
 
