@@ -19,6 +19,7 @@ export interface ColumnConfig {
   class?: string | ((d: Datum) => string), // add a css class to cell
   width?: number,
   sticky?: string,
+  children?: ColumnConfig[],
 }
 
 export interface RowConfig {

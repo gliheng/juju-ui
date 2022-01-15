@@ -39,6 +39,12 @@
       </code-block>
       <p>Grouping allows arbitrary grouping of data</p>
     </section>
+    <section>
+      <h2>Column Grouping</h2>
+      <code-block :code="colGroupingPartCode">
+        <col-grouping-part />
+      </code-block>
+    </section>
   </div>
 </template>
 
@@ -59,10 +65,10 @@ import selectablePartCode from './parts/SelectablePart.vue?raw';
 import fixedHeaderPartCode from './parts/FixedHeaderPart.vue?raw';
 import fixedColumnPartCode from './parts/FixedColumnPart.vue?raw';
 import rowGroupingPartCode from './parts/RowGroupingPart.vue?raw';
+import colGroupingPartCode from './parts/ColGroupingPart.vue?raw';
 
 export default {
   setup() {
-
     return {
       basicPartCode,
       borderedPartCode,
@@ -70,6 +76,7 @@ export default {
       fixedHeaderPartCode,
       fixedColumnPartCode,
       rowGroupingPartCode,
+      colGroupingPartCode,
     };
   },
   components: {

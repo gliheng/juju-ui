@@ -5,7 +5,7 @@ export default defineComponent({
   props: {
     columns: {
       type: Array,
-      default: [],
+      default: () => [],
     },
   },
   setup(props) {

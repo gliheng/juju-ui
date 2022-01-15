@@ -46,7 +46,7 @@ export default defineComponent({
     },
     data: Array as PropType<Datum[]>,
     columns: {
-      type: Array,
+      type: Array as PropType<ColumnConfig[]>,
       default: [],
     },
     fixedHeader: {
@@ -100,7 +100,7 @@ export default defineComponent({
         data: Array<Datum | GroupDatum>,
         collect: any[],
       ) {
-        // flattern grouped data for row rendering
+        // flatten grouped data for row rendering
         data.forEach((d, i) => {
           if (d.groupChildren) {
             let groupKey = `${d.groupPath.join('::')}`;
@@ -121,6 +121,93 @@ export default defineComponent({
       return data;
     });
 
+    // Expand column grouping
+    let columnsInfo = computed(() => {
+      let spanMap: Map<ColumnConfig, {start: number; span: number, sticky?: string, align?: string}> = new Map();
+      let cols: ColumnConfig[] = [];
+      let maxLevel = 0;
+      // column can inherit sticky and align from parent
+      function flatten(grouped: ColumnConfig[], level: number, colStart: number, sticky?: string, align?: string) {
+        let n = 0;
+        for (let col of grouped) {
+          if ((import.meta as any).DEV) {
+            if (col.sticky && sticky && col.sticky != sticky) {
+              console.error('Sticky should be consitent for a single col group');
+            }
+          }
+          
+          let _align = col.align || align;
+          let _sticky = col.sticky || sticky;
+
+          if (col.children) {
+            let colCount = flatten(col.children, level + 1, n + colStart, _sticky, _align);
+            spanMap.set(col, {
+              start: n + colStart,
+              span: colCount,
+              sticky: _sticky,
+              align: _align,
+            });
+            n += colCount;
+          } else {
+            // children columns should inherit parent's sticky setting
+            spanMap.set(col, {
+              start: n + colStart,
+              span: 1,
+              sticky: _sticky,
+              align: _align,
+            });
+
+            cols.push({
+              ...col,
+              align: _align,
+              sticky: _sticky,
+            });
+            n++;
+          }
+        }
+        maxLevel = Math.max(level, maxLevel);
+        return n;
+      }
+      let { columns } = props;
+      flatten(columns, 1, 0);
+      return {
+        cols,
+        maxLevel,
+        spanMap,
+      };
+    });
+
+    let stickyInfo = computed(() => {
+      const columns = columnsInfo.value.cols;
+      // last left sticky column
+      let leftStickyPos = 0, rightStickyPos = 0, leftStickyCount = 0, rightStickyCount = 0;
+      let stickyPosMap: Map<number, number> = new Map();
+      for (let i = 0; i < columns.length; i++) {
+        if (!columns[i].sticky || columns[i].sticky != 'left') {
+          break;
+        }
+        stickyPosMap.set(i, leftStickyPos);
+        leftStickyPos += columns[i].width || 0;
+        leftStickyCount++;
+      }
+      for (let i = columns.length - 1; i >= 0; i--) {
+        if (!columns[i].sticky || columns[i].sticky != 'right') {
+          break;
+        }
+        stickyPosMap.set(i, rightStickyPos);
+        rightStickyPos += columns[i].width || 0;
+        rightStickyCount++;
+      }
+
+      return {
+        leftStickyCount,
+        leftStickyPos,
+        stickyPosMap,
+        rightStickyCount,
+        rightStickyPos,
+      };
+    });
+
     // record group expansion state
     let groupExpand = reactive<Record<string, boolean>>({});
     function toggleGroup(groupPath: string[]) {
@@ -137,52 +224,78 @@ export default defineComponent({
       return String(i);
     }
 
-    // accumulate left and right sticky column positions
-    let stickyPos = computed(() => {
-      let columns = props.columns as ColumnConfig[];
-      let m = new Map();
-      let v = 0;
-      for (let i = 0; i < columns.length; i++) {
-        m.set(columns[i], { left: v });
-        v += columns[i].width || 0;
+    function renderHeaderCell(
+      col: ColumnConfig,
+      i: number,
+      colspan: number,
+      rowspan: number,
+      sticky?: string,
+      align?: string
+    ) {
+      let label = '' ;
+      if (col.label) {
+        label = col.label;
       }
-      v = 0;
-      for (let i = columns.length - 1; i >= 0; i--) {
-        m.get(columns[i]).right = v;
-        v += columns[i].width || 0;
+      let className = '';
+      if (sticky) {
+        className = 'j-table-sticky';
       }
-      return m;
-    });
-
-    function renderHead() {
-      let columns = props.columns as ColumnConfig[];
-      let cells = columns.map((col, i) => {
-        let label = '' ;
-        if (col.label) {
-          label = col.label;
-        }
-        let className = '';
-        if (col.sticky) {
-          className = 'j-table-sticky';
-        }
-        let style: Record<string, any> = {};
-        if (col.sticky) {
-          let d = stickyPos.value.get(col);
-          if (col.sticky == 'left') {
-            style.left = `${d.left}px`;
-          } else if (col.sticky == 'right') {
-            style.right = `${d.right}px`;
+      let style: Record<string, any> = {};
+      if (align) {
+        style['text-align'] = align;
+      }
+      columnsInfo.value.spanMap.get(col);
+      if (sticky) {
+        let d = stickyInfo.value.stickyPosMap.get(i + colspan - 1);
+        if (typeof d == 'number') {
+          if (sticky == 'left') {
+            style.left = `${d}px`;
+          } else if (sticky == 'right') {
+            style.right = `${d}px`;
           }
         }
-        return (
-          <th key={ i }
-            class={ className }
-            style={ style }>{ label }</th>
-        );
-      });
+      }
+      return (
+        <th key={ i }
+          class={ className }
+          colspan={ colspan }
+          rowspan={ rowspan }
+          style={ style }
+        >
+          { label }
+        </th>
+      );
+    }
+
+    function renderHead() {
+      let columnRow: ColumnConfig[] = props.columns;
+      let next: ColumnConfig[];
+      let rows = [];
+      let { maxLevel } = columnsInfo.value;
+      let level = 0;
+      while (columnRow.length) {
+        next = [];
+        let cells = columnRow.map((col, i) => {
+          if (col.children) {
+            next.push(...col.children);
+          }
+          let span = columnsInfo.value.spanMap.get(col);
+          return renderHeaderCell(
+            col,
+            span?.start || i,
+            span?.span || 1,
+            col.children ? 1 : maxLevel - level,
+            span?.sticky,
+            span?.align,
+          );
+        });
+        rows.push(<tr>{cells}</tr>);
+        columnRow = next;
+        level++;
+      }
       return (
         <thead>
-          <tr>{ cells }</tr>
+          { rows }
         </thead>
       );
     }
@@ -238,8 +351,8 @@ export default defineComponent({
         return (
           <Row key={key}
             datum={d}
-            stickyPos={stickyPos.value}
-            columns={props.columns}
+            stickyPos={stickyInfo.value.stickyPosMap}
+            columns={columnsInfo.value.cols}
             rowConfig={props.rowConfig}
             selected={selected.has(key)}
             // @ts-ignore
@@ -275,7 +388,7 @@ export default defineComponent({
     function containerRenderer(items: any) {
       return (
         <table>
-          <ColGroup columns={ props.columns } />
+          <ColGroup columns={ columnsInfo.value.cols } />
           <tbody>
             { items }
           </tbody>
@@ -289,23 +402,12 @@ export default defineComponent({
         bodyStyle.height = `${props.height}px`;
       }
 
-      const columns = props.columns as ColumnConfig[];
-      // last left sticky column
-      let leftStickyPos = 0, rightStickyPos = 0, leftStickyCount = 0, rightStickyCount = 0;
-      for (let i = 0; i < columns.length; i++) {
-        if (!columns[i].sticky || columns[i].sticky != 'left') {
-          break;
-        }
-        leftStickyPos += columns[i].width || 0;
-        leftStickyCount++;
-      }
-      for (let i = columns.length - 1; i >= 0; i--) {
-        if (!columns[i].sticky || columns[i].sticky != 'right') {
-          break;
-        }
-        rightStickyPos += columns[i].width || 0;
-        rightStickyCount++;
-      }
+      let {
+        leftStickyCount,
+        rightStickyCount,
+        leftStickyPos,
+        rightStickyPos,
+      } = stickyInfo.value;
 
       let hasLeftSticky = leftStickyCount > 0,
         hasRightSticky = rightStickyCount > 0;
@@ -333,7 +435,9 @@ export default defineComponent({
           >
             <table>
               { renderHead() }
-              { rows }
+              <tbody>
+                { rows }
+              </tbody>
             </table>
           </div>
         );
@@ -359,17 +463,18 @@ export default defineComponent({
 
       return (
         <div class="j-table"
-          data-fixed-header={ true }
+          data-fixed-header={ props.fixedHeader }
           data-bordered={ props.bordered }
           data-has-left-sticky={ hasLeftSticky }
           data-has-right-sticky={ hasRightSticky }
+          data-virtual-scroll={ props.virtualScroll }
         >
           <div
             class="j-table-head-part"
             ref={ headerRef }
           >
             <table>
-              <ColGroup columns={ props.columns } />
+              <ColGroup columns={ columnsInfo.value.cols } />
               { renderHead() }
             </table>
           </div>

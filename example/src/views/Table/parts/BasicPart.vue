@@ -6,7 +6,30 @@
 </template>
 
 <script>
-import { data, columns } from './TableColumns.tsx';
+import { data } from './TableData';
+
+const columns = [{
+  label: 'Name',
+  field: 'name',
+}, {
+  label: 'Age',
+  field: 'age',
+}, {
+  label: 'Gender',
+  field: 'gender',
+}, {
+  label: 'Work',
+  field: 'work',
+}, {
+  label: 'Email',
+  field: 'email',
+}, {
+  label: 'Phone',
+  field: 'phone',
+}, {
+  label: 'Address',
+  field: 'address',
+}];
 
 export default {
   setup() {

@@ -1,4 +1,4 @@
-import { defineComponent, h } from 'vue';
+import { defineComponent, h, PropType } from 'vue';
 import { Datum, ColumnConfig, RowConfig } from './types';
 
 export default defineComponent({
@@ -16,7 +16,7 @@ export default defineComponent({
       default: [],
     },
     stickyPos: {
-      type: Map,
+      type: Map as PropType<Map<number, number>>,
     },
     rowConfig: {
       type: Object,
@@ -82,12 +82,14 @@ export default defineComponent({
         }
         if (col.sticky && props.stickyPos) {
           cellClass += ' j-table-sticky';
-          let pos = props.stickyPos.get(col) as any;
-          if (col.sticky == 'left') {
-            style.left = `${pos.left}px`;
-          }
-          if (col.sticky == 'right') {
-            style.right = `${pos.right}px`;
+          let pos = props.stickyPos.get(i);
+          if (pos !== undefined) {
+            if (col.sticky == 'left') {
+              style.left = `${pos}px`;
+            }
+            if (col.sticky == 'right') {
+              style.right = `${pos}px`;
+            }
           }
         }
         return (

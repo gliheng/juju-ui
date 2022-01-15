@@ -94,6 +94,9 @@ export default defineComponent({
     });
 
     return () => {
+      if (import.meta.env.DEV && props.virtual && typeof props.itemHeight != 'number') {
+        console.error('Virtual scroll requires itemHeight to be set');
+      }
       return (
         <Scroller
           ref={ containerRef }
@@ -116,7 +119,8 @@ export default defineComponent({
               <BatchRenderer
                 items={ props.items }
                 itemRenderer={ props.itemRenderer }
-                start={startIdx.value} end={ end }
+                start={startIdx.value} 
+                end={ end }
               />
             );
           }
