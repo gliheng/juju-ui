@@ -47,6 +47,10 @@ export default defineComponent({
       }>,
       required: true,
     },
+    showActionMenu: {
+      type: Boolean,
+      default: true,
+    },
   },
   setup(props, { slots }) {
     function expand() {
@@ -74,7 +78,7 @@ export default defineComponent({
       
       if (content) {
         let actionMenu;
-        if (props.context.showActionMenu) {
+        if (props.showActionMenu) {
           let expandMenu: JSX.Element;
           if (expanded) {
             expandMenu = <Menu label="Contract" icon="contract" onClick={ contract } />;

@@ -467,6 +467,7 @@ export class RenderBox {
             height={this.height}
             expanded={this.expanded}
             box={this}
+            showActionMenu={Boolean(this.use) && this.context.showActionMenu}
             context={this.context}
           >
             {() => this.renderLeafContent()}
