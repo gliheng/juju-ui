@@ -20,6 +20,10 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    closable: {
+      type: Boolean,
+      default: true,
+    },
   },
   setup(props, { slots }) {
     let elm = ref<HTMLDivElement>();
@@ -43,6 +47,7 @@ export default defineComponent({
           onAction,
           placeholder: slots.placeholder,
           showActionMenu: props.showActionMenu,
+          closable: props.closable,
         });
       }
       renderBox.layout(0, 0, size.width, size.height);

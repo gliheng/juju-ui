@@ -39,10 +39,11 @@ export default defineComponent({
     },
     context: {
       type: Object as PropType<{
-        library: Library
-        onAction: (action: string, box: RenderBox, args?: any) => void,
-        placeholder: any,
-        showActionMenu: boolean,
+        library: Library;
+        onAction: (action: string, box: RenderBox, args?: any) => void;
+        placeholder: any;
+        showActionMenu: boolean;
+        closable: boolean;
       }>,
       required: true,
     },

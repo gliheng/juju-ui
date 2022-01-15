@@ -2,7 +2,7 @@ import { markRaw, h } from 'vue';
 import { PaneAttrs, NormalizedPaneAttrs, LayoutContext, Library } from './types';
 import Divider from '../Divider/Divider';
 import Pane from './Pane';
-import TabsPane from './TabsPane';
+import PaneContent from './PaneContent';
 
 export const DIVIDER = '$divider';
 export const COL = '$col';
@@ -73,9 +73,10 @@ export class RenderBox {
     onDividerDragStart: () => void;
     onDividerDragMove: () => void;
     onDividerDragEnd: () => void;
-    onAction: () => void;
+    onAction: (action: string, box: RenderBox, args?: any) => void;
     placeholder: any;
     showActionMenu: boolean;
+    closable: boolean;
   };
 
   x = 0;
@@ -415,13 +416,26 @@ export class RenderBox {
   }
 
   renderLeafContent(): JSX.Element {
-    if (this.use == TAB) {
-      let tabs = this.props?.tabs as string[] || [];
-      return <TabsPane library={this.context.library} tabs={tabs} />
-    } else if (this.use) {
-      return <TabsPane library={this.context.library} tabs={[this.use]} />;
+    if (!this.use) {
+      return this.context.placeholder();
     }
-    return this.context.placeholder();
+    const onRemove = () => {
+      this.context.onAction('remove', this);
+    }
+    let tabs;
+    if (this.use == TAB) {
+      tabs = this.props?.tabs as string[] || [];
+    } else if (this.use) {
+      tabs = [this.use];
+    }
+    return (
+      <PaneContent
+        library={this.context.library}
+        closable={this.context.closable}
+        tabs={tabs}
+        onRemove={onRemove}
+      />
+    );
   }
 
   render(collect: JSX.Element[]) {
