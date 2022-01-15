@@ -20,7 +20,9 @@
       </div>
       <p>Drag these pills to the panel bellow to modify layout</p>
     </div>
-    <j-flex-layout class="layout" :library="library" :preset="preset" />
+    <j-flex-layout class="layout" :library="library" :preset="preset">
+      <template #placeholder><div class="placeholder">Drop pill onto this block</div></template>
+    </j-flex-layout>
   </div>
 </template>
 
@@ -66,9 +68,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.layout {
-  height: 500px;
-}
 .pool {
   margin-bottom: 8px;
   .pill {
@@ -81,6 +80,16 @@ export default {
   }
   p {
     color: grey;
+  }
+}
+.layout {
+  height: 500px;
+  .placeholder {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: silver;
   }
 }
 </style>

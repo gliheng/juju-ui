@@ -2,6 +2,16 @@
 
 .j-tabs {
   text-align: left;
+  .j-tabs-inner {
+    display: flex;
+    background: var(--background-color);
+    .j-tab-scroller {
+      flex: 1;
+    }
+    .j-tabs-addon {
+      border-bottom: 2px solid var(--foreground-color-2);
+    }
+  }
   .j-tabs-bar {
     border-bottom: 2px solid var(--foreground-color-2);
     position: relative;
@@ -9,6 +19,7 @@
     white-space: nowrap;
     .j-tabs-bar-inner {
       display: flex;
+      min-width: 0;
     }
     .j-tabs-btn {
       position: relative;

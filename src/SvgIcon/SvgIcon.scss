@@ -3,23 +3,18 @@
 .j-icon {
   display: inline-block;
   vertical-align: middle;
+  width: var(--j-icon-size);
+  height: var(--j-icon-size);
+  min-width: var(--j-icon-size);
+  min-height: var(--j-icon-size);
   &[data-size="sm"] {
-    width: 16px;
-    height: 16px;
-    min-width: 16px;
-    min-height: 16px;
+    --j-icon-size: 16px;
   }
   &[data-size="md"] {
-    width: 24px;
-    height: 24px;
-    min-width: 24px;
-    min-height: 24px;
+    --j-icon-size: 24px;
   }
   &[data-size="lg"] {
-    width: 32px;
-    height: 32px;
-    min-width: 32px;
-    min-height: 32px;
+    --j-icon-size: 32px;
   }
   .j-icon-svg {
     display: block;

@@ -39,9 +39,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.layout {
-  height: 500px;
-}
 .pool {
   margin-bottom: 8px;
   .pill {
@@ -56,10 +53,14 @@ export default {
     color: grey;
   }
 }
-.placeholder {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.layout {
+  height: 500px;
+  .placeholder {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: silver;
+  }
 }
 </style>

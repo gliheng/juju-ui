@@ -1,7 +1,7 @@
 import { defineComponent, ref, h, PropType, watch } from 'vue';
 import { useElementSize } from '@utils/hooks';
 import { idGenerator, normalizePreset, RenderBox, HitTestAlignment } from './layout';
-import { PaneAttrs, Library } from './types';
+import { PaneAttrs, Library, Dimension } from './types';
 import './FlexLayout.scss';
 
 export const MIME = "application/j-flex-layout";
@@ -17,6 +17,10 @@ export default defineComponent({
       required: false,
     },
     showActionMenu: {
+      type: Boolean,
+      default: true,
+    },
+    closable: {
       type: Boolean,
       default: true,
     },
@@ -43,6 +47,7 @@ export default defineComponent({
           onAction,
           placeholder: slots.placeholder,
           showActionMenu: props.showActionMenu,
+          closable: props.closable,
         });
       }
       renderBox.layout(0, 0, size.width, size.height);
@@ -109,8 +114,9 @@ export default defineComponent({
     }
 
     let hintBox = ref<{
-      box: RenderBox,
-      alignment: HitTestAlignment,
+      box: RenderBox;
+      alignment: HitTestAlignment;
+      dimension: Dimension;
     }>();
 
     function validData(dt?: DataTransfer | null): boolean {
@@ -182,21 +188,10 @@ export default defineComponent({
         renderBox.render(nodes);
       }
 
+      // decide hintBox location
       let hintBoxNode: JSX.Element | undefined;
       if (hintBox.value) {
-        let { box, alignment } = hintBox.value;
-        let { x, y, width, height } = box;
-        if (alignment == HitTestAlignment.Left) {
-          width /= 2;
-        } else if (alignment == HitTestAlignment.Right) {
-          width /= 2;
-          x += width;
-        } else if (alignment == HitTestAlignment.Top) {
-          height /= 2;
-        } else if (alignment == HitTestAlignment.Bottom) {
-          height /= 2;
-          y += height;
-        }
+        let { x, y, width, height } = hintBox.value.dimension;
         let style: Record<string, any> = {
           top: `${y}px`,
           left: `${x}px`,
