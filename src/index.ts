@@ -49,7 +49,6 @@ import Splitter from './Splitter/Splitter';
 import SplitterPanel from './Splitter/SplitterPanel';
 import MenuOpener from './AnimatedIcon/MenuOpener.vue';
 import MenuToggle from './AnimatedIcon/MenuToggle.vue';
-import Vnodes from './Vnodes';
 import ripple from './directives/ripple';
 
 export * from './utils';
@@ -104,7 +103,6 @@ export {
   SplitterPanel,
   MenuOpener,
   MenuToggle,
-  Vnodes,
   ripple,
 };
 
@@ -158,6 +156,5 @@ export default function(app: App, conf: Partial<Config>) {
     .component('j-splitter-panel', SplitterPanel)
     .component('j-animated-icon:menu-opener', MenuOpener)
     .component('j-animated-icon:menu-toggle', MenuToggle)
-    .component('j-vnodes', Vnodes)
     .directive('ripple', ripple);
 }

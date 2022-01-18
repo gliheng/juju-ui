@@ -4,7 +4,7 @@ const rename = require('gulp-rename');
 const { Transform } = require('stream');
 
 
-const src = [
+const srcPathes = [
   './src/**/*.scss',
 ];
 const loadPaths = [
@@ -33,7 +33,7 @@ const sassTransform = new Transform({
 });
 
 const buildCss = function() {
-  return src(src)
+  return src(srcPathes)
   .pipe(sassTransform)
   .pipe(rename({dirname: ''}))
   .pipe(dest(destDir));
