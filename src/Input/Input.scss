@@ -3,7 +3,7 @@
 .j-input {
   display: inline-flex;
   border-radius: 3px;
-  border: 1px solid var(--foreground-color-1);
+  border: 1px solid var(--j-foreground-color-1);
   transition: border-color 0.2s, box-shadow 0.2s;
   width: 16rem;
   align-items: center;
@@ -14,16 +14,16 @@
     background: none;
     flex: 1;
     min-width: 0;
-    color: var(--text-color);
+    color: var(--j-text-color);
   }
   &[data-focus="true"] {
     box-shadow: $outline;
-    border-color: var(--primary-color);
+    border-color: var(--j-primary-color);
     outline: none;
     z-index: 1;
   }
   &:hover:not([data-disabled="true"]) {
-    border-color: var(--primary-color);
+    border-color: var(--j-primary-color);
   }
   &[data-disabled="true"] {
     background-color: #eee;
@@ -45,7 +45,7 @@
     }
   }
   > .j-input-prepend, > .j-input-append {
-    color: var(--foreground-color-1);
+    color: var(--j-foreground-color-1);
   }
   > .j-input-prepend .j-icon {
     margin-left: $margin;

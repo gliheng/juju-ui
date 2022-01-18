@@ -19,8 +19,8 @@
     display: flex;
     flex-direction: column;
     pointer-events: initial;
-    color: var(--text-color);
-    background-color: var(--background-color);
+    color: var(--j-text-color);
+    background-color: var(--j-background-color);
     header {
       height: 30px;
       line-height: 30px;
@@ -37,9 +37,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        color: var(--neutral-color);
+        color: var(--j-neutral-color);
         &:hover {
-          background-color: var(--foreground-color-2);
+          background-color: var(--j-foreground-color-2);
         }
         width: 30px;
         box-sizing: border-box;
@@ -69,7 +69,7 @@
       align-items: center;
       > .j-popup-icon {
         margin-right: 0.5rem;
-        color: var(--primary-color);
+        color: var(--j-primary-color);
       }
       > .j-popup-content {
         margin: 0;

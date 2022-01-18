@@ -35,7 +35,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--background-color-2);
-  color: var(--text-color);
+  background-color: var(--j-background-color-2);
+  color: var(--j-text-color);
 }
 </style>

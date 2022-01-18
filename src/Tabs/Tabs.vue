@@ -5,7 +5,7 @@
         <div class="j-tabs-bar">
           <div class="j-tabs-bar-inner" ref="tabBar">
             <div class="j-tabs-btn" v-for="(tab, i) in tabs" :key="i" :class="{ 'j-active': active == i }"
-              v-ripple:color="'var(--primary-color-light)'"
+              v-ripple:color="'var(--j-primary-color-light)'"
               @click="setActive($event, i)">
               <button>
                 <svg-icon class="j-tabs-icon" v-if="tab.icon" :name="tab.icon" />
@@ -15,7 +15,7 @@
                 <svg-icon name="close-outline" />
               </a>
             </div>
-            <div class="j-tabs-btn" v-if="add" @click="addTab" v-ripple:color="'var(--primary-color-light)'">
+            <div class="j-tabs-btn" v-if="add" @click="addTab" v-ripple:color="'var(--j-primary-color-light)'">
               <button>
                 <svg-icon name="add" />
               </button>

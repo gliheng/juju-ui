@@ -13,7 +13,7 @@
 
 <style scoped>
 .splitter {
-  border: 1px solid var(--primary-color);
+  border: 1px solid var(--j-primary-color);
 }
 .panel {
   background-color: #78afdf;

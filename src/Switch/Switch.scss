@@ -17,11 +17,11 @@
     height: 1.5rem;
     margin: 0 0.125rem;
     border-radius: 50%;
-    background-color: var(--primary-color-text);
+    background-color: var(--j-primary-color-text);
     transition: transform 0.2s;
   }
   &.j-on {
-    background-color: var(--primary-color);
+    background-color: var(--j-primary-color);
     .j-knob {
       transform: translateX(1.25rem);
     }

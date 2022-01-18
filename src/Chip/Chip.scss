@@ -3,8 +3,8 @@
 .j-chip {
   display: inline-flex;
   align-items: center;
-  background-color: var(--primary-color);
-  color: var(--primary-color-text);
+  background-color: var(--j-primary-color);
+  color: var(--j-primary-color-text);
   border-radius: 1rem;
   padding: 0.2rem 0.5rem;
   &[data-closable="true"] {

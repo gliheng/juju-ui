@@ -8,8 +8,8 @@
   .j-appbar {
     position: relative;
     height: $hh;
-    background-color: var(--primary-color);
-    color: var(--primary-color-text);
+    background-color: var(--j-primary-color);
+    color: var(--j-primary-color-text);
     padding: 0 $margin;
     box-sizing: border-box;
     display: flex;
@@ -59,12 +59,12 @@
     box-sizing: border-box;
     transition: transform 0.2s $curve;
     padding: $margin;
-    background-color: var(--background-color-1);
+    background-color: var(--j-background-color-1);
   }
   .j-scaffold-appbar {
     height: $hh;
-    background-color: var(--primary-color);
-    color: var(--primary-color-text);
+    background-color: var(--j-primary-color);
+    color: var(--j-primary-color-text);
     padding: 0 $margin;
     margin: -$margin;
     margin-bottom: initial;

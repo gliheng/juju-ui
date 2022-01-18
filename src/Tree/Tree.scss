@@ -10,7 +10,7 @@
     padding: $margin 2*$margin;
     padding-right: $margin;
     &:hover {
-      background-color: var(--primary-color-lighter);
+      background-color: var(--j-primary-color-lighter);
     }
     > .j-tree-arrow {
       transition: transform 0.2s $curve;

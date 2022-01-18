@@ -10,15 +10,15 @@ body {
 }
 
 html {
-  color: var(--text-color);
-  background-color: var(--background-color);
+  color: var(--j-text-color);
+  background-color: var(--j-background-color);
 }
 
 a {
   text-decoration: none;
 }
 a:link {
-  color: var(--primary-color);
+  color: var(--j-primary-color);
 }
 a:visited {
   color: inherit;

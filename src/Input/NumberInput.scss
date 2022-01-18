@@ -2,7 +2,7 @@
 
 .j-number-input {
   padding: 0 0.1rem;
-  border: 1px solid var(--foreground-color-1);
+  border: 1px solid var(--j-foreground-color-1);
   border-radius: 3px;
   transition: border-color 0.2s, box-shadow 0.2s;
   position: relative;
@@ -11,10 +11,10 @@
 
   &.j-focus {
     box-shadow: $outline;
-    border-color: var(--primary-color);
+    border-color: var(--j-primary-color);
   }
   &:hover {
-    border-color: var(--primary-color);
+    border-color: var(--j-primary-color);
   }
   
   .j-value-inner {
@@ -34,7 +34,7 @@
       outline: none;
       border: none;
       background: none;
-      color: var(--text-color);
+      color: var(--j-text-color);
       padding: 0.5rem;
     }
   }
@@ -43,7 +43,7 @@
     padding: 1rem;
     top: 100%;
     line-height: 0;
-    background-color: var(--background-color);
+    background-color: var(--j-background-color);
     margin-top: 2px;
   }
 

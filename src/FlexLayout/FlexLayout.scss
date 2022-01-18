@@ -24,8 +24,8 @@
       display: flex;
       flex-direction: column;
       > .j-tab-scroller {
-        color: var(--text-color);
-        background-color: var(--background-color-1);
+        color: var(--j-text-color);
+        background-color: var(--j-background-color-1);
       }
       > .j-tabs-content {
         flex: 1;
@@ -53,7 +53,7 @@
   .j-flex-layout-hint {
     pointer-events: none;
     position: absolute;
-    background-color: var(--foreground-color-2);
+    background-color: var(--j-foreground-color-2);
     opacity: 0.5;
     transition: top $t, left $t, width $t, height $t;
   }

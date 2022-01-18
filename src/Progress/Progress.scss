@@ -2,12 +2,12 @@
 
 .j-progress {
   height: 6px;
-  background-color: var(--primary-color-lighter);
+  background-color: var(--j-primary-color-lighter);
   position: relative;
   overflow: hidden;
   .j-progress-bar {
     height: 100%;
-    background-color: var(--primary-color);
+    background-color: var(--j-primary-color);
     transition: width 0.3s;
   }
   &[data-indeterminate="true"] {

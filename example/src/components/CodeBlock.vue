@@ -147,7 +147,7 @@ function copyToClipboard(text) {
 }
 .btns {
   display: flex;
-  border-top: 1px solid var(--background-color-1);
+  border-top: 1px solid var(--j-background-color-1);
   .show-code-btn {
     flex: 1;
     justify-content: center;

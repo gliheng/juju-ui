@@ -1,36 +1,36 @@
 @use "sass:color";
 
 @mixin use-theme($c, $t: white) {
-  --primary-color: #{$c};
+  --j-primary-color: #{$c};
   // these lighter colors are not transparent
-  // --primary-color-light: #{color.scale($c, $lightness: 40%)};
-  // --primary-color-lighter: #{color.scale($c, $lightness: 80%)};
+  // --j-primary-color-light: #{color.scale($c, $lightness: 40%)};
+  // --j-primary-color-lighter: #{color.scale($c, $lightness: 80%)};
   // however these transparent colors are better for dark mode
-  --primary-color-light: #{rgba($c, 0.5)};
-  --primary-color-lighter: #{rgba($c, 0.2)};
-  --primary-color-text: #{$t}; // the text color on primary colored background
+  --j-primary-color-light: #{rgba($c, 0.5)};
+  --j-primary-color-lighter: #{rgba($c, 0.2)};
+  --j-primary-color-text: #{$t}; // the text color on primary colored background
 }
 
 @mixin light-theme {
-  --text-color: #333;
-  --neutral-color: #555;
-  --foreground-color: #888;
-  --foreground-color-1: #aaa;
-  --foreground-color-2: #ddd;
-  --background-color: white;
-  --background-color-1: #f0f0f0;
-  --background-color-2: #eee;
+  --j-text-color: #333;
+  --j-neutral-color: #555;
+  --j-foreground-color: #888;
+  --j-foreground-color-1: #aaa;
+  --j-foreground-color-2: #ddd;
+  --j-background-color: white;
+  --j-background-color-1: #f0f0f0;
+  --j-background-color-2: #eee;
 }
 
 @mixin dark-theme {
-  --text-color: #dedede;
-  --neutral-color: #ddd;
-  --foreground-color: #ccc;
-  --foreground-color-1: #888;
-  --foreground-color-2: #555;
-  --background-color: #323133;
-  --background-color-1: #464547;
-  --background-color-2: #494949;
+  --j-text-color: #dedede;
+  --j-neutral-color: #ddd;
+  --j-foreground-color: #ccc;
+  --j-foreground-color-1: #888;
+  --j-foreground-color-2: #555;
+  --j-background-color: #323133;
+  --j-background-color-1: #464547;
+  --j-background-color-2: #494949;
 }
 
 .j-theme-default {

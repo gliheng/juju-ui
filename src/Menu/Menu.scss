@@ -2,13 +2,13 @@
 
 .j-menu-entry {
   position: relative;
-  color: var(--text-color);
-  background-color: var(--background-color);
+  color: var(--j-text-color);
+  background-color: var(--j-background-color);
   min-width: 5rem;
   & hr.j-seperator {
     margin: 0.2rem 0.8rem 0.2rem 2.2rem;
     border: none;
-    border-bottom: 1px solid var(--foreground-color-1);
+    border-bottom: 1px solid var(--j-foreground-color-1);
   }
 
   .j-menu-label {
@@ -23,9 +23,9 @@
     position: relative;
     overflow: hidden;
     &:hover {
-      color: var(--primary-color-text);
-      background-color: var(--primary-color);
-      // background-color: var(--primary-color-lighter);
+      color: var(--j-primary-color-text);
+      background-color: var(--j-primary-color);
+      // background-color: var(--j-primary-color-lighter);
     }
     > span {
       flex: 1;
@@ -41,8 +41,8 @@
 }
 
 .j-menu {
-  color: var(--text-color);
-  background-color: var(--background-color);
+  color: var(--j-text-color);
+  background-color: var(--j-background-color);
   z-index: 1;
   &:not(:empty) {
     padding: 0.3rem 0;

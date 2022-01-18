@@ -15,11 +15,11 @@ ul.j-listbox {
   padding: $margin;
   cursor: default;
   &:hover {
-    background-color: var(--primary-color-lighter);
+    background-color: var(--j-primary-color-lighter);
   }
   &.j-active {
-    background-color: var(--primary-color);
-    color: var(--primary-color-text);
+    background-color: var(--j-primary-color);
+    color: var(--j-primary-color-text);
   }
   .j-listbox-icon {
     margin-right: $margin;

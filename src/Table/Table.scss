@@ -1,8 +1,8 @@
 @import "vars";
 
 .j-table {
-  $border: 1px solid var(--foreground-color-2);
-  color: var(--text-color);
+  $border: 1px solid var(--j-foreground-color-2);
+  color: var(--j-text-color);
   text-align: left;
   position: relative;
   &, table {
@@ -46,12 +46,12 @@
   }
   thead {
     tr {
-      background-color: var(--background-color-1);
+      background-color: var(--j-background-color-1);
     }
   }
   tbody {
     tr[data-selected="true"] {
-      background-color: var(--primary-color-lighter);
+      background-color: var(--j-primary-color-lighter);
     }
   }
 }
@@ -121,12 +121,12 @@
   }
   thead {
     th.j-table-sticky {
-      background-color: var(--background-color-1);
+      background-color: var(--j-background-color-1);
     }
   }
   tbody {
     td.j-table-sticky {
-      background-color: var(--background-color);
+      background-color: var(--j-background-color);
     }
   }
   .j-data-table-group-row {

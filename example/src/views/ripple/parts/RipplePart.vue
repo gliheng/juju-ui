@@ -14,8 +14,8 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: var(--primary-color);
-  color: var(--primary-color-text);
+  background-color: var(--j-primary-color);
+  color: var(--j-primary-color-text);
   position: relative;
   overflow: hidden;
   margin: 10px;

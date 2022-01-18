@@ -4,16 +4,16 @@
   text-align: left;
   .j-tabs-inner {
     display: flex;
-    background: var(--background-color);
+    background: var(--j-background-color);
     .j-tab-scroller {
       flex: 1;
     }
     .j-tabs-addon {
-      border-bottom: 2px solid var(--foreground-color-2);
+      border-bottom: 2px solid var(--j-foreground-color-2);
     }
   }
   .j-tabs-bar {
-    border-bottom: 2px solid var(--foreground-color-2);
+    border-bottom: 2px solid var(--j-foreground-color-2);
     position: relative;
     display: flex;
     white-space: nowrap;
@@ -35,16 +35,16 @@
       }
       
       &.j-active {
-        color: var(--primary-color);
+        color: var(--j-primary-color);
         button {
-          color: var(--primary-color);
+          color: var(--j-primary-color);
         }
       }
       &:hover {
         opacity: 0.75;
       }
       > button {
-        color: var(--text-color);
+        color: var(--j-text-color);
         padding: $margin;
         background: none;
         border: none;
@@ -58,7 +58,7 @@
         display: inline-block;
         line-height: 0;
         &:hover {
-          background-color: var(--foreground-color-1);
+          background-color: var(--j-foreground-color-1);
         }
       }
     }
@@ -68,7 +68,7 @@
     .j-tabs-active-bar {
       transition: left .2s cubic-bezier(.645,.045,.355,1), width .2s;
       height: 2px;
-      background-color: var(--primary-color);
+      background-color: var(--j-primary-color);
       position: absolute;
       bottom: -2px;
     }
@@ -114,7 +114,7 @@
     }
   }
   &[data-type="card"] {
-    $border: 1px solid var(--foreground-color-2);
+    $border: 1px solid var(--j-foreground-color-2);
     .j-tabs-bar {
       border-bottom: none;
       .j-tabs-btn {
@@ -154,7 +154,7 @@
     overflow: hidden;
     height: initial;
     margin: 0 1px;
-    color: var(--foreground-color-1);
+    color: var(--j-foreground-color-1);
   }
 }
 .j-tabs-content {

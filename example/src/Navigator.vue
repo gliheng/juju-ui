@@ -82,10 +82,10 @@ section {
     .box {
       padding: 1rem;
       text-align: center;
-      color: var(--text-color);
-      background-color: var(--background-color-1);
+      color: var(--j-text-color);
+      background-color: var(--j-background-color-1);
       &:hover {
-        background-color: var(--primary-color-lighter);
+        background-color: var(--j-primary-color-lighter);
       }
     }
   }

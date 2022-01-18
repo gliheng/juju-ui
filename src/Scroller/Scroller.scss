@@ -43,11 +43,11 @@
     background-color: transparent;
     opacity: 0.4;
     &[data-dragging], &:hover {
-      background-color: var(--foreground-color-2);
-      border-color: var(--foreground-color-2);
+      background-color: var(--j-foreground-color-2);
+      border-color: var(--j-foreground-color-2);
     }
     .j-scroll-handle {
-      background-color: var(--neutral-color);
+      background-color: var(--j-neutral-color);
       transition: width 0.2s $curve, height 0.2s $curve, border-radius 0.2s $curve;
       width: 100%;
       height: 100%;

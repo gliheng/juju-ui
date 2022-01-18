@@ -5,7 +5,7 @@
   display: inline-flex;
   align-items: center;
   .j-checkbox-check {
-    border: 2px solid var(--foreground-color-1);
+    border: 2px solid var(--j-foreground-color-1);
     border-radius: 3px;
     width: 1rem;
     height: 1rem;
@@ -24,7 +24,7 @@
   }
   &:hover {
     .j-checkbox-check {
-      border-color: var(--primary-color);
+      border-color: var(--j-primary-color);
     }
   }
   &[data-indeterminate="true"] {
@@ -41,14 +41,14 @@
         margin-left: math.div(-$w, 2);
         top: 50%;
         margin-top: math.div(-$h, 2);
-        background-color: var(--primary-color);
+        background-color: var(--j-primary-color);
       }
     }
   }
   &[data-checked="true"] {
     .j-checkbox-check {
-      border-color: var(--primary-color);
-      background-color: var(--primary-color);
+      border-color: var(--j-primary-color);
+      background-color: var(--j-primary-color);
       $w: 4px;
       $h: 8px;
       &:before {
@@ -61,7 +61,7 @@
         height: $h;
         margin-left: math.div(-$w, 2) - 1px;
         margin-top: math.div(-$h, 2);
-        border: 2px solid var(--primary-color-text);
+        border: 2px solid var(--j-primary-color-text);
         border-left-width: 0;
         border-top-width: 0;
         border-radius: 0 0 2px 0;

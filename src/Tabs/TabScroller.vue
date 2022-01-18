@@ -1,13 +1,13 @@
 <template>
   <div class="j-tab-scroller">
     <svg-icon v-if="needAdjustBtns" class="j-tab-scroller-btn" name="chevron-back"
-      v-ripple="{color: 'var(--primary-color-light)'}"
+      v-ripple="{color: 'var(--j-primary-color-light)'}"
       @click="scrollBy(-200)" />
     <div class="j-tab-scroller-content" ref="content">
       <slot></slot>
     </div>
     <svg-icon v-if="needAdjustBtns" class="j-tab-scroller-btn" name="chevron-forward"
-      v-ripple="{color: 'var(--primary-color-light)'}"
+      v-ripple="{color: 'var(--j-primary-color-light)'}"
       @click="scrollBy(200)" />
   </div>
 </template>

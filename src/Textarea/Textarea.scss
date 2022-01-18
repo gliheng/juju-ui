@@ -2,12 +2,12 @@
 
 .j-textarea {
   padding: 0.5rem;
-  border: 1px solid var(--foreground-color-1);
+  border: 1px solid var(--j-foreground-color-1);
   border-radius: 3px;
   transition: border-color 0.2s, box-shadow 0.2s;
   &:focus:not([disabled]) {
     box-shadow: $outline;
-    border-color: var(--primary-color);
+    border-color: var(--j-primary-color);
     outline: none;
   }
   &[disabled] {

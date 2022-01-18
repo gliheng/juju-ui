@@ -7,8 +7,8 @@
   > .j-tooltip-title {
     position: absolute;
     padding: $margin;
-    color: var(--foreground-color);
-    background-color: var(--background-color);
+    color: var(--j-foreground-color);
+    background-color: var(--j-background-color);
     border-radius: 4px;
     max-width: 350px;
     word-wrap: break-word;

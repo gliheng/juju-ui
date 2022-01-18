@@ -16,9 +16,9 @@
   position: relative;
   overflow: hidden;
 
-  background-color: var(--primary-color);
-  border: 1px solid var(--primary-color);
-  color: var(--primary-color-text);
+  background-color: var(--j-primary-color);
+  border: 1px solid var(--j-primary-color);
+  color: var(--j-primary-color-text);
   &.is-icon {
     padding: 0.5rem;
   }
@@ -40,7 +40,7 @@
   }
   &.is-flat {
     background-color: transparent;
-    color: var(--primary-color);
+    color: var(--j-primary-color);
     border-color: transparent;
   }
   &.is-raised {
@@ -51,8 +51,8 @@
   }
   &.is-outlined {
     background-color: transparent;
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
+    color: var(--j-primary-color);
+    border: 1px solid var(--j-primary-color);
     box-sizing: border-box;
   }
   &.is-rounded {
