@@ -440,7 +440,7 @@ export class RenderBox {
 
     // only do tabbar match when there's tabbar
     if (!this.isDummy) {
-      boxes.unshift([Axis.Y, yScale([0, 0.1]), HitTestAlignment.Tabbar]);
+      boxes.unshift([Axis.Y, [0, this.tabHeight], HitTestAlignment.Tabbar]);
     }
 
     for (let [kind, [start, end], align] of boxes) {
@@ -457,6 +457,12 @@ export class RenderBox {
     return HitTestAlignment.Center;
   }
 
+  // TODO: get tab height from dom
+  get tabHeight() {
+    if (this.isDummy) return 0;
+    return 33;
+  }
+
   alignmentToDimensions(align: HitTestAlignment): Dimension {
     let { x, y, width, height } = this;
     if (align == HitTestAlignment.Left) {
@@ -465,16 +471,11 @@ export class RenderBox {
       width /= 2;
       x += width;
     } else {
-      // TODO: get tab height from dom
-      let tabHeight = 33;
-      if (this.isDummy) {
-        tabHeight = 0;
-      }
       if (align == HitTestAlignment.Tabbar) {
-        height = tabHeight;
+        height = this.tabHeight;
       } else {
-        height -= tabHeight;
-        y += tabHeight;
+        height -= this.tabHeight;
+        y += this.tabHeight;
         if (align == HitTestAlignment.Top) {
           height /= 2;
         } else if (align == HitTestAlignment.Bottom) {
