@@ -174,29 +174,32 @@ export class RenderBox {
       this.tabs?.push(c);
     } else {
       // normal split
-      let oldUse = this.use;
+      let oldBox = {
+        use: this.use,
+        props: this.props,
+      };
       if (!this.children) {
         this.children = [];
       }
       if (alignment == HitTestAlignment.Left) {
         this.use = ROW;
         this.appendChildren([
-          c, DIVIDER, oldUse,
+          c, DIVIDER, oldBox,
         ]);
       } else if (alignment == HitTestAlignment.Right) {
         this.use = ROW;
         this.appendChildren([
-          oldUse, DIVIDER, c,
+          oldBox, DIVIDER, c,
         ]);
       } else if (alignment == HitTestAlignment.Top) {
         this.use = COL;
         this.appendChildren([
-          c, DIVIDER, oldUse,
+          c, DIVIDER, oldBox,
         ]);
       } else if (alignment == HitTestAlignment.Bottom) {
         this.use = COL;
         this.appendChildren([
-          oldUse, DIVIDER, c,
+          oldBox, DIVIDER, c,
         ]);
       }
       this.doLayout();
@@ -423,6 +426,15 @@ export class RenderBox {
       }
       i++;
     }
+
+    // Single child cannot have size constrains
+    if (children.length == 1) {
+      let onlyChild = children[0];
+      onlyChild.size = undefined;
+      onlyChild.minSize = undefined;
+      onlyChild.maxSize = undefined;
+      onlyChild.flex = 1;
+    }
   }
 
   /**
@@ -440,7 +452,7 @@ export class RenderBox {
 
     // only do tabbar match when there's tabbar
     if (!this.isDummy) {
-      boxes.unshift([Axis.Y, [0, this.tabHeight], HitTestAlignment.Tabbar]);
+      boxes.unshift([Axis.Y, [this.y + 0, this.y + this.tabHeight], HitTestAlignment.Tabbar]);
     }
 
     for (let [kind, [start, end], align] of boxes) {
@@ -465,23 +477,21 @@ export class RenderBox {
 
   alignmentToDimensions(align: HitTestAlignment): Dimension {
     let { x, y, width, height } = this;
-    if (align == HitTestAlignment.Left) {
-      width /= 2;
-    } else if (align == HitTestAlignment.Right) {
-      width /= 2;
-      x += width;
+    if (align == HitTestAlignment.Tabbar) {
+      height = this.tabHeight;
     } else {
-      if (align == HitTestAlignment.Tabbar) {
-        height = this.tabHeight;
-      } else {
-        height -= this.tabHeight;
-        y += this.tabHeight;
-        if (align == HitTestAlignment.Top) {
-          height /= 2;
-        } else if (align == HitTestAlignment.Bottom) {
-          height /= 2;
-          y += height;
-        }
+      height -= this.tabHeight;
+      y += this.tabHeight;
+      if (align == HitTestAlignment.Top) {
+        height /= 2;
+      } else if (align == HitTestAlignment.Bottom) {
+        height /= 2;
+        y += height;
+      } else if (align == HitTestAlignment.Left) {
+        width /= 2;
+      } else if (align == HitTestAlignment.Right) {
+        width /= 2;
+        x += width;
       }
     }
     return {

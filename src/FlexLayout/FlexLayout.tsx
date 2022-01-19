@@ -149,7 +149,10 @@ export default defineComponent({
     }
 
     function onDragleave(evt: DragEvent) {
-      hintBox.value = undefined;
+      // relatedTarget is the element entering into
+      if (!elm.value?.contains(evt.relatedTarget as HTMLElement)) {
+        hintBox.value = undefined;
+      }
     }
 
     function onDrop(evt: DragEvent) {
