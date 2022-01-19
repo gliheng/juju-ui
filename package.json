@@ -8,8 +8,8 @@
   "scripts": {
     "dev": "vite build -w",
     "build": "vite build",
-    "release": "gulp buildCss && vue-tsc --declaration --emitDeclarationOnly",
-    "prerelease": "npm run build"
+    "release": "gulp buildCss && npm run build",
+    "_prerelease": "vue-tsc --declaration --emitDeclarationOnly"
   },
   "keywords": [
     "vue",
