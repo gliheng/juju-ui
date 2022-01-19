@@ -1,7 +1,14 @@
 <template>
   <p>Do you like banana?</p>
   <p>
-    <j-checkbox toggle-indeterminate v-model="triChecked">{{ triChecked === null ? 'Not sure' : triChecked ? 'Yes' : 'No' }}</j-checkbox>
+    <j-checkbox
+      class="check"
+      :indeterminate="indeterminate"
+      v-model="checked"
+    >
+      {{ indeterminate ? 'Not sure' : checked ? 'Yes' : 'No' }}
+    </j-checkbox>
+    <j-button @click="indeterminate = !indeterminate">Toggle indeterminate</j-button>
   </p>
 </template>
 
@@ -10,8 +17,15 @@ import { ref } from 'vue';
 
 export default {
   setup() {
-    let triChecked = ref(false);
-    return { triChecked };
+    let checked = ref(false);
+    let indeterminate = ref(false);
+    return { checked, indeterminate };
   },
 };
 </script>
+
+<style>
+.check {
+  vertical-align: middle;
+}
+</style>
