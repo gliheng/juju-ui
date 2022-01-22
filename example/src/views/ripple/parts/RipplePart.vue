@@ -1,8 +1,8 @@
 <template>
   <p class="box" v-ripple>Normal ripple</p>
   <p class="box" v-ripple:center="true">Ripple from center</p>
-  <p class="box j-warning" v-ripple:color="'black'">Ripple with black color</p>
-  <p class="box j-warning" v-ripple="{center: true, color: 'black'}">Ripple from center with black color</p>
+  <p class="box j-warning" v-ripple>Ripple with black color</p>
+  <p class="box j-warning" v-ripple="{center: true}">Ripple from center with black color</p>
 </template>
 
 <style lang="scss" scoped>
@@ -19,5 +19,8 @@
   position: relative;
   overflow: hidden;
   margin: 10px;
+}
+.j-warning {
+  --j-ink-color: purple;
 }
 </style>

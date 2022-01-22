@@ -4,20 +4,15 @@ const CLASSNAME = 'j-ink-active';
 
 class RippleHandler {
   center: boolean;
-  color: string;
 
-  constructor(center: boolean = false, color: string = '') {
+  constructor(center: boolean = false) {
     this.center = center;
-    this.color = color;
   }
 
   getInk(node: Element): HTMLElement {
     let ink = node.querySelector(':scope > .j-ink');
     if (!ink) {
       ink = document.createElement('div');
-      if (this.color) {
-        (ink as HTMLElement).style.backgroundColor = this.color;
-      }
       ink.addEventListener('animationend', this.onAnimationEnd);
     }
     return ink as HTMLElement;
@@ -56,23 +51,18 @@ class RippleHandler {
 const RippleEventHandlerSymbol = Symbol('RippleEventHandlerSymbol');
 
 export interface RippleDef {
-  color: string,
   center: boolean,
 }
 
 export default {
   mounted(el: HTMLElement, binding: DirectiveBinding<boolean | string | RippleDef>) {
-    let color = '',
-      center = false;
+    let center = false;
     if (binding.arg == 'center') {
       center = binding.value as boolean;
-    } else if (binding.arg == 'color') {
-      color = binding.value as string;
     } else if (typeof binding.value == 'object') {
-      color = binding.value.color;
       center = binding.value.center;
     }
-    let handler = new RippleHandler(center, color);
+    let handler = new RippleHandler(center);
     (el as any)[RippleEventHandlerSymbol] = handler;
     el.addEventListener('mousedown', handler);
   },
