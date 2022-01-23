@@ -9,6 +9,7 @@ export interface GroupDatum {
 }
 
 export interface ColumnConfig {
+  type?: 'selection' | 'index',
   label?: string, // table head
   cellKey?: KeyFetcher,
   field?: string, // a path specifier for it's data

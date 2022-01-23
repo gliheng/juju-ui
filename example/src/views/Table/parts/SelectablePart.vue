@@ -10,6 +10,8 @@
 import { data } from './TableData.tsx';
 
 const columns = [{
+  type: 'selection',
+},{
   label: 'Name',
   field: 'name',
 }, {

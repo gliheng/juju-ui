@@ -3,8 +3,8 @@
   position: relative;
   &:after {
     opacity: 0.1;
-    background-color: #ccc;
-    transition: opacity 0.3s, backgrond-color 0.3s;
+    background-color: var(--j-divider-color, #ccc);
+    transition: opacity 0.3s, background-color 0.3s;
     content: "";
     position: absolute;
     display: block;
@@ -26,7 +26,7 @@
   &:hover {
     &:after {
       opacity: 1;
-      background-color: rgb(33, 126, 248);
+      background-color: var(--j-divider-hover-color, var(--primary-color));
       top: 0;
       left: 0;
     }

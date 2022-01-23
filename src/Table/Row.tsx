@@ -1,11 +1,16 @@
 import { defineComponent, h, PropType } from 'vue';
 import { Datum, ColumnConfig, RowConfig } from './types';
+import Checkbox from '../Checkbox/Checkbox.vue';
 
 export default defineComponent({
   props: {
     selected: {
       type: Boolean,
       default: false,
+    },
+    index: {
+      type: Number,
+      required: true,
     },
     datum: {
       type: Object,
@@ -36,6 +41,16 @@ export default defineComponent({
     }
 
     function getCellDisplay(datum: Datum, col: ColumnConfig) {
+      if (col.type == 'selection') {
+        return (
+          <Checkbox
+            modelValue={props.selected}
+            onUpdate:modelValue={() => emit('select')}
+          />
+        );
+      } else if (col.type == 'index') {
+        return String(props.index + 1);
+      }
       // render nothing for empty column
       let s;
       if (col.field) {
@@ -53,10 +68,6 @@ export default defineComponent({
       return s;
     }
 
-    function toggleSelect() {
-      emit('select');
-    }
-    
     return () => {
       let rowClass = '';
       let { rowConfig } = props;
@@ -71,23 +82,27 @@ export default defineComponent({
       let columns = props.columns as ColumnConfig[];
       let cells = columns.map((col, i) => {
         let style: Record<string, string> = {};
-        if (col.align) {
-          style['text-align'] = col.align;
+        let { type, align, class: klass, sticky } = col;
+        if (type == 'selection') {
+          align = 'center';
+        }
+        if (align) {
+          style['text-align'] = align;
         }
         let cellClass = '';
-        if (typeof col.class == 'function') {
-          cellClass = col.class(props.datum);
-        } else if (col.class) {
-          cellClass = col.class;
+        if (typeof klass == 'function') {
+          cellClass = klass(props.datum);
+        } else if (klass) {
+          cellClass = klass;
         }
-        if (col.sticky && props.stickyPos) {
+        if (sticky && props.stickyPos) {
           cellClass += ' j-table-sticky';
           let pos = props.stickyPos.get(i);
           if (pos !== undefined) {
-            if (col.sticky == 'left') {
+            if (sticky == 'left') {
               style.left = `${pos}px`;
             }
-            if (col.sticky == 'right') {
+            if (sticky == 'right') {
               style.right = `${pos}px`;
             }
           }
@@ -106,7 +121,6 @@ export default defineComponent({
         <tr
           class={ rowClass }
           data-selected={ props.selected }
-          onClick={ toggleSelect }
         >{ cells }</tr>
       );  
     };

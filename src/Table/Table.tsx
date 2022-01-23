@@ -11,6 +11,7 @@ import ColGroup from './ColGroup';
 import { ColumnConfig, Datum, GroupDatum } from './types';
 import VirtualScroller from '../Scroller/VirtualScroller';
 import SvgIcon from '../SvgIcon/SvgIcon.vue';
+import Checkbox from '../Checkbox/Checkbox.vue';
 import './Table.scss';
 
 
@@ -62,13 +63,9 @@ export default defineComponent({
       type: Object,
       default: {},
     },
-    selectable: {
+    multiSelect: {
       type: Boolean,
-      default: false,
-    },
-    multiSelectable: {
-      type: Boolean,
-      default: false,
+      default: true,
     },
     height: Number,
     bordered: {
@@ -84,7 +81,26 @@ export default defineComponent({
     itemHeight: Number,
   },
   setup(props, { slots }) {
-    let selected = reactive(new Set());
+    let selection = reactive<{
+      sel: Set<string>,
+      headerCheckbox: boolean | null,
+    }>({
+      sel: new Set(),
+      headerCheckbox: false,
+    });
+    function toggleSelection(v: boolean | null) {
+      if (v === true) {
+        let arr = []
+        let data = props.data || [];
+        for (let i = 0; i < data.length; i++) {
+          arr.push(getRowKey(data, i));
+        }
+        selection.sel = new Set(arr)
+      } else if (v === false) {
+        selection.sel = new Set();
+      }
+      selection.headerCheckbox = v;
+    }
     
     // grouped data
     let groupedData = computed(() => {
@@ -230,10 +246,25 @@ export default defineComponent({
       colspan: number,
       rowspan: number,
       sticky?: string,
-      align?: string
+      align?: string,
     ) {
-      let label = '' ;
-      if (col.label) {
+      let label: any;
+      if (col.type == 'selection') {
+        label = (
+          <Checkbox
+            modelValue={selection.headerCheckbox}
+            onUpdate:modelValue={toggleSelection}
+          />
+        );
+        if (!align) {
+          align = 'center';
+        }
+      } else if (col.type == 'index') {
+        label = '#';
+        if (!align) {
+          align = 'center';
+        }
+      } else if (col.label) {
         label = col.label;
       }
       let className = '';
@@ -261,6 +292,7 @@ export default defineComponent({
           colspan={ colspan }
           rowspan={ rowspan }
           style={ style }
+          data-type={ col.type }
         >
           { label }
         </th>
@@ -301,8 +333,12 @@ export default defineComponent({
     }
 
     function renderRow(
-      opts: { leftStickyCount: number, rightStickyCount: number },
+      opts: {
+        leftStickyCount: number,
+        rightStickyCount: number,
+      },
       datum: [ string, Datum | GroupDatum ],
+      i: number,
     ) {
       let [ key, d ] = datum;
       if (d.groupName) {
@@ -349,28 +385,37 @@ export default defineComponent({
       } else {
         // render normal data row
         return (
-          <Row key={key}
+          <Row
+            key={key}
+            index={i}
             datum={d}
             stickyPos={stickyInfo.value.stickyPosMap}
             columns={columnsInfo.value.cols}
             rowConfig={props.rowConfig}
-            selected={selected.has(key)}
+            selected={selection.sel.has(key)}
             // @ts-ignore
-            onSelect={selectRow.bind(null, key)} />
+            onSelect={selectRow.bind(null, key, i)} />
         );
       }
     }
 
-    function selectRow(key: string) {
-      if (props.multiSelectable) {
-        if (selected.has(key)) {
-          selected.delete(key);
+    function selectRow(key: string, i: number) {
+      if (props.multiSelect) {
+        if (selection.sel.has(key)) {
+          selection.sel.delete(key);
         } else {
-          selected.add(key);
+          selection.sel.add(key);
         }
-      } else if (props.selectable) {
-        selected.clear();
-        selected.add(key);
+      } else {
+        selection.sel.clear();
+        selection.sel.add(key);
+      }
+      if (selection.sel.size === 0) {
+        selection.headerCheckbox = false;
+      } else if (selection.sel.size === props.data?.length) {
+        selection.headerCheckbox = false;
+      } else {
+        selection.headerCheckbox = null;
       }
     }
     
@@ -422,10 +467,14 @@ export default defineComponent({
       if (!props.fixedHeader) {
         let rows = (props.data || []).map((datum, i) => {
           // let rowKey = getRowKey(datum as Datum, i);
-          return renderRow({
-            leftStickyCount: 0,
-            rightStickyCount: 0,
-          }, [String(i), datum]);
+          return renderRow(
+            {
+              leftStickyCount: 0,
+              rightStickyCount: 0,
+            },
+            [String(i), datum],
+            i,
+          );
         });
   
         return (
