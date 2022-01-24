@@ -65,7 +65,7 @@ export class RenderBox {
   minSize?: number;
   maxSize?: number;
   flex?: number;
-  tabs?: string[];
+  tabs: string[];
 
   parent?: RenderBox;
   children?: RenderBox[];
@@ -94,17 +94,16 @@ export class RenderBox {
     this.size = args.size;
     this.minSize = args.minSize;
     this.maxSize = args.maxSize;
-    if (this.use) {
-      if (this.use == TAB) {
-        let tabsProp = this.props?.tabs as string[];
-        if (!tabsProp) {
-          console.error('tabs prop not set for $tab component');
-        } else {
-          this.tabs = reactive([...tabsProp]);
-        }
+    this.tabs = reactive([]);
+    if (this.use == TAB) {
+      let tabsProp = this.props?.tabs as string[];
+      if (!tabsProp) {
+        console.error('tabs prop not set for $tab component');
       } else {
-        this.tabs = reactive([this.use]);
+        this.tabs.push(...tabsProp);
       }
+    } else if (this.use) {
+      this.tabs.push(this.use);
     }
     this.children = args.children?.map(
       e => {
@@ -121,7 +120,7 @@ export class RenderBox {
 
   swapComponent(c: string) {
     this.use = c;
-    this.tabs = [c];
+    this.tabs.splice(0, this.tabs.length, c);
   }
 
   /**
@@ -174,10 +173,15 @@ export class RenderBox {
       this.tabs?.push(c);
     } else {
       // normal split
+      // change this box to a col or row
       let oldBox = {
         use: this.use,
-        props: this.props,
+        props: {
+          ...this.props,
+          tabs: [...this.tabs],
+        },
       };
+      this.tabs.splice(0, this.tabs.length);
       if (!this.children) {
         this.children = [];
       }
