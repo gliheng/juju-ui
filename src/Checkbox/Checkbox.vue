@@ -59,4 +59,4 @@ export default defineComponent({
 });
 </script>
 
-<style src="./Checkbox.scss"></style>
+<style src="./Checkbox.scss" lang="scss"></style>

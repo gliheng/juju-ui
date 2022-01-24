@@ -123,12 +123,21 @@ export default defineComponent({
       return dt ? dt.types.indexOf(MIME) != -1 : false;
     }
 
+    let tabHeight = 0;
     let rect: DOMRect | undefined;
     function onDragenter(evt: DragEvent) {
       if (validData(evt.dataTransfer)) {
         evt.preventDefault();
         evt.dataTransfer!.dropEffect = "copy";
         rect = elm.value?.getBoundingClientRect();
+        
+        let tabs = (evt.target as HTMLElement).closest('.j-tabs');
+        let header = tabs?.querySelector(':scope > .j-tabs-inner');
+        if (header) {
+          tabHeight = header.clientHeight;
+        } else {
+          tabHeight = 0;
+        }
       } else {
         rect = undefined;
       }
@@ -139,7 +148,7 @@ export default defineComponent({
         evt.preventDefault();
         let { clientX, clientY } = evt;
         let offsetX = clientX - rect.left, offsetY = clientY - rect.top;
-        let hit = renderBox.hitTest(offsetX, offsetY);
+        let hit = renderBox.hitTest(offsetX, offsetY, tabHeight);
         if (hit) {
           hintBox.value = hit;
         } else {

@@ -229,7 +229,7 @@ export class RenderBox {
    * Drag behavior use this method to determine drop location
    * x, y are relative positions
   */
-  hitTest(x: number, y: number): {
+  hitTest(x: number, y: number, tabHeight: number): {
     box: RenderBox;
     dimension: Dimension;
     alignment: HitTestAlignment;
@@ -246,14 +246,14 @@ export class RenderBox {
     // If this is a container, delegate hitTest to children
     if (this.children) {
       for (let c of this.children) {
-        let box = c.hitTest(x, y);
+        let box = c.hitTest(x, y, tabHeight);
         if (box) return box;
       }
     }
 
     if (this.isLeaf || this.isRoot) {      
-      let alignment = this.getAlignment(x, y);
-      let dimension = this.alignmentToDimensions(alignment);
+      let alignment = this.getAlignment(x, y, tabHeight);
+      let dimension = this.alignmentToDimensions(alignment, tabHeight);
       
       return {
         box: this,
@@ -440,7 +440,7 @@ export class RenderBox {
   /**
    * When a drag is over this box, determine the alignment of the hint box
    */
-  getAlignment(cursorX: number, cursorY: number): HitTestAlignment {
+  getAlignment(cursorX: number, cursorY: number, tabHeight: number): HitTestAlignment {
     let xScale = makeScale(this.x, this.width);
     let yScale = makeScale(this.y, this.height);
     let boxes: [Axis, number[], HitTestAlignment][] = [
@@ -452,7 +452,7 @@ export class RenderBox {
 
     // only do tabbar match when there's tabbar
     if (!this.isDummy) {
-      boxes.unshift([Axis.Y, [this.y + 0, this.y + this.tabHeight], HitTestAlignment.Tabbar]);
+      boxes.unshift([Axis.Y, [this.y + 0, this.y + tabHeight], HitTestAlignment.Tabbar]);
     }
 
     for (let [kind, [start, end], align] of boxes) {
@@ -469,19 +469,13 @@ export class RenderBox {
     return HitTestAlignment.Center;
   }
 
-  // TODO: get tab height from dom
-  get tabHeight() {
-    if (this.isDummy) return 0;
-    return 33;
-  }
-
-  alignmentToDimensions(align: HitTestAlignment): Dimension {
+  alignmentToDimensions(align: HitTestAlignment, tabHeight: number): Dimension {
     let { x, y, width, height } = this;
     if (align == HitTestAlignment.Tabbar) {
-      height = this.tabHeight;
+      height = tabHeight;
     } else {
-      height -= this.tabHeight;
-      y += this.tabHeight;
+      height -= tabHeight;
+      y += tabHeight;
       if (align == HitTestAlignment.Top) {
         height /= 2;
       } else if (align == HitTestAlignment.Bottom) {

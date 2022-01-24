@@ -79,4 +79,4 @@ export default defineComponent({
 });
 </script>
 
-<style src="./ChipEditor.scss"></style>
+<style src="./ChipEditor.scss" lang="scss"></style>
