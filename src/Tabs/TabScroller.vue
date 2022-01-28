@@ -1,12 +1,12 @@
 <template>
-  <div class="j-tab-scroller">
-    <svg-icon v-if="needAdjustBtns" class="j-tab-scroller-btn" name="chevron-back"
+  <div class="j-tabs-scroller">
+    <svg-icon v-if="needAdjustBtns" class="j-tabs-scroller-btn" name="chevron-back"
       v-ripple="{color: 'var(--j-primary-color-light)'}"
       @click="scrollBy(-200)" />
-    <div class="j-tab-scroller-content" ref="content">
+    <div class="j-tabs-scroller-content" ref="content">
       <slot></slot>
     </div>
-    <svg-icon v-if="needAdjustBtns" class="j-tab-scroller-btn" name="chevron-forward"
+    <svg-icon v-if="needAdjustBtns" class="j-tabs-scroller-btn" name="chevron-forward"
       v-ripple="{color: 'var(--j-primary-color-light)'}"
       @click="scrollBy(200)" />
   </div>
