@@ -1,9 +1,11 @@
 export interface Config {
-  popupBaseDepth: number,
+  popupBaseDepth: number;
+  theme: string;
 };
 
 let config: Config = {
   popupBaseDepth: 1000,
+  theme: "default",
 };
 
 export function set(c: Partial<Config>) {

@@ -28,7 +28,7 @@
         background-color: var(--j-background-color-1);
       }
       > .j-tabs-content {
-        flex: 1;
+        flex: 1 1 0;
         display: flex;
         padding: 0;
         > .j-tab-pane {

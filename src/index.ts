@@ -52,7 +52,7 @@ import MenuToggle from './AnimatedIcon/MenuToggle.vue';
 import ripple from './directives/ripple';
 
 export * from './utils';
-import { Config, set as setConfig } from './utils/config';
+import { Config, set as setConfig, get as getConfig } from './utils/config';
 
 export {
   Button,
@@ -157,4 +157,7 @@ export default function(app: App, conf: Partial<Config>) {
     .component('j-animated-icon:menu-opener', MenuOpener)
     .component('j-animated-icon:menu-toggle', MenuToggle)
     .directive('ripple', ripple);
+
+  const { theme } = getConfig();
+  document.body.classList.add(`j-theme-${theme}`);
 }
