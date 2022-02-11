@@ -41,13 +41,10 @@ export default {
               use: 'pane-a',
               size: 300,
             },
-            '$divider',
             'pane-b',
-            '$divider',
             'pane-c',
           ]
         },
-        '$divider',
         {
           use: '$tab',
           props: {

@@ -4,7 +4,6 @@ import Divider from '../Divider/Divider';
 import Pane from './Pane';
 import PaneContent from './PaneContent';
 
-export const DIVIDER = '$divider';
 export const COL = '$col';
 export const ROW = '$row';
 export const TAB = '$tab';
@@ -34,9 +33,6 @@ export function normalizePreset(
   // simple string name
   if (typeof preset == 'string') {
     let props, flex = 1;
-    if (preset == DIVIDER) {
-      flex = 0;
-    }
     return {
       use: preset,
       flex,
@@ -65,7 +61,7 @@ export class RenderBox {
   minSize?: number;
   maxSize?: number;
   flex?: number;
-  tabs?: string[];
+  tabs: string[];
 
   parent?: RenderBox;
   children?: RenderBox[];
@@ -94,17 +90,16 @@ export class RenderBox {
     this.size = args.size;
     this.minSize = args.minSize;
     this.maxSize = args.maxSize;
-    if (this.use) {
-      if (this.use == TAB) {
-        let tabsProp = this.props?.tabs as string[];
-        if (!tabsProp) {
-          console.error('tabs prop not set for $tab component');
-        } else {
-          this.tabs = reactive([...tabsProp]);
-        }
+    this.tabs = reactive([]);
+    if (this.use == TAB) {
+      let tabsProp = this.props?.tabs as string[];
+      if (!tabsProp) {
+        console.error('tabs prop not set for $tab component');
       } else {
-        this.tabs = reactive([this.use]);
+        this.tabs.push(...tabsProp);
       }
+    } else if (this.use) {
+      this.tabs.push(this.use);
     }
     this.children = args.children?.map(
       e => {
@@ -121,7 +116,7 @@ export class RenderBox {
 
   swapComponent(c: string) {
     this.use = c;
-    this.tabs = [c];
+    this.tabs.splice(0, this.tabs.length, c);
   }
 
   /**
@@ -147,9 +142,7 @@ export class RenderBox {
       if (alignment == HitTestAlignment.Right) {
         i++;
         this.parent.insertChild(c, i);
-        this.parent.insertChild(DIVIDER, i);
       } else {
-        this.parent.insertChild(DIVIDER, i);
         this.parent.insertChild(c, i);
       }
       this.parent.doLayout();
@@ -163,9 +156,7 @@ export class RenderBox {
       if (alignment == HitTestAlignment.Bottom) {
         i++;
         this.parent.insertChild(c, i);
-        this.parent.insertChild(DIVIDER, i);
       } else {
-        this.parent.insertChild(DIVIDER, i);
         this.parent.insertChild(c, i);
       }
       this.parent.doLayout();
@@ -174,32 +165,37 @@ export class RenderBox {
       this.tabs?.push(c);
     } else {
       // normal split
+      // change this box to a col or row
       let oldBox = {
         use: this.use,
-        props: this.props,
+        props: {
+          ...this.props,
+          tabs: [...this.tabs],
+        },
       };
+      this.tabs.splice(0, this.tabs.length);
       if (!this.children) {
         this.children = [];
       }
       if (alignment == HitTestAlignment.Left) {
         this.use = ROW;
         this.appendChildren([
-          c, DIVIDER, oldBox,
+          c, oldBox,
         ]);
       } else if (alignment == HitTestAlignment.Right) {
         this.use = ROW;
         this.appendChildren([
-          oldBox, DIVIDER, c,
+          oldBox, c,
         ]);
       } else if (alignment == HitTestAlignment.Top) {
         this.use = COL;
         this.appendChildren([
-          c, DIVIDER, oldBox,
+          c, oldBox,
         ]);
       } else if (alignment == HitTestAlignment.Bottom) {
         this.use = COL;
         this.appendChildren([
-          oldBox, DIVIDER, c,
+          oldBox, c,
         ]);
       }
       this.doLayout();
@@ -386,7 +382,6 @@ export class RenderBox {
     if (i == -1 || !this.children) return;
 
     this.children.splice(i, 1);
-    this.fixDividers();
     if (this.isEmpty) {
       if (this.isRoot) {
         // If the root container is empty, change it to an empty pane
@@ -409,32 +404,6 @@ export class RenderBox {
     let children = parent.children!;
     let idx = children!.findIndex(e => e == this);
     parent.removeChild(idx);
-  }
-
-  /** Remove potential duplicate dividers caused by modifying layout */
-  fixDividers() {
-    if (!this.children) return;
-    let { children } = this;
-    for (let i = 0; i < children.length;) {
-      let item = children[i];
-      if (children[i-1]?.use == DIVIDER && item?.use == DIVIDER) {
-        children.splice(i, 1);
-        continue;
-      } else if ((i == 0 || i == children.length - 1) && item?.use == DIVIDER) {
-        children.splice(i, 1);
-        continue;
-      }
-      i++;
-    }
-
-    // Single child cannot have size constrains
-    if (children.length == 1) {
-      let onlyChild = children[0];
-      onlyChild.size = undefined;
-      onlyChild.minSize = undefined;
-      onlyChild.maxSize = undefined;
-      onlyChild.flex = 1;
-    }
   }
 
   /**
@@ -521,44 +490,41 @@ export class RenderBox {
 
   render(collect: JSX.Element[]) {
     if (this.isLeaf) {
-      let node;
-      if (this.use == DIVIDER) {
-        node = (
-          <Divider
-            key={this.id}
-            positioned={true}
-            x={this.x}
-            y={this.y}
-            width={this.width}
-            height={this.height}
-            vertical={this.parent?.use == ROW}
-            onDragStart={this.context.onDividerDragStart.bind(null, this)}
-            onDragMove={this.context.onDividerDragMove.bind(null, this)}
-            onDragEnd={this.context.onDividerDragEnd.bind(null, this)}
-          />
-        );
-      } else {
-        node = (
-          <Pane
-            key={this.id}
-            id={this.id}
-            x={this.x}
-            y={this.y}
-            width={this.width}
-            height={this.height}
-            expanded={this.expanded}
-            box={this}
-            showActionMenu={Boolean(this.use) && this.context.showActionMenu}
-            context={this.context}
-          >
-            {() => this.renderLeafContent()}
-          </Pane>
-        );
-      }
-      collect.push(node);
-    } else {
-      this.children!.forEach(item => {
+      collect.push(
+        <Pane
+          key={this.id}
+          id={this.id}
+          x={this.x}
+          y={this.y}
+          width={this.width}
+          height={this.height}
+          expanded={this.expanded}
+          box={this}
+          showActionMenu={Boolean(this.use) && this.context.showActionMenu}
+          context={this.context}
+        >
+          {() => this.renderLeafContent()}
+        </Pane>
+      );
+    } else if (this.children) {
+      this.children.forEach((item, i) => {
         item.render(collect);
+        if (i != 0) {
+          collect.push(
+            <Divider
+              key={`${this.id}::${i}`}
+              positioned={true}
+              x={item.x}
+              y={item.y}
+              width={item.width}
+              height={item.height}
+              vertical={this.use == ROW}
+              onDragStart={this.context.onDividerDragStart.bind(null, item)}
+              onDragMove={this.context.onDividerDragMove.bind(null, item)}
+              onDragEnd={this.context.onDividerDragEnd.bind(null, item)}
+            />
+          );
+        }
       });
     }
   }

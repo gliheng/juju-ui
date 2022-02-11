@@ -5,8 +5,9 @@
   .j-tabs-inner {
     display: flex;
     background: var(--j-background-color);
-    .j-tab-scroller {
+    .j-tabs-scroller {
       flex: 1;
+      min-width: 0;
     }
     .j-tabs-addon {
       border-bottom: 2px solid var(--j-foreground-color-2);
@@ -19,7 +20,6 @@
     white-space: nowrap;
     .j-tabs-bar-inner {
       display: flex;
-      min-width: 0;
     }
     .j-tabs-btn {
       position: relative;
@@ -141,15 +141,16 @@
   }
 }
 
-.j-tab-scroller {
+.j-tabs-scroller {
   display: flex;
   align-items: stretch;
-  > .j-tab-scroller-content {
+  > .j-tabs-scroller-content {
     flex: 1;
     min-width: 0;
     overflow: hidden;
+
   }
-  > .j-tab-scroller-btn.j-icon {
+  > .j-tabs-scroller-btn.j-icon {
     position: relative;
     overflow: hidden;
     height: initial;

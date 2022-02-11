@@ -67,7 +67,7 @@ export default defineComponent({
         let idx = parent.children.findIndex(item => item.id == box.id);
         if (idx != -1) {
           let prev = parent.children[idx - 1];
-          let next = parent.children[idx + 1];
+          let next = parent.children[idx];
           // in case two sides are numbered
           if (typeof prev.size == 'number' && typeof next.size == 'number') {
             if (d > 0) {
