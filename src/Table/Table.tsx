@@ -483,6 +483,7 @@ export default defineComponent({
             data-bordered={ props.bordered }
           >
             <table>
+              <ColGroup columns={ columnsInfo.value.cols } />
               { renderHead() }
               <tbody>
                 { rows }

@@ -62,10 +62,11 @@
   flex-direction: column;
   align-items: flex-start;
   position: relative;
-  max-width: min-content;
+  // max-width: min-content;
   table {
     table-layout: fixed;
-    width: min-content;
+    width: 100%;
+    // width: min-content;
     // tr {
     //   white-space: nowrap;
     //   th, td {
