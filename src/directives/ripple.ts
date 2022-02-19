@@ -48,7 +48,7 @@ class RippleHandler {
   }
 }
 
-const RippleEventHandlerSymbol = Symbol('RippleEventHandlerSymbol');
+const RippleDirectiveSymbol = Symbol('RippleDirectiveSymbol');
 
 export interface RippleDef {
   center: boolean,
@@ -63,11 +63,11 @@ export default {
       center = binding.value.center;
     }
     let handler = new RippleHandler(center);
-    (el as any)[RippleEventHandlerSymbol] = handler;
+    (el as any)[RippleDirectiveSymbol] = handler;
     el.addEventListener('mousedown', handler);
   },
   unmounted(el: HTMLElement) {
-    let handler = (el as any)[RippleEventHandlerSymbol];
+    let handler = (el as any)[RippleDirectiveSymbol];
     if (handler) {
       el.removeEventListener('mousedown', handler);
     }

@@ -10,6 +10,8 @@
 [✓] FlexLayout: Support tabs
 [ ] FlexLayout: Support min max size
 [✓] Splitter component
+[ ] Table support reorder, resize column
 [ ] Data table component
 [ ] Form components
+[ ] Popover component
 [ ] More layout components

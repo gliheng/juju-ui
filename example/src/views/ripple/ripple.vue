@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>ripple</h1>
+    <h1>ripple directive</h1>
     <code-block :code="ripplePartCode">
       <ripple-part />
     </code-block>

@@ -119,5 +119,9 @@ export default {
       "name": "ripple",
       "device": ["pc", "mobile"]
     },
+    {
+      "name": "loading",
+      "device": ["pc", "mobile"]
+    },
   ]
 }
