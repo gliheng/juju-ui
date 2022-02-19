@@ -1,7 +1,6 @@
 <template>
   <j-space>
-    <j-number-input v-model="num" />
-    <j-number-input v-model="num" type="horizontal" />
+    <j-number-input v-model="num" :min="0" :max="100" type="slider" />
   </j-space>
   <div>
     <p>Value: {{ num }}</p>

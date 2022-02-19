@@ -4,6 +4,7 @@ import {
   provide, inject,
   ComponentInternalInstance,
   computed, reactive, watch,
+  InjectionKey,
 } from 'vue';
 import { getScreenSizeClass } from './screen';
 
@@ -40,7 +41,7 @@ type DescendantInjection<T> = {
   data?: T,
 };
 
-export function useParent<T>(key: string | Symbol): DescendantInjection<T> | undefined {
+export function useParent<T>(key: InjectionKey<T>): DescendantInjection<T> | undefined {
   let obj = inject<DescendantInjection<T>>(key);
   let inst = getCurrentInstance();
   if (obj) {
@@ -56,7 +57,7 @@ export function useParent<T>(key: string | Symbol): DescendantInjection<T> | und
 }
 
 // inject data for children
-export function useChildren<T>(key: string | Symbol, data?: T): Array<ComponentInternalInstance> {
+export function useChildren<T>(key: InjectionKey<T>, data?: T): Array<ComponentInternalInstance> {
   let children = shallowReactive<Array<ComponentInternalInstance>>([]);
   function link(inst: ComponentInternalInstance) {
     children.push(inst);

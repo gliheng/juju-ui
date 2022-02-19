@@ -1,6 +1,6 @@
 <template>
   <label class="j-radio" :tabindex="0" :data-checked="checked">
-    <input type="radio" :name="name" :value="modelValue" :checked="checked" hidden @change="onChange">
+    <input type="radio" :value="modelValue" :checked="checked" hidden @change="onChange">
     <i class="j-radio-disc"></i>
     <slot></slot>
   </label>
@@ -11,7 +11,6 @@ import { defineComponent, computed } from 'vue';
 
 export default defineComponent({
   props: {
-    name: String,
     value: null,
     modelValue: null,
   },

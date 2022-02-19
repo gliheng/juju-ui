@@ -24,8 +24,12 @@
 <script lang="ts">
 import {
   defineComponent,
-  reactive, ref, watchEffect, onUnmounted,
+  reactive,
+  ref,
+  watchEffect,
+  onUnmounted,
   getCurrentInstance,
+  PropType,
 } from 'vue';
 import SvgIcon from '../SvgIcon/SvgIcon.vue';
 import Button from '../Button/Button.vue';
@@ -37,23 +41,18 @@ export default defineComponent({
     title: String,
     width: {
       type: Number,
-      default: 400,
+      default: 500,
     },
     height: {
       type: Number,
-      default: 300,
     },
     modal: {
       type: Boolean,
       default: false,
     },
     type: {
-      type: String,
+      type: String as PropType<"alert" | "confirm">,
       default: 'alert',
-      // TODO: sadly vscode lint does not support this yet, should open later
-      // validator(v: string) {
-      //   return ['alert', 'confirm'].indexOf(v) != -1;
-      // },
     },
     modelValue: {
       type: Boolean,

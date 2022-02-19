@@ -3,9 +3,8 @@
 .j-input {
   display: inline-flex;
   border-radius: 3px;
-  border: 1px solid var(--j-foreground-color-1);
+  border: 1px solid var(--j-input-border-color, var(--j-foreground-color-1));
   transition: border-color 0.2s, box-shadow 0.2s;
-  width: 16rem;
   align-items: center;
   > input {
     padding: $margin;
@@ -13,7 +12,7 @@
     outline: none;
     background: none;
     flex: 1;
-    min-width: 0;
+    min-width: 12rem;
     color: var(--j-text-color);
   }
   &[data-focus="true"] {

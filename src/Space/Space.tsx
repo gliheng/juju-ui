@@ -17,7 +17,14 @@ export default defineComponent({
       if (slots.default) {
         nodes = slots.default();
         nodes = nodes.map((node, i) => {
-          return <div class="j-space-item" style={ i != nodes.length - 1 ? style.value : undefined }>{ node }</div>;
+          return (
+            <div
+              class="j-space-item"
+              style={ i != nodes.length - 1 ? style.value : undefined }
+            >
+              { node }
+            </div>
+          );
         });
       }
       return <div class="j-space">{ nodes }</div>;

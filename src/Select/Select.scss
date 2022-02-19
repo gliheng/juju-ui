@@ -12,14 +12,16 @@
     cursor: default;
     outline: none;
     // padding-left: 1rem;
-    border: 1px solid var(--j-foreground-color-1);
+    border: 1px solid var(--j-input-border-color, var(--j-foreground-color-1));
     transition: border-color 0.2s, box-shadow 0.2s;
     &:focus {
       box-shadow: $outline;
       border: 1px solid var(--j-primary-color-light);
     }
     .j-select-label-inner {
-      max-width: 200px;
+      flex: 1;
+      min-width: calc(12rem - 20px);
+      height: 16px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -29,7 +31,7 @@
       }
     }
     .j-select-icon {
-      margin-right: $margin;
+      margin: 0 math.div($gap, 2);
       color: var(--j-foreground-color-1);
     }
   }

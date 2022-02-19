@@ -16,6 +16,7 @@ import DateInput from './Input/DateInput.vue';
 import DateRangeInput from './Input/DateRangeInput.vue';
 import Textarea from './Textarea/Textarea.vue';
 import Radio from './Radio/Radio.vue';
+import RadioGroup from './Radio/RadioGroup.vue';
 import Checkbox from './Checkbox/Checkbox.vue';
 import Dropdown from './Dropdown/Dropdown.vue';
 import Select from './Select/Select';
@@ -49,6 +50,8 @@ import Splitter from './Splitter/Splitter';
 import SplitterPanel from './Splitter/SplitterPanel';
 import MenuOpener from './AnimatedIcon/MenuOpener.vue';
 import MenuToggle from './AnimatedIcon/MenuToggle.vue';
+import Form from './Form/Form.vue';
+import FormItem from './Form/FormItem.vue';
 import loading from './directives/loading';
 import ripple from './directives/ripple';
 
@@ -70,6 +73,7 @@ export {
   DateInput,
   DateRangeInput,
   Radio,
+  RadioGroup,
   Checkbox,
   Textarea,
   Dropdown,
@@ -104,6 +108,8 @@ export {
   SplitterPanel,
   MenuOpener,
   MenuToggle,
+  Form,
+  FormItem,
   loading,
   ripple,
 };
@@ -124,6 +130,7 @@ export default function(app: App, conf: Partial<Config>) {
     .component('j-date-input', DateInput)
     .component('j-date-range-input', DateRangeInput)
     .component('j-radio', Radio)
+    .component('j-radio-group', RadioGroup)
     .component('j-checkbox', Checkbox)
     .component('j-textarea', Textarea)
     .component('j-dropdown', Dropdown)
@@ -158,6 +165,8 @@ export default function(app: App, conf: Partial<Config>) {
     .component('j-splitter-panel', SplitterPanel)
     .component('j-animated-icon:menu-opener', MenuOpener)
     .component('j-animated-icon:menu-toggle', MenuToggle)
+    .component('j-form', Form)
+    .component('j-form-item', FormItem)
     .directive('loading', loading)
     .directive('ripple', ripple);
 

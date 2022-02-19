@@ -1,4 +1,5 @@
 @use "sass:color";
+@use "sass:list";
 
 @mixin use-theme($c, $t: white) {
   --j-primary-color: #{$c};
@@ -49,24 +50,24 @@
   @include dark-theme;
 }
 
-.j-primary {
-  @include use-theme(#2196f3);
+$color-config: (
+  "primary": (#2196f3, white),
+  "secondary": (#f82c69, white),
+  "success": (#70b137, white),
+  "info": (#19c1df, white),
+  "warning": (#ffa149, black),
+  "danger": (#da2a2a, white),
+  "help": (#9c27b0, white),  
+);
+
+@each $name, $colors in $color-config {
+  .j-#{$name} {
+    @include use-theme(list.nth($colors, 1), list.nth($colors, 2));
+  }
 }
-.j-secondary {
-  @include use-theme(#f82c69);
-}
-.j-success {
-  @include use-theme(#70b137);
-}
-.j-info {
-  @include use-theme(#19c1df);
-}
-.j-warning {
-  @include use-theme(#ffa149, black);
-}
-.j-danger {
-  @include use-theme(#da2a2a);
-}
-.j-help {
-  @include use-theme(#9c27b0);
+
+:root {
+  @each $name, $colors in $color-config {
+    --j-#{$name}-color: #{list.nth($colors, 1)};
+  }
 }

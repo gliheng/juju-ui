@@ -7,7 +7,7 @@
     width: 1rem;
     height: 1rem;
     border-radius: 50%;
-    border: 2px solid var(--j-foreground-color-1);
+    border: 2px solid var(--j-input-border-color, var(--j-foreground-color-1));
     box-shadow: 0 0 3px inset rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.2s, border 0.2s;
     display: inline-block;
@@ -30,5 +30,11 @@
       border-width: 0.35rem;
       border-color: var(--j-primary-color);
     }
+  }
+}
+
+.j-radio-group {
+  > * {
+    margin-right: 2*$gap;
   }
 }

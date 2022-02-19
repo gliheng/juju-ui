@@ -13,6 +13,12 @@
         <range-part />
       </code-block>
     </section>
+    <section>
+      <h2>Slider</h2>
+      <code-block :code="sliderPartCode">
+        <slider-part />
+      </code-block>
+    </section>
   </div>
 </template>
 
@@ -21,14 +27,16 @@ import TypePart from './parts/TypePart.vue';
 import typePartCode from './parts/TypePart.vue?raw';
 import RangePart from './parts/RangePart.vue';
 import rangePartCode from './parts/RangePart.vue?raw';
+import SliderPart from './parts/SliderPart.vue';
+import sliderPartCode from './parts/SliderPart.vue?raw';
 
 export default {
   components: {
-    TypePart, RangePart,
+    TypePart, RangePart, SliderPart,
   },
   setup() {
     return {
-      typePartCode, rangePartCode,
+      typePartCode, rangePartCode, sliderPartCode,
     };
   },
 }

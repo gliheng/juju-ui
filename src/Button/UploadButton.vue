@@ -1,6 +1,14 @@
 <template>
   <j-button icon="add" @click="onClick">
-    <input class="j-upload-input" ref="fileInput" type="file" @change="$emit('select', $event)" :multiple="multiple" :accept="accept" :disabled="disabled" />
+    <input
+      ref="fileInput"
+      class="j-upload-input"
+      type="file"
+      @change="$emit('select', $event)"
+      :multiple="multiple"
+      :accept="accept"
+      :disabled="disabled"
+    />
     <span>Upload</span>
   </j-button>
 </template>

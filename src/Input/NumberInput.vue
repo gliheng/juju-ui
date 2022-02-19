@@ -1,27 +1,27 @@
 <template>
   <div class="j-number-input" :class="{'j-focus': focus}" :data-type="type">
     <template v-if="type == 'slider'">
-      <div class="j-value-inner">
+      <div class="j-number-input-inner">
         <input v-model.lazy="value" @focus="onFocus" @blur="onBlur" />
-        <j-button @click.stop="toggleSlider" icon="chevron-down" flat @mousedown.prevent />
+        <j-button @click.stop="toggleSlider" icon="chevron-down" flat type="button" @mousedown.prevent />
       </div>
       <div class="j-slider-outer j-shadow-3" v-if="sliderOn" @click.stop>
         <j-slider v-model="value" :min="min" :max="max" :step="step" />
       </div>
     </template>
     <template v-else-if="type == 'horizontal'">
-      <div class="j-value-inner">
-        <j-button @click.stop="dec" icon="remove" flat @mousedown.prevent :disabled="!canDec" />
+      <div class="j-number-input-inner">
+        <j-button @click.stop="dec" icon="remove" flat type="button" @mousedown.prevent :disabled="!canDec" />
         <input v-model.lazy="value" @focus="onFocus" @blur="onBlur" />
         <j-button @click.stop="inc" icon="add" flat @mousedown.prevent :disabled="!canInc" />
       </div>
     </template>
     <template v-else-if="type == 'vertical'">
-      <div class="j-value-inner">
+      <div class="j-number-input-inner">
         <input v-model.lazy="value" @focus="onFocus" @blur="onBlur" />
-        <div class="btns">
-          <j-button @click.stop="inc" icon="chevron-up" flat @mousedown.prevent :disabled="!canInc" />
-          <j-button @click.stop="dec" icon="chevron-down" flat @mousedown.prevent :disabled="!canDec" />
+        <div class="j-number-input-btns">
+          <j-button @click.stop="inc" icon="chevron-up" flat type="button" @mousedown.prevent :disabled="!canInc" />
+          <j-button @click.stop="dec" icon="chevron-down" flat type="button" @mousedown.prevent :disabled="!canDec" />
         </div>
       </div>
     </template>
@@ -47,15 +47,12 @@ export default defineComponent({
     },
     modelValue: {
       type: Number,
-      required: true,
     },
     min: {
       type: Number,
-      default: 0,
     },
     max: {
       type: Number,
-      default: 100,
     },
     step: {
       type: Number,
@@ -66,25 +63,40 @@ export default defineComponent({
     let focus = ref(false);
 
     function inc() {
-      emit('update:modelValue', Math.min(props.modelValue + props.step, props.max));
+      let v = props.modelValue === undefined ? 0 : props.modelValue;
+      v += props.step;
+      if (props.max !== undefined) {
+        v = Math.min(v, props.max);
+      }
+      emit('update:modelValue', v);
     }
     function dec() {
-      emit('update:modelValue', Math.max(props.modelValue - props.step, props.min));
+      let v = props.modelValue === undefined ? 0 : props.modelValue;
+      v -= props.step;
+      if (props.min !== undefined) {
+        v = Math.max(v, props.min);
+      }
+      emit('update:modelValue', v);
     }
-    let canDec = computed<boolean>(() => props.modelValue > props.min);
-    let canInc = computed<boolean>(() => props.modelValue < props.max);
-    let value = computed<number>({
+    let canDec = computed<boolean>(
+      () => props.modelValue == undefined || props.min === undefined || props.modelValue > props.min
+    );
+    let canInc = computed<boolean>(
+      () => props.modelValue === undefined || props.max === undefined || props.modelValue < props.max
+    );
+    let value = computed<number | undefined>({
       get() {
         return props.modelValue;
       },
       set(v) {
-        let v2;        
+        if (!v) return undefined;
+        let v2;
         if (typeof v == 'string') {
           v2 = parseInt(v);
         } else {
           v2 = v;
         }
-        v2 = round(v2, props.min, props.step);
+        v2 = round(v2, props.min || 0, props.step);
         if (typeof props.min === 'number') {
           v2 = Math.max(props.min, v2);
         }

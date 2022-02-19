@@ -140,8 +140,8 @@ export default defineComponent({
     // Expand column grouping
     let columnsInfo = computed(() => {
       let spanMap: Map<ColumnConfig, {start: number; span: number, sticky?: string, align?: string}> = new Map();
-      let cols: ColumnConfig[] = [];
       let maxLevel = 0;
+      let cols: ColumnConfig[] = [];
       // column can inherit sticky and align from parent
       function flatten(grouped: ColumnConfig[], level: number, colStart: number, sticky?: string, align?: string) {
         let n = 0;
@@ -184,6 +184,7 @@ export default defineComponent({
         maxLevel = Math.max(level, maxLevel);
         return n;
       }
+
       let { columns } = props;
       flatten(columns, 1, 0);
       return {
@@ -394,7 +395,8 @@ export default defineComponent({
             rowConfig={props.rowConfig}
             selected={selection.sel.has(key)}
             // @ts-ignore
-            onSelect={selectRow.bind(null, key, i)} />
+            onSelect={selectRow.bind(null, key, i)}
+          />
         );
       }
     }

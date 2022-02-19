@@ -1,0 +1,55 @@
+.j-form {
+  --j-form-item-label-width: 120px;
+  .j-form-item {
+    margin-bottom: 10px;
+    &[data-error="true"] {
+      --j-input-border-color: var(--j-danger-color);
+      span.error {
+        color: var(--j-danger-color);
+      }
+    }
+  }
+  &[data-label-position="top"] {
+    .j-form-item {
+      display: block;
+      .j-form-item-label {
+        margin-bottom: 4px;
+      }
+    }
+  }
+  &[data-label-position="left"] {
+    .j-form-item {
+      display: flex;
+      align-items: center;
+      .j-form-item-label {
+        margin-right: 4px;
+      }
+    }
+  }
+  &[data-inline="true"] {
+    .j-form-item {
+      display: inline-block;
+      margin-right: 10px;
+    }
+  }
+
+  @each $align in left, center, right {
+    &[data-label-alignment=#{$align}] {
+      .j-form-item-label {
+        text-align: $align;
+      }
+    }
+  }
+  .j-form-item-label {
+    min-width: var(--j-form-item-label-width);
+  }
+  .j-form-item-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    > * {
+      flex: 1;
+    }
+  }
+}

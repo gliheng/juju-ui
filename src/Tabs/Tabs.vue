@@ -5,17 +5,27 @@
         <div class="j-tabs-bar">
           <div class="j-tabs-bar-inner" ref="tabBar">
             <div class="j-tabs-btn" v-for="(tab, i) in tabs" :key="i" :class="{ 'j-active': active == i }"
-              v-ripple:color="'var(--j-primary-color-light)'"
-              @click="setActive($event, i)">
+              v-ripple @click="setActive($event, i)"
+            >
               <button>
                 <svg-icon class="j-tabs-icon" v-if="tab.icon" :name="tab.icon" />
                 <span>{{ tab.label }}</span>
               </button>
-              <a class="j-tabs-close" v-if="tab.closable" @click="$emit('tab-remove', i)">
+              <a
+                v-if="tab.closable"
+                class="j-tabs-close"
+                @mousedown.stop
+                @click="$emit('tab-remove', i)"
+              >
                 <svg-icon name="close-outline" />
               </a>
             </div>
-            <div class="j-tabs-btn" v-if="add" @click="addTab" v-ripple:color="'var(--j-primary-color-light)'">
+            <div
+              v-if="add"
+              class="j-tabs-btn"
+              v-ripple
+              @click="addTab"
+            >
               <button>
                 <svg-icon name="add" />
               </button>

@@ -7,17 +7,16 @@
   border-radius: 50%;
   display: inline-flex;
   vertical-align: middle;
+  width: var(--j-spinner-size, 24px);
+  height: var(--j-spinner-size, 24px);
   &[data-size="sm"] {
-    width: 16px;
-    height: 16px;
+    --j-spinner-size: 16px;
   }
   &[data-size="md"] {
-    width: 24px;
-    height: 24px;
+    --j-spinner-size: 24px;
   }
   &[data-size="lg"] {
-    width: 32px;
-    height: 32px;
+    --j-spinner-size: 32px;
   }
   &:after {
     flex: 1;
