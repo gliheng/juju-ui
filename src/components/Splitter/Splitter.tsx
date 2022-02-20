@@ -2,7 +2,7 @@ import {
   defineComponent, h, computed,
   watch, reactive, ref,
 } from 'vue';
-import { useElementSize } from '../utils/hooks';
+import { useElementSize } from '../../utils/hooks';
 import Divider from '../Divider/Divider';
 import "./Splitter.scss";
 

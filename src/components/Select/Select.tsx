@@ -1,5 +1,5 @@
 import { defineComponent, h, computed, VNode } from 'vue';
-import { useBackdropAwareSwitch } from '../utils/hooks';
+import { useBackdropAwareSwitch } from '../../utils/hooks';
 import SelectItem from './SelectItem';
 import SvgIcon from '../SvgIcon/SvgIcon.vue';
 import Scroller from '../Scroller/Scroller.vue';

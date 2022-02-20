@@ -13,8 +13,8 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { Schema } from 'b-validate';
+import { useChildren } from '@utils/hooks';
 import { FormSymbol } from './const';
-import { useChildren } from '../utils/hooks';
 
 const C = defineComponent({
   props: {

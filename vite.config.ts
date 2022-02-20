@@ -17,7 +17,8 @@ export default defineConfig({
     alias: {
       "@assets": "/src/assets",
       "@directives": "/src/directives",
-      "@utils": "/src/utils" 
+      "@utils": "/src/utils",
+      "@": "/src/components",
     }
   },
   build: {

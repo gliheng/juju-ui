@@ -16,7 +16,8 @@
     "paths": {
       "@assets/*": ["./assets/*"],
       "@directives/*": ["./directives/*"],
-      "@utils/*": ["./utils/*"]
+      "@utils/*": ["./utils/*"],
+      "@/*": ["./components/*"]
     },
     "declaration": true,
     "declarationDir": "./dist"

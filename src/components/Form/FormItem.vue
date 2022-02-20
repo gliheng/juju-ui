@@ -12,8 +12,8 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
-import { useParent } from '../utils/hooks';
-import { getField } from '../utils/object';
+import { useParent } from '@utils/hooks';
+import { getField } from '@utils/object';
 import { FormSymbol } from './const';
 
 

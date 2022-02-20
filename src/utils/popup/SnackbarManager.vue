@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import JSnackbar from '../../Snackbar/Snackbar.vue';
+import JSnackbar from '@/Snackbar/Snackbar.vue';
 
 interface SnackbarItem {
   title: string;
