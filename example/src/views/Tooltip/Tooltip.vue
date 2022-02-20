@@ -9,8 +9,8 @@
     </section>
     <section>
       <h2>Tooltip triggered by a click</h2>
-      <code-block :code="clickPartCode">
-        <click-part />
+      <code-block :code="triggerPartCode">
+        <trigger-part />
       </code-block>
     </section>
   </div>
@@ -18,16 +18,16 @@
 
 <script>
 import TooltipPart from './parts/TooltipPart.vue';
-import ClickPart from './parts/ClickPart.vue';
+import TriggerPart from './parts/TriggerPart.vue';
 import tooltipPartCode from './parts/TooltipPart.vue?raw';
-import clickPartCode from './parts/ClickPart.vue?raw';
+import triggerPartCode from './parts/TriggerPart.vue?raw';
 
 export default {
   setup() {
-    return { tooltipPartCode, clickPartCode };
+    return { tooltipPartCode, triggerPartCode };
   },
   components: {
-    TooltipPart, ClickPart,
+    TooltipPart, TriggerPart,
   },
 }
 </script>

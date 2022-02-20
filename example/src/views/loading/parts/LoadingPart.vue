@@ -15,7 +15,7 @@ const loading = ref(false);
   width: 200px;
   height: 200px;
   background-color: var(--j-background-color-1);
-  color: var(--j-forground-color-1);
+  color: var(--j-foreground-color-1);
   vertical-align: middle;
   display: flex;
   justify-content: center;

@@ -1,9 +1,17 @@
 <template>
-  <div class="j-tooltip" :data-side="side" v-on="events" >
-    <slot/>
+  <div
+    class="j-tooltip"
+    v-on="events"
+    :data-side="side"
+  >
+    <slot />
     <transition name="j-fade">
-      <div v-if="title && on" class="j-tooltip-title j-dark">
-        <div class="j-arrow" :data-side="arrowSide"></div>{{ title }}
+      <div
+        v-if="title && on"
+        class="j-tooltip-title j-dark"
+      >
+        <div class="j-arrow" :data-side="arrowSide" />
+        {{ title }}
       </div>
     </transition>
   </div>

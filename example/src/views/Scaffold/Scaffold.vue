@@ -8,8 +8,15 @@
     </template>
     <template #nav>
       <j-listbox>
-        <j-listbox-item v-for="(item, i) in drawerItems" :key="item.label" @click="active = i"
-        :icon="item.icon" :active="i == active">{{ item.label }}</j-listbox-item>
+        <j-listbox-item
+          v-for="(item, i) in drawerItems"
+          :key="item.label"
+          :icon="item.icon"
+          :active="i == active"
+          @click="active = i"
+        >
+          {{ item.label }}
+        </j-listbox-item>
       </j-listbox>
     </template>
     <template #nav-title>🍄 JUJU-UI</template>

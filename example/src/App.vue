@@ -12,7 +12,7 @@
       <template #right-actions>
       </template>
       <template #content>
-        <component class="demo" :is="Component" />
+        <component :is="Component" />
         <footer>Copyright © 2020-2021 juju</footer>
       </template>
     </j-scaffold>
