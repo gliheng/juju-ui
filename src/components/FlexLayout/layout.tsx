@@ -1,6 +1,6 @@
 import { markRaw, h, reactive } from 'vue';
+import Divider from '@/Divider/Divider';
 import { PaneAttrs, NormalizedPaneAttrs, LayoutContext, Library, Dimension } from './types';
-import Divider from '../Divider/Divider';
 import Pane from './Pane';
 import PaneContent from './PaneContent';
 

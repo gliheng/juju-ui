@@ -45,6 +45,12 @@
         <col-grouping-part />
       </code-block>
     </section>
+    <section>
+      <h2>Resizable</h2>
+      <code-block :code="resizablePartCode">
+        <resizable-part />
+      </code-block>
+    </section>
   </div>
 </template>
 
@@ -66,6 +72,7 @@ import fixedHeaderPartCode from './parts/FixedHeaderPart.vue?raw';
 import fixedColumnPartCode from './parts/FixedColumnPart.vue?raw';
 import rowGroupingPartCode from './parts/RowGroupingPart.vue?raw';
 import colGroupingPartCode from './parts/ColGroupingPart.vue?raw';
+import resizablePartCode from './parts/ResizablePart.vue?raw';
 
 export default {
   setup() {
@@ -77,6 +84,7 @@ export default {
       fixedColumnPartCode,
       rowGroupingPartCode,
       colGroupingPartCode,
+      resizablePartCode,
     };
   },
   components: {

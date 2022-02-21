@@ -41,12 +41,18 @@
       border-bottom: $border;
     }
   }
-  th {
-    font-weight: 500;
-  }
   thead {
     tr {
-      background-color: var(--j-background-color-1);
+      th {
+        background-color: var(--j-background-color-1);
+        font-weight: 500;
+        .j-divider {
+          position: absolute;
+          right: -1px;
+          top: 0;
+          bottom: 0;
+        }
+      }
     }
   }
   tbody {
@@ -66,14 +72,6 @@
   table {
     table-layout: fixed;
     width: 100%;
-    // width: min-content;
-    // tr {
-    //   white-space: nowrap;
-    //   th, td {
-    //     overflow: hidden;
-    //     text-overflow: ellipsis;
-    //   }
-    // }
   }
   > .j-table-head-part {
     max-width: 100%;
@@ -140,6 +138,16 @@
       > td.j-table-sticky {
         position: sticky;
         left: 0;
+      }
+    }
+  }
+
+  &[data-virtual-scroll="true"] {
+    tr {
+      white-space: nowrap;
+      th, td {
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
   }

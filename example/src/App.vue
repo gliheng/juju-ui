@@ -13,7 +13,7 @@
       </template>
       <template #content>
         <component :is="Component" />
-        <footer>Copyright © 2020-2021 juju</footer>
+        <footer>Copyright © 2020-2022 juju</footer>
       </template>
     </j-scaffold>
     <component v-else :is="Component" />

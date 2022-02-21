@@ -2,7 +2,6 @@
   box-sizing: border-box;
   position: relative;
   &:after {
-    opacity: 0.1;
     background-color: var(--j-divider-color, #ccc);
     transition: opacity 0.3s, background-color 0.3s;
     content: "";
@@ -18,15 +17,16 @@
   &[data-vertical="true"] {
     cursor: col-resize;
     width: 2px;
+    margin-left: -1px;
   }
   &[data-vertical="false"] {
     cursor: row-resize;
     height: 2px;
+    margin-top: -1px;
   }
-  &:hover {
+  &:hover, &[data-dragging="true"] {
     &:after {
-      opacity: 1;
-      background-color: var(--j-divider-hover-color, var(--primary-color));
+      background-color: var(--j-divider-hover-color, var(--j-primary-color));
       top: 0;
       left: 0;
     }

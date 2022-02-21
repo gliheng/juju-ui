@@ -1,20 +1,18 @@
-import { defineComponent, h } from 'vue';
-import { ColumnConfig } from './types';
+import { defineComponent, h, PropType } from 'vue';
 
 export default defineComponent({
   props: {
     columns: {
-      type: Array,
+      type: Array as PropType<(number | undefined)[]>,
       default: () => [],
     },
   },
   setup(props) {
     return () => {
-      let cols = (props.columns as ColumnConfig[]).map((col) => {
-        if (typeof col.width == 'number') {
+      let cols = props.columns.map((w) => {
+        if (typeof w == 'number') {
           let style = {
-            width: `${col.width}px`,
-            'min-width': `${col.width}px`,
+            width: `${w}px`,
           };
           return <col style={style} />;
         }

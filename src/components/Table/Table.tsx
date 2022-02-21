@@ -5,40 +5,20 @@ import {
   computed,
   h,
   PropType,
+  onMounted,
 } from 'vue';
+import VirtualScroller from '@/Scroller/VirtualScroller';
+import SvgIcon from '@/SvgIcon/SvgIcon.vue';
+import Checkbox from '@/Checkbox/Checkbox.vue';
+import Divider from '@/Divider/Divider';
+import { getStorage } from '@utils/storage';
 import Row from './Row';
 import ColGroup from './ColGroup';
 import { ColumnConfig, Datum, GroupDatum } from './types';
-import VirtualScroller from '../Scroller/VirtualScroller';
-import SvgIcon from '../SvgIcon/SvgIcon.vue';
-import Checkbox from '../Checkbox/Checkbox.vue';
 import './Table.scss';
 
-
-// recursive group data according to grouping rules
-function groupData(grouping: string[], data: Datum[], cur: number = 0, groupPath: string[] = []): Array<Datum | GroupDatum> {
-  if (cur >= grouping.length) {
-    return data;
-  }
-  let groups: Record<string, any> = {};
-  let groupName = grouping[cur];
-  data.forEach(d => {
-    let key = d[groupName];
-    if (!(key in groups)) {
-      groups[key] = [];
-    }
-    groups[key].push(d);
-  });
-  return Object.keys(groups).map(key => {
-    const newGroupPath = groupPath.concat(key);
-    return {
-      groupName,
-      groupValue: key,
-      groupPath: newGroupPath,
-      groupChildren: groupData(grouping, groups[key], cur + 1, newGroupPath),
-    };
-  });
-}
+const MIN_COL_WIDTH = 30;
+const COL_SIZE_STORAGE_KEY = 'colResize';
 
 export default defineComponent({
   props: {
@@ -77,6 +57,14 @@ export default defineComponent({
     virtualScroll: {
       type: Boolean,
       default: false,
+    },
+    resizable: {
+      type: Boolean,
+      default: false,
+    },
+    storageKey: {
+      type: String,
+      required: false,
     },
     itemHeight: Number,
   },
@@ -241,6 +229,66 @@ export default defineComponent({
       return String(i);
     }
 
+    const colResize = reactive<number[]>([]);
+    const colSizes = computed(() => {
+      return columnsInfo.value.cols.map((col, i) => {
+        if (col.width !== undefined) {
+          return col.width + (colResize[i] || 0)
+        }
+      });
+    });
+    let store: ReturnType<typeof getStorage>;
+    // load col settings on load
+    if (props.storageKey) {
+      store = getStorage(props.storageKey!);
+      onMounted(async () => {
+        let sizes = await store.read(COL_SIZE_STORAGE_KEY);
+        if (sizes && Array.isArray(sizes)) {
+          colResize.splice(0, colResize.length - 1, ...sizes);
+        }
+      });
+    }
+  
+    function resizeCol(i: number, d: number) {
+      if (d == 0) return;
+      // ensure colResize exists
+      if (colResize[i] === undefined) {
+        colResize[i] = 0;
+      }
+      // if (colResize[i+1] === undefined) {
+      //   colResize[i+1] = 0;
+      // }
+      if (d < 0) {
+        // move left
+        // ensure left col does not compress beyond MIN_COL_WIDTH
+        let { width } = columnsInfo.value.cols[i];
+        if (width !== undefined) {
+          let limit = Math.max(width + colResize[i] - MIN_COL_WIDTH, 0);
+          if (d < -limit) {
+            d = -limit;
+          }
+        }
+      } else if (d > 0) {
+        // move right
+        // ensure right col does not compress beyond MIN_COL_WIDTH
+        // let { width } = columnsInfo.value.cols[i+1];
+        // if (width !== undefined) {
+        //   let limit = Math.max(width + colResize[i+1] - MIN_COL_WIDTH, 0);
+        //   if (d > limit) {
+        //     d = limit;
+        //   }
+        // }
+      }
+      colResize[i] = colResize[i] + d;
+      // colResize[i+1] = colResize[i+1] - d;
+    }
+
+    function saveColSize() {
+      if (store) {
+        store.save(COL_SIZE_STORAGE_KEY, colResize);
+      }
+    }
+
     function renderHeaderCell(
       col: ColumnConfig,
       i: number,
@@ -287,6 +335,20 @@ export default defineComponent({
           }
         }
       }
+      let addons = [];
+      if (props.resizable) {
+        addons.push(
+          <Divider
+            vertical={true}
+            onDragMove={(d) => {
+              resizeCol(i, d);
+            }}
+            onDragEnd={() => {
+              saveColSize();
+            }}
+          />
+        );
+      }
       return (
         <th key={ i }
           class={ className }
@@ -296,6 +358,7 @@ export default defineComponent({
           data-type={ col.type }
         >
           { label }
+          { addons }
         </th>
       );
     }
@@ -306,6 +369,7 @@ export default defineComponent({
       let rows = [];
       let { maxLevel } = columnsInfo.value;
       let level = 0;
+      // may render multiple row of headers
       while (columnRow.length) {
         next = [];
         let cells = columnRow.map((col, i) => {
@@ -435,7 +499,7 @@ export default defineComponent({
     function containerRenderer(items: any) {
       return (
         <table>
-          <ColGroup columns={ columnsInfo.value.cols } />
+          <ColGroup columns={ colSizes.value } />
           <tbody>
             { items }
           </tbody>
@@ -485,7 +549,7 @@ export default defineComponent({
             data-bordered={ props.bordered }
           >
             <table>
-              <ColGroup columns={ columnsInfo.value.cols } />
+              <ColGroup columns={ colSizes.value } />
               { renderHead() }
               <tbody>
                 { rows }
@@ -526,7 +590,7 @@ export default defineComponent({
             ref={ headerRef }
           >
             <table>
-              <ColGroup columns={ columnsInfo.value.cols } />
+              <ColGroup columns={ colSizes.value } />
               { renderHead() }
             </table>
           </div>
@@ -553,3 +617,33 @@ export default defineComponent({
     };
   },
 });
+
+// recursive group data according to grouping rules
+function groupData(
+  grouping: string[],
+  data: Datum[],
+  cur: number = 0,
+  groupPath: string[] = [],
+): Array<Datum | GroupDatum> {
+  if (cur >= grouping.length) {
+    return data;
+  }
+  let groups: Record<string, any> = {};
+  let groupName = grouping[cur];
+  data.forEach(d => {
+    let key = d[groupName];
+    if (!(key in groups)) {
+      groups[key] = [];
+    }
+    groups[key].push(d);
+  });
+  return Object.keys(groups).map(key => {
+    const newGroupPath = groupPath.concat(key);
+    return {
+      groupName,
+      groupValue: key,
+      groupPath: newGroupPath,
+      groupChildren: groupData(grouping, groups[key], cur + 1, newGroupPath),
+    };
+  });
+}

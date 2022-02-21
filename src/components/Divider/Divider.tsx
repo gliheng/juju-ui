@@ -1,9 +1,8 @@
-import { defineComponent, h, PropType } from 'vue';
+import { defineComponent, h, PropType, ref } from 'vue';
 import "./Divider.scss";
 
 export default defineComponent({
   name: 'Divider',
-  inheritAttrs: false,
   props: {
     positioned: {
       type: Boolean,
@@ -29,7 +28,6 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
-    id: Object as PropType<any>,
     onDragStart: {
       type: Function as PropType<() => void>,
       required: false,
@@ -47,11 +45,13 @@ export default defineComponent({
     let startFired = false;
     let lastSent = 0;
     let startX: number, startY: number;
+    let dragging = ref(false);
     function onMousedown(evt: MouseEvent) {
       evt.preventDefault();
 
       startX = evt.clientX;
       startY = evt.clientY;
+      dragging.value = true;
       lastSent = 0;
       document.addEventListener('mousemove', onMousemove);
       document.addEventListener('mouseup', onMouseup, {
@@ -73,6 +73,7 @@ export default defineComponent({
       document.removeEventListener('mousemove', onMousemove);
       props.onDragEnd && props.onDragEnd();
       startFired = false;
+      dragging.value = false;
     }
 
     return () => {
@@ -92,6 +93,7 @@ export default defineComponent({
           style={style}
           data-positioned={props.positioned}
           data-vertical={props.vertical}
+          data-dragging={dragging.value}
           onMousedown={onMousedown}
         />
       );
