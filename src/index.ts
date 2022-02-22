@@ -24,6 +24,7 @@ import Switch from './components/Switch/Switch.vue';
 import Slider from './components/Slider/Slider.vue';
 import Drawer from './components/Drawer/Drawer.vue';
 import Popup from './components/Popup/Popup.vue';
+import Popover from './components/Popover/Popover.vue';
 import Listbox from './components/Listbox/Listbox.vue';
 import ListboxItem from './components/Listbox/ListboxItem.vue';
 import ColorWheel from './components/ColorWheel/ColorWheel.vue';
@@ -82,6 +83,7 @@ export {
   Slider,
   Drawer,
   Popup,
+  Popover,
   Listbox,
   ListboxItem,
   ColorWheel,
@@ -139,6 +141,7 @@ export default function(app: App, conf: Partial<Config>) {
     .component('j-slider', Slider)
     .component('j-drawer', Drawer)
     .component('j-popup', Popup)
+    .component('j-popover', Popover)
     .component('j-listbox', Listbox)
     .component('j-listbox-item', ListboxItem)
     .component('j-color-wheel', ColorWheel)

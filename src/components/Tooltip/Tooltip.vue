@@ -1,66 +1,19 @@
 <template>
-  <div
-    class="j-tooltip"
-    v-on="events"
-    :data-side="side"
-  >
+  <j-popover v-bind="$attrs">
     <slot />
-    <transition name="j-fade">
-      <div
-        v-if="title && on"
-        class="j-tooltip-title j-dark"
-      >
-        <div class="j-arrow" :data-side="arrowSide" />
-        {{ title }}
-      </div>
-    </transition>
-  </div>
+    <template #popover>
+      {{ title }}
+    </template>
+  </j-popover>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
-import { useBackdropAwareSwitch } from '@utils/hooks';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
+  inheritAttrs: false,
   props: {
     title: String,
-    side: {
-      type: String,
-      default: 'right',
-    },
-    trigger: {
-      type: String,
-      default: 'hover',
-    },
-  },
-  setup(props) {
-    let arrowSide = computed(() => {
-      if (props.side == 'left') return 'right';
-      if (props.side == 'right') return 'left';
-      if (props.side == 'top') return 'bottom';
-      if (props.side == 'bottom') return 'top';
-      return '';
-    });
-
-    let [on, toggle] = useBackdropAwareSwitch();
-
-    let events = computed(() => {
-      let evts: Record<string, Function> = {};
-      if (props.trigger == 'hover') {
-        evts.mouseenter = () => toggle(true);
-        evts.mouseleave = () => toggle(false);
-      } else if (props.trigger == 'click') {
-        evts.click = (evt: MouseEvent) => {
-          evt.stopPropagation();
-          toggle(true);
-        };
-      }
-      return evts;
-    });
-    
-    return { on, arrowSide, events };
   },
 });
 </script>
-
-<style src="./Tooltip.scss"></style>

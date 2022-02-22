@@ -81,7 +81,7 @@ export default defineComponent({
         let arr = []
         let data = props.data || [];
         for (let i = 0; i < data.length; i++) {
-          arr.push(getRowKey(data, i));
+          arr.push(getRowKey(data[i], i));
         }
         selection.sel = new Set(arr)
       } else if (v === false) {
@@ -192,7 +192,7 @@ export default defineComponent({
           break;
         }
         stickyPosMap.set(i, leftStickyPos);
-        leftStickyPos += columns[i].width || 0;
+        leftStickyPos += colSizes.value[i] || 0;
         leftStickyCount++;
       }
       for (let i = columns.length - 1; i >= 0; i--) {
@@ -200,7 +200,7 @@ export default defineComponent({
           break;
         }
         stickyPosMap.set(i, rightStickyPos);
-        rightStickyPos += columns[i].width || 0;
+        rightStickyPos += colSizes.value[i] || 0;
         rightStickyCount++;
       }
 

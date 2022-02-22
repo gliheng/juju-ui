@@ -1,22 +1,22 @@
 @import "vars";
 
-.j-tooltip {
+.j-popover {
   position: relative;
-  width: fit-content;
-  height: fit-content;
-  > .j-tooltip-title {
+  position: inline-block;
+  > aside {
     position: absolute;
+    z-index: 1;
     padding: $margin;
     color: var(--j-foreground-color);
     background-color: var(--j-background-color);
     border-radius: 4px;
-    max-width: 350px;
+    width: fit-content;
     word-wrap: break-word;
   }
   $margin: 8px;
   $arrow: 6px;
   &[data-side="left"] {
-    .j-tooltip-title {
+    > aside {
       top: 50%;
       right: calc(100% + #{$margin});
       transform: translateY(-50%);
@@ -29,7 +29,7 @@
     }
   }
   &[data-side="right"] {
-    .j-tooltip-title {
+    > aside {
       top: 50%;
       left: calc(100% + #{$margin});
       transform: translateY(-50%);
@@ -42,7 +42,7 @@
     }
   }
   &[data-side="top"] {
-    .j-tooltip-title {
+    > aside {
       left: 50%;
       bottom: calc(100% + #{$margin});
       transform: translateX(-50%);
@@ -55,7 +55,7 @@
     }
   }
   &[data-side="bottom"] {
-    .j-tooltip-title {
+    > aside {
       left: 50%;
       top: calc(100% + #{$margin});
       transform: translateX(-50%);

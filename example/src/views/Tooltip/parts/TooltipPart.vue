@@ -20,27 +20,27 @@
   width: 300px;
   height: 200px;
   position: relative;
-  :deep(.j-tooltip) {
+  :deep(.j-popover) {
     position: absolute;
-    &.top {
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    &.left {
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-    &.right {
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-    &.bottom {
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-    }
+  }
+  .top {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .left {
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .right {
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .bottom {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 </style>

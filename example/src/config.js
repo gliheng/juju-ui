@@ -19,6 +19,9 @@ export default {
       "name": "Popup",
       "device": ["pc", "mobile"]
     }, {
+      "name": "Popover",
+      "device": ["pc"]
+    }, {
       "name": "Drawer",
       "device": ["pc", "mobile"]
     }, {

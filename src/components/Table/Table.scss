@@ -107,11 +107,12 @@
     bottom: 0;
     width: 30px;
     pointer-events: none;
+    --j-table-sticky-shadow-color: rgba(0, 0, 0, .15);
     &.j-left {
-      box-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, .15);
+      box-shadow: inset 10px 0 8px -8px var(--j-table-sticky-shadow-color);
     }
     &.j-right {
-      box-shadow: inset -10px 0 8px -8px rgba(0, 0, 0, .15);
+      box-shadow: inset -10px 0 8px -8px var(--j-table-sticky-shadow-color);
     }
   }
   .j-table-sticky {
