@@ -6,6 +6,9 @@ import {
   h,
   PropType,
   onMounted,
+  watch,
+  nextTick,
+  onUpdated,
 } from 'vue';
 import VirtualScroller from '@/Scroller/VirtualScroller';
 import SvgIcon from '@/SvgIcon/SvgIcon.vue';
@@ -206,12 +209,14 @@ export default defineComponent({
 
       return {
         leftStickyCount,
-        leftStickyPos,
-        stickyPosMap,
         rightStickyCount,
-        rightStickyPos,
+        stickyPosMap,
       };
     });
+
+    let tableEl = ref<HTMLElement>();
+    let leftStickyEl = ref<HTMLElement>();
+    let rightStickyEl = ref<HTMLElement>();
 
     // record group expansion state
     let groupExpand = reactive<Record<string, boolean>>({});
@@ -282,6 +287,10 @@ export default defineComponent({
       colResize[i] = colResize[i] + d;
       // colResize[i+1] = colResize[i+1] - d;
     }
+    
+    onUpdated(() => {
+      syncStickyShadowPos();
+    });
 
     function saveColSize() {
       if (store) {
@@ -324,9 +333,9 @@ export default defineComponent({
       if (align) {
         style['text-align'] = align;
       }
-      columnsInfo.value.spanMap.get(col);
+      let { stickyPosMap } = stickyInfo.value;
       if (sticky) {
-        let d = stickyInfo.value.stickyPosMap.get(i + colspan - 1);
+        let d = stickyPosMap.get(i + colspan - 1);
         if (typeof d == 'number') {
           if (sticky == 'left') {
             style.left = `${d}px`;
@@ -335,6 +344,7 @@ export default defineComponent({
           }
         }
       }
+
       let addons = [];
       if (props.resizable) {
         addons.push(
@@ -361,6 +371,40 @@ export default defineComponent({
           { addons }
         </th>
       );
+    }
+
+    // Sync sticky column shadow position using dom operations
+    function syncStickyShadowPos() {
+      let n, cell, el;
+      // sync left shadow position
+      n = stickyInfo.value.leftStickyCount;
+      el = leftStickyEl.value;
+      if (n && el) {
+        cell = tableEl.value?.querySelector(`thead th:nth-child(${n})`) as HTMLElement;
+        if (cell) {
+          let box = cell.getBoundingClientRect();
+          let v = box.width + box.left - (cell.offsetParent?.getBoundingClientRect().left || 0);
+          el.style.left = `${v}px`;
+          el.hidden = false;
+        } else {
+          el.hidden = true;
+        }
+      }
+      // sync right shadow position
+      n = stickyInfo.value.rightStickyCount;
+      el = rightStickyEl.value;
+      if (n && el) {
+        cell = tableEl.value?.querySelector(`thead th:nth-last-child(${stickyInfo.value.rightStickyCount})`) as HTMLElement;
+        if (cell) {
+          let a = cell.offsetParent?.getBoundingClientRect().left || 0;
+          let b = cell.getBoundingClientRect().left;
+          let v = b - a;
+          el.style.left = `${v}px`;
+          el.hidden = false;
+        } else {
+          el.hidden = true;
+        }
+      }
     }
 
     function renderHead() {
@@ -516,8 +560,6 @@ export default defineComponent({
       let {
         leftStickyCount,
         rightStickyCount,
-        leftStickyPos,
-        rightStickyPos,
       } = stickyInfo.value;
 
       let hasLeftSticky = leftStickyCount > 0,
@@ -545,6 +587,7 @@ export default defineComponent({
   
         return (
           <div
+            ref={ tableEl }
             class="j-table"
             data-bordered={ props.bordered }
           >
@@ -562,23 +605,19 @@ export default defineComponent({
       let leftStickyCol;
       if (hasLeftSticky && hasData) {
         leftStickyCol = (
-          <div
-            class="j-table-sticky-shadow j-left"
-            style={{left: `${leftStickyPos}px`}}></div>
+          <div ref={leftStickyEl} class="j-table-sticky-shadow j-left" />
         );
       }
 
       let rightStickyCol;
       if (hasRightSticky && hasData) {
         rightStickyCol = (
-          <div
-            class="j-table-sticky-shadow j-right"
-            style={{right: `${rightStickyPos}px`}}></div>
+          <div ref={rightStickyEl} class="j-table-sticky-shadow j-right" />
         );
       }
-
       return (
         <div class="j-table"
+          ref={ tableEl }
           data-fixed-header={ props.fixedHeader }
           data-bordered={ props.bordered }
           data-has-left-sticky={ hasLeftSticky }

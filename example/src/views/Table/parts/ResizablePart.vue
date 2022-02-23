@@ -7,15 +7,6 @@
     :data="data"
     :columns="columns"
   />
-  <j-table
-    bordered
-    resizable
-    fixed-header
-    virtual-scroll
-    storage-key="biubiu"
-    :data="data"
-    :columns="columns"
-  />
 </template>
 
 <script>
@@ -35,7 +26,6 @@ const columns = [{
   label: 'Gender',
   field: 'gender',
   width: 160,
-  sticky: 'left',
 }, {
   label: 'Work',
   field: 'work',
