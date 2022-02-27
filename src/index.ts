@@ -53,6 +53,7 @@ import MenuOpener from './components/AnimatedIcon/MenuOpener.vue';
 import MenuToggle from './components/AnimatedIcon/MenuToggle.vue';
 import Form from './components/Form/Form.vue';
 import FormItem from './components/Form/FormItem.vue';
+import ReorderList from './components/ReorderList/ReorderList';
 import loading from './directives/loading';
 import ripple from './directives/ripple';
 
@@ -112,6 +113,7 @@ export {
   MenuToggle,
   Form,
   FormItem,
+  ReorderList,
   loading,
   ripple,
 };
@@ -170,6 +172,7 @@ export default function(app: App, conf: Partial<Config>) {
     .component('j-animated-icon:menu-toggle', MenuToggle)
     .component('j-form', Form)
     .component('j-form-item', FormItem)
+    .component('j-reorder-list', ReorderList)
     .directive('loading', loading)
     .directive('ripple', ripple);
 

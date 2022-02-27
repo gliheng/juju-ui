@@ -115,6 +115,9 @@ export default {
     }, {
       "name": "Form",
       "device": ["pc", "mobile"],
+    }, {
+      "name": "ReorderList",
+      "device": ["pc", "mobile"],
     },
   ],
   "Directives": [

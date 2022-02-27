@@ -1,0 +1,37 @@
+@import 'vars';
+
+.j-reorder-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  .j-reorder-list-item {
+    padding: 0.5rem;
+    cursor: default;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    > main {
+      flex: 1;
+    }
+    &[data-drag="true"] {
+      visibility: hidden;
+    }
+    &[data-drag-clone="true"] {
+      position: fixed;
+      box-sizing: border-box;
+      pointer-events: none;
+      background-color: var(--j-primary-color-lighter);
+    }
+    .j-reorder-list-handle {
+      margin-right: $margin;
+    }
+  }
+  &[data-dragging="false"] {
+    .j-reorder-list-item {
+      &:hover {
+        background-color: var(--j-primary-color-lighter);
+      }
+    }
+  }
+}
+
