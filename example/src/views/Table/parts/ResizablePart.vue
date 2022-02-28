@@ -3,7 +3,7 @@
     bordered
     resizable
     fixed-header
-    storage-key="biubiu"
+    storage-key="juju-resizable-table"
     :data="data"
     :columns="columns"
   />

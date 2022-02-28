@@ -9,6 +9,7 @@ export interface GroupDatum {
 }
 
 export interface ColumnConfig {
+  key?: string; // for col size storage
   type?: 'selection' | 'index',
   label?: string, // table head
   cellKey?: KeyFetcher,

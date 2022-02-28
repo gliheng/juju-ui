@@ -2,26 +2,28 @@ import {
   defineComponent,
   reactive,
   ref,
+  unref,
   computed,
   h,
   PropType,
   onMounted,
-  watch,
-  nextTick,
   onUpdated,
+  onUnmounted,
 } from 'vue';
 import VirtualScroller from '@/Scroller/VirtualScroller';
 import SvgIcon from '@/SvgIcon/SvgIcon.vue';
 import Checkbox from '@/Checkbox/Checkbox.vue';
 import Divider from '@/Divider/Divider';
 import { getStorage } from '@utils/storage';
+import { debounce } from '@utils/timer';
 import Row from './Row';
 import ColGroup from './ColGroup';
 import { ColumnConfig, Datum, GroupDatum } from './types';
+
 import './Table.scss';
 
 const MIN_COL_WIDTH = 30;
-const COL_SIZE_STORAGE_KEY = 'colResize';
+const COL_SIZE_STORAGE_KEY = 'col-sizes';
 
 export default defineComponent({
   props: {
@@ -234,58 +236,55 @@ export default defineComponent({
       return String(i);
     }
 
-    const colResize = reactive<number[]>([]);
+    const colResize = ref<Record<string, number>>({});
     const colSizes = computed(() => {
       return columnsInfo.value.cols.map((col, i) => {
-        if (col.width !== undefined) {
-          return col.width + (colResize[i] || 0)
+        let key = keyMapper(col);
+        if (key) {
+          let v = colResize.value[key];
+          if (typeof v == 'number') return v;
         }
+        return col.width;
       });
     });
+    let ob: ResizeObserver;
     let store: ReturnType<typeof getStorage>;
     // load col settings on load
     if (props.storageKey) {
       store = getStorage(props.storageKey!);
       onMounted(async () => {
-        let sizes = await store.read(COL_SIZE_STORAGE_KEY);
-        if (sizes && Array.isArray(sizes)) {
-          colResize.splice(0, colResize.length - 1, ...sizes);
+        let sizes = (await store.read(COL_SIZE_STORAGE_KEY)) || {};
+        colResize.value = sizes;
+
+        if (typeof ResizeObserver == 'function' && tableEl.value) {
+          ob = new ResizeObserver(() => {
+            syncStickyShadowPos();
+          });
+          ob.observe(tableEl.value);
         }
       });
     }
+
+    onUnmounted(() => {
+      ob?.disconnect();
+    });
   
     function resizeCol(i: number, d: number) {
       if (d == 0) return;
+      let col = columnsInfo.value.cols[i];
+      let key = keyMapper(col);
+      if (!key) return;
       // ensure colResize exists
-      if (colResize[i] === undefined) {
-        colResize[i] = 0;
+      if (colResize.value[key] === undefined) {
+        colResize.value[key] = col.width || MIN_COL_WIDTH;
       }
-      // if (colResize[i+1] === undefined) {
-      //   colResize[i+1] = 0;
-      // }
       if (d < 0) {
-        // move left
-        // ensure left col does not compress beyond MIN_COL_WIDTH
-        let { width } = columnsInfo.value.cols[i];
-        if (width !== undefined) {
-          let limit = Math.max(width + colResize[i] - MIN_COL_WIDTH, 0);
-          if (d < -limit) {
-            d = -limit;
-          }
+        let limit = Math.max(colResize.value[key] - MIN_COL_WIDTH, 0);
+        if (d < -limit) {
+          d = -limit;
         }
-      } else if (d > 0) {
-        // move right
-        // ensure right col does not compress beyond MIN_COL_WIDTH
-        // let { width } = columnsInfo.value.cols[i+1];
-        // if (width !== undefined) {
-        //   let limit = Math.max(width + colResize[i+1] - MIN_COL_WIDTH, 0);
-        //   if (d > limit) {
-        //     d = limit;
-        //   }
-        // }
       }
-      colResize[i] = colResize[i] + d;
-      // colResize[i+1] = colResize[i+1] - d;
+      colResize.value[key] = colResize.value[key] + d;
     }
     
     onUpdated(() => {
@@ -294,7 +293,7 @@ export default defineComponent({
 
     function saveColSize() {
       if (store) {
-        store.save(COL_SIZE_STORAGE_KEY, colResize);
+        store.save(COL_SIZE_STORAGE_KEY, unref(colResize));
       }
     }
 
@@ -374,7 +373,7 @@ export default defineComponent({
     }
 
     // Sync sticky column shadow position using dom operations
-    function syncStickyShadowPos() {
+    const syncStickyShadowPos = debounce(() => {
       let n, cell, el;
       // sync left shadow position
       n = stickyInfo.value.leftStickyCount;
@@ -405,7 +404,7 @@ export default defineComponent({
           el.hidden = true;
         }
       }
-    }
+    }, 100);
 
     function renderHead() {
       let columnRow: ColumnConfig[] = props.columns;
@@ -685,4 +684,8 @@ function groupData(
       groupChildren: groupData(grouping, groups[key], cur + 1, newGroupPath),
     };
   });
+}
+
+function keyMapper(col: ColumnConfig) {
+  return col.key || col.field;
 }
