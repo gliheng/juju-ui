@@ -3,7 +3,7 @@ import SnackbarManager from './SnackbarManager.vue';
 import PopupManager from './PopupManager.vue';
 
 let snackbar: ComponentPublicInstance;
-export function showSnackbar(title: string, timeout: number) {
+export function showSnackbar(title: string, timeout = 5) {
   if (!snackbar) {
     let dom = document.createElement('div');
     document.body.appendChild(dom);
