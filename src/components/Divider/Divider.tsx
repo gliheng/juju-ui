@@ -4,6 +4,10 @@ import "./Divider.scss";
 export default defineComponent({
   name: 'Divider',
   props: {
+    enabled: {
+      type: Boolean,
+      default: true,
+    },
     positioned: {
       type: Boolean,
       default: false,
@@ -91,10 +95,11 @@ export default defineComponent({
         <div
           class="j-divider"
           style={style}
+          data-enabled={props.enabled}
           data-positioned={props.positioned}
           data-vertical={props.vertical}
           data-dragging={dragging.value}
-          onMousedown={onMousedown}
+          onMousedown={props.enabled ? onMousedown : undefined}
         />
       );
     };

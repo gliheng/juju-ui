@@ -346,8 +346,11 @@ export default defineComponent({
 
       let addons = [];
       if (props.resizable) {
+        // For multi row header, only the last row have resizing control
+        let enabled = colspan == 1;
         addons.push(
           <Divider
+            enabled={enabled}
             vertical={true}
             onDragMove={(d) => {
               resizeCol(i, d);
@@ -379,7 +382,7 @@ export default defineComponent({
       n = stickyInfo.value.leftStickyCount;
       el = leftStickyEl.value;
       if (n && el) {
-        cell = tableEl.value?.querySelector(`thead th:nth-child(${n})`) as HTMLElement;
+        cell = tableEl.value?.querySelector(`thead tr:last-child th:nth-child(${n})`) as HTMLElement;
         if (cell) {
           let box = cell.getBoundingClientRect();
           let v = box.width + box.left - (cell.offsetParent?.getBoundingClientRect().left || 0);
@@ -393,7 +396,7 @@ export default defineComponent({
       n = stickyInfo.value.rightStickyCount;
       el = rightStickyEl.value;
       if (n && el) {
-        cell = tableEl.value?.querySelector(`thead th:nth-last-child(${stickyInfo.value.rightStickyCount})`) as HTMLElement;
+        cell = tableEl.value?.querySelector(`thead tr:last-child th:nth-last-child(${stickyInfo.value.rightStickyCount})`) as HTMLElement;
         if (cell) {
           let a = cell.offsetParent?.getBoundingClientRect().left || 0;
           let b = cell.getBoundingClientRect().left;
@@ -404,7 +407,7 @@ export default defineComponent({
           el.hidden = true;
         }
       }
-    }, 100);
+    }, 50);
 
     function renderHead() {
       let columnRow: ColumnConfig[] = props.columns;

@@ -1,8 +1,8 @@
 <template>
   <j-table
     bordered
-    resizable
     fixed-header
+    resizable
     storage-key="juju-resizable-table"
     :data="data"
     :columns="columns"
