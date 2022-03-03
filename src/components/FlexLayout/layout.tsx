@@ -75,6 +75,7 @@ export class RenderBox {
     placeholder: any;
     showActionMenu: boolean;
     closable: boolean;
+    gap: number;
   };
 
   x = 0;
@@ -328,7 +329,7 @@ export class RenderBox {
       parent,
     });
 
-    let { use, children } = this;
+    let { use, children, context } = this;
     if (use == ROW || use == COL)  {
       let vertical = true;
       if (use == ROW) {
@@ -338,7 +339,7 @@ export class RenderBox {
       let totalFlex = 0;
       let totalSize = width;
       if (vertical) totalSize = height;
-      if (children) {
+      if (children && children.length) {
         // 1 pass: figure out remaining size for flex layout
         for (let i = 0; i < children!.length; i++) {
           let item: any = children[i];
@@ -346,6 +347,7 @@ export class RenderBox {
           let flex = typeof item.flex == 'number' ? item.flex! : typeof item.size == 'number' ? 0 : 1;
           totalFlex += flex;
         }
+        fixedSize += (children.length - 1) * context.gap;
      
         // 2 pass: layout children using flex values
         let pos = 0;
@@ -366,7 +368,7 @@ export class RenderBox {
           } else {
             item.layout(pos, y, size, height, this);
           }
-          pos += size;
+          pos += size + context.gap;
         });
         this.layoutContext = {
           totalFlex,
@@ -507,6 +509,11 @@ export class RenderBox {
         </Pane>
       );
     } else if (this.children) {
+      let { use, context: { gap } } = this;
+      let vertical = true;
+      if (use == ROW) {
+        vertical = false;
+      }
       this.children.forEach((item, i) => {
         item.render(collect);
         if (i != 0) {
@@ -514,10 +521,10 @@ export class RenderBox {
             <Divider
               key={`${this.id}::${i}`}
               positioned={true}
-              x={item.x}
-              y={item.y}
-              width={item.width}
-              height={item.height}
+              x={!vertical ? item.x - gap / 2 : item.x}
+              y={vertical ? item.y - gap / 2 : item.y}
+              width={vertical ? item.width : gap}
+              height={!vertical ? item.height : gap}
               vertical={this.use == ROW}
               onDragStart={this.context.onDividerDragStart.bind(null, item)}
               onDragMove={this.context.onDividerDragMove.bind(null, item)}

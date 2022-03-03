@@ -20,6 +20,10 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    gap: {
+      type: Number,
+      default: 2,
+    },
     closable: {
       type: Boolean,
       default: true,
@@ -48,6 +52,7 @@ export default defineComponent({
           placeholder: slots.placeholder,
           showActionMenu: props.showActionMenu,
           closable: props.closable,
+          gap: props.gap,
         });
       }
       renderBox.layout(0, 0, size.width, size.height);

@@ -20,7 +20,7 @@
       </div>
       <p>Drag these pills to the panel bellow to modify layout</p>
     </div>
-    <j-flex-layout class="layout" :library="library" :preset="preset">
+    <j-flex-layout class="layout" :library="library" :preset="preset" :gap="6">
       <template #placeholder><div class="placeholder">Drop pill onto this block</div></template>
     </j-flex-layout>
   </div>
@@ -81,6 +81,7 @@ export default {
 }
 .layout {
   height: 500px;
+  --j-divider-color: transparent;
   .placeholder {
     flex: 1;
     display: flex;
