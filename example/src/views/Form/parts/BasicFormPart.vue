@@ -21,6 +21,9 @@
     <j-form-item label="Gender" field="gender">
       <j-radio-group v-model="form.gender" :options="genderOptions" />
     </j-form-item>
+    <j-form-item label="Emails" field="emails">
+      <j-chip-editor v-model="form.emails" />
+    </j-form-item>
     <j-space class="btns">
       <j-button type="submit">Submit</j-button>
       <j-button type="reset">Reset</j-button>
@@ -62,6 +65,13 @@ let rules = {
   gender: {
     type: 'string',
     required: true,
+  },
+  emails: {
+    validator(value, callback) {
+      if (value.length == 0) {
+        callback('At least one email is required');
+      }
+    }
   },
 };
 const hobbyOptions = [

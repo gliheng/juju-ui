@@ -66,12 +66,16 @@ const C = defineComponent({
           allRules[key] = [allRules[key]];
         }
       }
-      let schema = new Schema(allRules);
-      schema.validate(props.model, (err: Record<string, any> | null) => {
-        if (err) {
-          console.error('errors:', err);
-          errors.value = err;
-        }
+      return new Promise<void>((resolve, reject) => {
+        let schema = new Schema(allRules);
+        schema.validate(props.model, (err: Record<string, any> | null) => {
+          if (err) {
+            errors.value = err;
+            reject(err);
+          } else {
+            resolve();
+          }
+        });
       });
     }
 
