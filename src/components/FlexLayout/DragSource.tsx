@@ -1,4 +1,5 @@
 import { defineComponent, h } from 'vue';
+import { MIME } from './FlexLayout';
 
 export default defineComponent({
   props: {
@@ -9,13 +10,20 @@ export default defineComponent({
   },
   setup(props, { slots }) {
     function onDragstart(evt: DragEvent) {
-      evt.dataTransfer!.setData("application/j-flex-layout", props.name);
+      let { dataTransfer } = evt;
+      if (dataTransfer) {
+        dataTransfer.effectAllowed = 'copyMove';
+        dataTransfer.setData(MIME, props.name);
+      }
     }
 
     return () => {
+      if (!slots.default) return;
       return (
-        <div onDragstart={onDragstart} draggable="true">
-          { slots.default!() }
+        <div draggable="true"
+          onDragstart={onDragstart}
+        >
+          { slots.default() }
         </div>
       );
     };

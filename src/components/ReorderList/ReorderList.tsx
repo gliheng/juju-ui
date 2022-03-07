@@ -1,4 +1,4 @@
-import { h, Fragment, defineComponent, reactive, ref, watch } from 'vue';
+import { h, Fragment, defineComponent, reactive, ref, shallowRef, watch } from 'vue';
 import SvgIcon from '../SvgIcon/SvgIcon.vue';
 import './ReorderList.scss';
 
@@ -12,7 +12,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup(props, { emit, slots }) {
     let rootElm = ref();
-    let copyData = ref<any[]>([]);
+    let copyData = shallowRef<any[]>([]);
     let dragData = reactive({
       dragging: false,
       drag: -1,

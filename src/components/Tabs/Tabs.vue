@@ -4,21 +4,34 @@
       <tab-scroller ref="scroller">
         <div class="j-tabs-bar">
           <div class="j-tabs-bar-inner" ref="tabBar">
-            <div class="j-tabs-btn" v-for="(tab, i) in tabs" :key="i" :class="{ 'j-active': active == i }"
+            <div
+              class="j-tabs-btn"
+              v-for="(tab, i) in tabs"
+              :key="i"
+              :class="{ 'j-active': active == i }"
               v-ripple @click="setActive($event, i)"
             >
-              <button>
-                <svg-icon class="j-tabs-icon" v-if="tab.icon" :name="tab.icon" />
-                <span>{{ tab.label }}</span>
-              </button>
-              <a
-                v-if="tab.closable"
-                class="j-tabs-close"
-                @mousedown.stop
-                @click="$emit('tab-remove', i)"
-              >
-                <svg-icon name="close-outline" />
-              </a>
+              <slot
+                v-if="$slots.tab"
+                name="tab"
+                :i="i"
+                :tab="tab"
+                :emit="$emit"
+              />
+              <div class="j-tabs-btn-inner" v-else>
+                <button>
+                  <svg-icon class="j-tabs-icon" v-if="tab.icon" :name="tab.icon" />
+                  <span>{{ tab.label }}</span>
+                </button>
+                <a
+                  v-if="tab.closable"
+                  class="j-tabs-close"
+                  @mousedown.stop
+                  @click="removeTab(i)"
+                >
+                  <svg-icon name="close-outline" />
+                </a>
+              </div>
             </div>
             <div
               v-if="add"
@@ -59,6 +72,7 @@ interface TabDef {
   label: string,
   icon: string,
   closable: boolean,
+  attrs: Record<string, any>,
 };
 
 export default defineComponent({
@@ -72,6 +86,7 @@ export default defineComponent({
     },
     add: Boolean,
   },
+  emits: ['tab-add', 'tab-remove'],
   setup(props, { emit }) {
     let active = ref(0);
     let tabBar = ref<HTMLElement>();
@@ -88,6 +103,7 @@ export default defineComponent({
             label: props.label,
             icon: props.icon,
             closable: props.closable,
+            attrs: child.attrs,
           });
         }
       });
@@ -151,10 +167,14 @@ export default defineComponent({
       });
     }
 
+    function removeTab(i: number) {
+      emit('tab-remove', i)
+    }
+
     return {
       active, setActive,
       tabs, tabBar, activeBarStyle,
-      addTab, scroller,
+      addTab, removeTab, scroller,
     };
   },
 });

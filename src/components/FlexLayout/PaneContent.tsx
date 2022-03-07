@@ -1,11 +1,13 @@
 import { defineComponent, PropType, h, Fragment } from 'vue';
 import { Library } from './types';
 import type { RenderBox } from './layout';
-import Tabs from '../Tabs/Tabs.vue';
-import TabPane from '../Tabs/TabPane.vue';
-import Button from '../Button/Button.vue';
-import Dropdown from '../Dropdown/Dropdown.vue';
-import Menu from '../Menu/Menu.vue';
+import Tabs from '@/Tabs/Tabs.vue';
+import TabPane from '@/Tabs/TabPane.vue';
+import Button from '@/Button/Button.vue';
+import Dropdown from '@/Dropdown/Dropdown.vue';
+import SvgIcon from '@/SvgIcon/SvgIcon.vue';
+import Menu from '@/Menu/Menu.vue';
+import DragSource from './DragSource';
 
 export default defineComponent({
   name: 'PaneContent',
@@ -67,7 +69,13 @@ export default defineComponent({
         }
         let title = Component.label;
         return (
-          <TabPane label={title} closable={props.closable}>
+          <TabPane
+            // Pass name to TabPane as attrs
+            // so that we can get it from DragSource rendering
+            name={e}
+            label={title}
+            closable={props.closable}
+          >
             <Component />
           </TabPane>
         );
@@ -77,6 +85,35 @@ export default defineComponent({
         <Tabs onTabRemove={removeTab}>
           {{
             default: () => tabPanes,
+            tab({i, tab, emit}: {i: number; tab: any, emit: any}) {
+              return (
+                <DragSource name={tab.attrs.name}>
+                {
+                  () => {
+                    let closeBtn;
+                    if (tab.closable) {
+                      closeBtn = (
+                        <a
+                          class="j-tabs-close"
+                          onMousedown={(ev) => ev.stopPropagation()}
+                          onClick={() => emit('tab-remove', i)}
+                        >
+                          <SvgIcon name="close-outline" />
+                        </a>
+                      );
+                    }
+                    
+                    return (
+                      <>
+                        <button>{ tab.label }</button>
+                        { closeBtn }
+                      </>
+                    );
+                  }
+                }
+                </DragSource>
+              );
+            },
             addon() {
               if (props.context.showActionMenu) {
                 let expandMenu: JSX.Element;
