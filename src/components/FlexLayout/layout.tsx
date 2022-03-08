@@ -338,6 +338,7 @@ export class RenderBox {
       let fixedSize = 0;
       let totalFlex = 0;
       let totalSize = width;
+      let forceFlex = false;
       if (vertical) totalSize = height;
       if (children && children.length) {
         // 1 pass: figure out remaining size for flex layout
@@ -348,6 +349,13 @@ export class RenderBox {
           totalFlex += flex;
         }
         fixedSize += (children.length - 1) * context.gap;
+        if (totalFlex == 0) {
+          // In this case, all boxes in line has fixed size
+          // We take total size as flex
+          forceFlex = true;
+          totalFlex = fixedSize;
+          fixedSize = 0;
+        }
      
         // 2 pass: layout children using flex values
         let pos = 0;
@@ -357,11 +365,18 @@ export class RenderBox {
           pos = this.x;
         }
         children.forEach(item => {
+          let flex = item.flex || 1;
+          if (forceFlex && item.size) {
+            // layout use size as flex value
+            flex = item.size;
+          }
           let size;
-          if (typeof item.size == 'number') {
-            size = item.size || 0;
+          if (typeof item.size == 'number' && !forceFlex) {
+            // layout use fixed size
+            size = item.size || 0;            
           } else {
-            size = (typeof item.flex == 'number' ? item.flex : 1) / totalFlex * (totalSize - fixedSize);
+            // layout using flex
+            size = flex / totalFlex * (totalSize - fixedSize);
           }
           if (vertical) {
             item.layout(x, pos, width, size, this);

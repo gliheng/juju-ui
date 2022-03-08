@@ -1,13 +1,13 @@
 import { defineComponent, PropType, h, Fragment } from 'vue';
-import { Library } from './types';
-import type { RenderBox } from './layout';
 import Tabs from '@/Tabs/Tabs.vue';
 import TabPane from '@/Tabs/TabPane.vue';
 import Button from '@/Button/Button.vue';
 import Dropdown from '@/Dropdown/Dropdown.vue';
 import SvgIcon from '@/SvgIcon/SvgIcon.vue';
 import Menu from '@/Menu/Menu.vue';
+import { Library } from './types';
 import DragSource from './DragSource';
+import type { RenderBox } from './layout';
 
 export default defineComponent({
   name: 'PaneContent',
@@ -70,11 +70,11 @@ export default defineComponent({
         let title = Component.label;
         return (
           <TabPane
+            label={title}
+            closable={props.closable}
             // Pass name to TabPane as attrs
             // so that we can get it from DragSource rendering
             name={e}
-            label={title}
-            closable={props.closable}
           >
             <Component />
           </TabPane>
@@ -87,7 +87,11 @@ export default defineComponent({
             default: () => tabPanes,
             tab({i, tab, emit}: {i: number; tab: any, emit: any}) {
               return (
-                <DragSource name={tab.attrs.name}>
+                <DragSource name={tab.attrs.name} onDragend={(evt: DragEvent) => {
+                  if (evt.dataTransfer?.dropEffect == 'move') {
+                    emit('tab-remove', i);
+                  }
+                }}>
                 {
                   () => {
                     let closeBtn;

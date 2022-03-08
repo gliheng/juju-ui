@@ -5,11 +5,12 @@
         <div class="j-tabs-bar">
           <div class="j-tabs-bar-inner" ref="tabBar">
             <div
-              class="j-tabs-btn"
               v-for="(tab, i) in tabs"
+              v-ripple
+              class="j-tabs-btn"
               :key="i"
               :class="{ 'j-active': active == i }"
-              v-ripple @click="setActive($event, i)"
+              @click="setActive($event, i)"
             >
               <slot
                 v-if="$slots.tab"

@@ -133,7 +133,6 @@ export default defineComponent({
     function onDragenter(evt: DragEvent) {
       if (evt.dataTransfer && validData(evt.dataTransfer)) {
         evt.preventDefault();
-        evt.dataTransfer!.dropEffect = 'copy';
 
         rect = elm.value?.getBoundingClientRect();
         
@@ -172,13 +171,8 @@ export default defineComponent({
 
     function onDrop(evt: DragEvent) {
       evt.preventDefault();
-      let { dropEffect } = evt.dataTransfer || {};
       const data = evt.dataTransfer?.getData(MIME);
       if (data) {
-        if (dropEffect == 'move') {
-          // TODO
-          // remove old one
-        }
         hintBox.value?.box.splitComponent(
           data,
           hintBox.value?.alignment,
