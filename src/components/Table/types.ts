@@ -22,6 +22,7 @@ export interface ColumnConfig {
   width?: number,
   sticky?: string,
   children?: ColumnConfig[],
+  resizable?: boolean,
 }
 
 export interface RowConfig {

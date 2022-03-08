@@ -345,7 +345,7 @@ export default defineComponent({
       }
 
       let addons = [];
-      if (props.resizable) {
+      if (props.resizable && (col.resizable !== false)) {
         // For multi row header, only the last row have resizing control
         let enabled = colspan == 1;
         addons.push(
