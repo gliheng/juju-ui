@@ -4,6 +4,8 @@
   display: inline-block;
   outline: none;
   position: relative;
+  --j-input-height: 30px;
+  height: var(--j-input-height);
   &:hover:not([data-disabled="true"]) {
     .j-date-range-input-inner {
       border-color: var(--j-primary-color);
@@ -36,8 +38,8 @@
       background: none;
       text-align: center;
       width: 5rem;
-      padding: 0.5rem 0;
       color: var(--j-text-color);
+      height: var(--j-input-height);
       &[data-start="true"] {
         margin-right: $margin;
       }

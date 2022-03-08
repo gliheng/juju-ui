@@ -4,7 +4,7 @@
   border: none;
   outline: none;
   padding: 0 0.7rem;
-  height: 32px;
+  height: var(--j-button-height, 32px);
   border-radius: 3px;
   box-sizing: border-box;
   user-select: none;
@@ -61,12 +61,12 @@
   &.is-sm {
     font-size: 0.75rem;
     padding: 0 0.5rem;
-    height: 24px;
+    --j-button-height: 24px;
   }
   &.is-lg {
     font-size: 1.2rem;
     padding: 0 1.25rem;
-    height: 42px;
+    --j-button-height: 42px;
   }
   .j-seperator {
     min-width: $margin;

@@ -68,7 +68,7 @@ let rules = {
   },
   emails: {
     validator(value, callback) {
-      if (value.length == 0) {
+      if (!value || value.length == 0) {
         callback('At least one email is required');
       }
     }

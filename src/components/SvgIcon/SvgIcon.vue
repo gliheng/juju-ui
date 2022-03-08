@@ -23,7 +23,6 @@ export default defineComponent({
     },
     size: {
       type: String,
-      default: 'sm',
       // validator(v: string) {
       //   return v == 'sm' || v == 'md' || v == 'lg';
       // },

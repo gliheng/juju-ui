@@ -3,6 +3,8 @@
 .j-date-input {
   display: inline-block;
   position: relative;
+  --j-input-height: 30px;
+  height: var(--j-input-height);
   .j-date-input-selector {
     position: absolute;
     z-index: 1;

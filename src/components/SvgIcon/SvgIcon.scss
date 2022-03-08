@@ -1,12 +1,13 @@
 @import "vars";
 
+$defaultSize: 16px;
 .j-icon {
   display: inline-block;
   vertical-align: middle;
-  width: var(--j-icon-size);
-  height: var(--j-icon-size);
-  min-width: var(--j-icon-size);
-  min-height: var(--j-icon-size);
+  width: var(--j-icon-size, $defaultSize);
+  height: var(--j-icon-size, $defaultSize);
+  min-width: var(--j-icon-size, $defaultSize);
+  min-height: var(--j-icon-size, $defaultSize);
   &[data-size="sm"] {
     --j-icon-size: 16px;
   }

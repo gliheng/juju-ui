@@ -7,7 +7,8 @@
   position: relative;
   display: inline-block;
   vertical-align: middle;
-
+  --j-input-height: 30px;
+  --j-icon-size: calc(var(--j-input-height) / 2);
   &.j-focus {
     box-shadow: $outline;
     border-color: var(--j-primary-color);
@@ -29,13 +30,15 @@
       }
     }
     > input {
+      height: var(--j-input-height);
       min-width: calc(12rem - 20px);
       flex: 1;
+      padding: 0;
+      margin: 0 0.5rem;
       outline: none;
       border: none;
       background: none;
       color: var(--j-text-color);
-      padding: 0.5rem;
     }
   }
   > .j-slider-outer {
@@ -44,6 +47,7 @@
     top: 100%;
     line-height: 0;
     margin-top: 2px;
+    background-color: var(--j-background-color);
   }
 
   &[data-type="vertical"] .j-number-input-btns {

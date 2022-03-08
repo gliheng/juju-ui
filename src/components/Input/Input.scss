@@ -6,12 +6,16 @@
   border: 1px solid var(--j-input-border-color, var(--j-foreground-color-1));
   transition: border-color 0.2s, box-shadow 0.2s;
   align-items: center;
+  --j-input-height: 30px;
+  --j-icon-size: calc(var(--j-input-height) / 2);
   > input {
-    padding: $margin;
+    height: var(--j-input-height);
     border: none;
     outline: none;
     background: none;
     flex: 1;
+    padding: 0;
+    margin: 0 0.5rem;
     min-width: 12rem;
     color: var(--j-text-color);
   }
@@ -31,17 +35,11 @@
       cursor: not-allowed;
     }
   }
-  &[data-has-prepend="true"] {
-    input {
-      margin-left: 0.5rem;
-      padding-left: 0;
-    }
+  .j-icon {
+    display: block;
   }
-  &[data-has-append="true"] {
-    input {
-      margin-right: 0.5rem;
-      padding-right: 0;
-    }
+  .j-input-prepend, .j-input-append {
+    height: fit-content;
   }
   > .j-input-prepend, > .j-input-append {
     color: var(--j-foreground-color-1);

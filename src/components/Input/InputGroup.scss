@@ -4,6 +4,8 @@
   display: inline-flex;
   align-items: stretch;
   white-space: nowrap;
+  --j-input-height: 30px;
+  height: var(--j-input-height);
   > .j-input-group-left-addons, > .j-input-group-right-addons {
     .j-button {
       margin: 0;
