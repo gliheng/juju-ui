@@ -9,7 +9,7 @@
   />
 </template>
 
-<script>
+<script setup>
 import { data } from './TableData';
 
 const columns = [{
@@ -43,10 +43,4 @@ const columns = [{
   field: 'address',
   width: 400,
 }];
-
-export default {
-  setup() {
-    return { columns, data };
-  },
-}
 </script>

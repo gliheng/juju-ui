@@ -9,14 +9,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import RadioPart from './parts/RadioPart.vue';
 import radioPartCode from './parts/RadioPart.vue?raw';
-
-export default {
-  setup() {
-    return { radioPartCode };
-  },
-  components: { RadioPart },
-}
 </script>

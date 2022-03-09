@@ -70,49 +70,29 @@
   </div>
 </template>
 
-<script>
-// glob load all components
-const modules = import.meta.globEager('./parts/*.vue')
-const parts = Object.fromEntries(Object.entries(modules).map(([path, module]) => {
-  let match = /\/parts\/(.*).vue$/.exec(path);
-  if (!match) return null;
-  return [match[1], module.default];
-}).filter(item => Boolean(item)));
-
-
-// Sadly glob import in vite does not support raw syntax
+<script setup>
+import BasicPart from './parts/BasicPart.vue';
 import basicPartCode from './parts/BasicPart.vue?raw';
+import ColorPart from './parts/ColorPart.vue';
 import colorPartCode from './parts/ColorPart.vue?raw';
+import VariantPart from './parts/VariantPart.vue';
 import variantPartCode from './parts/VariantPart.vue?raw';
+import SizePart from './parts/SizePart.vue';
 import sizePartCode from './parts/SizePart.vue?raw';
+import IconPart from './parts/IconPart.vue';
 import iconPartCode from './parts/IconPart.vue?raw';
+import LoadingPart from './parts/LoadingPart.vue';
 import loadingPartCode from './parts/LoadingPart.vue?raw';
+import SplitPart from './parts/SplitPart.vue';
 import splitPartCode from './parts/SplitPart.vue?raw';
+import ButtonGroupPart from './parts/ButtonGroupPart.vue';
 import buttonGroupPartCode from './parts/ButtonGroupPart.vue?raw';
+import TogglePart from './parts/TogglePart.vue';
 import togglePartCode from './parts/TogglePart.vue?raw';
+import ToggleGroupPart from './parts/ToggleGroupPart.vue';
 import toggleGroupPartCode from './parts/ToggleGroupPart.vue?raw';
+import UploadPart from './parts/UploadPart.vue';
 import uploadPartCode from './parts/UploadPart.vue?raw';
-
-export default {
-  setup() {
-    return {
-      basicPartCode,
-      colorPartCode,
-      variantPartCode,
-      sizePartCode,
-      iconPartCode,
-      loadingPartCode,
-      splitPartCode,
-      buttonGroupPartCode,
-      togglePartCode,
-      toggleGroupPartCode,
-      uploadPartCode,
-    };
-  },
-  components: {
-    ...parts,
-  },
-};
 </script>
 
 <style scoped>

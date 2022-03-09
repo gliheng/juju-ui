@@ -7,11 +7,11 @@
   />
 </template>
 
-<script>
+<script setup>
 import { h } from "vue";
 import { data } from './TableData';
 
-export const fixedColumnColumns = [{
+const fixedColumnColumns = [{
   label: 'Name',
   field: 'name',
   width: 100,
@@ -59,10 +59,4 @@ export const fixedColumnColumns = [{
     }, 'edit');
   },
 }];
-
-export default {
-  setup() {
-    return { data, fixedColumnColumns };
-  },
-}
 </script>

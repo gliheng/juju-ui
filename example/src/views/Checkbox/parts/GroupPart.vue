@@ -9,13 +9,8 @@
   <p>Checked: {{ grp }}</p>
 </template>
 
-<script>
+<script setup>
 import { reactive } from 'vue';
 
-export default {
-  setup() {
-    let grp = reactive(['apple']);
-    return { grp };
-  },
-};
+let grp = reactive(['apple']);
 </script>

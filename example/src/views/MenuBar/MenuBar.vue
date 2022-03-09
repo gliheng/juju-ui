@@ -9,16 +9,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import MenuBarPart from './parts/MenuBarPart.vue';
 import menuBarPartCode from './parts/MenuBarPart.vue?raw';
-
-export default {
-  setup() {
-    return { menuBarPartCode };
-  },
-  components: {
-    MenuBarPart,
-  },
-}
 </script>

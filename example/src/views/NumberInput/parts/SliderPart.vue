@@ -7,15 +7,8 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 
-export default {
-  setup() {
-    let num = ref(0);
-    return {
-      num,
-    };
-  },
-}
+let num = ref(0);
 </script>

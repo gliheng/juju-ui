@@ -9,19 +9,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import AutoCompletePart from './parts/AutoCompletePart.vue';
 import autoCompletePartCode from './parts/AutoCompletePart.vue?raw';
-
-export default {
-  components: { AutoCompletePart },
-  setup() {
-    return {
-      autoCompletePartCode,
-    };
-  },
-  components: {
-    AutoCompletePart,
-  },
-};
 </script>

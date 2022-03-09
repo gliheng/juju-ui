@@ -12,21 +12,9 @@
   </div>
 </template>
 
-<script>
-import { defineComponent } from 'vue';
+<script setup>
 import SpacePart from './parts/SpacePart.vue';
 import spacePartCode from './parts/SpacePart.vue?raw';
-
-export default defineComponent({
-  setup() {
-    return {
-      spacePartCode,
-    };
-  },
-  components: {
-    SpacePart,
-  },
-});
 </script>
 
 <style lang="scss">

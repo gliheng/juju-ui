@@ -5,13 +5,8 @@
   </p>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 
-export default {
-  setup() {
-    let checked = ref(false);
-    return { checked };
-  },
-};
+let checked = ref(false);
 </script>

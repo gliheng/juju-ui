@@ -7,19 +7,7 @@
   </div>
 </template>
 
-<script>
-import { defineComponent } from 'vue';
+<script setup>
 import LoadingPart from './parts/LoadingPart.vue';
 import loadingPartCode from './parts/LoadingPart.vue?raw';
-
-export default defineComponent({
-  setup() {
-    return {
-      loadingPartCode,
-    };
-  },
-  components: {
-    LoadingPart,
-  },
-});
 </script>

@@ -24,28 +24,13 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import TextPart from './parts/TextPart.vue';
 import textPartCode from './parts/TextPart.vue?raw';
 import IconPart from './parts/IconPart.vue';
 import iconPartCode from './parts/IconPart.vue?raw';
 import ClosablePart from './parts/ClosablePart.vue';
 import closablePartCode from './parts/ClosablePart.vue?raw';
-
-export default {
-  setup() {
-    return {
-      textPartCode,
-      iconPartCode,
-      closablePartCode,
-    };
-  },
-  components: {
-    TextPart,
-    IconPart,
-    ClosablePart,
-  },
-};
 </script>
 
 <style scoped>

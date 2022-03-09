@@ -7,17 +7,8 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import ChipEditorPart from './parts/ChipEditorPart.vue';
 import chipEditorPartCode from './parts/ChipEditorPart.vue?raw';
-
-export default {
-  setup() {
-    return { chipEditorPartCode };
-  },
-  components: {
-    ChipEditorPart,
-  },
-};
 </script>
 

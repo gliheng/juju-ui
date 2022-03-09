@@ -22,26 +22,11 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import ScollerPart from './parts/ScrollerPart.vue';
 import HorizontalPart from './parts/HorizontalPart.vue';
 import VerticalPart from './parts/VerticalPart.vue';
 import scollerPartCode from './parts/ScrollerPart.vue?raw';
 import horizontalPartCode from './parts/HorizontalPart.vue?raw';
 import vertcalPartCode from './parts/VerticalPart.vue?raw';
-
-export default {
-  setup() {
-    return {
-      scollerPartCode,
-      horizontalPartCode,
-      vertcalPartCode,
-    };
-  },
-  components: {
-    ScollerPart,
-    HorizontalPart,
-    VerticalPart,
-  },
-}
 </script>

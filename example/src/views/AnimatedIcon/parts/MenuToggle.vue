@@ -2,13 +2,8 @@
   <j-animated-icon:menu-toggle v-model="on" />
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 
-export default {
-  setup() {
-    let on = ref(false);
-    return { on };
-  },
-}
+let on = ref(false);
 </script>

@@ -26,41 +26,32 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import library from './FlexLayoutLibrary';
 
-export default {
-  setup() {
-    let preset = {
-      use: '$col',
+let preset = {
+  use: '$col',
+  children: [
+    {
+      use: '$row',
       children: [
         {
-          use: '$row',
-          children: [
-            {
-              use: 'pane-a',
-              size: 300,
-            },
-            'pane-b',
-            'pane-c',
-          ]
+          use: 'pane-a',
+          size: 300,
         },
-        {
-          use: '$tab',
-          props: {
-            tabs: [
-              'pane-d', 'pane-e',
-            ],
-          }
-        },
+        'pane-b',
+        'pane-c',
       ]
-    };
-
-    return {
-      library,
-      preset,
-    };
-  },
+    },
+    {
+      use: '$tab',
+      props: {
+        tabs: [
+          'pane-d', 'pane-e',
+        ],
+      }
+    },
+  ]
 };
 </script>
 

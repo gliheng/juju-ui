@@ -2,7 +2,7 @@
 
 .j-popover {
   position: relative;
-  position: inline-block;
+  display: inline-block;
   > aside {
     position: absolute;
     z-index: 1;

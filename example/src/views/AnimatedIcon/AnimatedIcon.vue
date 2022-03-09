@@ -16,21 +16,11 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import MenuOpener from './parts/MenuOpener.vue';
 import menuOpenerCode from './parts/MenuOpener.vue?raw';
 import MenuToggle from './parts/MenuToggle.vue';
 import menuToggleCode from './parts/MenuToggle.vue?raw';
-export default {
-  setup() {
-    return {
-      menuOpenerCode, menuToggleCode,
-    };
-  },
-  components: {
-    MenuOpener, MenuToggle,
-  },
-};
 </script>
 
 <style>

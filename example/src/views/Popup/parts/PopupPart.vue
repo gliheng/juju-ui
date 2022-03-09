@@ -20,19 +20,10 @@
 </template>
 
 
-<script>
+<script setup>
 import { hooks } from 'juju-ui';
 
-export default {
-  setup() {
-    let [alertOpen, toggleAlert] = hooks.useSwitch();
-    let [confirmOpen, toggleConfirm] = hooks.useSwitch();
-    let [modalOpen, toggleModal] = hooks.useSwitch();
-    
-    return {
-      alertOpen, confirmOpen, modalOpen,
-      toggleAlert, toggleConfirm, toggleModal,
-    };
-  },
-}
+let [alertOpen, toggleAlert] = hooks.useSwitch();
+let [confirmOpen, toggleConfirm] = hooks.useSwitch();
+let [modalOpen, toggleModal] = hooks.useSwitch();
 </script>

@@ -7,15 +7,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import DrawerPart from './parts/DrawerPart.vue'
 import drawerPartCode from './parts/DrawerPart.vue?raw'
-
-
-export default {
-  setup() {
-    return { drawerPartCode };
-  },
-  components: { DrawerPart },
-}
 </script>

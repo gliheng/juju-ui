@@ -9,16 +9,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import TextareaPart from './parts/TextareaPart.vue';
 import textareaPartCode from './parts/TextareaPart.vue?raw';
-
-export default {
-  setup() {
-    return { textareaPartCode };
-  },
-  components: {
-    TextareaPart,
-  },
-}
 </script>

@@ -1,15 +1,18 @@
 <template>
-  <j-button @click="showSnackbar">Show snackbar</j-button>
+  <j-space>
+    <j-button @click="showSnackbar">Show snackbar</j-button>
+    <j-button @click="showSnackbarWithButton">Show snackbar with button</j-button>
+  </j-space>
 </template>
 
-<script>
+<script setup>
 import { popup } from 'juju-ui';
 
-export default {
-  methods: {
-    showSnackbar() {
-      popup.showSnackbar('hello world');
-    }
-  }
+function showSnackbar() {
+  popup.showSnackbar('hello world');
+}
+
+function showSnackbarWithButton() {
+  popup.showSnackbar('hello world', 0);
 }
 </script>

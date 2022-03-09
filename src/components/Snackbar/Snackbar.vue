@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import JButton from '../Button/Button.vue';
+import JButton from '@/Button/Button.vue';
 
 export default defineComponent({
   components: { JButton },

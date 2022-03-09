@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { reactive, nextTick, Ref } from 'vue';
+import { defineComponent, reactive, nextTick, Ref } from 'vue';
 import JPopup from '@/Popup/Popup.vue';
 import SvgIcon from '@/SvgIcon/SvgIcon.vue';
 
@@ -32,7 +32,7 @@ export type PopupType = {
   dismiss: (action: string) => void,
 } & PopupOpts;
 
-export default {
+export default defineComponent({
   setup() {
     let popups = reactive<Array<PopupType>>([]);
 
@@ -73,5 +73,5 @@ export default {
     };
   },
   components: { JPopup, SvgIcon },
-}
+});
 </script>

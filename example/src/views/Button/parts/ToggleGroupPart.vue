@@ -7,13 +7,8 @@
 </template>
 
 
-<script>
+<script setup>
 import { ref } from 'vue';
 
-export default {
-  setup() {
-    let toggleGroupIndex = ref(0);
-    return { toggleGroupIndex };
-  },
-};
+let toggleGroupIndex = ref(0);
 </script>

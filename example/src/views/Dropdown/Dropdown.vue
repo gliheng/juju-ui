@@ -18,20 +18,9 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import DropdownPart from './parts/DropdownPart.vue';
 import dropdownPartCode from './parts/DropdownPart.vue?raw';
 import HoverDropdownPart from './parts/HoverDropdownPart.vue';
 import hoverDropdownPartCode from './parts/HoverDropdownPart.vue?raw';
-
-export default {
-  setup() {
-    return {
-      dropdownPartCode, hoverDropdownPartCode,
-    };
-  },
-  components: {
-    DropdownPart, HoverDropdownPart,
-  },
-}
 </script>

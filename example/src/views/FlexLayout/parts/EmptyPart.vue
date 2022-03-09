@@ -26,16 +26,8 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import library from './FlexLayoutLibrary';
-
-export default {
-  setup() {
-    return {
-      library,
-    };
-  },
-};
 </script>
 
 <style lang="scss" scoped>

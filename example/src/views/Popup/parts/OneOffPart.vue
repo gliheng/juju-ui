@@ -4,8 +4,8 @@
   <j-button @click="showModal">Open modal</j-button>
 </template>
 
-<script>
-import { popup, hooks } from 'juju-ui';
+<script setup>
+import { popup } from 'juju-ui';
 
 async function showAlert() {
   let ret = await popup.alert("Shall we have dinner tonight?", {
@@ -32,13 +32,5 @@ async function showModal() {
   popup.alert('How nice that you accepted!', {
     modal: true,
   });
-}
-
-export default {
-  setup() {
-    return {
-      showAlert, showConfirm, showModal,
-    };
-  },
 }
 </script>

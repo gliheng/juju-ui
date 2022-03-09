@@ -15,11 +15,10 @@
   </j-table>
 </template>
 
-<script>
+<script setup>
 import { data } from './TableData';
 
-
-export const fixedColumnColumns = [{
+const fixedColumnColumns = [{
   label: 'Name',
   field: 'name',
   width: 100,
@@ -61,10 +60,4 @@ export const fixedColumnColumns = [{
 }];
 
 const grouping = ['gender', 'favoriteFood'];
-
-export default {
-  setup() {
-    return { fixedColumnColumns, data, grouping };
-  },
-}
 </script>

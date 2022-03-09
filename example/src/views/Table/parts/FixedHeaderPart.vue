@@ -7,10 +7,10 @@
   />
 </template>
 
-<script>
+<script setup>
 import { data } from './TableData';
 
-export const fixedHeaderColumns = [{
+const fixedHeaderColumns = [{
   label: 'Name',
   field: 'name',
   width: 100,
@@ -47,10 +47,4 @@ export const fixedHeaderColumns = [{
   field: 'favoriteSport',
   width: 140,
 }];
-
-export default {
-  setup() {
-    return { data, fixedHeaderColumns };
-  },
-}
 </script>

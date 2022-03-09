@@ -16,18 +16,9 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import TooltipPart from './parts/TooltipPart.vue';
-import TriggerPart from './parts/TriggerPart.vue';
 import tooltipPartCode from './parts/TooltipPart.vue?raw';
+import TriggerPart from './parts/TriggerPart.vue';
 import triggerPartCode from './parts/TriggerPart.vue?raw';
-
-export default {
-  setup() {
-    return { tooltipPartCode, triggerPartCode };
-  },
-  components: {
-    TooltipPart, TriggerPart,
-  },
-}
 </script>

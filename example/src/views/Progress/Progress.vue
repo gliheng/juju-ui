@@ -21,24 +21,13 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import ProgressPart from './parts/ProgressPart.vue';
 import progressPartCode from './parts/ProgressPart.vue?raw';
 import StripedPart from './parts/StripedPart.vue';
 import stripedPartCode from './parts/StripedPart.vue?raw';
 import IndeterminatePart from './parts/IndeterminatePart.vue';
 import indeterminatePartCode from './parts/IndeterminatePart.vue?raw';
-
-export default {
-  setup() {
-    return {
-      progressPartCode, stripedPartCode, indeterminatePartCode,
-    };
-  },
-  components: {
-    ProgressPart, StripedPart, IndeterminatePart,
-  },
-}
 </script>
 
 <style scoped>

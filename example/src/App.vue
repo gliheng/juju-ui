@@ -20,24 +20,17 @@
   </router-view>
 </template>
 
-<script>
+<script setup>
 import { ref, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
-export default {
-  setup() {
-    let route = useRoute();
-    let headless = computed(() => route.meta.fullPage || false);
-    let dark = ref(false);
+let route = useRoute();
+let headless = computed(() => route.meta.fullPage || false);
+let dark = ref(false);
 
-    watch(dark, v => {
-      document.documentElement.classList.toggle('j-dark');
-    });
-    return {
-      headless, dark,
-    };
-  }
-}
+watch(dark, v => {
+  document.documentElement.classList.toggle('j-dark');
+});
 </script>
 
 <style lang="scss">

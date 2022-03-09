@@ -22,28 +22,13 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import GroupPart from './parts/GroupPart.vue';
 import groupPartCode from './parts/GroupPart.vue?raw';
 import BooleanPart from './parts/BooleanPart.vue';
 import booleanPartCode from './parts/BooleanPart.vue?raw';
 import TriStatePart from './parts/TriStatePart.vue';
 import triStatePartCode from './parts/TriStatePart.vue?raw';
-
-export default {
-  setup() {
-    return {
-      groupPartCode,
-      booleanPartCode,
-      triStatePartCode,
-    };
-  },
-  components: {
-    GroupPart,
-    BooleanPart,
-    TriStatePart,
-  },
-}
 </script>
 
 <style scoped>

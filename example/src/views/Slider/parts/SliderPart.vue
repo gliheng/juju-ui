@@ -3,13 +3,8 @@
   <p>Value: {{ v }}</p>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 
-export default {
-  setup() {
-    let v = ref(0);
-    return { v };
-  }
-}
+let v = ref(0);
 </script>

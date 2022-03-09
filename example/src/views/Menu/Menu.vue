@@ -16,20 +16,9 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import MenuPart from './parts/MenuPart.vue';
 import menuPartCode from './parts/MenuPart.vue?raw';
 import IconPart from './parts/IconPart.vue';
 import iconPartCode from './parts/IconPart.vue?raw';
-
-export default {
-  setup() {
-    return {
-      menuPartCode, iconPartCode,
-    };
-  },
-  components: {
-    MenuPart, IconPart,
-  },
-}
 </script>

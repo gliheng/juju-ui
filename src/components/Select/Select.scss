@@ -4,7 +4,8 @@
 .j-select {
   display: inline-block;
   position: relative;
-  
+  --j-input-height: 30px;
+  --j-icon-size: calc(var(--j-input-height) / 2);
   > .j-select-label {
     display: flex;
     align-items: center;
@@ -21,11 +22,14 @@
     .j-select-label-inner {
       flex: 1;
       min-width: calc(12rem - 20px);
-      height: 16px;
+      height: var(--j-input-height);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      padding: $margin;
+      display: flex;
+      align-items: center;
+      margin: 0;
+      margin-left: $margin;
       .j-placeholder {
         color: var(--j-foreground-color-1);
       }

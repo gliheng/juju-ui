@@ -13,19 +13,12 @@
   </j-context-menu>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 
-export default {
-  setup() {
-    let sel = ref('');
-    return {
-      sel,
-      onClick(v) {
-        sel.value = v;
-      },
-    }
-  },
+let sel = ref('');
+function onClick(v) {
+  sel.value = v;
 }
 </script>
 

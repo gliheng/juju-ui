@@ -16,18 +16,9 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import SliderPart from './parts/SliderPart.vue';
-import RangePart from './parts/RangePart.vue';
 import sliderPartCode from './parts/SliderPart.vue?raw';
+import RangePart from './parts/RangePart.vue';
 import rangePartCode from './parts/RangePart.vue?raw';
-
-export default {
-  setup() {
-    return { sliderPartCode, rangePartCode };
-  },
-  components: {
-    SliderPart, RangePart,
-  },
-}
 </script>

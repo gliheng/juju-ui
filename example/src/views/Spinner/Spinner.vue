@@ -16,20 +16,11 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import SpinnerPart from './parts/SpinnerPart.vue';
 import spinnerPartCode from './parts/SpinnerPart.vue?raw';
 import SpinnerButtonPart from './parts/SpinnerButtonPart.vue';
 import spinnerButtonPartCode from './parts/SpinnerButtonPart.vue?raw';
-
-export default {
-  setup() {
-    return { spinnerPartCode, spinnerButtonPartCode };
-  },
-  components: {
-    SpinnerPart, SpinnerButtonPart,
-  },
-}
 </script>
 
 <style scoped>

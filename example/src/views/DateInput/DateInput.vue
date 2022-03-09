@@ -16,18 +16,9 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import SingleDatePart from "./parts/SingleDatePart.vue";
 import singleDatePartCode from "./parts/SingleDatePart.vue?raw";
 import DoubleDatePart from "./parts/DoubleDatePart.vue";
 import doubleDatePartCode from "./parts/DoubleDatePart.vue?raw";
-
-export default {
-  setup() {
-    return {
-      singleDatePartCode, doubleDatePartCode,
-    };
-  },
-  components: { SingleDatePart, DoubleDatePart },
-}
 </script>

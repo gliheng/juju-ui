@@ -25,24 +25,13 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import SizePart from './parts/SizePart.vue';
 import sizePartCode from './parts/SizePart.vue?raw';
 import AltPart from './parts/AltPart.vue';
 import altPartCode from './parts/AltPart.vue?raw';
 import RawPart from './parts/RawPart.vue';
 import rawPartCode from './parts/RawPart.vue?raw';
-
-export default {
-  setup() {
-    return {
-      sizePartCode, altPartCode, rawPartCode,
-    };
-  },
-  components: {
-    AltPart, RawPart, SizePart,
-  }
-}
 </script>
 
 

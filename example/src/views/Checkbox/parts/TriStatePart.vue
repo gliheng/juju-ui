@@ -12,19 +12,14 @@
   </p>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 
-export default {
-  setup() {
-    let checked = ref(false);
-    let indeterminate = ref(false);
-    return { checked, indeterminate };
-  },
-};
+let checked = ref(false);
+let indeterminate = ref(false);
 </script>
 
-<style>
+<style scoped>
 .check {
   vertical-align: middle;
 }

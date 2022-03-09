@@ -14,22 +14,9 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import EmptyPart from './parts/EmptyPart.vue';
 import emptyPartCode from './parts/EmptyPart.vue?raw';
 import FlexPart from './parts/FlexPart.vue';
 import flexPartCode from './parts/FlexPart.vue?raw';
-
-export default {
-  setup() {
-    return {
-      emptyPartCode,
-      flexPartCode,
-    };
-  },
-  components: {
-    EmptyPart,
-    FlexPart,
-  },
-};
 </script>

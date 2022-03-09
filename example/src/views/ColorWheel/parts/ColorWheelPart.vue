@@ -3,15 +3,10 @@
   <j-color-wheel v-model="color" />
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 
-export default {
-  setup() {
-    let color = ref('rgb(255, 0, 255)');
-    return { color };
-  }, 
-}
+let color = ref('rgb(255, 0, 255)');
 </script>
 
 <style scoped>

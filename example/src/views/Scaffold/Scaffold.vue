@@ -23,41 +23,42 @@
   </j-scaffold>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 
-export default {
-  setup() {
-    let active = ref(0);
-    let drawerItems = [{
-      icon: 'airplane', label: 'Airplane',
-    }, {
-      icon: 'car', label: 'Car',
-    }, {
-      icon: 'bicycle', label: 'Bicycle',
-    }, {
-      icon: 'bus', label: 'Bus',
-    }];
+let active = ref(0);
+let drawerItems = [
+  {
+    icon: 'airplane', label: 'Airplane',
+  },
+  {
+    icon: 'car', label: 'Car',
+  },
+  {
+    icon: 'bicycle', label: 'Bicycle',
+  },
+  {
+    icon: 'bus', label: 'Bus',
+  },
+];
 
-    let actions = [{ 
-      icon: 'heart', sticky: true, onClick() {
-        console.log('I love it!');
-      }
-    }, {
-      label: 'Happy', icon: 'happy', onClick() {
-        console.log('I\'m happy!');
-      }
-    }, {
-      label: 'Sad', icon: 'sad', onClick() {
-        console.log('I\'m sad!');
-      }
-    }];
-
-    return {
-      drawerItems, active, actions,
-    };
-  }
-}
+let actions = [
+  {
+    icon: 'heart', sticky: true, onClick() {
+      console.log('I love it!');
+    }
+  },
+  {
+    label: 'Happy', icon: 'happy', onClick() {
+      console.log('I\'m happy!');
+    }
+  },
+  {
+    label: 'Sad', icon: 'sad', onClick() {
+      console.log('I\'m sad!');
+    }
+  },
+];
 </script>
 
 <style lang="scss" scoped>

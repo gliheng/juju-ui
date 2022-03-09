@@ -8,10 +8,5 @@
 <script>
 import { ref } from 'vue';
 
-export default {
-  setup() {
-    let toggleOn = ref(false);
-    return { toggleOn };
-  },
-};
+let toggleOn = ref(false);
 </script>

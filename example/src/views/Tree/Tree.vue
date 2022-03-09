@@ -9,14 +9,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import TreePart from './parts/TreePart.vue';
 import treePartCode from './parts/TreePart.vue?raw';
-
-export default {
-  setup() {
-    return { treePartCode };
-  },
-  components: { TreePart },
-}
 </script>

@@ -7,18 +7,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import SnackbarPart from './parts/SnackbarPart.vue';
 import snackbarPartCode from './parts/SnackbarPart.vue?raw';
-
-export default {
-  setup() {
-    return {
-      snackbarPartCode,
-    };
-  },
-  components: {
-    SnackbarPart,
-  },
-}
 </script>

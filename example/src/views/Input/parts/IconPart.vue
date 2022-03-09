@@ -9,13 +9,8 @@
   </j-input>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 
-export default {
-  setup() {
-    let v = ref('');
-    return { v };
-  },
-}
+let v = ref('');
 </script>

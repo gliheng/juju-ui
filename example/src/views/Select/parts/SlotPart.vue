@@ -5,14 +5,9 @@
   </j-select>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 import { blendOptions } from './options';
 
-export default {
-  setup() {
-    let v = ref();
-    return { v, blendOptions };
-  },
-}
+let v = ref();
 </script>

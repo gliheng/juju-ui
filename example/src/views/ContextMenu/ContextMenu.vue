@@ -7,18 +7,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import ContextMenuPart from './parts/ContextMenuPart.vue';
 import contextMenuPartCode from './parts/ContextMenuPart.vue?raw';
-
-export default {
-  setup() {
-    return {
-      contextMenuPartCode,
-    };
-  },
-  components: {
-    ContextMenuPart,
-  },
-}
 </script>

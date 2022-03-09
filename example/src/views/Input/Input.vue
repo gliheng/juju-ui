@@ -33,7 +33,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import InputPart from './parts/InputPart.vue';
 import IconPart from './parts/IconPart.vue';
 import ClearablePart from './parts/ClearablePart.vue';
@@ -45,17 +45,4 @@ import iconPartCode from './parts/IconPart.vue?raw';
 import clearablePartCode from './parts/ClearablePart.vue?raw';
 import groupPartCode from './parts/GroupPart.vue?raw'
 import groupAddonPartCode from './parts/GroupAddonPart.vue?raw'
-
-export default {
-  setup() {
-    return {
-      inputPartCode, iconPartCode, clearablePartCode,
-      groupPartCode, groupAddonPartCode,
-    };
-  },
-  components: {
-    InputPart, IconPart, ClearablePart,
-    GroupPart, GroupAddonPart,
-  },
-}
 </script>

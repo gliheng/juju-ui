@@ -4,11 +4,8 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import Navigator from '../Navigator.vue';
-export default {
-  components: { Navigator },
-}
 </script>
 
 <style scoped>

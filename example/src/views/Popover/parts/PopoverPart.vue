@@ -21,7 +21,7 @@ let side = ref('bottom');
 let trigger = ref('click');
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 main {
   display: flex;
   align-items: center;

@@ -7,16 +7,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import ListboxPart from './parts/ListboxPart.vue';
 import listboxPartCode from './parts/ListboxPart.vue?raw';
-
-export default {
-  setup() {
-    return { listboxPartCode };
-  },
-  components: {
-    ListboxPart,
-  },
-}
 </script>

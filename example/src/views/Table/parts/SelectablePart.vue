@@ -6,7 +6,7 @@
   />
 </template>
 
-<script>
+<script setup>
 import { data } from './TableData.tsx';
 
 const columns = [{
@@ -33,10 +33,4 @@ const columns = [{
   label: 'Address',
   field: 'address',
 }];
-
-export default {
-  setup() {
-    return { columns, data };
-  },
-}
 </script>

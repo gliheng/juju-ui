@@ -16,18 +16,11 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import PopupPart from './parts/PopupPart.vue'
 import popupPartCode from './parts/PopupPart.vue?raw'
 import OneOffPart from './parts/OneOffPart.vue'
 import oneOffPartCode from './parts/OneOffPart.vue?raw'
-
-export default {
-  setup() {
-    return { popupPartCode, oneOffPartCode };
-  },
-  components: { PopupPart, OneOffPart },
-}
 </script>
 
 <style scoped>

@@ -7,18 +7,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import ColorWheelPart from './parts/ColorWheelPart.vue';
 import colorWheelPartCode from './parts/ColorWheelPart.vue?raw';
-
-export default {
-  setup() {
-    return {
-      colorWheelPartCode,
-    };
-  },
-  components: {
-    ColorWheelPart,
-  },
-}
 </script>

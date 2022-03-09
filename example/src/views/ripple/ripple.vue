@@ -12,19 +12,7 @@
   </div>
 </template>
 
-<script>
-import { defineComponent } from 'vue';
+<script setup>
 import RipplePart from './parts/RipplePart.vue';
 import ripplePartCode from './parts/RipplePart.vue?raw';
-
-export default defineComponent({
-  setup() {
-    return {
-      ripplePartCode,
-    };
-  },
-  components: {
-    RipplePart,
-  },
-});
 </script>

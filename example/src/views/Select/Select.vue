@@ -30,7 +30,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import SelectPart from './parts/SelectPart.vue';
 import IconPart from './parts/IconPart.vue';
 import MultiplePart from './parts/MultiplePart.vue';
@@ -39,15 +39,4 @@ import selectPartCode from './parts/SelectPart.vue?raw';
 import iconPartCode from './parts/IconPart.vue?raw';
 import multiplePartCode from './parts/MultiplePart.vue?raw';
 import slotPartCode from './parts/SlotPart.vue?raw';
-
-export default {
-  setup() {
-    return {
-      selectPartCode, iconPartCode, multiplePartCode, slotPartCode,
-    };
-  },
-  components: {
-    SelectPart, IconPart, MultiplePart, SlotPart,
-  },
-};
 </script>

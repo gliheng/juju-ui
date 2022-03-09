@@ -8,26 +8,24 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 
-export default {
-  setup() {
-    let active = ref(0);
-    return {
-      items: [{
-        icon: 'airplane', label: 'Airplane',
-      }, {
-        icon: 'car', label: 'Car',
-      }, {
-        icon: 'bicycle', label: 'Bicycle',
-      }, {
-        icon: 'bus', label: 'Bus',
-      }],
-      active,
-    }
-  }
-}
+let active = ref(0);
+const items = [
+  {
+    icon: 'airplane', label: 'Airplane',
+  },
+  {
+    icon: 'car', label: 'Car',
+  },
+  {
+    icon: 'bicycle', label: 'Bicycle',
+  },
+  {
+    icon: 'bus', label: 'Bus',
+  },
+];
 </script>
 
 <style scoped>

@@ -16,21 +16,9 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import HorizontalPart from './parts/HorizontalPart.vue';
 import horizontalPartCode from './parts/HorizontalPart.vue?raw';
 import VerticalPart from './parts/VerticalPart.vue';
 import verticalPartCode from './parts/VerticalPart.vue?raw';
-export default {
-  components: {
-    HorizontalPart,
-    VerticalPart,
-  },
-  setup() {
-    return {
-      horizontalPartCode,
-      verticalPartCode,
-    };
-  },
-};
 </script>

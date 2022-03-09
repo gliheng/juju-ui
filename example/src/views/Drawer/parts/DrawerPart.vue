@@ -10,18 +10,13 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 
-export default {
-  setup() {
-    let open = ref(false), side = ref('left');
-    function openDrawer(_side) {
-      open.value = !open.value;
-      side.value = _side;
-    }
-    return { open, side, openDrawer };
-  }  
+let open = ref(false), side = ref('left');
+function openDrawer(_side) {
+  open.value = !open.value;
+  side.value = _side;
 }
 </script>
 

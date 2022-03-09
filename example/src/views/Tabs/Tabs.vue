@@ -31,30 +31,13 @@
   </div>
 </template>
 
-<script>
-// glob load all components
-const modules = import.meta.globEager('./parts/*.vue')
-const parts = Object.fromEntries(Object.entries(modules).map(([path, module]) => {
-  let match = /\/parts\/(.*).vue$/.exec(path);
-  if (!match) return null;
-  return [match[1], module.default];
-}).filter(item => Boolean(item)));
-
-// Sadly glob import in vite does not support raw syntax
+<script setup>
+import BasicPart from './parts/BasicPart.vue';
 import basicPartCode from './parts/BasicPart.vue?raw';
+import IconPart from './parts/IconPart.vue';
 import iconPartCode from './parts/IconPart.vue?raw';
+import CardPart from './parts/CardPart.vue';
 import cardPartCode from './parts/CardPart.vue?raw';
+import ManagedPart from './parts/ManagedPart.vue';
 import managedPartCode from './parts/ManagedPart.vue?raw';
-
-export default {
-  setup() {
-    return {
-      basicPartCode, iconPartCode,
-      cardPartCode, managedPartCode,
-    };
-  },
-  components: {
-    ...parts,
-  },
-};
 </script>

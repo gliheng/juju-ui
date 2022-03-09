@@ -22,22 +22,11 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import TypePart from './parts/TypePart.vue';
 import typePartCode from './parts/TypePart.vue?raw';
 import RangePart from './parts/RangePart.vue';
 import rangePartCode from './parts/RangePart.vue?raw';
 import SliderPart from './parts/SliderPart.vue';
 import sliderPartCode from './parts/SliderPart.vue?raw';
-
-export default {
-  components: {
-    TypePart, RangePart, SliderPart,
-  },
-  setup() {
-    return {
-      typePartCode, rangePartCode, sliderPartCode,
-    };
-  },
-}
 </script>

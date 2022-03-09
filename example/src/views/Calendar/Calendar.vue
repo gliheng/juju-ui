@@ -7,16 +7,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import CalendarPart from './parts/CalendarPart.vue';
 import calendarPartCode from './parts/CalendarPart.vue?raw';
-
-export default {
-  setup() {
-    return { calendarPartCode };
-  },
-  components: {
-    CalendarPart,
-  },
-};
 </script>

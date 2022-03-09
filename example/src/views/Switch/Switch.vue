@@ -7,16 +7,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import SwitchPart from './parts/SwitchPart.vue';
 import switchPartCode from './parts/SwitchPart.vue?raw';
-
-export default {
-  setup() {
-    return { switchPartCode };
-  },
-  components: {
-    SwitchPart,
-  },
-}
 </script>

@@ -54,41 +54,21 @@
   </div>
 </template>
 
-<script>
-// glob load all components
-const modules = import.meta.globEager('./parts/*.vue')
-const parts = Object.fromEntries(Object.entries(modules).map(([path, module]) => {
-  let match = /\/parts\/(.*).vue$/.exec(path);
-  if (!match) return null;
-  return [match[1], module.default];
-}).filter(item => Boolean(item)));
-
-
-// Sadly glob import in vite does not support raw syntax
+<script setup>
+import BasicPart from './parts/BasicPart.vue';
 import basicPartCode from './parts/BasicPart.vue?raw';
+import BorderedPart from './parts/BorderedPart.vue';
 import borderedPartCode from './parts/BorderedPart.vue?raw';
+import SelectablePart from './parts/SelectablePart.vue';
 import selectablePartCode from './parts/SelectablePart.vue?raw';
+import FixedHeaderPart from './parts/FixedHeaderPart.vue';
 import fixedHeaderPartCode from './parts/FixedHeaderPart.vue?raw';
+import FixedColumnPart from './parts/FixedColumnPart.vue';
 import fixedColumnPartCode from './parts/FixedColumnPart.vue?raw';
+import RowGroupingPart from './parts/RowGroupingPart.vue';
 import rowGroupingPartCode from './parts/RowGroupingPart.vue?raw';
+import ColGroupingPart from './parts/ColGroupingPart.vue';
 import colGroupingPartCode from './parts/ColGroupingPart.vue?raw';
+import ResizablePart from './parts/ResizablePart.vue';
 import resizablePartCode from './parts/ResizablePart.vue?raw';
-
-export default {
-  setup() {
-    return {
-      basicPartCode,
-      borderedPartCode,
-      selectablePartCode,
-      fixedHeaderPartCode,
-      fixedColumnPartCode,
-      rowGroupingPartCode,
-      colGroupingPartCode,
-      resizablePartCode,
-    };
-  },
-  components: {
-    ...parts,
-  },
-}
 </script>

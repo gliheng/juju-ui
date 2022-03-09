@@ -5,7 +5,7 @@
   />
 </template>
 
-<script>
+<script setup>
 import { data } from './TableData';
 
 const columns = [{
@@ -30,10 +30,4 @@ const columns = [{
   label: 'Address',
   field: 'address',
 }];
-
-export default {
-  setup() {
-    return { columns, data };
-  },
-}
 </script>

@@ -2,14 +2,9 @@
   <j-select multiple v-model="v" placeholder="Select preferred tranport" :options="transportOptions" />
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 import { transportOptions } from './options';
 
-export default {
-  setup() {
-    let v = ref([]);
-    return { v, transportOptions };
-  },
-}
+let v = ref([]);
 </script>

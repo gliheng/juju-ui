@@ -9,15 +9,10 @@
   <p>Current value: {{ grp }}</p>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 
-export default {
-  setup() {
-    let grp = ref('apple');
-    return { grp };
-  }
-}
+let grp = ref('apple');
 </script>
 
 <style scoped>

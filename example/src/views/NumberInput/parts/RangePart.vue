@@ -3,15 +3,8 @@
   <p>Value: {{ num }}</p>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 
-export default {
-  setup() {
-    let num = ref(50);
-    return {
-      num,
-    };
-  },
-}
+let num = ref(50);
 </script>

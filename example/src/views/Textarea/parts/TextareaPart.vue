@@ -4,13 +4,8 @@
   <j-textarea v-model="v" cols="40" rows="10" disabled />
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 
-export default {
-  setup() {
-    let v = ref('');
-    return { v };
-  }  
-}
+let v = ref('');
 </script>
