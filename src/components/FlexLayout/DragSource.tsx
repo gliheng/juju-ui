@@ -9,7 +9,6 @@ export default defineComponent({
     },
   },
   // These are native events, they're here to make ts happy
-  emits: ['dragstart', 'drag', 'dragend'],
   setup(props, { slots }) {
     function onDragstart(evt: DragEvent) {
       let { dataTransfer } = evt;

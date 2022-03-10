@@ -20,7 +20,13 @@
       </div>
       <p>Drag these pills to the panel bellow to modify layout</p>
     </div>
-    <j-flex-layout class="layout" :library="library" :preset="preset" :gap="6">
+    <j-flex-layout
+      class="layout"
+      :library="library"
+      :preset="preset"
+      :gap="6"
+      storage-key="juju-flex-layout"
+    >
       <template #placeholder><div class="placeholder">Drop pill onto this block</div></template>
     </j-flex-layout>
   </div>

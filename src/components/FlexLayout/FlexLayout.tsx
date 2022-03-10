@@ -1,10 +1,13 @@
-import { defineComponent, ref, h, PropType, watch } from 'vue';
+import { defineComponent, ref, h, PropType, watch, onUpdated } from 'vue';
 import { useElementSize } from '@utils/hooks';
-import { idGenerator, normalizePreset, RenderBox, HitTestAlignment } from './layout';
+import { debounce } from '@utils/timer';
+import { getStorage } from '@utils/storage';
+import { idGenerator, normalizePreset, RenderBox, HitTestAlignment, getPreset } from './layout';
 import { PaneAttrs, Library, Dimension } from './types';
 import './FlexLayout.scss';
 
 export const MIME = "application/j-flex-layout";
+const LAYOUT_STORAGE_KEY = "layout";
 
 export default defineComponent({
   props: {
@@ -28,8 +31,12 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    storageKey: {
+      type: String,
+      required: false,
+    },
   },
-  setup(props, { slots }) {
+  setup(props, { slots, expose }) {
     let elm = ref<HTMLDivElement>();
     let resizing = ref(false);
     let renderBox: RenderBox;
@@ -39,26 +46,41 @@ export default defineComponent({
     }
 
     let viewSize = useElementSize(elm);
-    watch(viewSize, (size) => {
+    watch(viewSize, async (size) => {
       if (!renderBox) {
-        let preset = normalizePreset(props.preset);
-        renderBox = new RenderBox(preset, {
-          idGen: idGenerator(), 
-          library: props.library,
-          onDividerDragStart,
-          onDividerDragMove,
-          onDividerDragEnd,
-          onAction,
-          placeholder: slots.placeholder,
-          showActionMenu: props.showActionMenu,
-          closable: props.closable,
-          gap: props.gap,
-        });
+        // Inital render
+        renderBox = await loadPreset();
       }
       renderBox.layout(0, 0, size.width, size.height);
       forceUpdate();
     }, {
       flush: 'post',
+    });
+
+    async function loadPreset() {
+      let savedPreset = await restoreLayout();
+      let preset = normalizePreset(savedPreset || props.preset);
+      return new RenderBox(preset, {
+        idGen: idGenerator(), 
+        library: props.library,
+        onDividerDragStart,
+        onDividerDragMove,
+        onDividerDragEnd,
+        onAction,
+        placeholder: slots.placeholder,
+        showActionMenu: props.showActionMenu,
+        closable: props.closable,
+        gap: props.gap,
+      });
+    }
+
+    expose({
+      async resetLayout() {
+        storage.clear();
+        renderBox = await loadPreset();
+        renderBox.layout(0, 0, viewSize.width, viewSize.height);
+        forceUpdate();
+      }
     });
 
     function onDividerDragStart(box: RenderBox) {
@@ -181,7 +203,25 @@ export default defineComponent({
       hintBox.value = undefined;
       forceUpdate();
     }
-  
+
+    onUpdated(() => {
+      saveLayout();
+    });
+
+    let storage: ReturnType<typeof getStorage>;
+    function restoreLayout() {
+      if (!props.storageKey) return;
+      let store = (storage || (storage = getStorage(props.storageKey)));
+      return store.read(LAYOUT_STORAGE_KEY);
+    }
+    
+    const saveLayout = debounce(() => {
+      if (!props.storageKey) return;
+      let store = (storage || (storage = getStorage(props.storageKey)));
+      let config = getPreset(renderBox);
+      store.save(LAYOUT_STORAGE_KEY, config);
+    }, 500);
+
     function onAction(action: string, box: RenderBox, arg: unknown) {
       if (action == 'remove') {
         box.remove();
@@ -195,6 +235,8 @@ export default defineComponent({
       } else if (action == 'contract') {
         box.contract();
         forceUpdate();
+      } else if (action == 'remove-tab') {
+        saveLayout();
       }
     }
   

@@ -22,37 +22,6 @@ enum Axis {
   Y,
 }
 
-/**
- * Normalize a user provided preset. */ 
-export function normalizePreset(
-  preset?: PaneAttrs,
-): NormalizedPaneAttrs {
-  if (!preset) return {
-    use: '',
-  };
-  // simple string name
-  if (typeof preset == 'string') {
-    let props, flex = 1;
-    return {
-      use: preset,
-      flex,
-      props,
-    };
-  }
-
-  let ret = {
-    ...preset
-  } as NormalizedPaneAttrs;
-
-  if (preset.children) {
-    ret.children = preset.children.map(
-      (item: any) => normalizePreset(item)
-    );
-  }
-
-  return ret;
-}
-
 export class RenderBox {
   use: string;
   id: number;
@@ -491,6 +460,7 @@ export class RenderBox {
       if (this.tabs?.length == 0) {
         this.context.onAction('remove', this);
       }
+      this.context.onAction('remove-tab', this);
     };
 
     return (
@@ -566,4 +536,67 @@ export function *idGenerator() {
   }
   // This only make typescript happy
   return 0;
+}
+
+/**
+ * Normalize a user provided preset.
+ */ 
+ export function normalizePreset(
+  preset?: PaneAttrs,
+): NormalizedPaneAttrs {
+  if (!preset) return {
+    use: '',
+  };
+  // simple string name
+  if (typeof preset == 'string') {
+    let props, flex = 1;
+    return {
+      use: preset,
+      flex,
+      props,
+    };
+  }
+
+  let ret = {
+    ...preset
+  } as NormalizedPaneAttrs;
+
+  if (preset.children) {
+    ret.children = preset.children.map(
+      (item: any) => normalizePreset(item)
+    );
+  }
+
+  return ret;
+}
+
+/**
+ * Export current layout as preset
+ */
+export function getPreset(box: RenderBox): Record<string, any> {
+  let c: Record<string, any> = {
+    use: box.use,
+  };
+  // save either tab or children
+  if (box.use == TAB && box.tabs) {
+    c.props = {
+      tabs: [...box.tabs],
+    };
+  } else if (box.children) {
+    c.children = box.children.map(c => getPreset(c))
+  }
+  // save either size or flex
+  if (box.size !== undefined) {
+    c.size = box.size;
+  } else if (box.flex !== undefined) {
+    c.flex = box.flex;
+  }
+  // save other metrics
+  if (box.minSize !== undefined) {
+    c.minSize = box.minSize;
+  }
+  if (box.maxSize !== undefined) {
+    c.maxSize = box.maxSize;
+  }
+  return c;
 }

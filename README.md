@@ -1,6 +1,6 @@
 # juju-ui
 
-Light weight vue3 ui components made with 💜.
+Vue3 UI components by juju.
 
 
 [Demo](https://juju-ui.vercel.app/)

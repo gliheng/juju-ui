@@ -14,6 +14,17 @@ class Storage {
       return;
     }
   }
+
+  /**
+   * Remove a group of keys beginning with certain prefix
+   */
+  clear() {
+    for (let key in localStorage) {
+      if (localStorage.hasOwnProperty(key) && key.startsWith(`${this.key}::`)) {
+        localStorage.removeItem(key);
+      }
+    }
+  }
 }
 
 export function getStorage(key: string) {

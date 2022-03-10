@@ -86,12 +86,18 @@ export default defineComponent({
           {{
             default: () => tabPanes,
             tab({i, tab, emit}: {i: number; tab: any, emit: any}) {
+              const onDragend = (evt: DragEvent) => {
+                if (evt.dataTransfer?.dropEffect == 'move') {
+                  emit('tab-remove', i);
+                }
+              };
+
               return (
-                <DragSource name={tab.attrs.name} onDragend={(evt: DragEvent) => {
-                  if (evt.dataTransfer?.dropEffect == 'move') {
-                    emit('tab-remove', i);
-                  }
-                }}>
+                <DragSource
+                  name={tab.attrs.name}
+                  // @ts-ignore
+                  onDragend={onDragend}
+                >
                 {
                   () => {
                     let closeBtn;
