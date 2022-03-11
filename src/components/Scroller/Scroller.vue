@@ -14,7 +14,6 @@
 <script lang="ts">
 import { defineComponent, onMounted, onUnmounted, ref } from "vue";
 import Emitter from "@utils/emitter";
-import "./Scroller.scss";
 
 export default defineComponent({
   emits: ["scroll"],

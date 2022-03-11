@@ -51,6 +51,12 @@
         <resizable-part />
       </code-block>
     </section>
+    <section>
+      <h2>Sortable</h2>
+      <code-block :code="sortablePartCode">
+        <sortable-part />
+      </code-block>
+    </section>
   </div>
 </template>
 
@@ -71,4 +77,6 @@ import ColGroupingPart from './parts/ColGroupingPart.vue';
 import colGroupingPartCode from './parts/ColGroupingPart.vue?raw';
 import ResizablePart from './parts/ResizablePart.vue';
 import resizablePartCode from './parts/ResizablePart.vue?raw';
+import SortablePart from './parts/SortablePart.vue';
+import sortablePartCode from './parts/SortablePart.vue?raw';
 </script>

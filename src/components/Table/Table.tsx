@@ -16,16 +16,18 @@ import Checkbox from '@/Checkbox/Checkbox.vue';
 import Divider from '@/Divider/Divider';
 import { getStorage } from '@utils/storage';
 import { debounce } from '@utils/timer';
+import { getField } from '@utils/object';
 import Row from './Row';
 import ColGroup from './ColGroup';
-import { ColumnConfig, Datum, GroupDatum } from './types';
-
+import Sorter from './Sorter';
+import { ColumnConfig, Datum, GroupDatum, SortDef } from './types';
 import './Table.scss';
 
 const MIN_COL_WIDTH = 30;
 const COL_SIZE_STORAGE_KEY = 'col-sizes';
 
 export default defineComponent({
+  name: 'table',
   props: {
     rowKey: {
       type: [String, Function],
@@ -67,13 +69,25 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    sortable: {
+      type: Boolean,
+      default: false,
+    },
+    multiSort: {
+      type: Boolean,
+      default: false,
+    },
+    sort: {
+      type: Object as PropType<SortDef>,
+    },
     storageKey: {
       type: String,
       required: false,
     },
     itemHeight: Number,
   },
-  setup(props, { slots }) {
+  emits: ['update:sort'],
+  setup(props, { slots, emit }) {
     let selection = reactive<{
       sel: Set<string>,
       headerCheckbox: boolean | null,
@@ -94,41 +108,6 @@ export default defineComponent({
       }
       selection.headerCheckbox = v;
     }
-    
-    // grouped data
-    let groupedData = computed(() => {
-      let { grouping, data } = props;
-      if (grouping && data) {
-        return groupData(grouping as string[], data);
-      }
-      return data as Array<Datum>;
-    });
-
-    let rowData = computed(() => {
-      function traverse(
-        data: Array<Datum | GroupDatum>,
-        collect: any[],
-      ) {
-        // flatten grouped data for row rendering
-        data.forEach((d, i) => {
-          if (d.groupChildren) {
-            let groupKey = `${d.groupPath.join('::')}`;
-            collect.push([groupKey, d]);
-            let expanded = d.groupChildren && groupExpand[groupKey] !== false;
-            if (expanded) {
-              traverse(d.groupChildren, collect);
-            }
-          } else {
-            collect.push([getRowKey(d, i), d]);
-          }
-        });
-      }
-      let data: any[] = [];
-      if (groupedData.value) {
-        traverse(groupedData.value, data);
-      }
-      return data;
-    });
 
     // Expand column grouping
     let columnsInfo = computed(() => {
@@ -180,8 +159,18 @@ export default defineComponent({
 
       let { columns } = props;
       flatten(columns, 1, 0);
+      
+      let colMap: Record<string, ColumnConfig> = {};
+      for (let col of cols) {
+        let key = keyMapper(col);
+        if (key) {
+          colMap[key] = col;
+        }
+      }
+
       return {
         cols,
+        colMap,
         maxLevel,
         spanMap,
       };
@@ -214,6 +203,44 @@ export default defineComponent({
         rightStickyCount,
         stickyPosMap,
       };
+    });
+    
+    // grouped data
+    let groupedData = computed(() => {
+      let { grouping, data, sort } = props;
+      let { colMap } = columnsInfo.value;
+      let data2 = sorted(data as Array<Datum>, colMap, sort);
+      if (grouping && data2) {
+        return groupData(grouping as string[], data2);
+      }
+      return data2;
+    });
+
+    let rowData = computed(() => {
+      function traverse(
+        data: Array<Datum | GroupDatum>,
+        collect: any[],
+      ) {
+        // flatten grouped data for row rendering
+        data.forEach((d, i) => {
+          if (d.groupChildren) {
+            let groupKey = `${d.groupPath.join('::')}`;
+            collect.push([groupKey, d]);
+            let expanded = d.groupChildren && groupExpand[groupKey] !== false;
+            if (expanded) {
+              traverse(d.groupChildren, collect);
+            }
+          } else {
+            collect.push([getRowKey(d, i), d]);
+          }
+        });
+      }
+
+      let data: any[] = [];
+      if (groupedData.value) {
+        traverse(groupedData.value, data);
+      }
+      return data;
     });
 
     let tableEl = ref<HTMLElement>();
@@ -345,7 +372,46 @@ export default defineComponent({
       }
 
       let addons = [];
-      if (props.resizable && (col.resizable !== false)) {
+      let resizable = col.resizable || props.resizable || false;
+      if (col.resizable === false) {
+        // In this case, resizable is set on table, but turned off on a single col
+        resizable = false;
+      }
+      // For sort to work, sortable has to be set on the table
+      // Column need a sorter and key
+      let key = keyMapper(col);
+      if (props.sortable && col.sorter && key) {
+        let value = computed<boolean | undefined>({
+          get() {
+            let st = props.sort?.find(e => e.key == key);
+            return st?.asc;
+          },
+          set(v) {
+            let sort = props.sort ? [...props.sort] : [];
+            let i = sort.findIndex(e => e.key == key);
+            if (v === undefined) {
+              i != -1 && sort.splice(i, 1);
+            } else {
+              let st = { key: key as string, asc: v };
+              if (i == -1) {
+                // add sort state
+                if (!props.multiSort) {
+                  sort.length = 0;
+                }
+                sort.push(st);
+              } else {
+                // change sort
+                sort[i] = st;
+              }
+            }
+            emit('update:sort', sort);
+          },
+        });
+        addons.push(
+          <Sorter v-model={ value.value } />
+        );
+      }
+      if (resizable) {
         // For multi row header, only the last row have resizing control
         let enabled = colspan == 1;
         addons.push(
@@ -369,8 +435,14 @@ export default defineComponent({
           style={ style }
           data-type={ col.type }
         >
-          { label }
-          { addons }
+          <div class='j-table-header'>
+            <div class='j-table-header-inner'>
+              { label }
+            </div>
+            <div class="j-table-header-addons">
+              { addons }
+            </div>
+          </div>
         </th>
       );
     }
@@ -450,7 +522,7 @@ export default defineComponent({
       },
       datum: [ string, Datum | GroupDatum ],
       i: number,
-    ) {
+    ): JSX.Element {
       let [ key, d ] = datum;
       if (d.groupName) {
         // render group row
@@ -575,14 +647,13 @@ export default defineComponent({
       let hasData = rowData.value && rowData.value.length;
 
       if (!props.fixedHeader) {
-        let rows = (props.data || []).map((datum, i) => {
-          // let rowKey = getRowKey(datum as Datum, i);
+        let rows = rowData.value.map((datum, i) => {
           return renderRow(
             {
               leftStickyCount: 0,
               rightStickyCount: 0,
             },
-            [String(i), datum],
+            datum,
             i,
           );
         });
@@ -667,6 +738,7 @@ function groupData(
   groupPath: string[] = [],
 ): Array<Datum | GroupDatum> {
   if (cur >= grouping.length) {
+    // return data rows on the final level
     return data;
   }
   let groups: Record<string, any> = {};
@@ -691,4 +763,24 @@ function groupData(
 
 function keyMapper(col: ColumnConfig) {
   return col.key || col.field;
+}
+
+function sorted(
+  rows: Array<Datum>,
+  colMap: Record<string, ColumnConfig>,
+  sort?: SortDef
+): Array<Datum> {
+  if (!sort || sort.length == 0) return rows;
+  let newRows = [...rows];
+  
+  // Sort by multiple columns
+  newRows.sort((a, b) => {
+    for (let st of sort) {
+      let col = colMap[st.key];
+      let v = col.sorter!(getField(a, st.key), getField(b, st.key));
+      if (v != 0) return v * (st.asc ? 1 : -1);
+    }
+    return 0;
+  });
+  return newRows;
 }

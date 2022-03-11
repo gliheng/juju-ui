@@ -60,6 +60,34 @@
       background-color: var(--j-primary-color-lighter);
     }
   }
+  .j-table-header {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+    box-sizing: border-box;
+    margin: 0 (-$margin);
+    padding: 0 $margin;
+    .j-table-header-inner {
+      flex: 1;
+    }
+    .j-table-header-addons {
+      display: flex;
+      align-items: center;
+      .j-table-sorter {
+        display: inline-flex;
+        vertical-align: middle;
+        flex-direction: column;
+        > .j-icon {
+          --j-icon-size: 12px;
+          cursor: pointer;
+        }
+        > .j-icon[data-on="true"] {
+          color: var(--j-primary-color);
+        }
+    }
+    }
+  }
 }
 
 // style for fixed-header table

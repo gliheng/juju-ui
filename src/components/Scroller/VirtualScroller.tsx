@@ -1,5 +1,10 @@
 import {
-  defineComponent, computed, ref, h, Fragment,
+  h,
+  defineComponent,
+  ref,
+  computed,
+  Fragment,
+  PropType,
 } from 'vue';
 import Scroller from './Scroller.vue';
 import { useElementSize } from '@utils/hooks';
@@ -13,7 +18,7 @@ const BatchRenderer = defineComponent({
       default: []
     },
     itemRenderer: {
-      type: Function,
+      type: Function as PropType<() => JSX.Element>,
       required: true,
     },
     start: Number,
@@ -39,10 +44,10 @@ export default defineComponent({
       default: []
     },
     itemRenderer: {
-      type: Function,
+      type: Function as PropType<() => JSX.Element>,
       required: true,
     },
-    containerRenderer: Function,
+    containerRenderer: Function as PropType<(nodes: JSX.Element | undefined) => JSX.Element>,
     // only support virtual scrolling of fixed height items
     itemHeight: {
       type: Number,
