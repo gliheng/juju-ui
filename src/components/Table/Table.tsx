@@ -435,11 +435,11 @@ export default defineComponent({
           style={ style }
           data-type={ col.type }
         >
-          <div class='j-table-header'>
-            <div class='j-table-header-inner'>
+          <div class='j-table-cell'>
+            <div class='j-table-cell-inner'>
               { label }
             </div>
-            <div class="j-table-header-addons">
+            <div class="j-table-cell-addons">
               { addons }
             </div>
           </div>

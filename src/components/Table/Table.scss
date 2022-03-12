@@ -46,11 +46,39 @@
       th {
         background-color: var(--j-background-color-1);
         font-weight: 500;
-        .j-divider {
-          position: absolute;
-          right: -1px;
-          top: 0;
-          bottom: 0;
+        .j-table-cell {
+          position: relative;
+          height: 100%;
+          display: flex;
+          align-items: stretch;
+          box-sizing: border-box;
+          margin: 0 (-$margin);
+          padding: 0 $margin;
+          .j-table-cell-inner {
+            flex: 1;
+          }
+          .j-table-cell-addons {
+            display: flex;
+            align-items: center;
+            .j-table-sorter {
+              display: inline-flex;
+              vertical-align: middle;
+              flex-direction: column;
+              > .j-icon {
+                --j-icon-size: 12px;
+                cursor: pointer;
+              }
+              > .j-icon[data-on="true"] {
+                color: var(--j-primary-color);
+              }
+            }
+            .j-divider {
+              position: absolute;
+              right: -1px;
+              top: 0;
+              bottom: 0;
+            }
+          }
         }
       }
     }
@@ -58,34 +86,6 @@
   tbody {
     tr[data-selected="true"] {
       background-color: var(--j-primary-color-lighter);
-    }
-  }
-  .j-table-header {
-    position: relative;
-    height: 100%;
-    display: flex;
-    align-items: stretch;
-    box-sizing: border-box;
-    margin: 0 (-$margin);
-    padding: 0 $margin;
-    .j-table-header-inner {
-      flex: 1;
-    }
-    .j-table-header-addons {
-      display: flex;
-      align-items: center;
-      .j-table-sorter {
-        display: inline-flex;
-        vertical-align: middle;
-        flex-direction: column;
-        > .j-icon {
-          --j-icon-size: 12px;
-          cursor: pointer;
-        }
-        > .j-icon[data-on="true"] {
-          color: var(--j-primary-color);
-        }
-    }
     }
   }
 }
