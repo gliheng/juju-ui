@@ -6,27 +6,27 @@
   bottom: 0;
   left: 0;
   right: 0;
-  $w: 20rem;
-  $h: 10rem;
+  --j-drawer-width: 300px;
+  --j-drawer-height: 200px;
   padding: $margin;
   box-sizing: border-box;
   z-index: 1000;
   background-color: var(--j-background-color);
   color: var(--j-text-color);
   &[data-side="left"] {
-    width: $w;
+    width: var(--j-drawer-width);
     right: auto;
   }
   &[data-side="right"] {
-    width: $w;
+    width: var(--j-drawer-width);
     left: auto;
   }
   &[data-side="top"] {
-    height: $h;
+    height: var(--j-drawer-height);
     bottom: auto;
   }
   &[data-side="bottom"] {
-    height: $h;
+    height: var(--j-drawer-height);
     top: auto;
   }
 }
