@@ -3,11 +3,11 @@
 .j-scaffold {
   display: flow-root;
   min-height: 100vh;
-  $left: 300px;
-  $hh: 56px;
+  --j-scaffold-sidebar-width: 200px;
+  --j-scaffold-appbar-height: 56px;
   .j-appbar {
     position: relative;
-    height: $hh;
+    height: var(--j-scaffold-appbar-height);
     background-color: var(--j-primary-color);
     color: var(--j-primary-color-text);
     padding: 0 $margin;
@@ -51,18 +51,18 @@
   }
   .j-scaffold-nav {
     position: fixed;
-    transform: translateX(-$left);
+    transform: translateX(calc(var(--j-scaffold-sidebar-width) * -1));
     top: 0;
     left: 0;
     bottom: 0;
-    width: $left;
+    width: var(--j-scaffold-sidebar-width);
     box-sizing: border-box;
     transition: transform 0.2s $curve;
     padding: $margin;
     background-color: var(--j-background-color-1);
   }
   .j-scaffold-appbar {
-    height: $hh;
+    height: var(--j-scaffold-appbar-height);
     background-color: var(--j-primary-color);
     color: var(--j-primary-color-text);
     padding: 0 $margin;
@@ -75,25 +75,20 @@
   .j-scaffold-content {
     transition: margin-left 0.2s $curve;
     display: flow-root;
-    margin-top: $hh;
-    min-height: calc(100vh - #{$hh});
+    margin-top: var(--j-scaffold-appbar-height);
+    min-height: calc(100vh - #{var(--j-scaffold-appbar-height)});
     box-sizing: border-box;
     padding: $margin;
   }
   &[data-has-nav="true"][data-wide="true"][data-expanded="false"] {
     .j-appbar {
-      left: $left;
+      left: var(--j-scaffold-sidebar-width);
     }
     .j-scaffold-nav {
       transform: translateX(0);
     }
     .j-scaffold-content {
-      margin-left: $left;
+      margin-left: var(--j-scaffold-sidebar-width);
     }
   }
-  // &[data-wide="true"] {
-  //   .j-appbar-title {
-  //     display: none;
-  //   }
-  // }
 }
