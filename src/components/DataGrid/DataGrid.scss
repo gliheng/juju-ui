@@ -1,0 +1,47 @@
+.j-data-grid {
+  overflow: hidden;
+  border: 1px solid var(--j-foreground-color-2);
+  background-color: var(--j-data-grid-background-color, var(--j-background-color-2));
+  .j-data-grid-ruler-group {
+    display: grid;
+    grid-gap: 1px;
+    grid-template-columns: 30px auto;
+    grid-template-rows: 30px auto;
+    .j-data-grid-ruler {
+      display: grid;
+      grid-gap: 1px;
+      .j-data-grid-ruler-cell {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--j-data-grid-ruler-cell-background-color, var(--j-background-color-1));
+      }
+    }
+    .j-data-grid-settings {
+      align-self: center;
+      justify-self: center;
+      --j-button-radius: 0;
+    }  
+  }
+  .j-data-grid-frame {
+    display: grid;
+    grid-gap: 1px;
+    .j-data-grid-cell {
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      background-color: var(--j-data-grid-cell-background-color, var(--j-background-color));
+      overflow: hidden;
+      word-break: break-all;
+      &[data-align="left"] {
+        justify-content: flex-start;
+      }
+      &[data-align="center"] {
+        justify-content: center;
+      }
+      &[data-align="right"] {
+        justify-content: flex-end;
+      }
+    }
+  }
+}

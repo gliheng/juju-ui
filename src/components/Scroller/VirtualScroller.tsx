@@ -12,6 +12,7 @@ import { useElementSize } from '@utils/hooks';
 const BATCH_SIZE = 10;
 // batch render items, so changes to the dom are less frequent
 const BatchRenderer = defineComponent({
+  name: 'batch-renderer',
   props: {
     items: {
       type: Array,
@@ -37,7 +38,7 @@ const BatchRenderer = defineComponent({
 
 // This virtual scroller only support fixed height items
 export default defineComponent({
-  name: "VirtualScroller",
+  name: "virtual-scroller",
   props: {
     items: {
       type: Array,

@@ -95,6 +95,9 @@ export default {
       "name": "Table",
       "device": ["pc", "mobile"],
     }, {
+      "name": "DataGrid",
+      "device": ["pc", "mobile"],
+    }, {
       "name": "AnimatedIcon",
       "device": ["pc", "mobile"],
     }, {

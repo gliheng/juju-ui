@@ -41,6 +41,7 @@ import Calendar from './components/Calendar/Calendar.vue';
 import Tree from './components/Tree/Tree.vue';
 import Scaffold from './components/Scaffold/Scaffold.vue';
 import Table from './components/Table/Table';
+import DataGrid from './components/DataGrid/DataGrid';
 import Scroller from './components/Scroller/Scroller.vue';
 import AutoComplete from './components/AutoComplete/AutoComplete.vue';
 import Tooltip from './components/Tooltip/Tooltip.vue';
@@ -102,6 +103,7 @@ export {
   Tree,
   Scaffold,
   Table,
+  DataGrid,
   AutoComplete,
   Tooltip,
   Space,
@@ -161,6 +163,7 @@ export default function(app: App, conf: Partial<Config>) {
     .component('j-tree', Tree)
     .component('j-scaffold', Scaffold)
     .component('j-table', Table)
+    .component('j-data-grid', DataGrid)
     .component('j-auto-complete', AutoComplete)
     .component('j-tooltip', Tooltip)
     .component('j-space', Space)
