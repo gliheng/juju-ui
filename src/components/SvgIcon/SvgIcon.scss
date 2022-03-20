@@ -17,7 +17,7 @@ $defaultSize: 16px;
   &[data-size="lg"] {
     --j-icon-size: 32px;
   }
-  .j-icon-svg {
+  .j-icon-inner {
     display: block;
     line-height: 0;
     width: 100%;
