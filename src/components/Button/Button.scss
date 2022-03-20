@@ -16,9 +16,9 @@
   position: relative;
   overflow: hidden;
 
-  background-color: var(--j-primary-color);
-  border: 1px solid var(--j-primary-color);
-  color: var(--j-primary-color-text);
+  background-color: var(--j-button-background-color, var(--j-primary-color));
+  border: 1px solid var(--j-button-border-color, var(--j-primary-color));
+  color: var(--j-button-color, var(--j-primary-color-text));
   &.is-icon {
     padding: 0.5rem;
   }
@@ -40,8 +40,8 @@
   }
   &.is-flat {
     background-color: transparent;
-    color: var(--j-primary-color);
     border-color: transparent;
+    --j-button-color: var(--j-primary-color);
   }
   &.is-raised {
     box-shadow: $shadow;
@@ -52,7 +52,8 @@
   &.is-outlined {
     background-color: transparent;
     color: var(--j-primary-color);
-    border: 1px solid var(--j-primary-color);
+    --j-button-color: var(--j-primary-color);
+    --j-button-border-color: var(--j-primary-color);
     box-sizing: border-box;
   }
   &.is-rounded {

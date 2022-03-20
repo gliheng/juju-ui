@@ -18,9 +18,16 @@
       }
     }
     .j-data-grid-settings {
-      align-self: center;
-      justify-self: center;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      border: none;
+      --j-button-height: 30px;
       --j-button-radius: 0;
+      --j-button-color: gray;
+      &:hover {
+        --j-button-color: var(--j-primary-color);
+      }
     }  
   }
   .j-data-grid-frame {
