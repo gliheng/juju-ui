@@ -3,20 +3,18 @@
     fixed-header
     virtual-scroll
     :data="data"
-    :columns="fixedColumnColumns"
+    :columns="fixedHeaderColumns"
     :height="200"
   />
 </template>
 
 <script setup>
-import { h } from "vue";
 import { data } from './TableData';
 
-const fixedColumnColumns = [{
+const fixedHeaderColumns = [{
   label: 'Name',
   field: 'name',
   width: 100,
-  sticky: 'left',
 }, {
   label: 'Age',
   field: 'age',
@@ -49,15 +47,5 @@ const fixedColumnColumns = [{
   label: 'Favorite Sport',
   field: 'favoriteSport',
   width: 140,
-}, {
-  label: 'Action',
-  align: 'right',
-  sticky: 'right',
-  width: 100,
-  render() {
-    return h('a', {
-      href: "javascript:void(0)",
-    }, 'edit');
-  },
 }];
 </script>

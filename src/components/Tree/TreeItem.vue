@@ -20,7 +20,6 @@ import { useSwitch } from '@utils/hooks';
 export default defineComponent({
   components: { SvgIcon },
   directives: { ripple },
-  name: 'tree-item',
   props: {
     label: String,
     icon: String,

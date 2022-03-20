@@ -6,8 +6,8 @@
   $hover-size: 12px;
 
   position: relative;
-  height: 100%;
-  width: 100%;
+  width: var(--j-scroller-width, 100%);
+  height: var(--j-scroller-height, 100%);
   box-sizing: border-box;
   
   &[data-overlay-scrollbar="false"][data-x-scroll="true"] {

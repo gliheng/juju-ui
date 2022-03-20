@@ -1,7 +1,7 @@
 import { defineComponent, h, PropType } from 'vue';
 
 export default defineComponent({
-  name: 'col-group',
+  name: 'ColGroup',
   props: {
     columns: {
       type: Array as PropType<(number | undefined)[]>,

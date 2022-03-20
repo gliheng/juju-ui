@@ -111,8 +111,8 @@
     flex: 1;
     position: relative;
     > .j-scroller {
-      height: 100%;
-      width: 100%;
+      --j-scroller-width: 100%;
+      --j-scroll-height: 100%;
     }
     .j-scroll-bar {
       z-index: 2;

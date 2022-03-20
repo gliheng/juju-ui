@@ -26,6 +26,12 @@
       </code-block>
     </section>
     <section>
+      <h2>Virtual scroll</h2>
+      <code-block :code="virtualScrollPartCode">
+        <virtual-scroll-part />
+      </code-block>
+    </section>
+    <section>
       <h2>Fixed columns</h2>
       <code-block :code="fixedColumnPartCode">
         <fixed-column-part />
@@ -69,6 +75,8 @@ import SelectablePart from './parts/SelectablePart.vue';
 import selectablePartCode from './parts/SelectablePart.vue?raw';
 import FixedHeaderPart from './parts/FixedHeaderPart.vue';
 import fixedHeaderPartCode from './parts/FixedHeaderPart.vue?raw';
+import VirtualScrollPart from './parts/VirtualScrollPart.vue';
+import virtualScrollPartCode from './parts/VirtualScrollPart.vue?raw';
 import FixedColumnPart from './parts/FixedColumnPart.vue';
 import fixedColumnPartCode from './parts/FixedColumnPart.vue?raw';
 import RowGroupingPart from './parts/RowGroupingPart.vue';
