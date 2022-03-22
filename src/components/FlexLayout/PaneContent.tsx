@@ -135,7 +135,7 @@ export default defineComponent({
                 return (
                   <Dropdown align="right" class="j-flex-layout-pane-action-menu">
                   {{
-                    default: () => <Button rounded flat size="sm" icon="ellipsis-horizontal" />,
+                    default: () => <Button round flat size="sm" icon="ellipsis-horizontal" />,
                     menu: () => <Menu list>
                       {() => (<>
                         { expandMenu }
