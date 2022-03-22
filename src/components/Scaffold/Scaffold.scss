@@ -20,7 +20,6 @@
     left: 0;
     right: 0;
     transition: left 0.2s $curve;
-    z-index: 1000;
     .j-appbar-title {
       text-align: center;
     }
@@ -31,7 +30,7 @@
       > * {
         margin-right: 0.2rem;
       }
-    } 
+    }
     .j-appbar-right-actions {
       position: absolute;
       right: $margin;
