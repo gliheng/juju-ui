@@ -4,6 +4,7 @@
   display: inline-flex;
   border-radius: 3px;
   border: 1px solid var(--j-input-border-color, var(--j-foreground-color-1));
+  background-color: var(--j-background-color);
   transition: border-color 0.2s, box-shadow 0.2s;
   align-items: center;
   --j-input-height: 30px;

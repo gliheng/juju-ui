@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from './views/Home.vue';
 import NotFound from './views/NotFound.vue';
-import config from './config';
+import config, { allComponents } from './config';
+import { kebabCase } from 'lodash-es';
+export { config };
 
 const routes = [
   {
@@ -9,8 +11,7 @@ const routes = [
     name: 'Home',
     component: Home,
   },
-  ...config.Components.map(mapRoute),
-  ...config.Directives.map(mapRoute),
+  ...allComponents.map(mapRoute),
   {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
@@ -30,19 +31,6 @@ const router = createRouter({
 
 export { routeMap };
 export default router;
-
-function kebabCase(s) {
-  let parts = [];
-  let start = 0;
-  for (let i = 0; i < s.length; i++) {
-    if (i != 0 && s[i].toUpperCase() == s[i]) {
-      parts.push(s.substring(start, i));
-      start = i;
-    }
-  }
-  parts.push(s.substring(start));
-  return parts.map(s => s.toLowerCase()).join('-');
-}
 
 function mapRoute(c) {
   let kName = kebabCase(c.name);

@@ -27,18 +27,12 @@
       position: relative;
       display: flex;
       align-items: center;
-      > * {
-        margin-right: 0.2rem;
-      }
     }
     .j-appbar-right-actions {
       position: absolute;
       right: $margin;
       display: flex;
       align-items: center;
-      > * {
-        margin-left: 0.2rem;
-      }
     }
     &[data-align="center"] {
       justify-content: center;
