@@ -2,12 +2,12 @@
   <div class="j-calendar">
     <div class="j-calendar-panel" v-for="(panel, i) in panels" :key="i">
       <header class="j-calendar-header">
-        <j-button v-if="i === 0" flat rounded icon="chevron-back" @click="toPrevMonth" />
+        <j-button v-if="i === 0" flat round icon="chevron-back" @click="toPrevMonth" />
         <div class="date">
           <span class="month">{{ panel.monthLabel }}</span>
           <span class="year">{{ panel.year }}</span>
         </div>
-        <j-button v-if="i === panels.length - 1" flat rounded icon="chevron-forward" @click="toNextMonth" />
+        <j-button v-if="i === panels.length - 1" flat round icon="chevron-forward" @click="toNextMonth" />
       </header>
       <div class="j-calendar-grid">
         <header>

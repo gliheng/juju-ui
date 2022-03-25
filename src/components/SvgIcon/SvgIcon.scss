@@ -1,6 +1,6 @@
 @import "vars";
 
-$defaultSize: 16px;
+$defaultSize: 20px;
 .j-icon {
   display: inline-block;
   vertical-align: middle;
@@ -12,12 +12,12 @@ $defaultSize: 16px;
     --j-icon-size: 16px;
   }
   &[data-size="md"] {
-    --j-icon-size: 24px;
+    --j-icon-size: 20px;
   }
   &[data-size="lg"] {
     --j-icon-size: 32px;
   }
-  .j-icon-svg {
+  .j-icon-inner {
     display: block;
     line-height: 0;
     width: 100%;

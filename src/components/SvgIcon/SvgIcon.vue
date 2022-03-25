@@ -1,9 +1,9 @@
 <template>
   <i class="j-icon" :data-size="size" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
-    <i v-if="svg" class="j-icon-svg">
+    <i v-if="svg" class="j-icon-inner">
       <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" :viewBox="viewBox" v-html="hover ? alt || svg : svg"></svg>
     </i>
-    <i v-else class="j-icon-svg" v-html="hover ? altImg || img : img" />
+    <i v-else class="j-icon-inner" v-html="hover ? altImg || img : img" />
   </i>
 </template>
 

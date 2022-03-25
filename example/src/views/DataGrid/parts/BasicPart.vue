@@ -13,7 +13,7 @@ const data = reactive(generateData(100, 100));
 const config = reactive(
   {
     sizes: {
-      1: 60,
+      '1': 60,
       'A': 60,
     },
     align: {
@@ -28,6 +28,20 @@ const config = reactive(
       'E9': {
         hspan: 2,
         vspan: 4,
+      },
+    },
+    style: {
+      'D4': {
+        color: 'white',
+        backgroundColor: 'orange',
+      },
+      '1': {
+        color: 'white',
+        backgroundColor: 'orange',
+      },
+      'E9': {
+        color: 'white',
+        backgroundColor: 'purple',
       },
     },
     sticky: new Set([0, 1, 'A']),

@@ -1,4 +1,4 @@
-import { h, defineComponent, PropType, reactive, StyleValue, computed } from 'vue';
+import { h, defineComponent, PropType, StyleValue, computed } from 'vue';
 import Scroller from '@/Scroller/VirtualScroller';
 import RulerGroup from './RulerGroup';
 import { excelCol, excelCoord } from './utils';
@@ -9,9 +9,11 @@ const C = defineComponent({
   props: {
     data: Array as PropType<any[][]>,
     config: Object as PropType<{
-      sizes: Record<string, number>,
-      align: Record<string, 'left' | 'center' | 'right'>,
-      merges: Record<string, {hspan: number; vspan: number}>,
+      sizes: Record<string, number>;
+      align: Record<string, 'left' | 'center' | 'right'>;
+      merges: Record<string, {hspan: number; vspan: number}>;
+      class: Record<string, string>;
+      style: Record<string, StyleValue>;
     }>,
     cellWidth: {
       type: Number,
@@ -60,43 +62,47 @@ const C = defineComponent({
     function renderFrame() {
       let cells = [];
       let { data, config } = props;
-      let merges = config?.merges;
-      let align = config?.align;
+      let { merges, align, class: klass, style} = config || {};
       let { bi, ei, bj, ej } = gridInfo.value;
       for (let i = bi; i < ei; i++) {
         for (let j = bj; j < ej; j++) {
+          // render a single cell
           let col = excelCol(j);
           let row = i + 1;
           let coord = `${col}${row}`;
-          let _align = align?.[coord] || align?.[col] || align?.[row];
-          let span = merges?.[coord] || merges?.[col] || merges?.[row];
+          let _klass = klass?.[coord] || klass?.[row] || klass?.[col];
+          let _inlineStyle = style?.[coord] || style?.[row] || style?.[col];
+          let _align = align?.[coord] || align?.[row] || align?.[col];
+          let span = merges?.[coord] || merges?.[row] || merges?.[col];
           let hspan = span?.hspan ?? 1;
           let vspan = span?.vspan ?? 1;
 
-          let datum = data?.[i]?.[j];
+          let content = data?.[i]?.[j];
           // Render alternate content using default slot
           if (slots.default) {
-            datum = slots.default({
-              i, j, datum,
+            content = slots.default({
+              i, j, content,
             });
           }
-          let style: StyleValue = {
+          // merge styles
+          let _style: StyleValue = {
             ['grid-row']: vspan != 1 ? `${i+1}/span ${vspan}` : i+1,
             ['grid-column']: hspan != 1 ? `${j+1}/span ${hspan}` : j+1,
           };
+          Object.assign(_style, _inlineStyle);
           if (vspan != 1 || hspan != 1) {
-            style['z-index'] = 1;
+            _style['z-index'] = 1;
           }
           cells.push(
             <div
               key={`${i}.${j}`}
+              class={['j-data-grid-cell', _klass]}
+              style={_style}
               data-row={i}
               data-col={j}
               data-align={_align}
-              class="j-data-grid-cell"
-              style={style}
             >
-              { datum }
+              { content }
             </div>
           );
         }

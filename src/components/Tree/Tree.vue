@@ -25,7 +25,6 @@ export default defineComponent({
   components: {
     TreeItem,
   },
-  name: 'j-tree',
   props: {
     data: {
       type: Array as PropType<TreeItem[]>,

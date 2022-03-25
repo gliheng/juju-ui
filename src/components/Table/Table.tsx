@@ -27,7 +27,7 @@ const MIN_COL_WIDTH = 30;
 const COL_SIZE_STORAGE_KEY = 'col-sizes';
 
 export default defineComponent({
-  name: 'table',
+  name: 'Table',
   props: {
     rowKey: {
       type: [String, Function],
@@ -279,18 +279,20 @@ export default defineComponent({
     // load col settings on load
     if (props.storageKey) {
       store = getStorage(props.storageKey!);
-      onMounted(async () => {
+    }
+    onMounted(async () => {
+      if (store) {
         let sizes = (await store.read(COL_SIZE_STORAGE_KEY)) || {};
         colResize.value = sizes;
+      }
 
-        if (typeof ResizeObserver == 'function' && tableEl.value) {
-          ob = new ResizeObserver(() => {
-            syncStickyShadowPos();
-          });
-          ob.observe(tableEl.value);
-        }
-      });
-    }
+      if (typeof ResizeObserver == 'function' && tableEl.value) {
+        ob = new ResizeObserver(() => {
+          syncStickyShadowPos();
+        });
+        ob.observe(tableEl.value);
+      }
+    });
 
     onUnmounted(() => {
       ob?.disconnect();
@@ -520,10 +522,9 @@ export default defineComponent({
         leftStickyCount: number,
         rightStickyCount: number,
       },
-      datum: [ string, Datum | GroupDatum ],
       i: number,
     ): JSX.Element {
-      let [ key, d ] = datum;
+      let [ key, d ] = rowData.value[i];
       if (d.groupName) {
         // render group row
         let colspan = props.columns.length;
@@ -628,7 +629,7 @@ export default defineComponent({
     return () => {
       let bodyStyle: Record<string, string | number> = {};
       if (typeof props.height == 'number') {
-        bodyStyle.height = `${props.height}px`;
+        bodyStyle['--j-scroller-height'] = `${props.height}px`;
       }
 
       let {
@@ -647,16 +648,13 @@ export default defineComponent({
       let hasData = rowData.value && rowData.value.length;
 
       if (!props.fixedHeader) {
-        let rows = rowData.value.map((datum, i) => {
-          return renderRow(
-            {
-              leftStickyCount: 0,
-              rightStickyCount: 0,
-            },
-            datum,
-            i,
-          );
-        });
+        let rows = [];
+        for (let i = 0, len = rowData.value.length; i < len; i++) {
+          rows.push(renderRow({
+            leftStickyCount: 0,
+            rightStickyCount: 0,
+          }, i));
+        }
   
         return (
           <div
@@ -711,14 +709,16 @@ export default defineComponent({
               style={ bodyStyle }
               onScroll={ onBodyScroll }
               virtual={ props.virtualScroll }
+              itemCount={ rowData.value.length }
               itemHeight={ props.itemHeight }
-              items={ rowData.value }
               containerRenderer = { containerRenderer }
               overlayScrollbar={ false }
-              itemRenderer={ renderRow.bind(null, {
-                leftStickyCount,
-                rightStickyCount,
-              }) }
+              itemRenderer={
+                renderRow.bind(null, {
+                  leftStickyCount,
+                  rightStickyCount,
+                })
+              }
             />
             { coverContent }
           </div>

@@ -3,7 +3,7 @@ import SvgIcon from '@/SvgIcon/SvgIcon.vue';
 import './Table.scss';
 
 export default defineComponent({
-  name: 'sorter',
+  name: 'Sorter',
   props: {
     modelValue: Boolean,
   },

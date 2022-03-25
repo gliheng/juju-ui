@@ -3,7 +3,7 @@ import { Datum, ColumnConfig, RowConfig } from './types';
 import Checkbox from '../Checkbox/Checkbox.vue';
 
 export default defineComponent({
-  name: 'row',
+  name: 'Row',
   props: {
     selected: {
       type: Boolean,

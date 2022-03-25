@@ -74,7 +74,7 @@ export default defineComponent({
       let { rows, cols, bi, ei, bj, ej } = props.gridInfo;
       return (
         <div class="j-data-grid-ruler-group">
-          <Button class="j-data-grid-settings" icon="settings" />
+          <Button class="j-data-grid-settings" icon="settings" flat />
           <Ruler type="col" sizes={cols} begin={bj} end={ej} />
           <Ruler type="row" sizes={rows} begin={bi} end={ei} />
           { slots.default?.() }

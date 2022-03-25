@@ -1,5 +1,9 @@
 <template>
-  <j-auto-complete placeholder="Please input your search" :query="query" />
+  <j-auto-complete placeholder="Please input your search" :query="query">
+    <template #prepend>
+      <j-svg-icon name="search" />
+    </template>
+  </j-auto-complete>
 </template>
 
 <script setup>

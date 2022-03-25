@@ -1,13 +1,29 @@
 <template>
   <div class="j-auto-complete">
-    <j-input v-model="searchKey" :placeholder="placeholder"
-      @update:modelValue="onInput" @click="onClick"
-      @keydown.up="onKeyUp" @keydown.down="onKeyDown" @keyup.enter="onEnter" />
+    <j-input
+      v-model="searchKey"
+      @update:modelValue="onInput"
+      @click="onClick"
+      @keydown.up="onKeyUp"
+      @keydown.down="onKeyDown"
+      @keyup.enter="onEnter"
+      v-bind="$attrs"
+    >
+      <template v-if="$slots.prepend" #prepend>
+        <slot name="prepend"></slot>
+      </template>
+      <template v-if="$slots.append" #append>
+        <slot name="append"></slot>
+      </template>
+    </j-input>
     <j-scroller v-if="listOn && suggestions.length" class="j-shadow-5">
       <j-listbox>
         <j-listbox-item v-for="(item, i) in suggestions" :key="String(item.value)"
           :class="{ 'j-active': selected == i}"
-          @click="choose(item.value, i)">{{ item.label }}</j-listbox-item>
+          @click="choose(item.value, i)"
+        >
+          {{ item.label }}
+        </j-listbox-item>
       </j-listbox>
     </j-scroller>
   </div>
@@ -25,11 +41,15 @@ export interface Suggestion {
 }
 
 export default defineComponent({
+  inheritAttrs: false,
   props: {
-    placeholder: String,
     query: {
       type: Function,
       required: true,
+    },
+    debounce: {
+      type: Number,
+      default: 300,
     },
   },
   emits: ['select'],
@@ -48,15 +68,17 @@ export default defineComponent({
         selected.value = 0;
         suggestions.value = res;
       }
-    }, 1000);
+    }, props.debounce);
 
     function choose(value: string | number, i?: number) {
+      let opt;
       if (typeof i == 'number') {
         selected.value = i;
+        opt = suggestions.value[i];
       }
       searchKey.value = String(value);
       toggleList(false);
-      emit('select', value);
+      emit('select', value, opt);
     }
 
     function onClick(evt: Event) {
@@ -70,7 +92,7 @@ export default defineComponent({
     function onEnter() {
       if (listOn.value && suggestions.value.length) {
         let v = suggestions.value[selected.value].value;
-        choose(v);
+        choose(v, selected.value);
       } else {
         emit('select', searchKey.value);
       }

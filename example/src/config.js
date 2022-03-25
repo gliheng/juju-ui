@@ -1,136 +1,149 @@
-export default {
-  "Components": [
+import { flatten } from 'lodash-es';
+
+const config = {
+  Display: [
     {
-      "name": "Button",
-      "device": ["pc", "mobile"]
-    }, {
-      "name": "Tabs",
-      "device": ["pc", "mobile"]
-    }, {
-      "name": "Dropdown",
-      "device": ["pc", "mobile"]
-    }, {
-      "name": "Switch",
-      "device": ["pc", "mobile"]
-    }, {
-      "name": "Slider",
-      "device": ["pc"]
-    }, {
-      "name": "Popup",
-      "device": ["pc", "mobile"]
-    }, {
-      "name": "Popover",
-      "device": ["pc"]
-    }, {
-      "name": "Drawer",
-      "device": ["pc", "mobile"]
-    }, {
-      "name": "Input",
-      "device": ["pc", "mobile"]
-    }, {
-      "name": "Textarea",
-      "device": ["pc", "mobile"]
-    }, {
-      "name": "Radio",
-      "device": ["pc", "mobile"]
-    }, {
-      "name": "Checkbox",
-      "device": ["pc", "mobile"]
-    }, {
-      "name": "Select",
-      "device": ["pc"]
-    }, {
-      "name": "Listbox",
-      "device": ["pc", "mobile"]
-    }, {
-      "name": "SvgIcon",
-      "device": ["pc", "mobile"]
-    }, {
-      "name": "Snackbar",
-      "device": ["pc", "mobile"]
-    }, {
-      "name": "ColorWheel",
-      "device": ["pc"]
-    }, {
-      "name": "Chip",
-      "device": ["pc", "mobile"]
-    }, {
-      "name": "ChipEditor",
-      "device": ["pc", "mobile"]
-    }, {
-      "name": "Menu",
-      "device": ["pc"]
-    }, {
-      "name": "MenuBar",
-      "device": ["pc"]
-    }, {
-      "name": "ContextMenu",
-      "device": ["pc"]
-    }, {
-      "name": "NumberInput",
-      "device": ["pc", "mobile"]
-    }, {
-      "name": "DateInput",
-      "device": ["pc", "mobile"]
-    }, {
-      "name": "Spinner",
-      "device": ["pc", "mobile"]
-    },  {
-      "name": "Scroller",
-      "device": ["pc", "mobile"]
-    }, {
-      "name": "Progress",
-      "device": ["pc", "mobile"]
-    }, {
-      "name": "Calendar",
-      "device": ["pc", "mobile"]
-    }, {
-      "name": "Tree",
-      "device": ["pc", "mobile"]
-    }, {
-      "name": "Scaffold",
-      "device": ["pc", "mobile"],
-      "fullPage": true,
-    }, {
-      "name": "Table",
-      "device": ["pc", "mobile"],
-    }, {
-      "name": "DataGrid",
-      "device": ["pc", "mobile"],
-    }, {
-      "name": "AnimatedIcon",
-      "device": ["pc", "mobile"],
-    }, {
-      "name": "AutoComplete",
-      "device": ["pc", "mobile"],
-    }, {
-      "name": "Tooltip",
-      "device": ["pc", "mobile"],
-    }, {
-      "name": "Layout",
-      "device": ["pc", "mobile"],
-    }, {
-      "name": "FlexLayout",
-      "device": ["pc"],
-    }, {
-      "name": "Splitter",
-      "device": ["pc"],
-    }, {
-      "name": "Form",
-      "device": ["pc", "mobile"],
-    }, {
-      "name": "ReorderList",
-      "device": ["pc", "mobile"],
+      name: "Button",
+    },
+    {
+      name: "Listbox",
+    },
+    {
+      name: "SvgIcon",
+    },
+    {
+      name: "Chip",
+    },
+    {
+      name: "Spinner",
+    },
+    {
+      name: "Scroller",
+    },
+    {
+      name: "Progress",
+    },
+    {
+      name: "Calendar",
+    },
+    {
+      name: "Tree",
+    },
+    {
+      name: "AnimatedIcon",
+    },
+    {
+      name: "Tooltip",
+    },
+    {
+      name: "Layout",
     },
   ],
-  "Directives": [
+  Form: [
     {
-      "name": "ripple",
-      "device": ["pc", "mobile"]
+      name: "AutoComplete",
     },
     {
-      "name": "loading",
-      "device": ["pc", "mobile"]
+      name: "NumberInput",
+    },
+    {
+      name: "DateInput",
+    },
+    {
+      name: "ColorWheel",
+    },
+    {
+      name: "ChipEditor",
+    },
+    {
+      name: "Input",
+    },
+    {
+      name: "Textarea",
+    },
+    {
+      name: "Radio",
+    },
+    {
+      name: "Checkbox",
+    },
+    {
+      name: "Select",
+    },
+    {
+      name: "Switch",
+    },
+    {
+      name: "Slider",
+    },
+    {
+      name: "Form",
+    },
+  ],
+  Action: [
+    {
+      name: "Dropdown",
+    },
+    {
+      name: "Popover",
+    },
+    {
+      name: "Menu",
+    },
+    {
+      name: "MenuBar",
+    },
+    {
+      name: "ContextMenu",
+    }, 
+    {
+      name: "Snackbar",
+    },
+    {
+      name: "Popup",
+    },
+    {
+      name: "Drawer",
+    },
+  ],
+  Data: [
+    {
+      name: "Table",
+    },
+    {
+      name: "DataGrid",
+    },
+    {
+      name: "ReorderList",
+    },
+  ],
+  Layout: [
+    {
+      name: "Scaffold",
+      "fullPage": true,
+    },
+    {
+      name: "FlexLayout",
+    },
+    {
+      name: "Splitter",
+    },
+    {
+      name: "Tabs"
+    },
+  ],
+  Directive: [
+    {
+      name: "ripple",
+    },
+    {
+      name: "loading",
     },
   ]
-}
+};
+
+export default config;
+
+const allComponents = flatten(Object.values(config));
+
+export { allComponents };

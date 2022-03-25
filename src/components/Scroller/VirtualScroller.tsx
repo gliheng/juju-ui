@@ -12,50 +12,51 @@ import { useElementSize } from '@utils/hooks';
 const BATCH_SIZE = 10;
 // batch render items, so changes to the dom are less frequent
 const BatchRenderer = defineComponent({
-  name: 'batch-renderer',
+  name: 'BatchRenderer',
   props: {
-    items: {
-      type: Array,
-      default: []
-    },
     itemRenderer: {
-      type: Function as PropType<() => JSX.Element>,
+      type: Function as PropType<(i: number) => JSX.Element>,
       required: true,
     },
-    start: Number,
-    end: Number,
+    start: {
+      type: Number,
+      required: true,
+    },
+    end: {
+      type: Number,
+      required: true,
+    },
   },
   setup(props) {
     return () =>  {
-      let data = props.items;
-      if (props.start !== undefined && props.end !== undefined) {
-        data = data.slice(props.start, props.end)
+      let { itemRenderer, start, end } = props;
+      let rows = [];
+      for (let i = start; i <= end; i++) {
+        rows.push(itemRenderer(i));
       }
-      return <>{ data.map(props.itemRenderer as any) }</>;
+      return <>{ rows }</>;
     };
   },
 });
 
 // This virtual scroller only support fixed height items
 export default defineComponent({
-  name: "virtual-scroller",
+  name: "VirtualScroller",
   props: {
-    items: {
-      type: Array,
-      default: []
+    itemCount: {
+      type: Number,
+      required: true,
     },
     itemRenderer: {
-      type: Function as PropType<() => JSX.Element>,
+      type: Function as PropType<(i: number) => JSX.Element>,
       required: true,
     },
     containerRenderer: Function as PropType<(nodes: JSX.Element | undefined) => JSX.Element>,
-    // only support virtual scrolling of fixed height items
     itemHeight: {
       type: Number,
       default: 30,
     },
     onScroll: Function,
-    style: Object,
     virtual: {
       type: Boolean,
       default: false,
@@ -70,8 +71,8 @@ export default defineComponent({
     let containerEl = computed(() => containerRef.value?.$el);
     // how many items does the virtual window contains
     let scrollerSize = useElementSize(containerEl);
-    let itemCount = computed(() => {
-      if (!props.virtual) return props.items.length;
+    let frameItemCount = computed(() => {
+      if (!props.virtual) return props.itemCount || 0;
       if (!containerEl.value) return -1;
 
       let { height } = scrollerSize;
@@ -106,35 +107,28 @@ export default defineComponent({
       return (
         <Scroller
           ref={ containerRef }
-          style={ props.style }
           overlayScrollbar={ props.overlayScrollbar }
           onScroll={ onScroll }
         >
         {() => {
-          let content;
-
-          if (!props.virtual) {
-            content = (
-              <BatchRenderer
-                items={ props.items }
-                itemRenderer={ props.itemRenderer } />
-            );
-          } else if (itemCount.value > 0) {
-            let end = itemCount.value + startIdx.value + BATCH_SIZE;
-            content = (
-              <BatchRenderer
-                items={ props.items }
-                itemRenderer={ props.itemRenderer }
-                start={startIdx.value} 
-                end={ end }
-              />
-            );
+          let start = 0, end = props.itemCount - 1;
+          if (props.virtual && frameItemCount.value > 0) {
+            start = startIdx.value;
+            end = Math.min(frameItemCount.value + startIdx.value + BATCH_SIZE, end);
           }
+
+          let content = (
+            <BatchRenderer
+              itemRenderer={props.itemRenderer}
+              start={start}
+              end={end}
+            />
+          );
           // wrap content inside a custom container renderer
           content = props.containerRenderer ? props.containerRenderer(content) : content;
           if (props.virtual)  {
             // apply virtual scroll viewport
-            let totalHeight = props.itemHeight * props.items.length;
+            let totalHeight = props.itemHeight * props.itemCount;
             content = (
               <div class="j-scroller-frame" style={{
                 height: `${ totalHeight }px`
