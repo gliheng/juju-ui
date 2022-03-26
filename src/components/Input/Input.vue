@@ -38,8 +38,7 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup(props, { slots, emit }) {
-    console.log("input slots", slots);
-    function onInput(evt: InputEvent) {
+    function onInput(evt: Event) {
       emit('update:modelValue', (evt.target as HTMLInputElement).value);
     }
     let hasPrepend = computed(() => {
