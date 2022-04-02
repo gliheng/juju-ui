@@ -31,3 +31,5 @@ export interface RowConfig {
 }
 
 export type SortDef = { key: string; asc: boolean }[];
+
+export type GroupKey = string | ((d: Datum) => string);

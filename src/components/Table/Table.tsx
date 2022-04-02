@@ -20,7 +20,7 @@ import { getField } from '@utils/object';
 import Row from './Row';
 import ColGroup from './ColGroup';
 import Sorter from './Sorter';
-import { ColumnConfig, Datum, GroupDatum, SortDef } from './types';
+import { ColumnConfig, Datum, GroupDatum, SortDef, GroupKey } from './types';
 import './Table.scss';
 
 const MIN_COL_WIDTH = 30;
@@ -59,7 +59,7 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    grouping: Array,
+    grouping: Array as PropType<GroupKey[]>,
     // virtualScroll and itemHeight are used for virtual scroll of content
     virtualScroll: {
       type: Boolean,
@@ -211,7 +211,7 @@ export default defineComponent({
       let { colMap } = columnsInfo.value;
       let data2 = sorted(data as Array<Datum>, colMap, sort);
       if (grouping && data2) {
-        return groupData(grouping as string[], data2);
+        return groupData(grouping, data2);
       }
       return data2;
     });
@@ -517,6 +517,56 @@ export default defineComponent({
       );
     }
 
+    function renderGroupHeader(
+      opts: {
+        leftStickyCount: number,
+        rightStickyCount: number,
+      },
+      key: string,
+      d: Datum,
+    ) {
+      // render group row
+      let colspan = props.columns.length;
+      let rendererName = `${d.groupName}-renderer`;
+      let content = d.groupValue;
+      let indentMargin = (d.groupPath.length - 1) * props.groupIndent;
+      let expanded = d.groupChildren && groupExpand[key] !== false;
+      let renderer = slots[rendererName] as Function;
+      if (renderer) {
+        content = renderer(d);
+      }
+      content = (
+        <div class="j-data-table-group-cell">
+          <i class="j-data-table-group-margin" style={{ margin: indentMargin + 'px' }} />
+          <SvgIcon name={ expanded ? 'chevron-down' : 'chevron-forward' } />
+          { content }
+        </div>
+      );
+      // In edge possibly chrome, full colspan make the td scroll with content event with sticky positioning
+      // it's probably a bug
+      // here we only put td with colspan equal to leftStickyCount
+      if (opts.leftStickyCount) {
+        content = (
+          <tr class="j-data-table-group-row" key={ 'group::' + key } onClick={ toggleGroup.bind(null, d.groupPath) }>
+            <td class="j-table-sticky" colspan={ opts.leftStickyCount }>
+              { content }
+            </td>
+            <td colspan={ colspan - opts.leftStickyCount - opts.rightStickyCount }></td>
+            {opts.rightStickyCount != 0 ? <td class="j-table-sticky" colspan={ opts.rightStickyCount }></td> : null}
+          </tr>
+        );
+      } else {
+        content = (
+          <tr class="j-data-table-group-row" key={ 'group::' + key } onClick={ toggleGroup.bind(null, d.groupPath) }>
+            <td class="j-table-sticky" colspan={ colspan }>
+              { content }
+            </td>
+          </tr>
+        );
+      }
+      return content;
+    }
+
     function renderRow(
       opts: {
         leftStickyCount: number,
@@ -526,46 +576,7 @@ export default defineComponent({
     ): JSX.Element {
       let [ key, d ] = rowData.value[i];
       if (d.groupName) {
-        // render group row
-        let colspan = props.columns.length;
-        let rendererName = `${d.groupName}-renderer`;
-        let content = d.groupValue;
-        let indentMargin = (d.groupPath.length - 1) * props.groupIndent;
-        let expanded = d.groupChildren && groupExpand[key] !== false;
-        let renderer = slots[rendererName] as Function;
-        if (renderer) {
-          content = renderer(d);
-        }
-        content = (
-          <div class="j-data-table-group-cell">
-            <i class="j-data-table-group-margin" style={{ margin: indentMargin + 'px' }} />
-            <SvgIcon name={ expanded ? 'chevron-down' : 'chevron-forward' } />
-            { content }
-          </div>
-        );
-        // In edge possibly chrome, full colspan make the td scroll with content event with sticky positioning
-        // it's probably a bug
-        // here we only put td with colspan equal to leftStickyCount
-        if (opts.leftStickyCount) {
-          content = (
-            <tr class="j-data-table-group-row" key={ 'group::' + key } onClick={ toggleGroup.bind(null, d.groupPath) }>
-              <td class="j-table-sticky" colspan={ opts.leftStickyCount }>
-                { content }
-              </td>
-              <td colspan={ colspan - opts.leftStickyCount - opts.rightStickyCount }></td>
-              {opts.rightStickyCount != 0 ? <td class="j-table-sticky" colspan={ opts.rightStickyCount }></td> : null}
-            </tr>
-          );
-        } else {
-          content = (
-            <tr class="j-data-table-group-row" key={ 'group::' + key } onClick={ toggleGroup.bind(null, d.groupPath) }>
-              <td class="j-table-sticky" colspan={ colspan }>
-                { content }
-              </td>
-            </tr>
-          );
-        }
-        return content;
+        return renderGroupHeader(opts, key, d);
       } else {
         // render normal data row
         return (
@@ -732,7 +743,7 @@ export default defineComponent({
 
 // recursive group data according to grouping rules
 function groupData(
-  grouping: string[],
+  grouping: GroupKey[],
   data: Datum[],
   cur: number = 0,
   groupPath: string[] = [],
@@ -742,9 +753,9 @@ function groupData(
     return data;
   }
   let groups: Record<string, any> = {};
-  let groupName = grouping[cur];
+  let groupKey = grouping[cur];
   data.forEach(d => {
-    let key = d[groupName];
+    let key = typeof groupKey == 'function' ? groupKey(d) : d[groupKey];
     if (!(key in groups)) {
       groups[key] = [];
     }
@@ -753,7 +764,7 @@ function groupData(
   return Object.keys(groups).map(key => {
     const newGroupPath = groupPath.concat(key);
     return {
-      groupName,
+      groupName: typeof groupKey == 'function' ? `group-${cur}` : groupKey,
       groupValue: key,
       groupPath: newGroupPath,
       groupChildren: groupData(grouping, groups[key], cur + 1, newGroupPath),
