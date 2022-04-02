@@ -11,6 +11,7 @@
 import { defineComponent, computed, ref } from 'vue';
 import * as icons from 'ionicons/icons';
 import { camelCase } from '@utils/string';
+import { get as getConfig } from '@utils/config';
 
 export default defineComponent({
   props: {
@@ -44,7 +45,12 @@ export default defineComponent({
 
 function getIconSvg(name?: string): string {
   if (!name) return '';
-  let str = (icons as Record<string, string>)[camelCase(name)];
+  let userIcons = getConfig().icons;
+  let key = camelCase(name);
+  let str = userIcons?.[key];
+  if (!str) {
+    str = (icons as Record<string, string>)[key];
+  }
   if (!str) return '';
   let start = str.indexOf('<');
   return str.substring(start).replace(/<title>.*?<\/title>/, '');

@@ -17,7 +17,7 @@
     </main>
     <header
       class="j-appbar j-shadow-1"
-      :data-align="_titleAlign"
+      :data-align="titleAlign"
     >
       <div class="j-appbar-left-actions" v-if="hasNav">
         <j-button round size="md" icon="menu" @click="toggleNav" />
@@ -99,7 +99,7 @@ export default defineComponent({
     let sizeClass = useWindowSizeClass();
     let wideLayout = computed(() => sizeClass.value != 'sm');
     let hasNav = computed(() => !!slots.nav);
-    let _titleAlign = computed(() => {
+    let titleAlign = computed(() => {
       if (wideLayout) {
         return 'left';
       }
@@ -122,7 +122,7 @@ export default defineComponent({
       wideLayout,
       expanded,
       hasNav,
-      _titleAlign,
+      titleAlign,
     };
   },
 });

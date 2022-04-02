@@ -1,6 +1,7 @@
 export interface Config {
-  popupBaseDepth: number;
-  theme: string;
+  popupBaseDepth: number; // popup minimum layer depth
+  theme: string; // Default theme to use
+  icons?: Record<string, string>; // Extra icon library
 };
 
 let config: Config = {
