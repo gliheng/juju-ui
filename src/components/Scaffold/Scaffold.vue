@@ -31,12 +31,41 @@
           <slot name="right-actions"></slot>
         </j-space>
         <template v-for="(act, i) in actions.sticky">
-          <a :key="`link-${i}`" v-if="act.link" :href="act.link" :target="act.target">
-            <j-button round size="md" :icon="act.icon" @click="act.onClick"></j-button>
+          <a
+            v-if="act.link"
+            :key="`link-${i}`"
+            :href="act.link"
+            :target="act.target"
+          >
+            <j-button
+              round
+              size="md"
+              :icon="act.icon"
+              @click="act.onClick"
+            ></j-button>
           </a>
-          <j-button :key="i" v-else round size="md" :icon="act.icon" @click="act.onClick">{{ act.label }}</j-button>
+          <j-button
+            v-else-if="act.label !== undefined"
+            :key="i"
+            round
+            size="md"
+            :icon="act.icon"
+            @click="act.onClick"
+          >{{ act.label }}</j-button>
+          <j-button
+            v-else
+            :key="`icon-${i}`"
+            round
+            size="md"
+            :icon="act.icon"
+            @click="act.onClick"
+          />
         </template>
-        <j-dropdown v-if="!wideLayout && actions.others.length" align="right" :menu-offset="10">
+        <j-dropdown
+          v-if="!wideLayout && actions.others.length"
+          align="right"
+          :menu-offset="10"
+        >
           <j-button round size="md" icon="ellipsis-vertical" />
           <template #menu>
             <j-menu list>
@@ -45,8 +74,13 @@
           </template>
         </j-dropdown>
         <template v-else>
-          <j-button v-for="(act, i) in actions.others" :key="`${i}:${actions.sticky.length}`"
-            round :icon="act.icon" @click="act.onClick">{{ act.label }}</j-button>
+          <j-button
+            v-for="(act, i) in actions.others"
+            :key="`${i}:${actions.sticky.length}`"
+            round
+            :icon="act.icon"
+            @click="act.onClick"
+          >{{ act.label }}</j-button>
         </template>
       </div>
     </header>
