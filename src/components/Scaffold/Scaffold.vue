@@ -26,9 +26,9 @@
         </j-space>
       </div>
       <div class="j-appbar-title"><slot name="title"></slot></div>
-      <div v-if="actions && actions.all.length" class="j-appbar-right-actions">
-        <j-space>
-          <slot v-if="$slots['right-actions']" name="right-actions"></slot>
+      <div v-if="actions.all.length || $slots['right-actions']" class="j-appbar-right-actions">
+        <j-space v-if="$slots['right-actions']">
+          <slot name="right-actions"></slot>
         </j-space>
         <template v-for="(act, i) in actions.sticky">
           <a :key="`link-${i}`" v-if="act.link" :href="act.link" :target="act.target">
