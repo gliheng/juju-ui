@@ -12,9 +12,12 @@
         <main>
           <slot></slot>
         </main>
-        <footer>
-          <j-button v-if="type == 'confirm'" outlined @click="$emit('dismiss', 'cancel')">Cancel</j-button>
-          <j-button @click="$emit('accept')">OK</j-button>
+        <footer v-if="$slots['footer']">
+          <slot name="footer" :accept="accept" :dismiss="dismiss"></slot>
+        </footer>
+        <footer v-else>
+          <j-button v-if="type == 'confirm'" outlined @click="dismiss">Cancel</j-button>
+          <j-button @click="accept">OK</j-button>
         </footer>
       </div>
     </transition>
@@ -52,7 +55,6 @@ export default defineComponent({
     },
     type: {
       type: String as PropType<"alert" | "confirm">,
-      default: 'alert',
     },
     modelValue: {
       type: Boolean,
@@ -101,6 +103,14 @@ export default defineComponent({
       document.removeEventListener('mouseup', stopDrag);
     }
 
+    function accept() {
+      emit('accept');
+    }
+    
+    function dismiss() {
+      emit('dismiss', 'cancel')
+    }
+    
     let zIndex = DepthManager.alloc(uid);
     watchEffect(() => {
       if (props.modelValue) {
@@ -113,7 +123,14 @@ export default defineComponent({
       DepthManager.revoke(uid);
     });
 
-    return { elm, startDrag, pos, zIndex };
+    return {
+      elm,
+      startDrag,
+      pos,
+      zIndex,
+      accept,
+      dismiss,
+    };
   },
 });
 </script>
