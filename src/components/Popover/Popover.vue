@@ -32,10 +32,10 @@ export default defineComponent({
   },
   setup(props) {
     let arrowSide = computed(() => {
-      if (props.side == 'left') return 'right';
-      if (props.side == 'right') return 'left';
-      if (props.side == 'top') return 'bottom';
-      if (props.side == 'bottom') return 'top';
+      if (props.side.startsWith('left')) return 'right';
+      if (props.side.startsWith('right')) return 'left';
+      if (props.side.startsWith('top')) return 'bottom';
+      if (props.side.startsWith('bottom')) return 'top';
       return '';
     });
 

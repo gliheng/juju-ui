@@ -29,6 +29,7 @@ export default defineComponent({
       default: {},
     },
   },
+  emits: ['select'],
   setup(props, { emit }) {
     function getCellKey(datum: Datum, col: ColumnConfig, i: number): string {
       if (typeof col.cellKey == 'string') {
