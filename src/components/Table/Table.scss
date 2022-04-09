@@ -1,7 +1,7 @@
 @import "vars";
 
 .j-table {
-  $border: 1px solid var(--j-foreground-color-2);
+  $border: 1px solid var(--j-border-color);
   color: var(--j-text-color);
   text-align: left;
   position: relative;
