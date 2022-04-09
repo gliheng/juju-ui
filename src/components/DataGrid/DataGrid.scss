@@ -1,7 +1,7 @@
 .j-data-grid {
   overflow: hidden;
   border: 1px solid var(--j-border-color);
-  background-color: var(--j-data-grid-background-color, var(--j-background-color-2));
+  background-color: var(--j-data-grid-background-color, var(--j-border-color));
   .j-data-grid-ruler-group {
     display: grid;
     grid-gap: 1px;
