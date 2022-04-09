@@ -1,6 +1,9 @@
 <template>
   <div class="j-descriptions-item">
-    <div class="j-descriptions-label">{{ label }}</div>
+    <div class="j-descriptions-label">
+
+      <slot v-if="$slots['label']" name="label"></slot>
+      <span v-else>{{ label }}</span></div>
     <div class="j-descriptions-value"><slot></slot></div>
   </div>
 </template>
