@@ -88,25 +88,26 @@ export default defineComponent({
   },
   emits: ['update:sort'],
   setup(props, { slots, emit }) {
-    let selection = reactive<{
-      sel: Set<string>,
-      headerCheckbox: boolean | null,
-    }>({
-      sel: new Set(),
-      headerCheckbox: false,
+    let selection = ref<Set<string>>(new Set());
+    let headerCheckbox = computed(() => {
+      if (selection.value.size === 0) {
+        return false;
+      } else if (selection.value.size === props.data?.length) {
+        return true;
+      }
+      return undefined;
     });
-    function toggleSelection(v: boolean | null) {
+    function toggleSelection(v?: boolean) {
       if (v === true) {
         let arr = []
         let data = props.data || [];
         for (let i = 0; i < data.length; i++) {
           arr.push(getRowKey(data[i], i));
         }
-        selection.sel = new Set(arr)
+        selection.value = new Set(arr)
       } else if (v === false) {
-        selection.sel = new Set();
+        selection.value = new Set();
       }
-      selection.headerCheckbox = v;
     }
 
     // Expand column grouping
@@ -338,8 +339,10 @@ export default defineComponent({
       if (col.type == 'selection') {
         label = (
           <Checkbox
-            modelValue={selection.headerCheckbox}
+            modelValue={headerCheckbox.value}
+            indeterminate={headerCheckbox.value === undefined}
             onUpdate:modelValue={toggleSelection}
+            onUpdate:indeterminate={() => toggleSelection(!headerCheckbox.value)}
           />
         );
         if (!align) {
@@ -587,7 +590,7 @@ export default defineComponent({
             stickyPos={stickyInfo.value.stickyPosMap}
             columns={columnsInfo.value.cols}
             rowConfig={props.rowConfig}
-            selected={selection.sel.has(key)}
+            selected={selection.value.has(key)}
             // @ts-ignore
             onSelect={selectRow.bind(null, key, i)}
           />
@@ -597,21 +600,14 @@ export default defineComponent({
 
     function selectRow(key: string, i: number) {
       if (props.multiSelect) {
-        if (selection.sel.has(key)) {
-          selection.sel.delete(key);
+        if (selection.value.has(key)) {
+          selection.value.delete(key);
         } else {
-          selection.sel.add(key);
+          selection.value.add(key);
         }
       } else {
-        selection.sel.clear();
-        selection.sel.add(key);
-      }
-      if (selection.sel.size === 0) {
-        selection.headerCheckbox = false;
-      } else if (selection.sel.size === props.data?.length) {
-        selection.headerCheckbox = false;
-      } else {
-        selection.headerCheckbox = null;
+        selection.value.clear();
+        selection.value.add(key);
       }
     }
     

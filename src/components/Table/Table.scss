@@ -96,6 +96,8 @@
   flex-direction: column;
   align-items: flex-start;
   position: relative;
+  // Elements below this one has non-zero z-index, this prevent parent to also get elevated
+  z-index: 0;
   // max-width: min-content;
   table {
     table-layout: fixed;
