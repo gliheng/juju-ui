@@ -9,12 +9,23 @@
     <div v-if="hasPrepend" class="j-input-prepend">
       <slot name="prepend"></slot>
     </div>
-    <input :value="modelValue" :disabled="disabled"
-      @input="onInput" @focus="focus = true" @blur="focus = false" v-bind="$attrs" />
+    <input
+      ref="iptRef"
+      :value="modelValue"
+      :disabled="disabled"
+      @input="onInput"
+      @focus="focus = true; $emit('focus', $event)"
+      @blur="focus = false; $emit('blur', $event)"
+    />
     <div v-if="hasAppend" class="j-input-append">
       <slot name="append"></slot>
     </div>
-    <svg-icon v-if="clearable" class="j-input-clear" name="close" @mousedown.prevent @click="clearIpt" />
+    <svg-icon
+      v-if="clearable"
+      class="j-input-clear"
+      name="close"
+      @mousedown.prevent
+      @click="clearIpt" />
   </div>
 </template>
 
@@ -24,9 +35,9 @@ import SvgIcon from '../SvgIcon/SvgIcon.vue';
 
 export default defineComponent({
   components: { SvgIcon },
-  inheritAttrs: false,
   props: {
     modelValue: String,
+    wrapperClass: String,
     disabled: {
       type: Boolean,
       default: false,
@@ -36,8 +47,17 @@ export default defineComponent({
       default: false,
     },
   },
-  emits: ['update:modelValue'],
-  setup(props, { slots, emit }) {
+  emits: ['update:modelValue', 'focus', 'blur'],
+  setup(props, { slots, emit, expose }) {
+    let iptRef = ref<HTMLInputElement>();
+    expose({
+      focus() {
+        iptRef.value!.focus();
+      },
+      get input() {
+        return iptRef.value;
+      },
+    });
     function onInput(evt: Event) {
       emit('update:modelValue', (evt.target as HTMLInputElement).value);
     }
@@ -51,7 +71,7 @@ export default defineComponent({
     function clearIpt() {
       emit('update:modelValue', '');
     }
-    return { focus, onInput, hasPrepend, hasAppend, clearIpt };
+    return { focus, onInput, hasPrepend, hasAppend, clearIpt, iptRef };
   },
 });
 </script>

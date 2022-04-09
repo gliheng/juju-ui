@@ -1,5 +1,5 @@
 <template>
-  <j-popover v-bind="$attrs">
+  <j-popover>
     <slot />
     <template #popover>
       {{ title }}
@@ -11,7 +11,6 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  inheritAttrs: false,
   props: {
     title: String,
   },
