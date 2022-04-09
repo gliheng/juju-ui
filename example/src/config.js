@@ -35,6 +35,9 @@ const config = {
     {
       name: "Tooltip",
     },
+    {
+      name: "Descriptions",
+    },
   ],
   Form: [
     {

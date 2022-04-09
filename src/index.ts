@@ -55,6 +55,8 @@ import MenuToggle from './components/AnimatedIcon/MenuToggle.vue';
 import Form from './components/Form/Form.vue';
 import FormItem from './components/Form/FormItem.vue';
 import ReorderList from './components/ReorderList/ReorderList';
+import Descriptions from './components/Descriptions/Descriptions.vue';
+import DescriptionsItem from './components/Descriptions/DescriptionsItem.vue';
 import loading from './directives/loading';
 import ripple from './directives/ripple';
 
@@ -116,6 +118,8 @@ export {
   Form,
   FormItem,
   ReorderList,
+  Descriptions,
+  DescriptionsItem,
   loading,
   ripple,
 };
@@ -176,6 +180,8 @@ export default function(app: App, conf: Partial<Config>) {
     .component('j-form', Form)
     .component('j-form-item', FormItem)
     .component('j-reorder-list', ReorderList)
+    .component('j-descriptions', Descriptions)
+    .component('j-descriptions-item', DescriptionsItem)
     .directive('loading', loading)
     .directive('ripple', ripple);
 
