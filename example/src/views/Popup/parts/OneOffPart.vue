@@ -15,7 +15,7 @@ async function showAlert() {
   });
   popup.alert('How nice that you accepted!', {
     width: 240,
-    height: 150,
+    height: 200,
   });
 }
 

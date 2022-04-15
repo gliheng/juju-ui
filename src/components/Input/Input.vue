@@ -1,5 +1,5 @@
 <template>
-  <div class="j-input"
+  <div :class="['j-input', wrapperClass]"
     :data-focus="focus"
     :data-disabled="disabled"
     :data-has-prepend="hasPrepend"
@@ -11,6 +11,7 @@
     </div>
     <input
       ref="iptRef"
+      v-bind="$attrs"
       :value="modelValue"
       :disabled="disabled"
       @input="onInput"
@@ -47,6 +48,7 @@ export default defineComponent({
       default: false,
     },
   },
+  inheritAttrs: false,
   emits: ['update:modelValue', 'focus', 'blur'],
   setup(props, { slots, emit, expose }) {
     let iptRef = ref<HTMLInputElement>();
