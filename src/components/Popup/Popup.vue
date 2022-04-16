@@ -17,14 +17,18 @@
             <slot></slot>
           </main>
           <footer v-if="$slots['footer']">
-            <slot name="footer" :accept="accept" :dismiss="dismiss"></slot>
+            <slot
+              name="footer"
+              :accept="accept"
+              :dismiss="dismiss"
+            />
           </footer>
           <footer v-else>
             <j-button v-if="type == 'confirm'"
               outlined
               @click="dismiss"
-            >{{ dismissLable }}</j-button>
-            <j-button @click="accept">{{ acceptLable }}</j-button>
+            >{{ dismissLabel }}</j-button>
+            <j-button @click="accept">{{ acceptLabel }}</j-button>
           </footer>
         </div>
       </transition>
@@ -65,7 +69,7 @@ export default defineComponent({
     type: {
       type: String as PropType<"alert" | "confirm">,
     },
-    acceptLable: {
+    acceptLabel: {
       type: String,
       default: 'OK',
     },
