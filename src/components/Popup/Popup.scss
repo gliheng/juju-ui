@@ -21,7 +21,7 @@
     pointer-events: initial;
     color: var(--j-text-color);
     background-color: var(--j-background-color);
-    header {
+    > header {
       height: 30px;
       line-height: 30px;
       cursor: default;
@@ -47,32 +47,23 @@
         padding: 3px;
       }
     }
-    main {
+    > main {
       flex: 1;
       padding: 1rem;
-    }
-    footer {
-      padding: $margin 0;
-      text-align: right;
-      button {
-        margin: 0;
-        margin-right: $margin;
-      }
-    }
-  }
-}
-
-.j-popup-manager {
-  .j-popup {
-    main {
-      display: flex;
-      align-items: center;
       > .j-popup-icon {
         margin-right: 0.5rem;
         color: var(--j-primary-color);
       }
       > .j-popup-content {
         margin: 0;
+      }
+    }
+    > footer {
+      padding: $margin 0;
+      text-align: right;
+      button {
+        margin: 0;
+        margin-right: $margin;
       }
     }
   }

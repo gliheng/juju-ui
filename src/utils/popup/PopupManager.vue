@@ -1,19 +1,17 @@
 <template>
-  <div class="j-popup-manager">
-    <j-popup v-for="(popup, id) in popups"
-      v-model="popup.visible"
-      :key="id"
-      :type="popup.type" :title="popup.title || ''"
-      :width="popup.width || 300"
-      :height="popup.height || 220"
-      :modal="popup.modal"
-      @dismiss="popup.dismiss.call(popup, $event)"
-      @accept="popup.accept.call(popup)"
-    >
-      <svg-icon v-if="popup.icon" :class="[ 'j-popup-icon', popup.iconColor || 'j-danger' ]" :name="popup.icon" size="lg" />
-      <p class="j-popup-content">{{ popup.msg || '' }}</p>
-    </j-popup>
-  </div>
+  <j-popup v-for="(popup, id) in popups"
+    v-model="popup.visible"
+    :key="id"
+    :type="popup.type" :title="popup.title || ''"
+    :width="popup.width || 300"
+    :height="popup.height || 220"
+    :modal="popup.modal"
+    @dismiss="popup.dismiss.call(popup, $event)"
+    @accept="popup.accept.call(popup)"
+  >
+    <svg-icon v-if="popup.icon" :class="[ 'j-popup-icon', popup.iconColor || 'j-danger' ]" :name="popup.icon" size="lg" />
+    <p class="j-popup-content">{{ popup.msg || '' }}</p>
+  </j-popup>
 </template>
 
 <script lang="ts">
