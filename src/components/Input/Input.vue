@@ -12,6 +12,7 @@
     <input
       ref="iptRef"
       v-bind="$attrs"
+      :type="iptType"
       :value="modelValue"
       :disabled="disabled"
       @input="onInput"
@@ -27,11 +28,16 @@
       name="close"
       @mousedown.prevent
       @click="clearIpt" />
+    <svg-icon
+      v-if="showPassword"
+      class="j-input-show-password"
+      :name="revealing ? 'eye-off-outline' : 'eye-outline'"
+      v-on="revealingEvents" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue';
+import { defineComponent, ref, computed, PropType } from 'vue';
 import SvgIcon from '../SvgIcon/SvgIcon.vue';
 
 export default defineComponent({
@@ -46,6 +52,10 @@ export default defineComponent({
     clearable: {
       type: Boolean,
       default: false,
+    },
+    type: String,
+    showPassword: {
+      type: String as PropType<'mousedown' | 'click'>,
     },
   },
   inheritAttrs: false,
@@ -73,7 +83,46 @@ export default defineComponent({
     function clearIpt() {
       emit('update:modelValue', '');
     }
-    return { focus, onInput, hasPrepend, hasAppend, clearIpt, iptRef };
+
+    let revealing = ref(false);
+    let iptType = computed(() => {
+      if (props.type == 'password') {
+        return revealing.value ? 'text' : 'password';
+      }
+      return props.type;
+    });
+    let revealingEvents = computed(() => {
+      if (props.showPassword == 'click') {
+        return {
+          click() {
+            revealing.value = !revealing.value;
+          },
+        };
+      } else if (props.showPassword == 'mousedown') {
+        return {
+          mousedown() {
+            revealing.value = true;
+            document.addEventListener('mouseup', () => {
+              revealing.value = false;
+            }, {
+              once: true,
+            });
+          },
+        };
+      }
+    });
+
+    return {
+      focus,
+      onInput,
+      hasPrepend,
+      hasAppend,
+      clearIpt,
+      iptRef,
+      iptType,
+      revealing,
+      revealingEvents,
+    };
   },
 });
 </script>
