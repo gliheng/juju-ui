@@ -61,8 +61,8 @@ export default defineComponent({
       }
       s = s || col.default;
       if (col.render) {
-        if (s) {
-          return col.render(datum, s);
+        if (col.field) {
+          return col.render(s, datum);
         } else {
           return col.render(datum);
         }

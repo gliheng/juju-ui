@@ -4,14 +4,14 @@
 [✓] Support viewing snippet code
 [✓] Space component
 [✓] FlexLayout: Support drag and drop to split view
-[ ] FlexLayout: Divider should be default
-[ ] FlexLayout: Layout modification can be persisted
-[ ] FlexLayout: Add option to disable drop on pane
+[✓] FlexLayout: Divider should be default
+[✓] FlexLayout: Layout modification can be persisted
 [✓] FlexLayout: Support tabs
+[ ] FlexLayout: Add option to disable drop on pane
 [ ] FlexLayout: Support min max size
 [✓] Splitter component
-[ ] Table support reorder, resize column
-[ ] Data table component
+[✓] Table support reorder, resize column
+[ ] DataGrid component
 [ ] Form components
-[ ] Popover component
+[✓] Popover component
 [ ] More layout components
