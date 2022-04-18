@@ -9,7 +9,10 @@
         >
           <header>
             <h1 @mousedown="startDrag">{{ title }}</h1>
-            <a class="close" @click="$emit('dismiss', 'close')">
+            <a
+              class="close"
+              @click="$emit('dismiss', 'close')"
+            >
               <svg-icon name="close"></svg-icon>
             </a>
           </header>
@@ -28,7 +31,10 @@
               outlined
               @click="dismiss"
             >{{ dismissLabel }}</j-button>
-            <j-button @click="accept">{{ acceptLabel }}</j-button>
+            <j-button
+              :loading="loading"
+              @click="accept"
+            >{{ acceptLabel }}</j-button>
           </footer>
         </div>
       </transition>
@@ -82,6 +88,9 @@ export default defineComponent({
       default: false,
       required: true,
     },
+    loading: {
+      type: Boolean,
+    },
   },
   emits: ['dismiss', 'accept'],
   setup(props, { emit }) {
@@ -129,7 +138,9 @@ export default defineComponent({
     }
 
     function accept() {
-      emit('accept');
+      if (!props.loading) {
+        emit('accept');
+      }
     }
     
     function dismiss() {

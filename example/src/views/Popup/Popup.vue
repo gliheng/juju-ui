@@ -13,6 +13,12 @@
         <one-off-part />
       </code-block>
     </section>
+    <section>
+      <h2>Loading popup</h2>
+      <code-block :code="loadingPartCode">
+        <loading-part />
+      </code-block>
+    </section>
   </div>
 </template>
 
@@ -21,6 +27,8 @@ import PopupPart from './parts/PopupPart.vue'
 import popupPartCode from './parts/PopupPart.vue?raw'
 import OneOffPart from './parts/OneOffPart.vue'
 import oneOffPartCode from './parts/OneOffPart.vue?raw'
+import LoadingPart from './parts/LoadingPart.vue'
+import loadingPartCode from './parts/LoadingPart.vue?raw'
 </script>
 
 <style scoped>
