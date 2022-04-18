@@ -34,11 +34,16 @@ export default defineComponent({
     },
   },
   emits: ['select'],
-  setup() {
+  setup(_, { expose }) {
     let fileInput = ref();
     function onClick() {
       fileInput.value.click();
     }
+    expose({
+      click() {
+        fileInput.value.click();
+      },
+    });
     return { fileInput, onClick };
   },
 });
