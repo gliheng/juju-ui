@@ -29,7 +29,7 @@ export default defineComponent({
     },
     modelValue: [ Array, Boolean ],
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'update:indeterminate'],
   setup(props, { emit }) {
     let checked = computed(() => {
       if (Array.isArray(props.modelValue)) {
@@ -39,7 +39,10 @@ export default defineComponent({
     });
 
     function onChange(evt: Event) {
-      if (props.indeterminate) return;
+      if (props.indeterminate) {
+        emit('update:indeterminate', !props.indeterminate);
+        return;
+      }
       if (Array.isArray(props.modelValue)) {
         if (checked.value) {
           let idx = props.modelValue.indexOf(props.value);

@@ -36,7 +36,7 @@ const config = {
       name: "Tooltip",
     },
     {
-      name: "Layout",
+      name: "Descriptions",
     },
   ],
   Form: [
@@ -106,18 +106,10 @@ const config = {
       name: "Drawer",
     },
   ],
-  Data: [
-    {
-      name: "Table",
-    },
-    {
-      name: "DataGrid",
-    },
-    {
-      name: "ReorderList",
-    },
-  ],
   Layout: [
+    {
+      name: "Layout",
+    },
     {
       name: "Scaffold",
       "fullPage": true,
@@ -130,6 +122,17 @@ const config = {
     },
     {
       name: "Tabs"
+    },
+  ],
+  Data: [
+    {
+      name: "Table",
+    },
+    {
+      name: "DataGrid",
+    },
+    {
+      name: "ReorderList",
     },
   ],
   Directive: [

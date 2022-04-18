@@ -1,13 +1,17 @@
 <template>
-  <div class="j-popup-manager">
-    <j-popup v-for="(popup, id) in popups" :key="id"
-      v-model="popup.visible" @dismiss="popup.dismiss.call(popup, $event)" @accept="popup.accept.call(popup)"
-      :type="popup.type" :title="popup.title || ''"
-      :width="popup.width || 300" :height="popup.height || 220" :modal="popup.modal">
-      <svg-icon v-if="popup.icon" :class="[ 'j-popup-icon', popup.iconColor || 'j-danger' ]" :name="popup.icon" size="lg" />
-      <p class="j-popup-content">{{ popup.msg || '' }}</p>
-    </j-popup>
-  </div>
+  <j-popup v-for="(popup, id) in popups"
+    v-model="popup.visible"
+    :key="id"
+    :type="popup.type" :title="popup.title || ''"
+    :width="popup.width || 300"
+    :height="popup.height || 220"
+    :modal="popup.modal"
+    @dismiss="popup.dismiss.call(popup, $event)"
+    @accept="popup.accept.call(popup)"
+  >
+    <svg-icon v-if="popup.icon" :class="[ 'j-popup-icon', popup.iconColor || 'j-danger' ]" :name="popup.icon" size="lg" />
+    <p class="j-popup-content">{{ popup.msg || '' }}</p>
+  </j-popup>
 </template>
 
 <script lang="ts">
@@ -33,7 +37,7 @@ export type PopupType = {
 } & PopupOpts;
 
 export default defineComponent({
-  setup() {
+  setup(_, { expose }) {
     let popups = reactive<Array<PopupType>>([]);
 
     function showPopupOfType(type: string, msg: string, opts: PopupOpts): Promise<void> {
@@ -46,10 +50,12 @@ export default defineComponent({
           accept() {
             this.visible = false;
             resolve();
+            remove(popup);
           },
           dismiss() {
             this.visible = false;
             reject();
+            remove(popup);
           }
         });
         // Push then modify it allows the popup to animate in
@@ -59,17 +65,25 @@ export default defineComponent({
         });
       });
     }
-  
-    function showAlert(msg: string, opts: PopupOpts): Promise<void> {
-      return showPopupOfType('alert', msg, opts);
-    }
 
-    function showConfirm(msg: string, opts: PopupOpts): Promise<void> {
-      return showPopupOfType('confirm', msg, opts);
+    function remove(popup) {
+      let idx = popups.indexOf(popup);
+      if (idx != -1) {
+        popups.splice(idx, 1);
+      }
     }
+  
+    expose({
+      showAlert(msg: string, opts: PopupOpts): Promise<void> {
+        return showPopupOfType('alert', msg, opts);
+      },
+      showConfirm(msg: string, opts: PopupOpts): Promise<void> {
+        return showPopupOfType('confirm', msg, opts);
+      },
+    });
 
     return {
-      popups, showAlert, showConfirm,
+      popups,
     };
   },
   components: { JPopup, SvgIcon },

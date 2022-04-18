@@ -1,7 +1,7 @@
 @import "vars";
 
 .j-number-input {
-  border: 1px solid var(--j-input-border-color, var(--j-foreground-color-1));
+  border: 1px solid var(--j-input-border-color, var(--j-border-color));
   border-radius: 3px;
   transition: border-color 0.2s, box-shadow 0.2s;
   position: relative;
@@ -24,7 +24,7 @@
       border: none;
       padding: 0;
       margin: 0;
-      --j-primary-color: var(--j-foreground-color-1);
+      --j-primary-color: var(--j-border-color);
       &:focus {
         box-shadow: none;
       }

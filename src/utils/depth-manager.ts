@@ -48,21 +48,15 @@ export function open(id: number, modal: boolean, cbk?: () => void ) {
 
 export function close(id: number) {
   let i = layers.findIndex(layer => layer.id == id);
-  if (i == -1) return;
-
-  layers.splice(i, 1);
-  depthes[id].value = -1;
-
-  // check if backdrop is needed
-  let z;
-  for (let i = layers.length - 1; i >= 0; i--) {
-    if (layers[i].modal) {
-      z = layers[i].z;
-      break;
-    }
+  if (i != -1) {
+    layers.splice(i, 1);
+    // depthes[id].value = -1;
   }
-  if (typeof z == 'number') {
-    showBackdrop(z);
+
+  // if one modal exist, backdrop is needed
+  let modalLayer = layers.find(e => e.modal);
+  if (modalLayer) {
+    showBackdrop(modalLayer.z);
   } else {
     hideBackdrop();
   }
@@ -80,10 +74,6 @@ export function touch(id: number) {
 }
   
 export function revoke(id: number) {
-  let z = depthes[id].value;
-  if (z != -1) {
-    // if the layer is not hidden
-    close(id);
-  }
+  close(id);
   delete depthes[id];
 }

@@ -13,7 +13,7 @@
     cursor: default;
     outline: none;
     // padding-left: 1rem;
-    border: 1px solid var(--j-input-border-color, var(--j-foreground-color-1));
+    border: 1px solid var(--j-input-border-color, var(--j-border-color));
     transition: border-color 0.2s, box-shadow 0.2s;
     &:focus {
       box-shadow: $outline;
@@ -31,12 +31,12 @@
       margin: 0;
       margin-left: $margin;
       .j-placeholder {
-        color: var(--j-foreground-color-1);
+        color: var(--j-border-color);
       }
     }
     .j-select-icon {
       margin: 0 math.div($gap, 2);
-      color: var(--j-foreground-color-1);
+      color: var(--j-border-color);
     }
   }
   &[data-align="left"] {

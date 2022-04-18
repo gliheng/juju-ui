@@ -1,27 +1,45 @@
 <template>
-  <div class="j-popup" :style="{zIndex: zIndex}">
-    <transition name="j-scale">
-      <div v-if="$props.modelValue" class="j-popup-inner j-shadow-5" ref="elm"
-        :style="`width: ${width}px; height:${height}px; left: ${pos.x}px; top: ${pos.y}px;`">
-        <header>
-          <h1 @mousedown="startDrag">{{ title }}</h1>
-          <a class="close" @click="$emit('dismiss', 'close')">
-            <svg-icon name="close"></svg-icon>
-          </a>
-        </header>
-        <main>
-          <slot></slot>
-        </main>
-        <footer v-if="$slots['footer']">
-          <slot name="footer" :accept="accept" :dismiss="dismiss"></slot>
-        </footer>
-        <footer v-else>
-          <j-button v-if="type == 'confirm'" outlined @click="dismiss">Cancel</j-button>
-          <j-button @click="accept">OK</j-button>
-        </footer>
-      </div>
-    </transition>
-  </div>
+  <Teleport to="body">
+    <div class="j-popup" :style="{zIndex: zIndex}">
+      <transition name="j-scale">
+        <div v-if="modelValue"
+          class="j-popup-inner j-shadow-5"
+          ref="elm"
+          :style="moveStyle"
+        >
+          <header>
+            <h1 @mousedown="startDrag">{{ title }}</h1>
+            <a
+              class="close"
+              @click="$emit('dismiss', 'close')"
+            >
+              <svg-icon name="close"></svg-icon>
+            </a>
+          </header>
+          <main>
+            <slot></slot>
+          </main>
+          <footer v-if="$slots['footer']">
+            <slot
+              name="footer"
+              :accept="accept"
+              :dismiss="dismiss"
+            />
+          </footer>
+          <footer v-else>
+            <j-button v-if="type == 'confirm'"
+              outlined
+              @click="dismiss"
+            >{{ dismissLabel }}</j-button>
+            <j-button
+              :loading="loading"
+              @click="accept"
+            >{{ acceptLabel }}</j-button>
+          </footer>
+        </div>
+      </transition>
+    </div>
+  </Teleport>
 </template>
 
 <script lang="ts">
@@ -29,6 +47,7 @@ import {
   defineComponent,
   reactive,
   ref,
+  computed,
   watchEffect,
   onUnmounted,
   getCurrentInstance,
@@ -56,10 +75,21 @@ export default defineComponent({
     type: {
       type: String as PropType<"alert" | "confirm">,
     },
+    acceptLabel: {
+      type: String,
+      default: 'OK',
+    },
+    dismissLabel: {
+      type: String,
+      default: 'Cancel',
+    },
     modelValue: {
       type: Boolean,
       default: false,
       required: true,
+    },
+    loading: {
+      type: Boolean,
     },
   },
   emits: ['dismiss', 'accept'],
@@ -68,7 +98,11 @@ export default defineComponent({
     let elm = ref<HTMLElement | null>(null);
     let inst = getCurrentInstance();
     let uid = inst!.uid;
-    
+    let moveStyle = computed(() => {
+      let { width, height } = props;
+      return `width: ${width}px; height:${height}px; left: ${pos.x}px; top: ${pos.y}px;`;
+    });
+
     let startX = 0, startY = 0, boundX = 0, boundY = 0;
     function startDrag(evt: MouseEvent) {
       if (!elm.value) return;
@@ -104,7 +138,9 @@ export default defineComponent({
     }
 
     function accept() {
-      emit('accept');
+      if (!props.loading) {
+        emit('accept');
+      }
     }
     
     function dismiss() {
@@ -130,6 +166,7 @@ export default defineComponent({
       zIndex,
       accept,
       dismiss,
+      moveStyle,
     };
   },
 });

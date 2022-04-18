@@ -14,10 +14,11 @@
 
 @mixin light-theme {
   --j-text-color: #333;
+  --j-border-color: #ccc;
   --j-neutral-color: #555;
-  --j-foreground-color: #888;
-  --j-foreground-color-1: #aaa;
-  --j-foreground-color-2: #ddd;
+  --j-foreground-color: #202020;
+  --j-foreground-color-1: #494949;
+  --j-foreground-color-2: #bcbcbc;
   --j-background-color: white;
   --j-background-color-1: #eee;
   --j-background-color-2: #d8d8d8;
@@ -25,6 +26,7 @@
 
 @mixin dark-theme {
   --j-text-color: #dedede;
+  --j-border-color: #747474;
   --j-neutral-color: #ddd;
   --j-foreground-color: #ccc;
   --j-foreground-color-1: #888;

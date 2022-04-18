@@ -28,6 +28,28 @@
       }
     }
   }
+  &[data-side="left-top"] {
+    > aside {
+      top: 0;
+      right: calc(100% + #{$margin});
+      .j-arrow {
+        position: absolute;
+        right: -2*$arrow;
+        top: $arrow;
+      }
+    }
+  }
+  &[data-side="left-bottom"] {
+    > aside {
+      bottom: 0;
+      right: calc(100% + #{$margin});
+      .j-arrow {
+        position: absolute;
+        right: -2*$arrow;
+        bottom: $arrow;
+      }
+    }
+  }
   &[data-side="right"] {
     > aside {
       top: 50%;
@@ -38,6 +60,28 @@
         left: -2*$arrow;
         top: 50%;
         margin-top: -$arrow;
+      }
+    }
+  }
+  &[data-side="right-top"] {
+    > aside {
+      top: 0;
+      left: calc(100% + #{$margin});
+      .j-arrow {
+        position: absolute;
+        left: -2*$arrow;
+        top: $arrow;
+      }
+    }
+  }
+  &[data-side="right-bottom"] {
+    > aside {
+      bottom: 0;
+      left: calc(100% + #{$margin});
+      .j-arrow {
+        position: absolute;
+        left: -2*$arrow;
+        bottom: $arrow;
       }
     }
   }
@@ -54,6 +98,28 @@
       }
     }
   }
+  &[data-side="top-left"] {
+    > aside {
+      left: 0;
+      bottom: calc(100% + #{$margin});
+      .j-arrow {
+        position: absolute;
+        bottom: -2*$arrow;
+        left: $arrow;
+      }
+    }
+  }
+  &[data-side="top-right"] {
+    > aside {
+      right: 0;
+      bottom: calc(100% + #{$margin});
+      .j-arrow {
+        position: absolute;
+        bottom: -2*$arrow;
+        right: $arrow;
+      }
+    }
+  }
   &[data-side="bottom"] {
     > aside {
       left: 50%;
@@ -64,6 +130,28 @@
         left: 50%;
         top: -2*$arrow;
         margin-left: -$arrow;
+      }
+    }
+  }
+  &[data-side="bottom-left"] {
+    > aside {
+      left: 0;
+      top: calc(100% + #{$margin});
+      .j-arrow {
+        position: absolute;
+        top: -2*$arrow;
+        left: $arrow;
+      }
+    }
+  }
+  &[data-side="bottom-right"] {
+    > aside {
+      right: 0;
+      top: calc(100% + #{$margin});
+      .j-arrow {
+        position: absolute;
+        top: -2*$arrow;
+        right: $arrow;
       }
     }
   }

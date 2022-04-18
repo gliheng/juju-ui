@@ -24,6 +24,10 @@
       .j-form-item-label {
         margin-right: 4px;
       }
+      .j-form-item-content {
+        flex: 1;
+        min-width: 0;
+      }
     }
   }
   &[data-inline="true"] {

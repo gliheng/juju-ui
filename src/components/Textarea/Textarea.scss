@@ -2,7 +2,7 @@
 
 .j-textarea {
   padding: 0.5rem;
-  border: 1px solid var(--j-input-border-color, var(--j-foreground-color-1));
+  border: 1px solid var(--j-input-border-color, var(--j-border-color));
   background-color: var(--j-background-color);
   border-radius: 3px;
   transition: border-color 0.2s, box-shadow 0.2s;

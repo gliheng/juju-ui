@@ -1,6 +1,7 @@
 <template>
   <form
     class="j-form"
+    ref="formRef"
     :data-inline="inline"
     :data-label-position="labelPosition"
     :data-label-alignment="labelAlignment"
@@ -45,6 +46,7 @@ const C = defineComponent({
     let children = useChildren(FormSymbol, {
       errors,
     });
+    let formRef = ref<HTMLFormElement>();
     
     function reset() {
       errors.value = {};
@@ -66,14 +68,15 @@ const C = defineComponent({
           allRules[key] = [allRules[key]];
         }
       }
-      return new Promise<void>((resolve, reject) => {
+      return new Promise<Record<string, any>>((resolve, reject) => {
         let schema = new Schema(allRules);
-        schema.validate(props.model, (err: Record<string, any> | null) => {
+        let { model } = props;
+        schema.validate(model, (err: Record<string, any> | null) => {
           if (err) {
             errors.value = err;
             reject(err);
           } else {
-            resolve();
+            resolve(model);
           }
         });
       });
@@ -82,8 +85,11 @@ const C = defineComponent({
     expose({
       reset,
       validate,
+      submit() {
+        formRef.value?.submit();
+      },
     });
-    return { reset };
+    return { reset, formRef };
   },
 });
 

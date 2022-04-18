@@ -30,6 +30,12 @@
         <group-addon-part />
       </code-block>
     </section>
+    <section>
+      <h2>Password input</h2>
+      <code-block :code="passwordPartCode">
+        <password-part />
+      </code-block>
+    </section>
   </div>
 </template>
 
@@ -39,10 +45,12 @@ import IconPart from './parts/IconPart.vue';
 import ClearablePart from './parts/ClearablePart.vue';
 import GroupPart from './parts/GroupPart.vue'
 import GroupAddonPart from './parts/GroupAddonPart.vue'
+import PasswordPart from './parts/PasswordPart.vue'
 
 import inputPartCode from './parts/InputPart.vue?raw';
 import iconPartCode from './parts/IconPart.vue?raw';
 import clearablePartCode from './parts/ClearablePart.vue?raw';
 import groupPartCode from './parts/GroupPart.vue?raw'
 import groupAddonPartCode from './parts/GroupAddonPart.vue?raw'
+import passwordPartCode from './parts/PasswordPart.vue?raw'
 </script>

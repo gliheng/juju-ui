@@ -1,10 +1,11 @@
 import { h, defineComponent, PropType, reactive, StyleValue } from 'vue';
 
 export default defineComponent({
-  props: 
-  setup() {
+  setup(props, { slots }) {
     return () => {
-
+      return (
+        <div>{ slots.default?.() }</div>
+      );
     };
-  }
+  },
 });
