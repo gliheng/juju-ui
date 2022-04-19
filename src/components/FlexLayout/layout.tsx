@@ -217,7 +217,7 @@ export class RenderBox {
       }
     }
 
-    if (this.isLeaf || this.isRoot) {      
+    if (this.isLeaf || this.isRoot) {
       let alignment = this.getAlignment(x, y, tabHeight);
       let dimension = this.alignmentToDimensions(alignment, tabHeight);
       
@@ -398,12 +398,22 @@ export class RenderBox {
   getAlignment(cursorX: number, cursorY: number, tabHeight: number): HitTestAlignment {
     let xScale = makeScale(this.x, this.width);
     let yScale = makeScale(this.y, this.height);
-    let boxes: [Axis, number[], HitTestAlignment][] = [
+    let hBoxes: [Axis, number[], HitTestAlignment][] = [
       [Axis.X, xScale([0, 0.2]), HitTestAlignment.Left],
       [Axis.X, xScale([0.8, 1]), HitTestAlignment.Right],
+    ];
+    let vBoxes: [Axis, number[], HitTestAlignment][] = [
       [Axis.Y, yScale([0, 0.2]), HitTestAlignment.Top],
       [Axis.Y, yScale([0.8, 1]), HitTestAlignment.Bottom],
     ];
+    let boxes;
+    if (this.use == COL) {
+      boxes = vBoxes;
+    } else if (this.use == ROW) {
+      boxes = hBoxes;
+    } else {
+      boxes = [...hBoxes, ...vBoxes];
+    }
 
     // only do tabbar match when there's tabbar
     if (!this.isDummy) {
