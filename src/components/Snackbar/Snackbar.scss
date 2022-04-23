@@ -10,14 +10,18 @@
   cursor: default;
   box-shadow: $shadow;
   background-color: var(--j-background-color);
-  div {
+  color: var(--j-primary-color);
+  .j-snackbar-icon {
+    margin-right: $margin;
+  }
+  .j-snackbar-label {
     flex: 1;
     max-width: 40vw;
     width: max-content;
     overflow-wrap: break-word;
     text-align: left;
   }
-  .j-button {
+  .j-snackbar-close {
     margin: 0;
     margin-left: 10px;
   }
