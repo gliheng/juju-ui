@@ -3,18 +3,35 @@
   <j-button @click="toggleConfirm">Open confirm</j-button>
   <j-button @click="toggleModal">Open modal</j-button>
 
-  <j-popup title="Alert popup" :width="300" :height="200"
-    v-model="alertOpen" @dismiss="toggleAlert" @accept="toggleAlert">
+  <j-popup
+    title="Alert popup"
+    :width="300"
+    :height="200"
+    v-model="alertOpen"
+    @dismiss="toggleAlert"
+    @accept="toggleAlert"
+  >
     <p>Hello, what's your name?</p>
   </j-popup>
   
-  <j-popup title="Confirm popup" type="confirm"
-    v-model="confirmOpen" @dismiss="toggleConfirm" @accept="toggleConfirm">
+  <j-popup
+    title="Confirm popup"
+    type="confirm"
+    v-model="confirmOpen"
+    @dismiss="toggleConfirm"
+    @accept="toggleConfirm"
+  >
     <p>Hello, what's your name?</p>
   </j-popup>
 
-  <j-popup title="Modal popup" :modal="true" type="confirm"
-    v-model="modalOpen" @dismiss="toggleModal" @accept="toggleModal">
+  <j-popup
+    title="Modal popup"
+    :modal="true"
+    type="confirm"
+    v-model="modalOpen"
+    @dismiss="toggleModal"
+    @accept="toggleModal"
+  >
     <p>Hello, what's your name?</p>
   </j-popup>
 </template>

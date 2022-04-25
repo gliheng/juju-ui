@@ -217,7 +217,7 @@ export class RenderBox {
       }
     }
 
-    if (this.isLeaf || this.isRoot) {
+    if (this.isLeaf) {
       let alignment = this.getAlignment(x, y, tabHeight);
       let dimension = this.alignmentToDimensions(alignment, tabHeight);
       
