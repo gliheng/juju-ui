@@ -41,6 +41,7 @@ export default defineComponent({
         placeholder: any;
         showActionMenu: boolean;
         closable: boolean;
+        gap: number;
       }>,
       required: true,
     },
