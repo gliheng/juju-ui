@@ -13,6 +13,7 @@
   vertical-align: middle;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   position: relative;
   overflow: hidden;
 
@@ -20,7 +21,8 @@
   border: 1px solid var(--j-button-border-color, var(--j-primary-color));
   color: var(--j-button-color, var(--j-primary-color-text));
   &.is-icon {
-    padding: 0.5rem;
+    padding: 0;
+    width: var(--j-button-height, 32px);
   }
   &.is-right {
     direction: rtl;
