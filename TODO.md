@@ -16,3 +16,5 @@
 [✓] Popover component
 [ ] More layout components
 [ ] Snackbar support icon
+[✓] Carousel component
+[ ] Draw transition top bottom -> up down?

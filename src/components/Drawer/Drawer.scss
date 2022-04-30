@@ -30,3 +30,22 @@
     top: auto;
   }
 }
+
+@mixin drawer-slide-transition($side) {
+  .j-drawer-slide-#{$side}-enter-active,
+  .j-drawer-slide-#{$side}-leave-active {
+    margin-#{$side}: 0;
+    transition: margin-#{$side} 0.2s $curve, opacity 0.2s $curve;
+  }
+  
+  .j-drawer-slide-#{$side}-enter-from,
+  .j-drawer-slide-#{$side}-leave-to {
+    margin-#{$side}: -200px;
+    opacity: 0;
+  }
+}
+
+@include drawer-slide-transition("left");
+@include drawer-slide-transition("right");
+@include drawer-slide-transition("top");
+@include drawer-slide-transition("bottom");

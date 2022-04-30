@@ -44,8 +44,21 @@ export default defineComponent({
     let events = computed(() => {
       let evts: Record<string, Function> = {};
       if (props.trigger == 'hover') {
-        evts.mouseenter = () => toggle(true);
-        evts.mouseleave = () => toggle(false);
+        let enterTimer = 0, leaveTimer = 0;
+        evts.mouseenter = () => {
+          if (leaveTimer) {
+            clearTimeout(leaveTimer);
+            leaveTimer = 0;
+          }
+          enterTimer = setTimeout(() => toggle(true), 300);
+        };
+        evts.mouseleave = () => {
+          if (enterTimer) {
+            clearTimeout(enterTimer);
+            enterTimer = 0;
+          }
+          leaveTimer = setTimeout(() => toggle(false), 300);
+        };
       } else if (props.trigger == 'click') {
         evts.click = (evt: MouseEvent) => {
           evt.stopPropagation();

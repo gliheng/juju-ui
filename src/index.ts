@@ -57,6 +57,8 @@ import FormItem from './components/Form/FormItem.vue';
 import ReorderList from './components/ReorderList/ReorderList';
 import Descriptions from './components/Descriptions/Descriptions.vue';
 import DescriptionsItem from './components/Descriptions/DescriptionsItem.vue';
+import Carousel from './components/Carousel/Carousel.vue';
+import CarouselItem from './components/Carousel/CarouselItem.vue';
 import loading from './directives/loading';
 import ripple from './directives/ripple';
 
@@ -120,6 +122,8 @@ export {
   ReorderList,
   Descriptions,
   DescriptionsItem,
+  Carousel,
+  CarouselItem,
   loading,
   ripple,
 };
@@ -182,6 +186,8 @@ export default function(app: App, conf: Partial<Config>) {
     .component('j-reorder-list', ReorderList)
     .component('j-descriptions', Descriptions)
     .component('j-descriptions-item', DescriptionsItem)
+    .component('j-carousel', Carousel)
+    .component('j-carousel-item', CarouselItem)
     .directive('loading', loading)
     .directive('ripple', ripple);
 

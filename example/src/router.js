@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from './views/Home.vue';
+import Dev from './views/Dev.vue';
 import NotFound from './views/NotFound.vue';
 import config, { allComponents } from './config';
 import { kebabCase } from 'lodash-es';
@@ -12,12 +13,26 @@ const routes = [
     component: Home,
   },
   ...allComponents.map(mapRoute),
-  {
-    path: '/:pathMatch(.*)*',
-    name: 'not-found',
-    component: NotFound,
-  },
 ];
+
+// add dev route
+if (import.meta.env.DEV) {
+  routes.push({
+    path: '/dev/:component/:part',
+    name: 'dev',
+    component: Dev,
+    meta: {
+      fullPage: true,
+    },
+  });
+}
+
+// add 404 catch-all route
+routes.push({
+  path: '/:pathMatch(.*)*',
+  name: 'not-found',
+  component: NotFound,
+});
 
 const routeMap = {};
 routes.forEach(r => {

@@ -38,6 +38,9 @@ const config = {
     {
       name: "Descriptions",
     },
+    {
+      name: "Carousel",
+    },
   ],
   Form: [
     {
