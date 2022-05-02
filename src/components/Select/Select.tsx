@@ -1,7 +1,8 @@
 import { defineComponent, h, computed, VNode } from 'vue';
 import { useBackdropAwareSwitch } from '../../utils/hooks';
 import SelectItem from './SelectItem';
-import SvgIcon from '../SvgIcon/SvgIcon.vue';
+import SvgIcon from '@/SvgIcon/SvgIcon.vue';
+import Button from '@/Button/Button.vue';
 import Scroller from '../Scroller/Scroller.vue';
 import './Select.scss';
 
@@ -35,6 +36,7 @@ export default defineComponent({
       type: String,
       default: 'md',
     },
+    clearable: Boolean,
   },
   emits: ['update:modelValue'],
   setup(props, { slots, emit }) {
@@ -78,8 +80,14 @@ export default defineComponent({
       }
     }
 
+    function clearInput(evt: MouseEvent) {
+      evt.stopPropagation();
+      emit('update:modelValue', undefined);
+    }
+
     return () => {
       let content: VNode[];
+      let clearable = props.modelValue && props.clearable;
       if (slots.default) {
         content = slots.default();
       } else {
@@ -95,17 +103,32 @@ export default defineComponent({
             <span class="j-placeholder">{ props.placeholder }</span>
           );
         }
+
+        let clearIcon;
+        if (clearable) {
+          clearIcon = (
+            <Button
+              class="j-select-clear-btn"
+              flat
+              round
+              icon="close-outline"
+              onClick={clearInput}
+            />
+          );
+        }  
         content = [
           <div class="j-select-label" tabindex={0}>
             <div class="j-select-label-inner">{ label }</div>
             <SvgIcon class="j-select-icon" name="chevron-down" />
+            { clearIcon }
           </div>
         ];
       }
-  
+
       return (
         <div class="j-select"
           data-align={ props.align }
+          data-clearable={ clearable }
           data-has-icon={ hasIcon.value }
           onClick={evt => {
             evt.stopPropagation();

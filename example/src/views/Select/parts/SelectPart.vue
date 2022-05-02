@@ -1,5 +1,9 @@
 <template>
-  <j-select v-model="v" placeholder="Blend mode" :options="blendOptions" />
+  <j-select
+    v-model="v"
+    placeholder="Blend mode"
+    :options="blendOptions"
+    clearable />
 </template>
 
 <script setup>
