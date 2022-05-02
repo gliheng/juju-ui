@@ -1,0 +1,19 @@
+@import "vars";
+
+.j-select-item {
+  padding: $margin;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  &:hover {
+    background-color: var(--j-primary-color-lighter);
+  }
+  > .j-icon {
+    margin-right: 0.2rem;
+  }
+  > .j-checkbox {
+    vertical-align: middle;
+    margin: 0 $margin;
+  }
+}

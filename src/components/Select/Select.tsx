@@ -1,21 +1,13 @@
-import { defineComponent, h, computed, VNode } from 'vue';
-import { useBackdropAwareSwitch } from '../../utils/hooks';
-import SelectItem from './SelectItem';
+import { defineComponent, h, computed, PropType, VNode } from 'vue';
+import { useBackdropAwareSwitch } from '@utils/hooks';
 import SvgIcon from '@/SvgIcon/SvgIcon.vue';
 import Button from '@/Button/Button.vue';
-import Scroller from '../Scroller/Scroller.vue';
+import Scroller from '@/Scroller/Scroller.vue';
+import SelectItem from './SelectItem';
 import './Select.scss';
+import { Option, OptionValue } from './types';
 
-type OptionValue = string | number | boolean;
-
-interface SimpleOption {
-  label: string,
-  value: OptionValue,
-  icon?: string,
-  onClick?: () => void,
-};
-
-type Option = SimpleOption | {
+type OptionWithType = Option | {
   type: string,
 };
 
@@ -25,7 +17,7 @@ export default defineComponent({
     modelValue: [ String, Number, Boolean, Array ],
     multiple: Boolean,
     options: {
-      type: Array,
+      type: Array as PropType<OptionWithType[]>,
       default: [],
     },
     align: {
@@ -52,15 +44,15 @@ export default defineComponent({
       return opt?.label || '';
     });
 
-    let hasIcon = computed(() => (props.options as Option[]).some(opt => 'icon' in opt));
+    let hasIcon = computed(() => props.options.some(opt => 'icon' in opt));
 
-    function getOptionByValue(value: OptionValue): SimpleOption | undefined {
-      return (props.options as Option[]).find(opt => {
+    function getOptionByValue(value: OptionValue): Option | undefined {
+      return props.options.find(opt => {
         return 'value' in opt && opt.value == value;
-      }) as SimpleOption | undefined;
+      }) as Option | undefined;
     }
 
-    function select(opt: SimpleOption, evt: Event) {
+    function select(opt: Option, evt: Event) {
       let { value } = opt;
       if (props.multiple) {
         let modelValue = props.modelValue as OptionValue[];
@@ -94,7 +86,11 @@ export default defineComponent({
         let label;
         if (selected.value) {
           let text = selected.value;
-          if (props.multiple && Array.isArray(props.modelValue) && props.modelValue.length == props.options.length) {
+          if (
+            props.multiple
+            && Array.isArray(props.modelValue)
+            && props.modelValue.length == props.options.length
+          ) {
             text = 'All';
           }
           label = <span title={ selected.value }>{ text }</span>;
@@ -139,22 +135,25 @@ export default defineComponent({
             <div class="j-select-menu">
               <Scroller>
                 {() => (
-                  <div class="j-dropdonw-menu-inner">
+                  <div class="j-select-menu-inner">
                     {props.options.map((opt: any, i) => {
                       if (opt.type == 'seperator') {
                         return <hr key={i} class="j-select-seperator" />;
                       }
                       let checked;
-                      if (props.multiple) {
-                        checked = (props.modelValue as OptionValue[]).indexOf(opt.value) != -1;
+                      if (props.multiple && Array.isArray(props.modelValue)) {
+                        checked = props.modelValue.indexOf(opt.value) != -1;
                       }
                       return (
-                        <SelectItem key={opt.value}
+                        <SelectItem
+                          key={opt.value}
                           checked={checked}
                           value={opt.value}
                           icon={opt.icon}
-                          size={props.iconSize} label={opt.label}
-                          onClick={select.bind(null, opt)} />
+                          size={props.iconSize}
+                          label={opt.label}
+                          onClick={select.bind(null, opt)}
+                        />
                       );
                     })
                   }
