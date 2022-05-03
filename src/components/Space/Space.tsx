@@ -15,7 +15,8 @@ export default defineComponent({
     return () => {
       let nodes;
       if (slots.default) {
-        nodes = slots.default();
+        // Exclude comment node
+        nodes = slots.default().filter(e => typeof e.type != 'symbol');
         nodes = nodes.map((node, i) => {
           return (
             <div
