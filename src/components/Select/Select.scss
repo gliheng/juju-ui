@@ -82,7 +82,7 @@
     color: var(--j-text-color);
     border-radius: 3px;
     .j-scroller {
-      max-height: 300px;
+      --j-scroller-height: 300px;
     }
   }
 

@@ -59,6 +59,7 @@ import Descriptions from './components/Descriptions/Descriptions.vue';
 import DescriptionsItem from './components/Descriptions/DescriptionsItem.vue';
 import Carousel from './components/Carousel/Carousel.vue';
 import CarouselItem from './components/Carousel/CarouselItem.vue';
+import PopSelect from './components/PopSelect/PopSelect.vue';
 import loading from './directives/loading';
 import ripple from './directives/ripple';
 
@@ -124,6 +125,7 @@ export {
   DescriptionsItem,
   Carousel,
   CarouselItem,
+  PopSelect,
   loading,
   ripple,
 };
@@ -188,6 +190,7 @@ export default function(app: App, conf: Partial<Config>) {
     .component('j-descriptions-item', DescriptionsItem)
     .component('j-carousel', Carousel)
     .component('j-carousel-item', CarouselItem)
+    .component('j-pop-select', PopSelect)
     .directive('loading', loading)
     .directive('ripple', ripple);
 

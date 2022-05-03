@@ -42,7 +42,7 @@ const config = {
       name: "Carousel",
     },
   ],
-  Form: [
+  Input: [
     {
       name: "AutoComplete",
     },
@@ -78,6 +78,9 @@ const config = {
     },
     {
       name: "Slider",
+    },
+    {
+      name: "PopSelect",
     },
     {
       name: "Form",

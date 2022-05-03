@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed, watch, nextTick } from 'vue';
 import { useBackdropAwareSwitch } from '@utils/hooks';
 
 export default defineComponent({
@@ -23,14 +23,15 @@ export default defineComponent({
     title: String,
     side: {
       type: String,
-      default: 'right',
+      default: 'bottom',
     },
     trigger: {
       type: String,
       default: 'hover',
     },
   },
-  setup(props) {
+  emits: ['show', 'hide'],
+  setup(props, { emit }) {
     let arrowSide = computed(() => {
       if (props.side.startsWith('left')) return 'right';
       if (props.side.startsWith('right')) return 'left';
@@ -66,6 +67,10 @@ export default defineComponent({
         };
       }
       return evts;
+    });
+
+    watch(on, (v) => {
+      emit(v ? 'show' : 'hide')
     });
     
     return {
