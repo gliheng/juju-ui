@@ -2,7 +2,7 @@
   <h1>Tooltip</h1>
   <div>
     <section>
-      <h1>Simple tooltip</h1>
+      <h2>Simple tooltip</h2>
       <code-block :code="tooltipPartCode">
         <tooltip-part />
       </code-block>
