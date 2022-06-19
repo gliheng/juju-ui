@@ -1,6 +1,6 @@
 <template>
   <example-list
-    title="Drawer"
+    title="TileLayout"
     :list="list"
     :modules="modules"
   />
@@ -13,7 +13,8 @@ const modules = {
 };
 const list = [
   {
-    part: 'DrawerPart.vue',
+    title: 'Basic tile',
+    part: 'BasicPart.vue',
   },
 ];
 </script>

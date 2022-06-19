@@ -1,28 +1,24 @@
 <template>
-  <div>
-    <h1>AnimatedIcon</h1>
-    <section>
-      <h2>Menu Opener</h2>
-      <code-block :code="menuOpenerCode">
-        <menu-opener />
-      </code-block>
-    </section>
-    <section>
-      <h2>Menu Toggle</h2>
-      <code-block :code="menuToggleCode">
-        <menu-toggle />
-      </code-block>
-    </section>
-  </div>
+  <example-list
+    title="AnimatedIcon"
+    :list="list"
+    :modules="modules"
+  />
 </template>
 
 <script setup>
-import MenuOpener from './parts/MenuOpener.vue';
-import menuOpenerCode from './parts/MenuOpener.vue?raw';
-import MenuToggle from './parts/MenuToggle.vue';
-import menuToggleCode from './parts/MenuToggle.vue?raw';
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    title: 'Menu Opener',
+    part: 'MenuOpener.vue',
+  },
+  {
+    title: 'Menu Toggle',
+    part: 'MenuToggle.vue',
+  },
+];
 </script>
-
-<style>
-
-</style>

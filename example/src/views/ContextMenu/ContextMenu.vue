@@ -1,13 +1,19 @@
 <template>
-  <div>
-    <h1>ContextMenu</h1>
-    <code-block :code="contextMenuPartCode">
-      <context-menu-part />
-    </code-block>
-  </div>
+  <example-list
+    title="ContextMenu"
+    :list="list"
+    :modules="modules"
+  />
 </template>
 
 <script setup>
-import ContextMenuPart from './parts/ContextMenuPart.vue';
-import contextMenuPartCode from './parts/ContextMenuPart.vue?raw';
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    part: 'ContextMenuPart.vue',
+  },
+];
 </script>

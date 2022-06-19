@@ -1,56 +1,40 @@
 <template>
-  <div>
-    <h1>Input</h1>
-    <section>
-      <code-block :code="inputPartCode">
-        <input-part />
-      </code-block>
-    </section>
-    <section>
-      <h2>Prepend and append icons</h2>
-      <code-block :code="iconPartCode">
-        <icon-part />
-      </code-block>
-    </section>
-    <section>
-      <h2>Clearable input</h2>
-      <code-block :code="clearablePartCode">
-        <clearable-part />
-      </code-block>
-    </section>
-    <section>
-      <h2>InputGroup</h2>
-      <code-block :code="groupPartCode">
-        <group-part />
-      </code-block>
-    </section>
-    <section>
-      <h2>Group addons</h2>
-      <code-block :code="groupAddonPartCode">
-        <group-addon-part />
-      </code-block>
-    </section>
-    <section>
-      <h2>Password input</h2>
-      <code-block :code="passwordPartCode">
-        <password-part />
-      </code-block>
-    </section>
-  </div>
+  <example-list
+    title="Input"
+    :list="list"
+    :modules="modules"
+  />
 </template>
 
 <script setup>
-import InputPart from './parts/InputPart.vue';
-import IconPart from './parts/IconPart.vue';
-import ClearablePart from './parts/ClearablePart.vue';
-import GroupPart from './parts/GroupPart.vue'
-import GroupAddonPart from './parts/GroupAddonPart.vue'
-import PasswordPart from './parts/PasswordPart.vue'
-
-import inputPartCode from './parts/InputPart.vue?raw';
-import iconPartCode from './parts/IconPart.vue?raw';
-import clearablePartCode from './parts/ClearablePart.vue?raw';
-import groupPartCode from './parts/GroupPart.vue?raw'
-import groupAddonPartCode from './parts/GroupAddonPart.vue?raw'
-import passwordPartCode from './parts/PasswordPart.vue?raw'
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    title: 'Input',
+    part: 'InputPart.vue',
+  },
+  {
+    title: 'Prepend and append icons',
+    part: 'IconPart.vue',
+  },
+  {
+    title: 'Clearable input',
+    part: 'ClearablePart.vue',
+  },
+  {
+    title: 'Input group',
+    part: 'GroupPart.vue',
+  },
+  {
+    title: 'Group addons',
+    part: 'GroupAddonPart.vue',
+  },
+  {
+    title: 'Password input',
+    part: 'PasswordPart.vue',
+  },
+];
 </script>

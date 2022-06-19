@@ -48,6 +48,7 @@ import Tooltip from './components/Tooltip/Tooltip.vue';
 import Space from './components/Space/Space';
 import FlexLayout from './components/FlexLayout/FlexLayout';
 import FlexLayoutDragSource from './components/FlexLayout/DragSource';
+import TileLayout from './components/TileLayout/TileLayout';
 import Splitter from './components/Splitter/Splitter';
 import SplitterPanel from './components/Splitter/SplitterPanel';
 import MenuOpener from './components/AnimatedIcon/MenuOpener.vue';
@@ -114,6 +115,7 @@ export {
   Space,
   FlexLayout,
   FlexLayoutDragSource,
+  TileLayout,
   Splitter,
   SplitterPanel,
   MenuOpener,
@@ -179,6 +181,7 @@ export default function(app: App, conf: Partial<Config>) {
     .component('j-space', Space)
     .component('j-flex-layout', FlexLayout)
     .component('j-flex-layout-drag-source', FlexLayoutDragSource)
+    .component('j-tile-layout', TileLayout)
     .component('j-splitter', Splitter)
     .component('j-splitter-panel', SplitterPanel)
     .component('j-animated-icon:menu-opener', MenuOpener)

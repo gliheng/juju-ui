@@ -1,25 +1,23 @@
 <template>
-  <div>
-    <h1>ReorderList</h1>
-    <section>
-      <h2>ReorderList</h2>
-      <code-block :code="reorderListPartCode">
-        <reorder-list-part />
-      </code-block>
-    </section>
-
-    <section>
-      <h2>Customize list with slot</h2>
-      <code-block :code="slotPartCode">
-        <slot-part />
-      </code-block>
-    </section>
-  </div>
+  <example-list
+    title="ReorderList"
+    :list="list"
+    :modules="modules"
+  />
 </template>
 
 <script setup>
-import ReorderListPart from './parts/ReorderListPart.vue';
-import reorderListPartCode from './parts/ReorderListPart.vue?raw';
-import SlotPart from './parts/SlotPart.vue';
-import slotPartCode from './parts/SlotPart.vue?raw';
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    part: 'ReorderListPart.vue',
+  },
+  {
+    title: 'Customize list with slot',
+    part: 'SlotPart.vue',
+  },
+];
 </script>

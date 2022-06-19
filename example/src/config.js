@@ -124,6 +124,9 @@ const config = {
       name: "FlexLayout",
     },
     {
+      name: "TileLayout",
+    },
+    {
       name: "Splitter",
     },
     {

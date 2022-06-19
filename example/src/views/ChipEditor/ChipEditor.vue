@@ -1,14 +1,19 @@
 <template>
-  <div>
-    <h1>ChipEditor</h1>
-    <code-block :code="chipEditorPartCode">
-      <chip-editor-part />
-    </code-block>
-  </div>
+  <example-list
+    title="ChipEditor"
+    :list="list"
+    :modules="modules"
+  />
 </template>
 
 <script setup>
-import ChipEditorPart from './parts/ChipEditorPart.vue';
-import chipEditorPartCode from './parts/ChipEditorPart.vue?raw';
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    part: 'ChipEditorPart.vue',
+  },
+];
 </script>
-

@@ -1,13 +1,19 @@
 <template>
-  <div>
-    <h1>DataGrid</h1>
-    <code-block :code="basicPartCode">
-      <basic-part />
-    </code-block>
-  </div>
+  <example-list
+    title="DataGrid"
+    :list="list"
+    :modules="modules"
+  />
 </template>
 
 <script setup>
-import BasicPart from './parts/BasicPart.vue';
-import basicPartCode from './parts/BasicPart.vue?raw';
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    part: 'BasicPart.vue',
+  },
+];
 </script>

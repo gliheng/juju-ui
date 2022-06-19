@@ -1,15 +1,19 @@
 <template>
-  <div>
-    <h1>Checkbox</h1>
-    <section>
-      <code-block :code="radioPartCode">
-        <radio-part />
-      </code-block>
-    </section>
-  </div>
+  <example-list
+    title="Radio"
+    :list="list"
+    :modules="modules"
+  />
 </template>
 
 <script setup>
-import RadioPart from './parts/RadioPart.vue';
-import radioPartCode from './parts/RadioPart.vue?raw';
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    part: 'RadioPart.vue',
+  },
+];
 </script>

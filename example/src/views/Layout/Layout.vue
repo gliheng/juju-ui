@@ -1,22 +1,20 @@
 <template>
-  <div>
-    <h1>Layout</h1>
-    <div>
-      <section>
-        <h2>Space</h2>
-        <code-block :code="spacePartCode">
-          <space-part />
-        </code-block>
-      </section>
-    </div>
-  </div>
+  <example-list
+    title="Layout"
+    :list="list"
+    :modules="modules"
+  />
 </template>
 
 <script setup>
-import SpacePart from './parts/SpacePart.vue';
-import spacePartCode from './parts/SpacePart.vue?raw';
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    title: 'Space',
+    part: 'SpacePart.vue',
+  },
+];
 </script>
-
-<style lang="scss">
-
-</style>

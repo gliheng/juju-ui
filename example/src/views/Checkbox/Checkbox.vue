@@ -1,34 +1,30 @@
 <template>
-  <div>
-    <h1>Checkbox</h1>
-    <section>
-      <h2>Checkbox group</h2>
-      <code-block :code="groupPartCode">
-        <group-part />
-      </code-block>
-    </section>
-    <section>
-      <h2>Boolean checkbox</h2>
-      <code-block :code="booleanPartCode">
-        <boolean-part />
-      </code-block>
-    </section>
-    <section>
-      <h2>Tri state checkbox</h2>
-      <code-block :code="triStatePartCode">
-        <tri-state-part />
-      </code-block>
-    </section>
-  </div>
+  <example-list
+    title="Checkbox"
+    :list="list"
+    :modules="modules"
+  />
 </template>
 
 <script setup>
-import GroupPart from './parts/GroupPart.vue';
-import groupPartCode from './parts/GroupPart.vue?raw';
-import BooleanPart from './parts/BooleanPart.vue';
-import booleanPartCode from './parts/BooleanPart.vue?raw';
-import TriStatePart from './parts/TriStatePart.vue';
-import triStatePartCode from './parts/TriStatePart.vue?raw';
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    title: 'Checkbox group',
+    part: 'GroupPart.vue',
+  },
+  {
+    title: 'Boolean checkbox',
+    part: 'BooleanPart.vue',
+  },
+  {
+    title: 'Tri state checkbox',
+    part: 'TriStatePart.vue',
+  },
+];
 </script>
 
 <style scoped>

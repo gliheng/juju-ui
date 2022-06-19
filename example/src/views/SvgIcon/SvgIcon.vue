@@ -1,42 +1,40 @@
 <template>
-  <div>
-    <h1>SvgIcon</h1>
-    <section>
-      <h2>Built-in Icons</h2>
-      <div>
-        <code-block :code="sizePartCode">
-          <size-part />
-        </code-block>
+  <example-list
+    title="SvgIcon"
+    :list="list"
+    :modules="modules"
+  >
+    <template v-slot:footer="{ part }">
+      <p v-if="part == 'SizePart.vue'">
         Icons are provided by <a href="https://ionicons.com/" target="_blank">ionicons</a>
-      </div>
-    </section>
-    <section>
-      <h2>Using alt props to provide hover icon</h2>
-      <code-block :code="altPartCode">
-        <alt-part />
-      </code-block>
-    </section>
-    <section>
-      <h2>Custom Icons using svg prop</h2>
-      <code-block :code="rawPartCode">
-        <raw-part />
-      </code-block>
-    </section>
-  </div>
+      </p>
+    </template>
+  </example-list>
 </template>
 
 <script setup>
-import SizePart from './parts/SizePart.vue';
-import sizePartCode from './parts/SizePart.vue?raw';
-import AltPart from './parts/AltPart.vue';
-import altPartCode from './parts/AltPart.vue?raw';
-import RawPart from './parts/RawPart.vue';
-import rawPartCode from './parts/RawPart.vue?raw';
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    title: 'Built-in Icons',
+    part: 'SizePart.vue',
+  },
+  {
+    title: 'Using alt props to provide hover icon',
+    part: 'AltPart.vue',
+  },
+  {
+    title: 'Custom Icons using svg prop',
+    part: 'RawPart.vue',
+  },
+];
 </script>
 
-
 <style scoped>
-section :deep(.demo) {
+:deep(.demo) {
   color: rgb(238, 23, 123);
 }
 </style>
