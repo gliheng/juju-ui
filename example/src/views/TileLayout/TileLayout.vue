@@ -1,6 +1,6 @@
 <template>
   <example-list
-    title="TileLayout"
+    title="TileLayout (WIP)"
     :list="list"
     :modules="modules"
   />
@@ -12,6 +12,10 @@ const modules = {
   code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
 };
 const list = [
+  {
+    title: 'Empty tile layout container with placeholder',
+    part: 'EmptyPart.vue',
+  },
   {
     title: 'Basic tile',
     part: 'BasicPart.vue',
