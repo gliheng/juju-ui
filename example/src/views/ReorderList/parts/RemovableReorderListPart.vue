@@ -1,5 +1,5 @@
 <template>
-  <j-reorder-list class="list" v-model="data" />
+  <j-reorder-list class="list" v-model="data" removable />
 </template>
 
 <script setup>

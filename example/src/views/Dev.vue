@@ -22,7 +22,6 @@ const Component = defineAsyncComponent({
 <style scoped>
 .dev {
   display: flex;
-  align-items: center;
   justify-content: center;
   height: 100vh;
 }

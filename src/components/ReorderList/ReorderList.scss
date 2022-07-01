@@ -4,22 +4,29 @@
   padding: 0;
   margin: 0;
   list-style: none;
+  position: relative;
+
   .j-reorder-list-item {
     padding: 0.5rem;
     cursor: default;
     border-radius: 3px;
     display: flex;
     align-items: center;
+    position: relative;
     > main {
       flex: 1;
     }
     &[data-drag="true"] {
-      visibility: hidden;
+      pointer-events: none;
+      opacity: 0.4;
+      color: var(--j-foreground-color-1);
+      background-color: var(--j-background-color-1);
     }
-    &[data-drag-clone="true"] {
+    &[data-drag-fx="true"] {
       position: fixed;
       box-sizing: border-box;
       pointer-events: none;
+      z-index: 1;
       background-color: var(--j-primary-color-lighter);
     }
     .j-reorder-list-handle {
@@ -33,5 +40,22 @@
       }
     }
   }
+  .j-reorder-list-item {
+    transition: all 0.2s ease;
+  }
+  &[data-dragging="true"] {
+    .j-reorder-list-item {
+      &[data-drag-fx="true"] {
+        transition: none;
+      }
+    }
+  }
+  .j-reorder-list-item {
+    &.v-leave-to {
+      opacity: 0;
+    }
+  }
 }
 
+.j-reorder-list-group {
+}

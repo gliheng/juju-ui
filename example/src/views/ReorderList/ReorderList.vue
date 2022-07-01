@@ -16,8 +16,16 @@ const list = [
     part: 'ReorderListPart.vue',
   },
   {
+    title: 'Removable list',
+    part: 'RemovableReorderListPart.vue',
+  },
+  {
     title: 'Customize list with slot',
     part: 'SlotPart.vue',
   },
+  {
+    title: 'Multiple list lane',
+    part: 'ReorderListGroupPart.vue',
+  }
 ];
 </script>

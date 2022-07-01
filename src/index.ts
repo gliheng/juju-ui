@@ -56,6 +56,7 @@ import MenuToggle from './components/AnimatedIcon/MenuToggle.vue';
 import Form from './components/Form/Form.vue';
 import FormItem from './components/Form/FormItem.vue';
 import ReorderList from './components/ReorderList/ReorderList';
+import ReorderListGroup from './components/ReorderList/ReorderListGroup';
 import Descriptions from './components/Descriptions/Descriptions.vue';
 import DescriptionsItem from './components/Descriptions/DescriptionsItem.vue';
 import Carousel from './components/Carousel/Carousel.vue';
@@ -123,6 +124,7 @@ export {
   Form,
   FormItem,
   ReorderList,
+  ReorderListGroup,
   Descriptions,
   DescriptionsItem,
   Carousel,
@@ -189,6 +191,7 @@ export default function(app: App, conf: Partial<Config>) {
     .component('j-form', Form)
     .component('j-form-item', FormItem)
     .component('j-reorder-list', ReorderList)
+    .component('j-reorder-list-group', ReorderListGroup)
     .component('j-descriptions', Descriptions)
     .component('j-descriptions-item', DescriptionsItem)
     .component('j-carousel', Carousel)
