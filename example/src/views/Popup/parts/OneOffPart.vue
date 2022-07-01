@@ -1,7 +1,9 @@
 <template>
-  <j-button @click="showAlert">Open alert</j-button>
-  <j-button @click="showConfirm">Open confirm</j-button>
-  <j-button @click="showModal">Open modal</j-button>
+  <j-space>
+    <j-button @click="showAlert">Open alert</j-button>
+    <j-button @click="showConfirm">Open confirm</j-button>
+    <j-button @click="showModal">Open modal</j-button>
+  </j-space>
 </template>
 
 <script setup>
