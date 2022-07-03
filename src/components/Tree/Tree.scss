@@ -15,19 +15,19 @@
     > .j-tree-arrow {
       transition: transform 0.2s $curve;
     }
+    > .j-tree-row-indent {
+      width: var(--j-tree-indent, 10px);
+    }
     &[data-open="true"] {
       > .j-tree-arrow {
         transform: rotateZ(90deg);
       }
     }
-    > span {
+    > .j-spacer {
       flex: 1;
     }
     > .j-tree-icon {
       margin-right: 0.5rem;
     }
-  }
-  > .j-tree {
-    margin-left: 1rem;
   }
 }

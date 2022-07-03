@@ -1,15 +1,19 @@
 <template>
-  <div>
-    <h1>MenuBar</h1>
-    <section>
-      <code-block :code="menuBarPartCode">
-        <menu-bar-part />
-      </code-block>
-    </section>
-  </div>
+  <example-list
+    title="MenuBar"
+    :list="list"
+    :modules="modules"
+  />
 </template>
 
 <script setup>
-import MenuBarPart from './parts/MenuBarPart.vue';
-import menuBarPartCode from './parts/MenuBarPart.vue?raw';
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    part: 'MenuBarPart.vue',
+  },
+];
 </script>

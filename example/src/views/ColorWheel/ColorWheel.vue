@@ -1,13 +1,19 @@
 <template>
-  <div>
-    <h1>ColorWheel</h1>
-    <code-block :code="colorWheelPartCode">
-      <color-wheel-part />
-    </code-block>
-  </div>
+  <example-list
+    title="ColorWheel"
+    :list="list"
+    :modules="modules"
+  />
 </template>
 
 <script setup>
-import ColorWheelPart from './parts/ColorWheelPart.vue';
-import colorWheelPartCode from './parts/ColorWheelPart.vue?raw';
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    part: 'ColorWheelPart.vue',
+  },
+];
 </script>

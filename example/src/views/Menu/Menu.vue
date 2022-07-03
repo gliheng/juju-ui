@@ -1,24 +1,24 @@
 <template>
-  <div>
-    <h1>Menu</h1>
-    <section>
-      <h2>Menu</h2>
-      <code-block :code="menuPartCode">
-        <menu-part />
-      </code-block>
-    </section>
-    <section>
-      <h2>Menu with icon</h2>
-      <code-block :code="iconPartCode">
-        <icon-part />
-      </code-block>
-    </section>
-  </div>
+  <example-list
+    title="Menu"
+    :list="list"
+    :modules="modules"
+  />
 </template>
 
 <script setup>
-import MenuPart from './parts/MenuPart.vue';
-import menuPartCode from './parts/MenuPart.vue?raw';
-import IconPart from './parts/IconPart.vue';
-import iconPartCode from './parts/IconPart.vue?raw';
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    title: 'Basic menu',
+    part: 'MenuPart.vue',
+  },
+  {
+    title: 'Menu with icon',
+    part: 'IconPart.vue',
+  },
+];
 </script>

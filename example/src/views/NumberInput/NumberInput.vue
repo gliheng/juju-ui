@@ -1,32 +1,28 @@
 <template>
-  <div>
-    <h1>NumberInput</h1>
-    <section>
-      <h2>Button type</h2>
-      <code-block :code="typePartCode">
-        <type-part />
-      </code-block>
-    </section>
-    <section>
-      <h2>Set min, max and step</h2>
-      <code-block :code="rangePartCode">
-        <range-part />
-      </code-block>
-    </section>
-    <section>
-      <h2>Slider</h2>
-      <code-block :code="sliderPartCode">
-        <slider-part />
-      </code-block>
-    </section>
-  </div>
+  <example-list
+    title="NumberInput"
+    :list="list"
+    :modules="modules"
+  />
 </template>
 
 <script setup>
-import TypePart from './parts/TypePart.vue';
-import typePartCode from './parts/TypePart.vue?raw';
-import RangePart from './parts/RangePart.vue';
-import rangePartCode from './parts/RangePart.vue?raw';
-import SliderPart from './parts/SliderPart.vue';
-import sliderPartCode from './parts/SliderPart.vue?raw';
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    title: 'Button type',
+    part: 'TypePart.vue',
+  },
+  {
+    title: 'Set min, max and step',
+    part: 'RangePart.vue',
+  },
+  {
+    title: 'Slider',
+    part: 'SliderPart.vue',
+  },
+];
 </script>

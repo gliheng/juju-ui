@@ -2,6 +2,7 @@ import { defineComponent, h, PropType, withDirectives } from 'vue';
 import SvgIcon from '../SvgIcon/SvgIcon.vue';
 import Checkbox from '../Checkbox/Checkbox.vue';
 import ripple from '@directives/ripple';
+import './SelectItem.scss';
 
 export default defineComponent({
   props: {
@@ -10,7 +11,10 @@ export default defineComponent({
     icon: String,
     size: String,
     onClick: Function as PropType<(evt: MouseEvent) => void>,
-    checked: Boolean,
+    checked: {
+      type: Boolean,
+      default: undefined,
+    },
   },
   directives: { ripple },
   setup(props) {    

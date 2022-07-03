@@ -19,6 +19,16 @@
       box-shadow: $outline;
       border: 1px solid var(--j-primary-color-light);
     }
+    .j-select-clear-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 0;
+      box-shadow: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
     .j-select-label-inner {
       flex: 1;
       min-width: calc(12rem - 20px);
@@ -37,6 +47,15 @@
     .j-select-icon {
       margin: 0 math.div($gap, 2);
       color: var(--j-border-color);
+    }
+  }
+  &[data-clearable="true"] .j-select-label:hover {
+    .j-select-icon {
+      visibility: hidden;
+    }
+    .j-select-clear-btn {
+      opacity: 1;
+      visibility: visible;
     }
   }
   &[data-align="left"] {
@@ -63,26 +82,10 @@
     color: var(--j-text-color);
     border-radius: 3px;
     .j-scroller {
-      max-height: 300px;
+      --j-scroller-height: 300px;
     }
   }
-  .j-select-item {
-    padding: $margin;
-    cursor: default;
-    position: relative;
-    overflow: hidden;
-    white-space: nowrap;
-    &:hover {
-      background-color: var(--j-primary-color-lighter);
-    }
-    > .j-icon {
-      margin-right: 0.2rem;
-    }
-    > .j-checkbox {
-      vertical-align: middle;
-      margin: 0 $margin;
-    }
-  }
+
   &[data-has-icon="false"] {
     .j-select-item {
       > .j-icon {

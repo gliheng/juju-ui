@@ -1,6 +1,12 @@
 <template>
-  <transition :name="`j-slide-${side}`">
-    <div v-if="modelValue" class="j-drawer" :class="`j-shadow-${elevation}`" :data-side="side" :style="{ zIndex }">
+  <transition :name="`j-drawer-slide-${side}`">
+    <div
+      v-if="modelValue"
+      class="j-drawer"
+      :class="`j-shadow-${elevation}`"
+      :data-side="side"
+      :style="{ zIndex }"
+    >
       <slot></slot>
     </div>
   </transition>

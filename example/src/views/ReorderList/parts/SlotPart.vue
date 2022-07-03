@@ -1,11 +1,17 @@
 <template>
-  <j-reorder-list class="list" v-model="data" v-slot="item">
-    <h1>{{ item }}</h1>      
+  <j-reorder-list class="list" v-model="data" v-slot="{n}">
+    <h1>{{ n }}</h1>      
   </j-reorder-list>
 </template>
 
 <script setup>
-const data = [1, 2, 3, 4, 5];
+const data = [
+  {n: 1},
+  {n: 2},
+  {n: 3},
+  {n: 4},
+  {n: 5},
+];
 </script>
 
 <style scoped>

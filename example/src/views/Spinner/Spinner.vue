@@ -1,26 +1,26 @@
 <template>
-  <div>
-    <h1>Spinner</h1>
-    <section>
-      <h2>Size</h2>
-      <code-block :code="spinnerPartCode">
-        <spinner-part />
-      </code-block>
-    </section>
-    <section>
-      <h2>Button</h2>
-      <code-block :code="spinnerButtonPartCode">
-        <spinner-button-part />
-      </code-block>
-    </section>
-  </div>
+  <example-list
+    title="Spinner"
+    :list="list"
+    :modules="modules"
+  />
 </template>
 
 <script setup>
-import SpinnerPart from './parts/SpinnerPart.vue';
-import spinnerPartCode from './parts/SpinnerPart.vue?raw';
-import SpinnerButtonPart from './parts/SpinnerButtonPart.vue';
-import spinnerButtonPartCode from './parts/SpinnerButtonPart.vue?raw';
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    title: 'Size',
+    part: 'SpinnerPart.vue',
+  },
+  {
+    title: 'Button',
+    part: 'SpinnerButtonPart.vue',
+  },
+];
 </script>
 
 <style scoped>

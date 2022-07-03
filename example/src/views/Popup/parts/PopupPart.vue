@@ -1,7 +1,9 @@
 <template>
-  <j-button @click="toggleAlert">Open alert</j-button>
-  <j-button @click="toggleConfirm">Open confirm</j-button>
-  <j-button @click="toggleModal">Open modal</j-button>
+  <j-space>
+    <j-button @click="toggleAlert">Open alert</j-button>
+    <j-button @click="toggleConfirm">Open confirm</j-button>
+    <j-button @click="toggleModal">Open modal</j-button>
+  </j-space>
 
   <j-popup
     title="Alert popup"

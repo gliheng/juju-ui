@@ -1,15 +1,19 @@
 <template>
-  <h1>Popover</h1>
-  <div>
-    <section>
-      <code-block :code="popoverPartCode">
-        <popover-part />
-      </code-block>
-    </section>
-  </div>
+  <example-list
+    title="Popover"
+    :list="list"
+    :modules="modules"
+  />
 </template>
 
 <script setup>
-import PopoverPart from './parts/PopoverPart.vue';
-import popoverPartCode from './parts/PopoverPart.vue?raw';
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    part: 'PopoverPart.vue',
+  },
+];
 </script>

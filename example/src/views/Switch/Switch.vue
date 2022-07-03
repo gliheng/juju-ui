@@ -1,13 +1,19 @@
 <template>
-  <div>
-    <h1>Switch</h1>
-    <code-block :code="switchPartCode">
-      <switch-part />
-    </code-block>
-  </div>
+  <example-list
+    title="Switch"
+    :list="list"
+    :modules="modules"
+  />
 </template>
 
 <script setup>
-import SwitchPart from './parts/SwitchPart.vue';
-import switchPartCode from './parts/SwitchPart.vue?raw';
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    part: 'SwitchPart.vue',
+  },
+];
 </script>

@@ -3,7 +3,13 @@
 </template>
 
 <script setup>
-const data = [1, 2, 3, 4, 5];
+const data = [
+  {label: 1},
+  {label: 2},
+  {label: 3},
+  {label: 4},
+  {label: 5},
+];
 </script>
 
 <style scoped>

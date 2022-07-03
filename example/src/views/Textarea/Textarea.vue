@@ -1,15 +1,19 @@
 <template>
-  <div>
-    <h1>Textarea</h1>
-    <section>
-      <code-block :code="textareaPartCode">
-        <textarea-part />
-      </code-block>
-    </section>
-  </div>
+  <example-list
+    title="Textarea"
+    :list="list"
+    :modules="modules"
+  />
 </template>
 
 <script setup>
-import TextareaPart from './parts/TextareaPart.vue';
-import textareaPartCode from './parts/TextareaPart.vue?raw';
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    part: 'TextareaPart.vue',
+  },
+];
 </script>

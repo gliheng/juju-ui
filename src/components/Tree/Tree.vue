@@ -1,38 +1,49 @@
 <template>
   <div class="j-tree">
     <tree-item
-      v-for="(item, i) in data"
+      v-for="(item, i) in data ?? []"
       :key="keyField ? item[keyField] : i"
-      :label="item.label"
-      :icon="item.icon"
       :key-field="keyField"
-      :children="item.children"
+      :item="item"
+      :level="level"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType, provide, inject } from 'vue';
 import TreeItem from './TreeItem.vue';
-
-type TreeItem = {
-  [key: string]: string;
-} & {
-  children?: TreeItem[];
-}
+import { treeInjectKey, TreeItemType } from './constants';
 
 export default defineComponent({
   components: {
     TreeItem,
   },
   props: {
-    data: {
-      type: Array as PropType<TreeItem[]>,
-      default() {
-        return [];
-      },
+    data: Array as PropType<TreeItemType[]>,
+    level: {
+      type: Number,
+      default: 0,
     },
     keyField: String,
+    itemRenderer: {
+      type: String as PropType<'nav' | 'default'>,
+      default: 'default',
+    },
+  },
+  setup(props, { slots }) {
+    let data = inject(treeInjectKey, null);
+    if (!data) {
+      provide(treeInjectKey, {
+        slots,
+        keyField: props.keyField,
+        itemRenderer: props.itemRenderer,
+      });
+    }
+
+    return {
+      
+    };
   },
 });
 </script>

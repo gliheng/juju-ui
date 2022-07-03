@@ -1,15 +1,19 @@
 <template>
-  <div>
-    <h1>AutoComplete</h1>
-    <section>
-      <code-block :code="autoCompletePartCode">
-        <auto-complete-part />
-      </code-block>
-    </section>
-  </div>
+  <example-list
+    title="AutoComplete"
+    :list="list"
+    :modules="modules"
+  />
 </template>
 
 <script setup>
-import AutoCompletePart from './parts/AutoCompletePart.vue';
-import autoCompletePartCode from './parts/AutoCompletePart.vue?raw';
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    part: 'AutoCompletePart.vue',
+  },
+];
 </script>

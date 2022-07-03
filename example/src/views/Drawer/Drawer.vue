@@ -1,13 +1,19 @@
 <template>
-  <div>
-    <h1>Drawer</h1>
-    <code-block :code="drawerPartCode">
-      <drawer-part />
-    </code-block>
-  </div>
+  <example-list
+    title="Drawer"
+    :list="list"
+    :modules="modules"
+  />
 </template>
 
 <script setup>
-import DrawerPart from './parts/DrawerPart.vue'
-import drawerPartCode from './parts/DrawerPart.vue?raw'
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    part: 'DrawerPart.vue',
+  },
+];
 </script>

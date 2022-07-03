@@ -48,6 +48,7 @@ import Tooltip from './components/Tooltip/Tooltip.vue';
 import Space from './components/Space/Space';
 import FlexLayout from './components/FlexLayout/FlexLayout';
 import FlexLayoutDragSource from './components/FlexLayout/DragSource';
+import TileLayout from './components/TileLayout/TileLayout';
 import Splitter from './components/Splitter/Splitter';
 import SplitterPanel from './components/Splitter/SplitterPanel';
 import MenuOpener from './components/AnimatedIcon/MenuOpener.vue';
@@ -55,8 +56,12 @@ import MenuToggle from './components/AnimatedIcon/MenuToggle.vue';
 import Form from './components/Form/Form.vue';
 import FormItem from './components/Form/FormItem.vue';
 import ReorderList from './components/ReorderList/ReorderList';
+import ReorderListGroup from './components/ReorderList/ReorderListGroup';
 import Descriptions from './components/Descriptions/Descriptions.vue';
 import DescriptionsItem from './components/Descriptions/DescriptionsItem.vue';
+import Carousel from './components/Carousel/Carousel.vue';
+import CarouselItem from './components/Carousel/CarouselItem.vue';
+import PopSelect from './components/PopSelect/PopSelect.vue';
 import loading from './directives/loading';
 import ripple from './directives/ripple';
 
@@ -111,6 +116,7 @@ export {
   Space,
   FlexLayout,
   FlexLayoutDragSource,
+  TileLayout,
   Splitter,
   SplitterPanel,
   MenuOpener,
@@ -118,8 +124,12 @@ export {
   Form,
   FormItem,
   ReorderList,
+  ReorderListGroup,
   Descriptions,
   DescriptionsItem,
+  Carousel,
+  CarouselItem,
+  PopSelect,
   loading,
   ripple,
 };
@@ -173,6 +183,7 @@ export default function(app: App, conf: Partial<Config>) {
     .component('j-space', Space)
     .component('j-flex-layout', FlexLayout)
     .component('j-flex-layout-drag-source', FlexLayoutDragSource)
+    .component('j-tile-layout', TileLayout)
     .component('j-splitter', Splitter)
     .component('j-splitter-panel', SplitterPanel)
     .component('j-animated-icon:menu-opener', MenuOpener)
@@ -180,8 +191,12 @@ export default function(app: App, conf: Partial<Config>) {
     .component('j-form', Form)
     .component('j-form-item', FormItem)
     .component('j-reorder-list', ReorderList)
+    .component('j-reorder-list-group', ReorderListGroup)
     .component('j-descriptions', Descriptions)
     .component('j-descriptions-item', DescriptionsItem)
+    .component('j-carousel', Carousel)
+    .component('j-carousel-item', CarouselItem)
+    .component('j-pop-select', PopSelect)
     .directive('loading', loading)
     .directive('ripple', ripple);
 

@@ -5,7 +5,7 @@
   </j-toggle-button>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 
 let toggleOn = ref(false);

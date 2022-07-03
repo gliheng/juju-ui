@@ -38,8 +38,11 @@ const config = {
     {
       name: "Descriptions",
     },
+    {
+      name: "Carousel",
+    },
   ],
-  Form: [
+  Input: [
     {
       name: "AutoComplete",
     },
@@ -75,6 +78,9 @@ const config = {
     },
     {
       name: "Slider",
+    },
+    {
+      name: "PopSelect",
     },
     {
       name: "Form",
@@ -116,6 +122,9 @@ const config = {
     },
     {
       name: "FlexLayout",
+    },
+    {
+      name: "TileLayout",
     },
     {
       name: "Splitter",

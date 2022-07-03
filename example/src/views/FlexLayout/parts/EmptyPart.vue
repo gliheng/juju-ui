@@ -1,33 +1,31 @@
 <template>
-  <div>
-    <div class="pool" @dragstart="onDragStart">
-      <div>
-        <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-a">
-          Component A
-        </j-flex-layout-drag-source>
-        <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-b">
-          Component B
-        </j-flex-layout-drag-source>
-        <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-c">
-          Component C
-        </j-flex-layout-drag-source>
-        <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-d">
-          Component D
-        </j-flex-layout-drag-source>
-        <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-e">
-          Component E
-        </j-flex-layout-drag-source>
-      </div>
-      <p>Drag these pills to the panel bellow to modify layout</p>
+  <div class="pool">
+    <div>
+      <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-a">
+        Component A
+      </j-flex-layout-drag-source>
+      <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-b">
+        Component B
+      </j-flex-layout-drag-source>
+      <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-c">
+        Component C
+      </j-flex-layout-drag-source>
+      <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-d">
+        Component D
+      </j-flex-layout-drag-source>
+      <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-e">
+        Component E
+      </j-flex-layout-drag-source>
     </div>
-    <j-flex-layout class="layout" :library="library">
-      <template #placeholder><div class="placeholder">Drop pill onto this block</div></template>
-    </j-flex-layout>
+    <p>Drag these pills to the panel bellow to modify layout</p>
   </div>
+  <j-flex-layout class="layout" :library="library">
+    <template #placeholder><div class="placeholder">Drop pill onto this block</div></template>
+  </j-flex-layout>
 </template>
 
 <script setup>
-import library from './FlexLayoutLibrary';
+import library from './library';
 </script>
 
 <style lang="scss" scoped>

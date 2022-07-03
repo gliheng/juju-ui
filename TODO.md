@@ -16,3 +16,4 @@
 [✓] Popover component
 [ ] More layout components
 [ ] Snackbar support icon
+[✓] Carousel component

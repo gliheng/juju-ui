@@ -1,13 +1,19 @@
 <template>
-  <div>
-    <h1>Snackbar</h1>
-    <code-block :code="snackbarPartCode">
-      <snackbar-part />
-    </code-block>
-  </div>
+  <example-list
+    title="Snackbar"
+    :list="list"
+    :modules="modules"
+  />
 </template>
 
 <script setup>
-import SnackbarPart from './parts/SnackbarPart.vue';
-import snackbarPartCode from './parts/SnackbarPart.vue?raw';
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    part: 'SnackbarPart.vue',
+  },
+];
 </script>

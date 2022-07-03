@@ -1,0 +1,167 @@
+@import 'vars';
+
+.j-carousel {
+  position: relative;
+  $dotSize: 6px;
+  .j-carousel-viewport {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    .j-carousel-item {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      &.j-carousel-prev {
+        left: -100%;
+      }
+      &.j-carousel-next {
+        left: 100%;
+      }
+    }
+  }
+  .j-carousel-indicator {
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    .j-carousel-active-dot {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      border-radius: calc(var(--j-carousel-dot-size, $dotSize) / 2);
+      background-color: var(--j-foreground-color-2);
+    }
+    .j-carousel-dot {
+      width: var(--j-carousel-dot-size, $dotSize);
+      height: var(--j-carousel-dot-size, $dotSize);
+      background-color: var(--j-foreground-color-1);
+      opacity: 50%;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  }
+  &[data-vertical="false"] {
+    .j-carousel-prev-btn,
+    .j-carousel-next-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .j-carousel-prev-btn {
+      left: $margin;
+    }
+    .j-carousel-next-btn {
+      right: $margin;
+    }
+    .j-carousel-indicator {
+      flex-direction: row;
+      bottom: $margin;
+      left: 0;
+      width: 100%;
+    }
+  }
+  &[data-vertical="true"] {
+    .j-carousel-prev-btn,
+    .j-carousel-next-btn {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .j-carousel-prev-btn {
+      top: $margin;
+    }
+    .j-carousel-next-btn {
+      bottom: $margin;
+    }
+    .j-carousel-indicator {
+      flex-direction: column;
+      right: $margin;
+      top: 0;
+      height: 100%;
+    }
+  }
+  .j-carousel-indicator {
+    &[data-vertical="true"] {
+      .j-carousel-active-dot {
+        width: var(--j-carousel-dot-size, $dotSize);
+        transition: top 0.3s, bottom 0.3s;  
+      }
+      &[data-direction="forward"] {
+        .j-carousel-active-dot {
+          transition: top 0.3s ease-in 0.05s, bottom 0.3s ease-out;
+        }
+      }
+      &[data-direction="backward"] {
+        .j-carousel-active-dot {
+          transition: top 0.3s ease-out, bottom 0.3s ease-in 0.05s;
+        }
+      }
+      .j-carousel-dot {
+        margin: 4px 0;
+      }
+    }
+    &[data-vertical="false"] {
+      .j-carousel-active-dot {
+        height: var(--j-carousel-dot-size, $dotSize);
+        transition: left 0.3s, right 0.3s;  
+      }
+      &[data-direction="forward"] {
+        .j-carousel-active-dot {
+          transition: left 0.3s ease-in 0.05s, right 0.3s ease-out;
+        }
+      }
+      &[data-direction="backward"] {
+        .j-carousel-active-dot {
+          transition: left 0.3s ease-out, right 0.3s ease-in 0.05s;
+        }
+      }
+      .j-carousel-dot {
+        margin: 0 4px;
+      }
+    }
+  }
+}
+
+.j-carousel-slide-left-enter-active,
+.j-carousel-slide-left-leave-active,
+.j-carousel-slide-right-enter-active,
+.j-carousel-slide-right-leave-active,
+.j-carousel-slide-up-enter-active,
+.j-carousel-slide-up-leave-active,
+.j-carousel-slide-down-enter-active,
+.j-carousel-slide-down-leave-active {
+  transition: transform 0.2s $curve;
+}
+
+.j-carousel-slide-right-leave-to,
+.j-carousel-slide-left-enter-from {
+  transform: translateX(-100%);
+}
+.j-carousel-slide-left-enter-to,
+.j-carousel-slide-left-leave-from,
+.j-carousel-slide-right-enter-to,
+.j-carousel-slide-right-leave-from {
+  transform: translateX(0);
+}
+.j-carousel-slide-right-enter-from,
+.j-carousel-slide-left-leave-to {
+  transform: translateX(100%);
+}
+
+.j-carousel-slide-down-leave-to,
+.j-carousel-slide-up-enter-from {
+  transform: translateY(-100%);
+}
+.j-carousel-slide-down-enter-to,
+.j-carousel-slide-down-leave-from,
+.j-carousel-slide-up-enter-to,
+.j-carousel-slide-up-leave-from {
+  transform: translateY(0);
+}
+.j-carousel-slide-down-enter-from,
+.j-carousel-slide-up-leave-to {
+  transform: translateY(100%);
+}

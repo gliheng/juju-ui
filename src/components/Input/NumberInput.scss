@@ -20,6 +20,7 @@
   .j-number-input-inner {
     display: flex;
     align-items: stretch;
+    height: var(--j-input-height);
     .j-button {
       border: none;
       padding: 0;
@@ -30,7 +31,6 @@
       }
     }
     > input {
-      height: var(--j-input-height);
       min-width: calc(12rem - 20px);
       flex: 1;
       padding: 0;

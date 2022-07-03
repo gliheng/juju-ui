@@ -4,7 +4,7 @@ import { debounce } from '@utils/timer';
 import { getStorage } from '@utils/storage';
 import { idGenerator, normalizePreset, RenderBox, HitTestAlignment, getPreset } from './layout';
 import { PaneAttrs, Library, Dimension } from './types';
-import './FlexLayout.scss';
+import './style.scss';
 
 export const MIME = "application/j-flex-layout";
 const LAYOUT_STORAGE_KEY = "layout";

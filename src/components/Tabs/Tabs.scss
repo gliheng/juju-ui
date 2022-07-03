@@ -35,7 +35,6 @@
       }
       
       &.j-active {
-        color: var(--j-primary-color);
         button {
           color: var(--j-primary-color);
         }
@@ -57,8 +56,9 @@
       .j-tabs-close {
         display: inline-block;
         line-height: 0;
+        color: var(--j-foreground-color-2);
         &:hover {
-          background-color: var(--j-foreground-color-1);
+          color: var(--j-primary-color);
         }
       }
     }

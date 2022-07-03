@@ -1,13 +1,20 @@
 <template>
-  <div>
-    <h1>Calendar</h1>
-    <code-block :code="calendarPartCode">
-      <calendar-part />
-    </code-block>
-  </div>
+  <example-list
+    title="Calendar"
+    :list="list"
+    :modules="modules"
+  />
 </template>
 
 <script setup>
-import CalendarPart from './parts/CalendarPart.vue';
-import calendarPartCode from './parts/CalendarPart.vue?raw';
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    title: '',
+    part: 'CalendarPart.vue',
+  },
+];
 </script>

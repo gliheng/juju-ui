@@ -1,0 +1,47 @@
+@import 'vars';
+
+.j-pop-select {
+  border: 1px solid var(--j-pop-select-border-color, var(--j-border-color));
+  background-color: var(--j-background-color);
+  transition: border-color .2s, box-shadow .2s;
+  box-sizing: border-box;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 3px;
+  .j-pop-select-inner {
+    padding-left: $margin;
+    .j-pop-select-label {
+      cursor: default;
+      &[data-placeholder="true"] {
+        color: var(--j-border-color);
+      }
+    }
+    &[data-empty="true"] {
+      .j-icon {
+        color: var(--j-border-color);
+        margin: 0 2px;
+      }
+    }
+  }
+  &:focus {
+    box-shadow: $outline;
+    border-color: var(--j-primary-color);
+    outline: none;
+    z-index: 1;
+  }
+
+  .j-pop-select-menu {
+    width: var(--j-pop-select-menu-width, 200px);
+    .j-scroller {
+      --j-scroller-height: 300px;
+    }
+    .j-input {
+      width: 100%;
+      // only show margin when it's followed by a list
+      &:not(:last-child) {
+        margin-bottom: $margin;
+      }
+    }
+  }
+}

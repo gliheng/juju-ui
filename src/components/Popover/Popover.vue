@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed, watch, nextTick } from 'vue';
 import { useBackdropAwareSwitch } from '@utils/hooks';
 
 export default defineComponent({
@@ -23,14 +23,15 @@ export default defineComponent({
     title: String,
     side: {
       type: String,
-      default: 'right',
+      default: 'bottom',
     },
     trigger: {
       type: String,
       default: 'hover',
     },
   },
-  setup(props) {
+  emits: ['show', 'hide'],
+  setup(props, { emit }) {
     let arrowSide = computed(() => {
       if (props.side.startsWith('left')) return 'right';
       if (props.side.startsWith('right')) return 'left';
@@ -44,8 +45,21 @@ export default defineComponent({
     let events = computed(() => {
       let evts: Record<string, Function> = {};
       if (props.trigger == 'hover') {
-        evts.mouseenter = () => toggle(true);
-        evts.mouseleave = () => toggle(false);
+        let enterTimer = 0, leaveTimer = 0;
+        evts.mouseenter = () => {
+          if (leaveTimer) {
+            clearTimeout(leaveTimer);
+            leaveTimer = 0;
+          }
+          enterTimer = setTimeout(() => toggle(true), 300);
+        };
+        evts.mouseleave = () => {
+          if (enterTimer) {
+            clearTimeout(enterTimer);
+            enterTimer = 0;
+          }
+          leaveTimer = setTimeout(() => toggle(false), 300);
+        };
       } else if (props.trigger == 'click') {
         evts.click = (evt: MouseEvent) => {
           evt.stopPropagation();
@@ -53,6 +67,10 @@ export default defineComponent({
         };
       }
       return evts;
+    });
+
+    watch(on, (v) => {
+      emit(v ? 'show' : 'hide')
     });
     
     return {

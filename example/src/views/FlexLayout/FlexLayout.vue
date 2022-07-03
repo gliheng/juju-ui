@@ -1,22 +1,24 @@
 <template>
-  <div>
-    <h1>FlexLayout</h1>
-    <section>
-      <h2>Empty flex layout container with placeholder</h2>
-      <code-block :code="emptyPartCode">
-        <empty-part />
-      </code-block>
-      <h2>Flex layout container with preset</h2>
-      <code-block :code="flexPartCode">
-        <flex-part />
-      </code-block>
-    </section>
-  </div>
+  <example-list
+    title="FlexLayout"
+    :list="list"
+    :modules="modules"
+  />
 </template>
 
 <script setup>
-import EmptyPart from './parts/EmptyPart.vue';
-import emptyPartCode from './parts/EmptyPart.vue?raw';
-import FlexPart from './parts/FlexPart.vue';
-import flexPartCode from './parts/FlexPart.vue?raw';
+const modules = {
+  components: import.meta.globEager('./parts/*.vue'),
+  code: import.meta.globEager('./parts/*.vue', {as: 'raw'}),
+};
+const list = [
+  {
+    title: 'Empty flex layout container with placeholder',
+    part: 'EmptyPart.vue',
+  },
+  {
+    title: 'Flex layout container with preset',
+    part: 'FlexPart.vue',
+  },
+];
 </script>
