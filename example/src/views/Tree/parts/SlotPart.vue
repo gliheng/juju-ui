@@ -1,7 +1,7 @@
 <template>
   <j-tree class="tree" :data="treeModel">
-    <template #default="{ item }">
-      <em>{{item.label}}</em>
+    <template #extension="{ item }">
+      <j-button flat round icon="ellipsis-horizontal" />
     </template>
   </j-tree>
 </template>
