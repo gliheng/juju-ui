@@ -17,8 +17,8 @@ const list = [
     part: 'TreePart.vue',
   },
   {
-    title: 'ItemRenderer prop',
-    part: 'ItemRendererPart.vue',
+    title: 'Display prop',
+    part: 'DisplayPart.vue',
   },
   {
     title: 'Default slot',

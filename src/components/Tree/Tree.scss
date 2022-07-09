@@ -1,14 +1,19 @@
 @import "vars";
 
 .j-tree-item {
+  &[data-selected="true"] {
+    > .j-tree-row {
+      background-color: var(--j-primary-color-lightest);
+    }
+  }
   > .j-tree-row {
     position: relative;
     overflow: hidden;
     display: flex;
+    align-items: center;
     cursor: default;
     border-radius: 3px;
-    padding: $margin 2*$margin;
-    padding-right: $margin;
+    padding: $gap;
     &:hover {
       background-color: var(--j-primary-color-lighter);
     }

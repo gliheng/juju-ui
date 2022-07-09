@@ -1,5 +1,5 @@
 <template>
-  <j-tree class="tree" :data="treeModel" item-renderer="nav" />
+  <j-tree class="tree" :data="treeModel" display="icon,label,spacer,chevron" />
 </template>
 
 <script setup>

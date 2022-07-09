@@ -9,6 +9,7 @@
   // however these transparent colors are better for dark mode
   --j-primary-color-light: #{rgba($c, 0.5)};
   --j-primary-color-lighter: #{rgba($c, 0.2)};
+  --j-primary-color-lightest: #{rgba($c, 0.1)};
   --j-primary-color-text: #{$t}; // the text color on primary colored background
 }
 

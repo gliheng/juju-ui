@@ -1,9 +1,11 @@
-import { InjectionKey, Slots } from 'vue';
+import { InjectionKey, Slots, Ref } from 'vue';
 
 export const treeInjectKey = Symbol('Tree inject key') as InjectionKey<{
   slots: Slots,
   keyField?: string;
-  itemRenderer: 'nav' | 'default';
+  labelField?: string;
+  display: string[];
+  selected: Ref<string>;
 }>;
 
 export type TreeItemType = {

@@ -60,12 +60,12 @@ export default defineComponent({
           }
           leaveTimer = setTimeout(() => toggle(false), 300);
         };
-      } else if (props.trigger == 'click') {
-        evts.click = (evt: MouseEvent) => {
-          evt.stopPropagation();
-          toggle(true);
-        };
       }
+      // hover bind click as well, in case they are not triggered on touch devices
+      evts.click = (evt: MouseEvent) => {
+        evt.stopPropagation();
+        toggle(true);
+      };
       return evts;
     });
 
