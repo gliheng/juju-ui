@@ -1,4 +1,4 @@
-import { computed, defineComponent, h } from 'vue';
+import { computed, defineComponent, h, StyleValue } from 'vue';
 import './Space.scss';
 
 export default defineComponent({
@@ -9,26 +9,15 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
-    let style = computed(() => ({
-      marginRight: typeof props.size == 'number' ? `${props.size}px` : props.size,
+    let style = computed<Record<string, StyleValue>>(() => ({
+      '--j-space-size': typeof props.size == 'number' ? `${props.size}px` : props.size,
     }));
     return () => {
       let nodes;
       if (slots.default) {
-        // Exclude comment node
-        nodes = slots.default().filter(e => typeof e.type != 'symbol');
-        nodes = nodes.map((node, i) => {
-          return (
-            <div
-              class="j-space-item"
-              style={ i != nodes.length - 1 ? style.value : undefined }
-            >
-              { node }
-            </div>
-          );
-        });
+        nodes = slots.default();
       }
-      return <div class="j-space">{ nodes }</div>;
+      return <div class="j-space" style={style.value}>{ nodes }</div>;
     }
   }
 });
