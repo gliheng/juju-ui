@@ -1,5 +1,5 @@
 .j-space {
-  .j-space-item {
-    display: inline-block;
+  > *:not(:last-child) {
+    margin-right: var(--j-space-size);
   }
 }
