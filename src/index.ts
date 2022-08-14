@@ -64,6 +64,8 @@ import CarouselItem from './components/Carousel/CarouselItem.vue';
 import PopSelect from './components/PopSelect/PopSelect.vue';
 import loading from './directives/loading';
 import ripple from './directives/ripple';
+import draggable from './directives/draggable';
+import resizable from './directives/resizable';
 
 export * from './utils';
 import { Config, set as setConfig, get as getConfig } from './utils/config';
@@ -132,6 +134,8 @@ export {
   PopSelect,
   loading,
   ripple,
+  draggable,
+  resizable,
 };
 
 export default function(app: App, conf: Partial<Config>) {

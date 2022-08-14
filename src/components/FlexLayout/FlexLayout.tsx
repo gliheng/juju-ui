@@ -48,7 +48,7 @@ export default defineComponent({
     let viewSize = useElementSize(elm);
     watch(viewSize, async (size) => {
       if (!renderBox) {
-        // Inital render
+        // Inital render is defered till we have element size
         renderBox = await loadPreset();
       }
       renderBox.layout(0, 0, size.width, size.height);

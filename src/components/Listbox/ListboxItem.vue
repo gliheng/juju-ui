@@ -1,6 +1,7 @@
 <template>
   <li class="j-listbox-item" :class="{ 'j-active': active }" v-ripple>
-    <svg-icon class="j-listbox-icon" v-if="icon" :name="icon" /><slot></slot>
+    <svg-icon class="j-listbox-icon" v-if="icon" :name="icon" />
+    <span><slot></slot></span>
   </li>
 </template>
 

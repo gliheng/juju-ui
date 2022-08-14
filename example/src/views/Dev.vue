@@ -22,7 +22,7 @@ const Component = defineAsyncComponent({
 <style scoped>
 .dev {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   height: 100vh;
 }
 </style>

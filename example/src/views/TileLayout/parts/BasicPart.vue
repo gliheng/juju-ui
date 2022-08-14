@@ -22,6 +22,7 @@
   <j-tile-layout
     :library="library"
     :preset="preset"
+    :cols="6"
     storage-key="juju-tile-layout"
   />
 </template>
@@ -31,18 +32,40 @@ import library from './library';
 const preset = [
   {
     use: 'pane-a',
+    x: 0,
+    y: 0,
+    w: 1,
+    h: 1,
   },
   {
     use: 'pane-b',
+    x: 1,
+    y: 0,
+    w: 1,
+    h: 1,
   },
   {
     use: 'pane-c',
+    x: 2,
+    y: 0,
+    w: 1,
+    h: 1,
+    pos: [2, 0, 1, 1],
   },
   {
     use: 'pane-d',
+    x: 3,
+    y: 0,
+    w: 1,
+    h: 1,
+    pos: [3, 0, 1, 1],
   },
   {
     use: 'pane-e',
+    x: 4,
+    y: 0,
+    w: 1,
+    h: 1,
   },
 ];
 </script>

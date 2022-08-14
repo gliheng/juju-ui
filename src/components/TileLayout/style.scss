@@ -1,3 +1,20 @@
 .j-tile-layout {
-  
+  display: grid;
+  grid-auto-flow: row;
+  grid-gap: 1px;
+  .j-tile-layout-pane {
+    display: flex;
+    position: relative;
+    .j-tile-resize {
+      position: absolute;
+      cursor: se-resize;
+      border: 2px solid var(--j-border-color);
+      border-left: none;
+      border-top: none;
+      right: 1px;
+      bottom: 1px;
+      width: 10px;
+      height: 10px;
+    }
+  }
 }

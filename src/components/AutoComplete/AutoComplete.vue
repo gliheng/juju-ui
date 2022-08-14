@@ -18,11 +18,11 @@
     </j-input>
     <j-scroller v-if="listOn && suggestions.length" class="j-shadow-5">
       <j-listbox>
-        <j-listbox-item v-for="(item, i) in suggestions" :key="String(item.value)"
+        <j-listbox-item v-for="(item, i) in suggestions" :key="item"
           :class="{ 'j-active': selected == i}"
-          @click="choose(item.value, i)"
+          @click="choose(item, i)"
         >
-          {{ item.label }}
+          {{ item }}
         </j-listbox-item>
       </j-listbox>
     </j-scroller>
@@ -30,22 +30,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, PropType, watch } from 'vue';
 import JInput from '../Input/Input.vue';
 import { debounce } from '@utils/timer';
 import { useBackdropAwareSwitch } from '@utils/hooks';
-
-export interface Suggestion {
-  label: string,
-  value: string | number,
-}
 
 export default defineComponent({
   inheritAttrs: false,
   props: {
     query: {
       type: Function,
-      required: true,
+    },
+    options: {
+      type: Array as PropType<string[]>,
     },
     debounce: {
       type: Number,
@@ -57,28 +54,41 @@ export default defineComponent({
     let [ listOn, toggleList ] = useBackdropAwareSwitch(false);
     let searchKey = ref('');
     let selected = ref(0);
-    let suggestions = ref<Suggestion[]>([]);
+    let suggestions = ref<string[]>([]);
+    watch(
+      () => props.options,
+      (opts) => {
+        if (opts) {
+          suggestions.value = [...opts];
+        }
+      },
+      {
+        immediate: true,
+      }
+    );
 
     let onInput = debounce(async (key: string) => {
-      if (!key) return;
-
-      let res = await props.query(key);
-      if (res.length) {
+      if (!key && props.options) {
+        suggestions.value = props.options;
         toggleList(true);
         selected.value = 0;
-        suggestions.value = res;
+      } else if (props.query) {
+        let res = await props.query(key);
+        if (res.length) {
+          toggleList(true);
+          selected.value = 0;
+          suggestions.value = res;
+        }
       }
     }, props.debounce);
 
-    function choose(value: string | number, i?: number) {
-      let opt;
+    function choose(value: string, i?: number) {
       if (typeof i == 'number') {
         selected.value = i;
-        opt = suggestions.value[i];
       }
-      searchKey.value = String(value);
+      searchKey.value = value;
       toggleList(false);
-      emit('select', value, opt);
+      emit('select', value);
     }
 
     function onClick(evt: Event) {
@@ -91,7 +101,7 @@ export default defineComponent({
 
     function onEnter() {
       if (listOn.value && suggestions.value.length) {
-        let v = suggestions.value[selected.value].value;
+        let v = suggestions.value[selected.value];
         choose(v, selected.value);
       } else {
         emit('select', searchKey.value);

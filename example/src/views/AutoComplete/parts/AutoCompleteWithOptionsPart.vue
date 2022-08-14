@@ -1,5 +1,9 @@
 <template>
-  <j-auto-complete placeholder="Please input your search" :query="query">
+  <j-auto-complete
+    placeholder="Please input your search"
+    :options="options"
+    :query="query"
+  >
     <template #prepend>
       <j-svg-icon name="search" />
     </template>
@@ -7,6 +11,8 @@
 </template>
 
 <script setup>
+const options = ['Food', 'Drinks'];
+
 function query(k) {
   let arr = [];
   for (let i = 1; i <= 20; i++) {

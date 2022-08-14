@@ -1,6 +1,8 @@
 <template>
   <j-tile-layout :library="library">
-    <template #placeholder><div class="placeholder">Drop pill onto this block</div></template>
+    <template #placeholder>
+      <div class="placeholder">Drop pill onto this block</div>
+    </template>
   </j-tile-layout>
 </template>
 
