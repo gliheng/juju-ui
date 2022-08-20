@@ -1,4 +1,4 @@
-@import "vars";
+@use "vars";
 
 .j-tree-item {
   &[data-selected="true"] {
@@ -13,12 +13,12 @@
     align-items: center;
     cursor: default;
     border-radius: 3px;
-    padding: $gap;
+    padding: vars.$gap;
     &:hover {
       background-color: var(--j-primary-color-lighter);
     }
     > .j-tree-arrow {
-      transition: transform 0.2s $curve;
+      transition: transform 0.2s vars.$curve;
     }
     > .j-tree-row-indent {
       width: var(--j-tree-indent, 10px);

@@ -1,4 +1,4 @@
-@import "vars";
+@use "vars";
 
 .j-flex-layout {
   position: relative;
@@ -9,10 +9,10 @@
   z-index: 0;
   &[data-resizing="false"] {
     .j-flex-layout-pane {
-      transition: top $t, left $t, width $t, height $t, z-index 0s $t;
+      transition: top vars.$t, left vars.$t, width vars.$t, height vars.$t, z-index 0s vars.$t;
       // When in expanded state, a delay is applied to z-index to allow animation to show
       &[data-expanded="true"] {
-        transition: top $t, left $t, width $t, height $t;
+        transition: top vars.$t, left vars.$t, width vars.$t, height vars.$t;
       }
     }
   }
@@ -58,6 +58,6 @@
     position: absolute;
     background-color: var(--j-foreground-color-2);
     opacity: 0.5;
-    transition: top $t, left $t, width $t, height $t;
+    transition: top vars.$t, left vars.$t, width vars.$t, height vars.$t;
   }
 }

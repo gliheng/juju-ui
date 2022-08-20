@@ -1,4 +1,4 @@
-@import "vars";
+@use "vars";
 
 .j-textarea {
   padding: 0.5rem;
@@ -8,7 +8,7 @@
   transition: border-color 0.2s, box-shadow 0.2s;
   min-width: 12rem;
   &:focus:not([disabled]) {
-    box-shadow: $outline;
+    box-shadow: vars.$outline;
     border-color: var(--j-primary-color);
     outline: none;
   }

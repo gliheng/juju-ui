@@ -1,4 +1,4 @@
-@import "vars";
+@use "vars";
 
 .j-scaffold {
   display: flow-root;
@@ -10,7 +10,7 @@
     height: var(--j-scaffold-appbar-height);
     background-color: var(--j-primary-color);
     color: var(--j-primary-color-text);
-    padding: 0 $margin;
+    padding: 0 vars.$margin;
     box-sizing: border-box;
     display: flex;
     justify-content: left;
@@ -19,7 +19,7 @@
     top: 0;
     left: 0;
     right: 0;
-    transition: left 0.2s $curve;
+    transition: left 0.2s vars.$curve;
     .j-appbar-title {
       text-align: center;
     }
@@ -30,7 +30,7 @@
     }
     .j-appbar-right-actions {
       position: absolute;
-      right: $margin;
+      right: vars.$margin;
       display: flex;
       align-items: center;
     }
@@ -50,27 +50,27 @@
     bottom: 0;
     width: var(--j-scaffold-sidebar-width);
     box-sizing: border-box;
-    transition: transform 0.2s $curve;
-    padding: $margin;
+    transition: transform 0.2s vars.$curve;
+    padding: vars.$margin;
     background-color: var(--j-background-color-1);
   }
   .j-scaffold-appbar {
     height: var(--j-scaffold-appbar-height);
     background-color: var(--j-primary-color);
     color: var(--j-primary-color-text);
-    padding: 0 $margin;
-    margin: -$margin;
+    padding: 0 vars.$margin;
+    margin: -(vars.$margin);
     margin-bottom: initial;
     display: flex;
     justify-content: left;
     align-items: center;
   }
   .j-scaffold-content {
-    transition: margin-left 0.2s $curve;
+    transition: margin-left 0.2s vars.$curve;
     margin-top: var(--j-scaffold-appbar-height);
     min-height: calc(100vh - #{var(--j-scaffold-appbar-height)});
     box-sizing: border-box;
-    padding: $margin;
+    padding: vars.$margin;
     display: flex;
     flex-direction: column;
   }

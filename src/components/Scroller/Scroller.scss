@@ -1,5 +1,5 @@
 @use "sass:math";
-@import "vars";
+@use "vars";
 
 .j-scroller {
   $size: 6px;
@@ -39,7 +39,7 @@
   .j-scroll-x, .j-scroll-y {
     position: absolute;
     pointer-events: all;
-    transition: background-color 0.2s $curve, opacity 0.2s $curve, width 0.2s $curve, height 0.2s $curve, border-color 0.2s $curve;
+    transition: background-color 0.2s vars.$curve, opacity 0.2s vars.$curve, width 0.2s vars.$curve, height 0.2s vars.$curve, border-color 0.2s vars.$curve;
     background-color: transparent;
     opacity: 0.4;
     &[data-dragging], &:hover {
@@ -48,7 +48,7 @@
     }
     .j-scroll-handle {
       background-color: var(--j-neutral-color);
-      transition: width 0.2s $curve, height 0.2s $curve, border-radius 0.2s $curve;
+      transition: width 0.2s vars.$curve, height 0.2s vars.$curve, border-radius 0.2s vars.$curve;
       width: 100%;
       height: 100%;
     }

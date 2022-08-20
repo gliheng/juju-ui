@@ -1,4 +1,4 @@
-@import "vars";
+@use "vars";
 
 .j-button {
   border: none;
@@ -31,7 +31,7 @@
     filter: brightness(80%);
   }
   &:focus {
-    box-shadow: $outline;
+    box-shadow: vars.$outline;
     z-index: 1;
   }
   &:hover {
@@ -46,9 +46,9 @@
     --j-button-color: var(--j-primary-color);
   }
   &.is-raised {
-    box-shadow: $shadow;
+    box-shadow: vars.$shadow;
     &:focus {
-      box-shadow: $shadow, $outline;
+      box-shadow: vars.$shadow, vars.$outline;
     }
   }
   &.is-outlined {
@@ -72,6 +72,6 @@
     --j-button-height: 42px;
   }
   .j-seperator {
-    min-width: $margin;
+    min-width: vars.$margin;
   }
 }

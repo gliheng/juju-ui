@@ -1,4 +1,4 @@
-@import "vars";
+@use "vars";
 
 .j-table {
   $border: 1px solid var(--j-border-color);
@@ -28,7 +28,7 @@
     line-height: 2;
   }
   th, td {
-    padding: 0 $margin;
+    padding: 0 vars.$margin;
     box-sizing: border-box;
     word-break: break-all;
     position: relative;
@@ -52,8 +52,8 @@
           display: flex;
           align-items: stretch;
           box-sizing: border-box;
-          margin: 0 (-$margin);
-          padding: 0 $margin;
+          margin: 0 -(vars.$margin);
+          padding: 0 vars.$margin;
           .j-table-cell-inner {
             flex: 1;
           }
@@ -162,7 +162,7 @@
   }
   .j-data-table-group-row {
     .j-icon {
-      margin-right: $margin;
+      margin-right: vars.$margin;
     }
   }
   &[data-has-left-sticky="true"] {

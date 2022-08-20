@@ -1,5 +1,5 @@
 @use "sass:math";
-@import "vars";
+@use "vars";
 
 .j-select {
   display: inline-block;
@@ -16,7 +16,7 @@
     border: 1px solid var(--j-input-border-color, var(--j-border-color));
     transition: border-color 0.2s, box-shadow 0.2s;
     &:focus {
-      box-shadow: $outline;
+      box-shadow: vars.$outline;
       border: 1px solid var(--j-primary-color-light);
     }
     .j-select-clear-btn {
@@ -39,13 +39,13 @@
       display: flex;
       align-items: center;
       margin: 0;
-      margin-left: $margin;
+      margin-left: vars.$margin;
       .j-placeholder {
         color: var(--j-border-color);
       }
     }
     .j-select-icon {
-      margin: 0 math.div($gap, 2);
+      margin: 0 math.div(vars.$gap, 2);
       color: var(--j-border-color);
     }
   }
@@ -72,12 +72,12 @@
     position: absolute;
     top: 100%;
     z-index: 1;
-    padding: $margin 0;
+    padding: vars.$margin 0;
     margin-top: 2px;
     box-sizing: border-box;
     min-width: 100%;
     text-align: left;
-    box-shadow: $shadow;
+    box-shadow: vars.$shadow;
     background-color: var(--j-background-color-1);
     color: var(--j-text-color);
     border-radius: 3px;
@@ -95,7 +95,7 @@
   }
 
   hr.j-select-seperator {
-    margin: math.div($margin, 2) $margin;
+    margin: math.div(vars.$margin, 2) vars.$margin;
     border-color: var(--j-foreground-color-1);
     border-top: none;
   }

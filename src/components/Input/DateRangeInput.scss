@@ -1,4 +1,4 @@
-@import "vars";
+@use "vars";
 
 .j-date-range-input {
   display: inline-block;
@@ -13,13 +13,13 @@
   }
   &[data-focus="true"] {
     .j-date-range-input-inner {
-      box-shadow: $outline;
+      box-shadow: vars.$outline;
       border: 1px solid var(--j-primary-color-light);
     }
   }
   .j-date-range-input-clear {
     visibility: hidden;
-    margin: 0 $margin;
+    margin: 0 vars.$margin;
     cursor: pointer;
   }
   &[data-has-input="true"] {
@@ -41,10 +41,10 @@
       color: var(--j-text-color);
       height: var(--j-input-height);
       &[data-start="true"] {
-        margin-right: $margin;
+        margin-right: vars.$margin;
       }
       &[data-end="true"] {
-        margin-left: $margin;
+        margin-left: vars.$margin;
       }
     }
     .j-icon {

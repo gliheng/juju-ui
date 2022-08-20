@@ -1,4 +1,4 @@
-@import "vars";
+@use "vars";
 
 ul.j-listbox {
   list-style: none;
@@ -12,7 +12,7 @@ ul.j-listbox {
   overflow: hidden;
   margin: 0;
   border-radius: 3px;
-  padding: $margin;
+  padding: vars.$margin;
   white-space: nowrap;
   cursor: default;
   &:hover {
@@ -23,6 +23,6 @@ ul.j-listbox {
     color: var(--j-primary-color-text);
   }
   .j-listbox-icon {
-    margin-right: $margin;
+    margin-right: vars.$margin;
   }
 }

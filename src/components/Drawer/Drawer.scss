@@ -1,4 +1,4 @@
-@import "vars";
+@use "vars";
 
 .j-drawer {
   position: fixed;
@@ -8,7 +8,7 @@
   right: 0;
   --j-drawer-width: 300px;
   --j-drawer-height: 200px;
-  padding: $margin;
+  padding: vars.$margin;
   box-sizing: border-box;
   z-index: 1000;
   background-color: var(--j-background-color);
@@ -35,7 +35,7 @@
   .j-drawer-slide-#{$side}-enter-active,
   .j-drawer-slide-#{$side}-leave-active {
     margin-#{$side}: 0;
-    transition: margin-#{$side} 0.2s $curve, opacity 0.2s $curve;
+    transition: margin-#{$side} 0.2s vars.$curve, opacity 0.2s vars.$curve;
   }
   
   .j-drawer-slide-#{$side}-enter-from,
