@@ -54,6 +54,10 @@ const list = [
     part: 'ColGroupingPart.vue',
   },
   {
+    title: 'Tree table',
+    part: 'TreeTablePart.vue',
+  },
+  {
     title: 'Resizable',
     part: 'ResizablePart.vue',
   },

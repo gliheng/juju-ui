@@ -1,6 +1,7 @@
-import { defineComponent, h, PropType } from 'vue';
+import { defineComponent, h, Fragment, PropType } from 'vue';
+import SvgIcon from '@/SvgIcon/SvgIcon.vue';
+import Checkbox from '@/Checkbox/Checkbox.vue';
 import { Datum, ColumnConfig, RowConfig } from './types';
-import Checkbox from '../Checkbox/Checkbox.vue';
 
 export default defineComponent({
   name: 'Row',
@@ -19,17 +20,23 @@ export default defineComponent({
     },
     columns: {
       type: Array,
-      default: [],
+      default: () => [],
     },
     stickyPos: {
       type: Map as PropType<Map<number, number>>,
     },
     rowConfig: {
       type: Object,
-      default: {},
+      default: () => {},
     },
+    indent: {
+      type: Number,
+      default: 0,
+    },
+    chevron: Boolean,
+    chevronExpand: Boolean,
   },
-  emits: ['select'],
+  emits: ['select', 'toggle'],
   setup(props, { emit }) {
     function getCellKey(datum: Datum, col: ColumnConfig, i: number): string {
       if (typeof col.cellKey == 'string') {
@@ -42,7 +49,7 @@ export default defineComponent({
       return String(i);
     }
 
-    function getCellDisplay(datum: Datum, col: ColumnConfig) {
+    function getCellDisplay(datum: Datum, col: ColumnConfig, firstContentCell = false) {
       if (col.type == 'selection') {
         return (
           <Checkbox
@@ -54,34 +61,61 @@ export default defineComponent({
         return String(props.index + 1);
       }
       // render nothing for empty column
-      let s;
+      let s: any;
       if (col.field) {
         let parts = col.field.split('.');
         s = parts.reduce((d, key) => d[key], datum);
       }
-      s = s || col.default;
+      s = s ?? col.default;
       if (col.render) {
         if (col.field) {
-          return col.render(s, datum);
+          s = col.render(s, datum);
         } else {
-          return col.render(datum);
+          s = col.render(datum);
         }
       }
-      return s;
+
+      let indentSpacer;
+      let chevronArrow;
+      // Ensure indent is not added checkbox column
+      if (firstContentCell) {
+        const { indent, chevron, chevronExpand } = props;
+        if (indent) {
+          indentSpacer = <i class="j-data-table-indent" style={{ width: indent + 'px' }} />;
+        }
+        if (chevron) {
+          chevronArrow = (
+            <SvgIcon name={ chevronExpand ? 'chevron-down' : 'chevron-forward' }
+              onClick={(evt: MouseEvent) => {
+                evt.stopPropagation();
+                emit('toggle');
+              }}
+            />
+          );
+        }
+      }
+      return (
+        <>
+          {indentSpacer}
+          {chevronArrow}
+          {s}
+        </>
+      );
     }
 
     return () => {
+      const { rowConfig, datum, stickyPos, chevron, chevronExpand, indent } = props;
+      const columns = props.columns as ColumnConfig[];
       let rowClass = '';
-      let { rowConfig } = props;
       if ((rowConfig as RowConfig).class) {
         if (typeof rowConfig.class == 'function') {
-          rowClass = rowConfig.class(props.datum);
+          rowClass = rowConfig.class(datum);
         } else {
           rowClass = rowConfig.class;
         }
       }
 
-      let columns = props.columns as ColumnConfig[];
+      let waitContent = true;
       let cells = columns.map((col, i) => {
         let style: Record<string, string> = {};
         let { type, align, class: klass, sticky } = col;
@@ -93,13 +127,13 @@ export default defineComponent({
         }
         let cellClass = '';
         if (typeof klass == 'function') {
-          cellClass = klass(props.datum);
+          cellClass = klass(datum);
         } else if (klass) {
           cellClass = klass;
         }
-        if (sticky && props.stickyPos) {
+        if (sticky && stickyPos) {
           cellClass += ' j-table-sticky';
-          let pos = props.stickyPos.get(i);
+          let pos = stickyPos.get(i);
           if (pos !== undefined) {
             if (sticky == 'left') {
               style.left = `${pos}px`;
@@ -109,13 +143,17 @@ export default defineComponent({
             }
           }
         }
+        let firstContentCell = !col.type && waitContent;
+        if (firstContentCell) {
+          waitContent = false;
+        }
         return (
           <td
             class={ cellClass }
-            key={ getCellKey(props.datum, col, i) }
+            key={ getCellKey(datum, col, i) }
             style={ style }
           >
-            { getCellDisplay(props.datum, col) }
+            { getCellDisplay(datum, col, firstContentCell) }
           </td>
         );
       });

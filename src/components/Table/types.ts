@@ -1,6 +1,8 @@
 export type KeyFetcher = string | ((d: any) => string);
 
-export type Datum = Record<string, any>;
+export interface Datum extends Record<string | symbol, any> {
+  children?: Datum[],
+}
 export interface GroupDatum {
   groupName: string | number | boolean;
   groupPath: Array<string | number | boolean>;
