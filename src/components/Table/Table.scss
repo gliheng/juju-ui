@@ -84,9 +84,12 @@
     }
   }
   tbody {
-    tr[data-selected="true"] {
-      background-color: var(--j-primary-color-lighter);
+    tr[data-selected="true"] td {
+      background-color: var(--j-primary-color-lighter) !important;
     }
+  }
+  .j-data-table-indent {
+    display: inline-block;
   }
 }
 

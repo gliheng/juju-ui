@@ -25,6 +25,8 @@ import './Table.scss';
 
 const MIN_COL_WIDTH = 30;
 const COL_SIZE_STORAGE_KEY = 'col-sizes';
+const INDENT_KEY = Symbol("indent");
+const CHEVRON_KEY = Symbol("chevron");
 
 export default defineComponent({
   name: 'Table',
@@ -41,9 +43,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    groupIndent: {
+    // Indent increment for each indent level for tree data
+    indentStep: {
       type: Number,
-      default: 4,
+      default: 20,
     },
     // use rowConfig to add additional style for each row
     rowConfig: {
@@ -60,6 +63,7 @@ export default defineComponent({
       default: false,
     },
     grouping: Array as PropType<GroupKey[]>,
+    defaultExpand: Boolean,
     // virtualScroll and itemHeight are used for virtual scroll of content
     virtualScroll: {
       type: Boolean,
@@ -92,19 +96,16 @@ export default defineComponent({
     let headerCheckbox = computed(() => {
       if (selection.value.size === 0) {
         return false;
-      } else if (selection.value.size === props.data?.length) {
+      } else if (selection.value.size >= rowData.value.length) {
         return true;
       }
       return undefined;
     });
+
     function toggleSelection(v?: boolean) {
       if (v === true) {
-        let arr = []
-        let data = props.data || [];
-        for (let i = 0; i < data.length; i++) {
-          arr.push(getRowKey(data[i], i));
-        }
-        selection.value = new Set(arr)
+        let keys = rowData.value.map(e => e[0]);
+        selection.value = new Set(keys)
       } else if (v === false) {
         selection.value = new Set();
       }
@@ -210,34 +211,45 @@ export default defineComponent({
     let groupedData = computed(() => {
       let { grouping, data, sort } = props;
       let { colMap } = columnsInfo.value;
-      let data2 = sorted(data as Array<Datum>, colMap, sort);
-      if (grouping && data2) {
-        return groupData(grouping, data2);
+      let sortedData = sorted(data as Array<Datum>, colMap, sort);
+      if (grouping && sortedData) {
+        return groupData(grouping, sortedData);
       }
-      return data2;
+      return sortedData;
     });
 
+    // flatten grouped data for row rendering
     let rowData = computed(() => {
       function traverse(
         data: Array<Datum | GroupDatum>,
         collect: any[],
+        parentKey = '',
+        level = 0,
       ) {
-        // flatten grouped data for row rendering
         data.forEach((d, i) => {
-          if (d.groupChildren) {
+          if ('groupChildren' in d) {
             let groupKey = `${d.groupPath.join('::')}`;
             collect.push([groupKey, d]);
-            let expanded = d.groupChildren && groupExpand[groupKey] !== false;
-            if (expanded) {
-              traverse(d.groupChildren, collect);
+            let expanded = expandState[groupKey] ?? props.defaultExpand;
+            if (expanded && d.groupChildren) {
+              traverse(d.groupChildren, collect, groupKey, level + 1);
             }
           } else {
-            collect.push([getRowKey(d, i), d]);
+            const ownKey = getRowKey(d, i);
+            const data = d as Datum;
+            let key = parentKey ? `${parentKey}.${ownKey}` : String(ownKey);
+            let expanded = expandState[key] ?? props.defaultExpand;
+            data[INDENT_KEY] = level;
+            data[CHEVRON_KEY] = Boolean(data.children);
+            collect.push([key, data]);
+            if (expanded && data.children) {
+              traverse(data.children, collect, key, level + 1);
+            }
           }
         });
       }
 
-      let data: any[] = [];
+      let data: [string, any][] = [];
       if (groupedData.value) {
         traverse(groupedData.value, data);
       }
@@ -249,10 +261,9 @@ export default defineComponent({
     let rightStickyEl = ref<HTMLElement>();
 
     // record group expansion state
-    let groupExpand = reactive<Record<string, boolean>>({});
-    function toggleGroup(groupPath: string[]) {
-      let key = groupPath.join('::');
-      groupExpand[key] = key in groupExpand ? !groupExpand[key] : false;
+    let expandState = reactive<Record<string, boolean>>({});
+    function toggleGroup(key: string) {
+      expandState[key] = !(expandState[key] ?? props.defaultExpand);
     }
 
     function getRowKey(datum: Datum, i: number) {
@@ -275,12 +286,14 @@ export default defineComponent({
         return col.width;
       });
     });
+
     let ob: ResizeObserver;
     let store: ReturnType<typeof getStorage>;
     // load col settings on load
     if (props.storageKey) {
       store = getStorage(props.storageKey!);
     }
+
     onMounted(async () => {
       if (store) {
         let sizes = (await store.read(COL_SIZE_STORAGE_KEY)) || {};
@@ -532,15 +545,15 @@ export default defineComponent({
       let colspan = props.columns.length;
       let rendererName = `${d.groupName}-renderer`;
       let content = d.groupValue;
-      let indentMargin = (d.groupPath.length - 1) * props.groupIndent;
-      let expanded = d.groupChildren && groupExpand[key] !== false;
+      let indentWidth = (d.groupPath.length - 1) * props.indentStep;
+      let expanded = d.groupChildren && (expandState[key] ?? props.defaultExpand);
       let renderer = slots[rendererName] as Function;
       if (renderer) {
         content = renderer(d);
       }
       content = (
         <div class="j-data-table-group-cell">
-          <i class="j-data-table-group-margin" style={{ margin: indentMargin + 'px' }} />
+          <i class="j-data-table-indent" style={{ width: indentWidth + 'px' }} />
           <SvgIcon name={ expanded ? 'chevron-down' : 'chevron-forward' } />
           { content }
         </div>
@@ -550,7 +563,7 @@ export default defineComponent({
       // here we only put td with colspan equal to leftStickyCount
       if (opts.leftStickyCount) {
         content = (
-          <tr class="j-data-table-group-row" key={ 'group::' + key } onClick={ toggleGroup.bind(null, d.groupPath) }>
+          <tr class="j-data-table-group-row" key={ 'group::' + key } onClick={ toggleGroup.bind(null, d.groupPath.join('::')) }>
             <td class="j-table-sticky" colspan={ opts.leftStickyCount }>
               { content }
             </td>
@@ -560,7 +573,7 @@ export default defineComponent({
         );
       } else {
         content = (
-          <tr class="j-data-table-group-row" key={ 'group::' + key } onClick={ toggleGroup.bind(null, d.groupPath) }>
+          <tr class="j-data-table-group-row" key={ 'group::' + key } onClick={ toggleGroup.bind(null, d.groupPath.join('::')) }>
             <td class="j-table-sticky" colspan={ colspan }>
               { content }
             </td>
@@ -582,6 +595,7 @@ export default defineComponent({
         return renderGroupHeader(opts, key, d);
       } else {
         // render normal data row
+        let indentWidth = (d[INDENT_KEY] ?? 0) * props.indentStep;
         return (
           <Row
             key={key}
@@ -593,6 +607,10 @@ export default defineComponent({
             selected={selection.value.has(key)}
             // @ts-ignore
             onSelect={selectRow.bind(null, key, i)}
+            onToggle={toggleGroup.bind(null, key)}
+            indent={indentWidth}
+            chevron={d[CHEVRON_KEY] ?? false}
+            chevronExpand={expandState[key] ?? props.defaultExpand}
           />
         );
       }
