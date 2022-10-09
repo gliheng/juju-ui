@@ -9,6 +9,7 @@
     "highlight.js": "^11.0.1",
     "juju-ui": "file:..",
     "lodash-es": "^4.17.21",
+    "qs": "^6.11.0",
     "vue": "^3.2.31",
     "vue-router": "^4.0.12"
   },

@@ -22,21 +22,31 @@ class ResizeController {
   onPointerdown = (evt: MouseEvent) => {
     evt.preventDefault();
     evt.stopPropagation();
-    Object.assign(this.box, this.el.getBoundingClientRect().toJSON());
+    let box = this.el.getBoundingClientRect().toJSON()
+    let offsetBox = this.el.offsetParent?.getBoundingClientRect();
+    if (offsetBox) {
+      box.left -= offsetBox.left;
+      box.top -= offsetBox.top;
+      box.x -= offsetBox.x;
+      box.y -= offsetBox.y;
+    }
+    Object.assign(this.box, box);
     this.resizeMode.value = true;
 
     this.stop = watchEffect(() => {
       if (this.resizeMode.value) {
         this.el.style.position = 'absolute';
-        this.el.style.left = `${this.box.left}px`;
-        this.el.style.top = `${this.box.top}px`;
+        // Absolute positioning within grid are relative to grid cell
+        // so left and top are not applied
+        // this.el.style.left = `${this.box.left}px`;
+        // this.el.style.top = `${this.box.top}px`;
         this.el.style.width = `${this.box.width}px`;
         this.el.style.height = `${this.box.height}px`;
         this.el.style.zIndex = '1';
       } else {
         this.el.style.position = '';
-        this.el.style.left = '';
-        this.el.style.top = '';
+        // this.el.style.left = '';
+        // this.el.style.top = '';
         this.el.style.width = '';
         this.el.style.height = '';
         this.el.style.zIndex = '';

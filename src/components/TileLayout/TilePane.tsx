@@ -4,6 +4,7 @@ import draggable from '@directives/draggable';
 import { Library } from './types';
 
 export default defineComponent({
+  name: 'TilePane',
   directives: {
     resizable, draggable,
   },
