@@ -554,7 +554,7 @@ export default defineComponent({
       content = (
         <div class="j-data-table-group-cell">
           <i class="j-data-table-indent" style={{ width: indentWidth + 'px' }} />
-          <SvgIcon name={ expanded ? 'chevron-down' : 'chevron-forward' } />
+          <Icon name={ expanded ? 'chevron-down' : 'chevron-forward' } />
           { content }
         </div>
       );

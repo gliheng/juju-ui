@@ -52,7 +52,7 @@
           display: flex;
           align-items: stretch;
           box-sizing: border-box;
-          margin: 0 -(vars.$margin);
+          margin: 0 -1*vars.$margin;
           padding: 0 vars.$margin;
           .j-table-cell-inner {
             flex: 1;
