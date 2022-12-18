@@ -1,4 +1,4 @@
-@import "vars";
+@use "vars";
 
 .j-descriptions {
   display: grid;
@@ -7,12 +7,12 @@
   border: 1px solid var(--j-border-color);
   .j-descriptions-item {
     .j-descriptions-label {
-      padding: $margin;
+      padding: vars.$margin;
       color: var(--j-foreground-color-1);
       background-color: var(--j-background-color-1);
     }
     .j-descriptions-value {
-      padding: $margin;
+      padding: vars.$margin;
       color: var(--j-text-color);
       background-color: var(--j-background-color);
     }

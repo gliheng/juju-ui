@@ -15,5 +15,8 @@ const list = [
   {
     part: 'AutoCompletePart.vue',
   },
+  {
+    part: 'AutoCompleteWithOptionsPart.vue',
+  },
 ];
 </script>

@@ -9,7 +9,7 @@ const config = {
       name: "Listbox",
     },
     {
-      name: "SvgIcon",
+      name: "Icon",
     },
     {
       name: "Chip",

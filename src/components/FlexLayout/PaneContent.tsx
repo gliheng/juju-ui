@@ -3,7 +3,7 @@ import Tabs from '@/Tabs/Tabs.vue';
 import TabPane from '@/Tabs/TabPane.vue';
 import Button from '@/Button/Button.vue';
 import Dropdown from '@/Dropdown/Dropdown.vue';
-import SvgIcon from '@/SvgIcon/SvgIcon.vue';
+import Icon from '@/Icon/Icon.vue';
 import Menu from '@/Menu/Menu.vue';
 import { Library } from './types';
 import DragSource from './DragSource';
@@ -108,7 +108,7 @@ export default defineComponent({
                           onMousedown={(ev) => ev.stopPropagation()}
                           onClick={() => emit('tab-remove', i)}
                         >
-                          <SvgIcon name="close-outline" />
+                          <Icon name="close-outline" />
                         </a>
                       );
                     }

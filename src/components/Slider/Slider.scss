@@ -1,5 +1,5 @@
 @use "sass:math";
-@import "vars";
+@use "vars";
 
 .j-slider {
   display: inline-block;
@@ -9,7 +9,7 @@
     display: flex;
     align-items: center;
     position: relative;
-    padding: $margin 0;
+    padding: vars.$margin 0;
     // height: 2rem;
   }
   .j-slider-track {
@@ -36,7 +36,7 @@
     cursor: grab;
     top: 50%;
     transition: background-color 0.2s;
-    box-shadow: $shadow;
+    box-shadow: vars.$shadow;
     overflow: hidden;
     &:hover {
       // This prevent transparent lighter color from showing background through

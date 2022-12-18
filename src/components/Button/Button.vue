@@ -13,7 +13,7 @@
     v-ripple:center="iconOnly"
   >
     <j-spinner v-if="loading" />
-    <svg-icon
+    <j-icon
       v-else-if="icon"
       :size="size"
       :name="icon"
@@ -25,13 +25,13 @@
 
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue';
-import SvgIcon from '../SvgIcon/SvgIcon.vue';
+import JIcon from '../Icon/Icon.vue';
 import JSpinner from '../Spinner/Spinner.vue'
 import ripple from '@directives/ripple';
 import './Button.scss';
 
 export default defineComponent({
-  components: { SvgIcon, JSpinner },
+  components: { JIcon, JSpinner },
   directives: {
     ripple,
   },

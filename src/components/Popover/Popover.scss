@@ -1,4 +1,4 @@
-@import "vars";
+@use "vars";
 
 .j-popover {
   position: relative;
@@ -6,152 +6,150 @@
   > aside {
     position: absolute;
     z-index: 1;
-    padding: $margin;
+    padding: vars.$margin;
     color: var(--j-foreground-color);
     background-color: var(--j-background-color);
     border-radius: 4px;
     width: fit-content;
     word-wrap: break-word;
   }
-  $margin: 8px;
-  $arrow: 6px;
   &[data-side="left"] {
     > aside {
       top: 50%;
-      right: calc(100% + #{$margin});
+      right: calc(100% + #{vars.$margin});
       transform: translateY(-50%);
       .j-arrow {
         position: absolute;
-        right: -2*$arrow;
+        right: -2*vars.$arrow;
         top: 50%;
-        margin-top: -$arrow;
+        margin-top: -(vars.$arrow);
       }
     }
   }
   &[data-side="left-top"] {
     > aside {
       top: 0;
-      right: calc(100% + #{$margin});
+      right: calc(100% + #{vars.$margin});
       .j-arrow {
         position: absolute;
-        right: -2*$arrow;
-        top: $arrow;
+        right: -2*vars.$arrow;
+        top: vars.$arrow;
       }
     }
   }
   &[data-side="left-bottom"] {
     > aside {
       bottom: 0;
-      right: calc(100% + #{$margin});
+      right: calc(100% + #{vars.$margin});
       .j-arrow {
         position: absolute;
-        right: -2*$arrow;
-        bottom: $arrow;
+        right: -2*vars.$arrow;
+        bottom: vars.$arrow;
       }
     }
   }
   &[data-side="right"] {
     > aside {
       top: 50%;
-      left: calc(100% + #{$margin});
+      left: calc(100% + #{vars.$margin});
       transform: translateY(-50%);
       .j-arrow {
         position: absolute;
-        left: -2*$arrow;
+        left: -2*vars.$arrow;
         top: 50%;
-        margin-top: -$arrow;
+        margin-top: -(vars.$arrow);
       }
     }
   }
   &[data-side="right-top"] {
     > aside {
       top: 0;
-      left: calc(100% + #{$margin});
+      left: calc(100% + #{vars.$margin});
       .j-arrow {
         position: absolute;
-        left: -2*$arrow;
-        top: $arrow;
+        left: -2*vars.$arrow;
+        top: vars.$arrow;
       }
     }
   }
   &[data-side="right-bottom"] {
     > aside {
       bottom: 0;
-      left: calc(100% + #{$margin});
+      left: calc(100% + #{vars.$margin});
       .j-arrow {
         position: absolute;
-        left: -2*$arrow;
-        bottom: $arrow;
+        left: -2*vars.$arrow;
+        bottom: vars.$arrow;
       }
     }
   }
   &[data-side="top"] {
     > aside {
       left: 50%;
-      bottom: calc(100% + #{$margin});
+      bottom: calc(100% + #{vars.$margin});
       transform: translateX(-50%);
       .j-arrow {
         position: absolute;
         left: 50%;
-        bottom: -2*$arrow;
-        margin-left: -$arrow;
+        bottom: -2*vars.$arrow;
+        margin-left: -(vars.$arrow);
       }
     }
   }
   &[data-side="top-left"] {
     > aside {
       left: 0;
-      bottom: calc(100% + #{$margin});
+      bottom: calc(100% + #{vars.$margin});
       .j-arrow {
         position: absolute;
-        bottom: -2*$arrow;
-        left: $arrow;
+        bottom: -2*vars.$arrow;
+        left: vars.$arrow;
       }
     }
   }
   &[data-side="top-right"] {
     > aside {
       right: 0;
-      bottom: calc(100% + #{$margin});
+      bottom: calc(100% + #{vars.$margin});
       .j-arrow {
         position: absolute;
-        bottom: -2*$arrow;
-        right: $arrow;
+        bottom: -2*vars.$arrow;
+        right: vars.$arrow;
       }
     }
   }
   &[data-side="bottom"] {
     > aside {
       left: 50%;
-      top: calc(100% + #{$margin});
+      top: calc(100% + #{vars.$margin});
       transform: translateX(-50%);
       .j-arrow {
         position: absolute;
         left: 50%;
-        top: -2*$arrow;
-        margin-left: -$arrow;
+        top: -2*vars.$arrow;
+        margin-left: -(vars.$arrow);
       }
     }
   }
   &[data-side="bottom-left"] {
     > aside {
       left: 0;
-      top: calc(100% + #{$margin});
+      top: calc(100% + #{vars.$margin});
       .j-arrow {
         position: absolute;
-        top: -2*$arrow;
-        left: $arrow;
+        top: -2*vars.$arrow;
+        left: vars.$arrow;
       }
     }
   }
   &[data-side="bottom-right"] {
     > aside {
       right: 0;
-      top: calc(100% + #{$margin});
+      top: calc(100% + #{vars.$margin});
       .j-arrow {
         position: absolute;
-        top: -2*$arrow;
-        right: $arrow;
+        top: -2*vars.$arrow;
+        right: vars.$arrow;
       }
     }
   }

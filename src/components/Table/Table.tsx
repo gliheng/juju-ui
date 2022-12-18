@@ -11,7 +11,7 @@ import {
   onUnmounted,
 } from 'vue';
 import VirtualScroller from '@/Scroller/VirtualScroller';
-import SvgIcon from '@/SvgIcon/SvgIcon.vue';
+import Icon from '@/Icon/Icon.vue';
 import Checkbox from '@/Checkbox/Checkbox.vue';
 import Divider from '@/Divider/Divider';
 import { getStorage } from '@utils/storage';

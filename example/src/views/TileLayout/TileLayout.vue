@@ -1,6 +1,6 @@
 <template>
   <example-list
-    title="TileLayout (WIP)"
+    title="TileLayout"
     :list="list"
     :modules="modules"
   />

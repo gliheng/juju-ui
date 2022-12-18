@@ -1,22 +1,24 @@
-@import "vars";
+@use "vars";
 
 .j-tabs {
   text-align: left;
   .j-tabs-inner {
     display: flex;
+    align-items: center;
     background: var(--j-background-color);
     .j-tabs-scroller {
       flex: 1;
       min-width: 0;
     }
     .j-tabs-addon {
-      border-bottom: 2px solid var(--j-foreground-color-2);
+      border-bottom: 2px solid var(--j-background-color-1);
     }
   }
   .j-tabs-bar {
-    border-bottom: 2px solid var(--j-foreground-color-2);
+    border-bottom: 2px solid var(--j-background-color-1);
     position: relative;
     display: flex;
+    min-width: fit-content;
     white-space: nowrap;
     .j-tabs-bar-inner {
       display: flex;
@@ -44,7 +46,7 @@
       }
       button {
         color: var(--j-text-color);
-        padding: $margin;
+        padding: vars.$margin;
         background: none;
         border: none;
         outline: none;
@@ -56,7 +58,7 @@
       .j-tabs-close {
         display: inline-block;
         line-height: 0;
-        color: var(--j-foreground-color-2);
+        color: var(--j-background-color-1);
         &:hover {
           color: var(--j-primary-color);
         }
@@ -114,7 +116,7 @@
     }
   }
   &[data-type="card"] {
-    $border: 1px solid var(--j-foreground-color-2);
+    $border: 1px solid var(--j-background-color-1);
     .j-tabs-bar {
       border-bottom: none;
       .j-tabs-btn {
@@ -148,7 +150,6 @@
     flex: 1;
     min-width: 0;
     overflow: hidden;
-
   }
   > .j-tabs-scroller-btn.j-icon {
     position: relative;
@@ -159,7 +160,7 @@
   }
 }
 .j-tabs-content {
-  padding: $margin 0;
+  padding: vars.$margin 0;
   .j-tab-pane {
     width: 100%;
   }

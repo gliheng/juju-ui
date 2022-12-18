@@ -1,4 +1,4 @@
-@import "vars";
+@use "vars";
 
 .j-switch {
   display: inline-flex;
@@ -10,7 +10,7 @@
   transition: background-color 0.2s, box-shadow 0.2s;
   outline: none;
   &:focus {
-    box-shadow: $outline;
+    box-shadow: vars.$outline;
   }
   .j-knob {
     width: 1.5rem;

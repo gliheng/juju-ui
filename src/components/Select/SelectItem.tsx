@@ -1,5 +1,5 @@
 import { defineComponent, h, PropType, withDirectives } from 'vue';
-import SvgIcon from '../SvgIcon/SvgIcon.vue';
+import Icon from '../Icon/Icon.vue';
 import Checkbox from '../Checkbox/Checkbox.vue';
 import ripple from '@directives/ripple';
 import './SelectItem.scss';
@@ -24,7 +24,7 @@ export default defineComponent({
         <div class="j-select-item" data-has-icon={ !!props.icon }
           onClick={props.onClick}>
           { props.checked !== undefined && <Checkbox modelValue={props.checked} />}
-          <SvgIcon name={ props.icon } size={ props.size } />
+          <Icon name={ props.icon } size={ props.size } />
           { props.label }
         </div>, [[ripple]]
       );

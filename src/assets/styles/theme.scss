@@ -3,14 +3,11 @@
 
 @mixin use-theme($c, $t: white) {
   --j-primary-color: #{$c};
-  // these lighter colors are not transparent
-  // --j-primary-color-light: #{color.scale($c, $lightness: 40%)};
-  // --j-primary-color-lighter: #{color.scale($c, $lightness: 80%)};
-  // however these transparent colors are better for dark mode
+  // transparent colors are used, since they looks bettern in dark mode
   --j-primary-color-light: #{rgba($c, 0.5)};
   --j-primary-color-lighter: #{rgba($c, 0.2)};
   --j-primary-color-lightest: #{rgba($c, 0.1)};
-  --j-primary-color-text: #{$t}; // the text color on primary colored background
+  --j-primary-color-text: #{$t}; // The text color on primary colored background
 }
 
 @mixin light-theme {
@@ -58,7 +55,7 @@ $color-config: (
   "secondary": (#f82c69, white),
   "success": (#70b137, white),
   "info": (#19c1df, white),
-  "warning": (#ffa149, black),
+  "warning": (#ffa149, white),
   "danger": (#da2a2a, white),
   "help": (#9c27b0, white),  
 );

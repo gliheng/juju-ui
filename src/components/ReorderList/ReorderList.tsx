@@ -4,7 +4,7 @@ import {
   watch, TransitionGroup,
   PropType, toRaw, inject, InjectionKey, computed, nextTick, onMounted, getCurrentInstance,
 } from 'vue';
-import SvgIcon from '../SvgIcon/SvgIcon.vue';
+import Icon from '../Icon/Icon.vue';
 import './ReorderList.scss';
 
 export const GroupInjectKey: InjectionKey<any> = Symbol();
@@ -258,7 +258,7 @@ export default defineComponent({
       }
       return (
         <>
-          <SvgIcon
+          <Icon
             class="j-reorder-list-handle"
             name="reorder-three-outline"
           />

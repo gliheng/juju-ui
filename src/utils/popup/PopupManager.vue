@@ -9,7 +9,7 @@
     @dismiss="popup.dismiss.call(popup, $event)"
     @accept="popup.accept.call(popup)"
   >
-    <svg-icon v-if="popup.icon" :class="[ 'j-popup-icon', popup.iconColor || 'j-danger' ]" :name="popup.icon" size="lg" />
+    <j-icon v-if="popup.icon" :class="[ 'j-popup-icon', popup.iconColor || 'j-danger' ]" :name="popup.icon" size="lg" />
     <p class="j-popup-content">{{ popup.msg || '' }}</p>
   </j-popup>
 </template>
@@ -17,7 +17,7 @@
 <script lang="ts">
 import { defineComponent, reactive, nextTick, Ref } from 'vue';
 import JPopup from '@/Popup/Popup.vue';
-import SvgIcon from '@/SvgIcon/SvgIcon.vue';
+import JIcon from '@/Icon/Icon.vue';
 
 export interface PopupOpts {
   title?: string,
@@ -86,6 +86,6 @@ export default defineComponent({
       popups,
     };
   },
-  components: { JPopup, SvgIcon },
+  components: { JPopup, JIcon },
 });
 </script>

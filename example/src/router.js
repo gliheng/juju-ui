@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from './views/Home.vue';
-import Dev from './views/Dev.vue';
+import Dev from './dev/Dev.vue';
 import NotFound from './views/NotFound.vue';
 import config, { allComponents } from './config';
 import { kebabCase } from 'lodash-es';
@@ -18,7 +18,7 @@ const routes = [
 // add dev route
 if (import.meta.env.DEV) {
   routes.push({
-    path: '/dev/:component/:part',
+    path: '/dev/:component?/:part?',
     name: 'dev',
     component: Dev,
     meta: {

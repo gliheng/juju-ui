@@ -1,6 +1,6 @@
 import { defineComponent, h, computed, PropType, VNode } from 'vue';
 import { useBackdropAwareSwitch } from '@utils/hooks';
-import SvgIcon from '@/SvgIcon/SvgIcon.vue';
+import Icon from '@/Icon/Icon.vue';
 import Button from '@/Button/Button.vue';
 import Scroller from '@/Scroller/Scroller.vue';
 import SelectItem from './SelectItem';
@@ -115,7 +115,7 @@ export default defineComponent({
         content = [
           <div class="j-select-label" tabindex={0}>
             <div class="j-select-label-inner">{ label }</div>
-            <SvgIcon class="j-select-icon" name="chevron-down" />
+            <Icon class="j-select-icon" name="chevron-down" />
             { clearIcon }
           </div>
         ];

@@ -9,9 +9,9 @@
       v-bind="$attrs"
       v-ripple
     >
-      <svg-icon v-if="icon" class="j-menu-icon" :name="icon"></svg-icon>
+      <j-icon v-if="icon" class="j-menu-icon" :name="icon" />
       <span>{{ label }}</span>
-      <svg-icon v-if="$slots.default" name="chevron-forward"></svg-icon>
+      <j-icon v-if="$slots.default" name="chevron-forward" />
     </div>
     <div v-if="menuOn" class="j-menu j-shadow-3">
       <slot />
@@ -22,13 +22,13 @@
 <script lang="ts">
 import { defineComponent, provide, inject, ref, watch, Ref } from 'vue';
 import ripple from '@directives/ripple';
-import SvgIcon from '../SvgIcon/SvgIcon.vue';
+import JIcon from '../Icon/Icon.vue';
 
 type SetLastCloseFunction = (cbk: Function) => void;
 
 export default defineComponent({
   components: {
-    SvgIcon,
+    JIcon,
   },
   directives: { ripple },
   inheritAttrs: false,

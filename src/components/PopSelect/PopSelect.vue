@@ -14,7 +14,7 @@
           class="j-pop-select-label"
           data-placeholder="true"
         >{{ label }}</span>
-        <svg-icon name="chevron-down" />
+        <j-icon name="chevron-down" />
       </template>
       <template v-else>
         <span class="j-pop-select-label">{{ selectedLabel }}</span>
@@ -62,7 +62,7 @@ import {
   nextTick,
   PropType,
 } from 'vue';
-import SvgIcon from '@/SvgIcon/SvgIcon.vue';
+import JIcon from '@/Icon/Icon.vue';
 import JButton from '@/Button/Button.vue';
 import JPopover from '@/Popover/Popover.vue';
 import SelectItem from '@/Select/SelectItem';
@@ -72,7 +72,7 @@ import Scroller from '@/Scroller/Scroller.vue';
 
 export default defineComponent({
   components: {
-    SvgIcon,
+    JIcon,
     JButton,
     JPopover,
     JInput,

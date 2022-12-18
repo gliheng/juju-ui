@@ -1,5 +1,5 @@
 <template>
-  <j-tabs type="card" :add="true" @tab-add="addTab" @tab-remove="removeTab($event)">
+  <j-tabs :add="true" @tab-add="addTab" @tab-remove="removeTab($event)">
     <j-tab-pane label="Home" icon="home">
       Add more by clicking the add button
     </j-tab-pane>

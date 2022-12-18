@@ -8,4 +8,18 @@ export type LibraryItem = {
 
 export type Library = Array<LibraryItem>;
 
-export type Preset = any;
+export type Preset = {
+  use: string;
+  x?: number;
+  y?: number;
+  w?: number;
+  h?: number;
+}[];
+
+export type Layout = {
+  use: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}[];
