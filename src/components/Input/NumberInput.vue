@@ -30,13 +30,13 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue';
-import SvgIcon from '../SvgIcon/SvgIcon.vue';
+import JIcon from '../Icon/Icon.vue';
 import JSlider from '../Slider/Slider.vue';
 import JButton from '../Button/Button.vue';
 import JInput from './Input.vue';
 
 export default defineComponent({
-  components: { SvgIcon, JInput, JSlider, JButton },
+  components: { JIcon, JInput, JSlider, JButton },
   props: {
     type: {
       type: String,

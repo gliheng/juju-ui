@@ -1,12 +1,12 @@
 <template>
   <div class="j-tabs-scroller">
-    <svg-icon v-if="needAdjustBtns" class="j-tabs-scroller-btn" name="chevron-back"
+    <j-icon v-if="needAdjustBtns" class="j-tabs-scroller-btn" name="chevron-back"
       v-ripple="{color: 'var(--j-primary-color-light)'}"
       @click="scrollBy(-200)" />
     <div class="j-tabs-scroller-content" ref="content">
       <slot></slot>
     </div>
-    <svg-icon v-if="needAdjustBtns" class="j-tabs-scroller-btn" name="chevron-forward"
+    <j-icon v-if="needAdjustBtns" class="j-tabs-scroller-btn" name="chevron-forward"
       v-ripple="{color: 'var(--j-primary-color-light)'}"
       @click="scrollBy(200)" />
   </div>
@@ -15,12 +15,12 @@
 <script lang="ts">
 import { defineComponent, ref, watch, onUpdated } from 'vue';
 import anime from 'animejs';
-import SvgIcon from '../SvgIcon/SvgIcon.vue';
+import JIcon from '../Icon/Icon.vue';
 import { useElementSize } from '@utils/hooks'
 import ripple from '@directives/ripple';
 
 export default defineComponent({
-  components: { SvgIcon },
+  components: { JIcon },
   directives: { ripple },
   setup() {
     let content = ref<HTMLElement>();

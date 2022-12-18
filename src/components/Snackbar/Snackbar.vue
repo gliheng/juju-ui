@@ -2,7 +2,7 @@
   <div :class="['j-snackbar', themeClass]"
     @click="$emit('dismiss')"
   >
-    <j-svg-icon
+    <j-icon
       v-if="icon"
       class="j-snackbar-icon"
       :name="icon" />
@@ -19,10 +19,10 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue';
 import JButton from '@/Button/Button.vue';
-import JSvgIcon from '@/SvgIcon/SvgIcon.vue';
+import JIcon from '@/Icon/Icon.vue';
 
 export default defineComponent({
-  components: { JButton, JSvgIcon },
+  components: { JButton, JIcon },
   props: {
     title: String,
     closable: Boolean,

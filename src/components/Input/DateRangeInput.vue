@@ -6,9 +6,9 @@
     :data-which="which">
     <div class="j-date-range-input-inner" @click.stop="!disabled && openSelector($event)">
       <input :placeholder="placeholder1 || 'Start date'" data-start="true" @focus="toggleFocus1(true)" @blur="toggleFocus1(false)" v-model="label1" />
-      <svg-icon name="arrow-forward-outline" />
+      <j-icon name="arrow-forward-outline" />
       <input :placeholder="placeholder2 || 'End date'" data-end="true" @focus="toggleFocus2(true)" @blur="toggleFocus2(false)" v-model="label2" />
-      <svg-icon v-if="clearable" class="j-date-range-input-clear" name="close" @click.stop="clearIpt" />
+      <j-icon v-if="clearable" class="j-date-range-input-clear" name="close" @click.stop="clearIpt" />
     </div>
     <transition name="j-fade">
       <div class="j-date-range-input-selector j-shadow-5" v-if="selectorOn" @click.stop>
@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref, watch } from 'vue';
-import SvgIcon from '../SvgIcon/SvgIcon.vue';
+import JIcon from '../Icon/Icon.vue';
 import CalendarUi from '../Calendar/CalendarUi.vue';
 import { useBackdropAwareSwitch, useSwitch } from '@utils/hooks';
 import { formatDate, toDate, isSameDay, isBetween } from '@utils/date';
@@ -45,7 +45,7 @@ function themingFunction(startDate: Date, endDate: Date, year: number, month: nu
 
 export default defineComponent({
   components: {
-    CalendarUi, SvgIcon,
+    CalendarUi, JIcon,
   },
   props: {
     placeholder1: String,

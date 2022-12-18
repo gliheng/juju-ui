@@ -11,7 +11,7 @@ import {
   onUnmounted,
 } from 'vue';
 import VirtualScroller from '@/Scroller/VirtualScroller';
-import SvgIcon from '@/SvgIcon/SvgIcon.vue';
+import Icon from '@/Icon/Icon.vue';
 import Checkbox from '@/Checkbox/Checkbox.vue';
 import Divider from '@/Divider/Divider';
 import { getStorage } from '@utils/storage';
@@ -541,7 +541,7 @@ export default defineComponent({
       content = (
         <div class="j-data-table-group-cell">
           <i class="j-data-table-group-margin" style={{ margin: indentMargin + 'px' }} />
-          <SvgIcon name={ expanded ? 'chevron-down' : 'chevron-forward' } />
+          <Icon name={ expanded ? 'chevron-down' : 'chevron-forward' } />
           { content }
         </div>
       );

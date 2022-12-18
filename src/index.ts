@@ -6,7 +6,7 @@ import ButtonGroup from './components/Button/ButtonGroup.vue';
 import SplitButton from './components/Button/SplitButton.vue';
 import ToggleButton from './components/ToggleButton/ToggleButton';
 import ToggleButtonGroup from './components/ToggleButton/ToggleButtonGroup';
-import SvgIcon from './components/SvgIcon/SvgIcon.vue';
+import Icon from './components/Icon/Icon.vue';
 import Tabs from './components/Tabs/Tabs.vue';
 import TabPane from './components/Tabs/TabPane.vue';
 import Input from './components/Input/Input.vue';
@@ -76,7 +76,7 @@ export {
   SplitButton,
   ToggleButton,
   ToggleButtonGroup,
-  SvgIcon,
+  Icon,
   Tabs,
   TabPane,
   Input,
@@ -145,7 +145,7 @@ export default function(app: App, conf: Partial<Config>) {
     .component('j-split-button', SplitButton)
     .component('j-toggle-button', ToggleButton)
     .component('j-toggle-button-group', ToggleButtonGroup)
-    .component('j-svg-icon', SvgIcon)
+    .component('j-icon', Icon)
     .component('j-tabs', Tabs)
     .component('j-tab-pane', TabPane)
     .component('j-input', Input)

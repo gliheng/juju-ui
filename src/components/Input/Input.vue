@@ -22,13 +22,13 @@
     <div v-if="hasAppend" class="j-input-append">
       <slot name="append"></slot>
     </div>
-    <svg-icon
+    <j-icon
       v-if="clearable"
       class="j-input-clear"
       name="close"
       @mousedown.prevent
       @click="clearIpt" />
-    <svg-icon
+    <j-icon
       v-if="showPassword"
       class="j-input-show-password"
       :name="revealing ? 'eye-off-outline' : 'eye-outline'"
@@ -38,10 +38,10 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed, PropType } from 'vue';
-import SvgIcon from '../SvgIcon/SvgIcon.vue';
+import JIcon from '../Icon/Icon.vue';
 
 export default defineComponent({
-  components: { SvgIcon },
+  components: { JIcon },
   props: {
     modelValue: String,
     wrapperClass: String,

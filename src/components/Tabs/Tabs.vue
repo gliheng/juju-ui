@@ -21,7 +21,7 @@
               />
               <div class="j-tabs-btn-inner" v-else>
                 <button>
-                  <svg-icon class="j-tabs-icon" v-if="tab.icon" :name="tab.icon" />
+                  <j-icon class="j-tabs-icon" v-if="tab.icon" :name="tab.icon" />
                   <span>{{ tab.label }}</span>
                 </button>
                 <a
@@ -30,7 +30,7 @@
                   @mousedown.stop
                   @click="removeTab(i)"
                 >
-                  <svg-icon name="close-outline" />
+                  <j-icon name="close-outline" />
                 </a>
               </div>
             </div>
@@ -41,7 +41,7 @@
               @click="addTab"
             >
               <button>
-                <svg-icon name="add" />
+                <j-icon name="add" />
               </button>
             </div>
           </div>
@@ -66,7 +66,7 @@ import {
 import TabPane, { TabPaneSymbol } from './TabPane.vue';
 import TabScroller from './TabScroller.vue';
 import { useChildren } from '@utils/hooks'
-import SvgIcon from '../SvgIcon/SvgIcon.vue';
+import JIcon from '../Icon/Icon.vue';
 import ripple from '@directives/ripple';
 
 interface TabDef {
@@ -77,7 +77,7 @@ interface TabDef {
 };
 
 export default defineComponent({
-  components: { SvgIcon, TabScroller },
+  components: { JIcon, TabScroller },
   directives: { ripple },
   props: {
     type: String,

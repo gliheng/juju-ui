@@ -13,7 +13,7 @@
               class="close"
               @click="$emit('dismiss', 'close')"
             >
-              <svg-icon name="close"></svg-icon>
+              <j-icon name="close" />
             </a>
           </header>
           <main>
@@ -53,12 +53,12 @@ import {
   getCurrentInstance,
   PropType,
 } from 'vue';
-import SvgIcon from '../SvgIcon/SvgIcon.vue';
-import Button from '../Button/Button.vue';
+import JIcon from '../Icon/Icon.vue';
+import JButton from '../Button/Button.vue';
 import * as DepthManager from '@utils/depth-manager';
 
 export default defineComponent({
-  components: { SvgIcon, JButton: Button },
+  components: { JIcon, JButton },
   props: {
     title: String,
     width: {

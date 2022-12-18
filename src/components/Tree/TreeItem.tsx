@@ -1,5 +1,5 @@
 import { defineComponent, computed, PropType, inject, Transition, h } from 'vue';
-import SvgIcon from '@/SvgIcon/SvgIcon.vue';
+import Icon from '@/Icon/Icon.vue';
 import ripple from '@directives/ripple';
 import { useSwitch } from '@utils/hooks';
 import { treeInjectKey, TreeItemType } from './constants';
@@ -34,10 +34,10 @@ export default defineComponent({
       let { item, level } = props;
       let chevron, icon, extension;
       if (!isLeaf.value) {
-        chevron = <SvgIcon class="j-tree-arrow" name="chevron-forward" />;
+        chevron = <Icon class="j-tree-arrow" name="chevron-forward" />;
       }
       if (item.icon) {
-        icon = <SvgIcon class="j-tree-icon" name={item.icon} />
+        icon = <Icon class="j-tree-icon" name={item.icon} />
       }
       if (treeSlots.extension) {
         extension = treeSlots.extension({ item });

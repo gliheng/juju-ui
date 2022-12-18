@@ -2,7 +2,7 @@
   <div class="j-date-input">
     <j-input v-bind="$attrs" v-model="label" @click.stop="showSelector">
       <template #append>
-        <svg-icon name="calendar-outline" />
+        <j-icon name="calendar-outline" />
       </template>
     </j-input>
     <transition name="j-fade">
@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import SvgIcon from '../SvgIcon/SvgIcon.vue';
+import JIcon from '../Icon/Icon.vue';
 import JInput from './Input.vue';
 import JCalendar from '../Calendar/Calendar.vue';
 import { useBackdropAwareSwitch } from '@utils/hooks';
@@ -53,7 +53,7 @@ export default defineComponent({
     return { label, showSelector, selectorOn, onSelect };
   },
   components: {
-    JInput, SvgIcon, JCalendar,
+    JInput, JIcon, JCalendar,
   },
 });
 </script>
