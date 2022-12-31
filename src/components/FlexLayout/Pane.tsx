@@ -58,10 +58,6 @@ export default defineComponent({
         content = slots.default();
       }
 
-      if (!content && props.context.placeholder) {
-        content = props.context.placeholder();
-      }
-
       let style: Record<string, any> = {
         top: `${y}px`,
         left: `${x}px`,

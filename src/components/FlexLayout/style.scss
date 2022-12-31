@@ -53,6 +53,12 @@
       }
     }
   }
+  .j-flex-layout-placeholder {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .j-flex-layout-hint {
     pointer-events: none;
     position: absolute;
