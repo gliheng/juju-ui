@@ -14,12 +14,16 @@ export type Preset = {
   y?: number;
   w?: number;
   h?: number;
+  static?: boolean;
 }[];
 
-export type Layout = {
+export type Layout = Box[];
+
+export interface Box {
   use: string;
   x: number;
   y: number;
   w: number;
   h: number;
-}[];
+  static: boolean;
+}

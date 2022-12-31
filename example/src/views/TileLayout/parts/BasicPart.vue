@@ -22,7 +22,6 @@
   <j-tile-layout
     :library="library"
     :preset="preset"
-    :cols="6"
     storage-key="juju-tile-layout"
   />
 </template>
@@ -50,7 +49,6 @@ const preset = [
     y: 0,
     w: 1,
     h: 1,
-    pos: [2, 0, 1, 1],
   },
   {
     use: 'pane-d',
@@ -58,7 +56,6 @@ const preset = [
     y: 0,
     w: 1,
     h: 1,
-    pos: [3, 0, 1, 1],
   },
   {
     use: 'pane-e',
@@ -70,3 +67,19 @@ const preset = [
 ];
 </script>
 
+<style lang="scss" scoped>
+.pool {
+  margin-bottom: 8px;
+  .pill {
+    display: inline-block;
+    background: white;
+    line-height: 30px;
+    margin: 0 8px;
+    border-radius: 20px;
+    padding: 5px;
+  }
+  p {
+    color: grey;
+  }
+}
+</style>

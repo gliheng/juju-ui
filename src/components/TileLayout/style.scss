@@ -1,3 +1,5 @@
+@use "vars";
+
 .j-tile-layout {
   position: relative;
   display: grid;
@@ -17,5 +19,13 @@
       width: 10px;
       height: 10px;
     }
+  }
+  .j-tile-layout-placeholder {
+    display: flex;
+  }
+  .j-tile-layout-hint {
+    pointer-events: none;
+    background-color: var(--j-foreground-color-2);
+    opacity: 0.5;
   }
 }

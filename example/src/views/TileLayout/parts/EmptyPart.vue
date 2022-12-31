@@ -1,4 +1,24 @@
 <template>
+  <div class="pool">
+    <div>
+      <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-a">
+        Component A
+      </j-flex-layout-drag-source>
+      <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-b">
+        Component B
+      </j-flex-layout-drag-source>
+      <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-c">
+        Component C
+      </j-flex-layout-drag-source>
+      <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-d">
+        Component D
+      </j-flex-layout-drag-source>
+      <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-e">
+        Component E
+      </j-flex-layout-drag-source>
+    </div>
+    <p>Drag these pills to the panel bellow to modify layout</p>
+  </div>
   <j-tile-layout :library="library">
     <template #placeholder>
       <div class="placeholder">Drop pill onto this block</div>
@@ -25,14 +45,11 @@ import library from './library';
     color: grey;
   }
 }
-.layout {
-  height: 500px;
-  .placeholder {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: silver;
-  }
+.placeholder {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: silver;
 }
 </style>
