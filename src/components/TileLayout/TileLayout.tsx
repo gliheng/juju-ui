@@ -1,4 +1,4 @@
-import { defineComponent, ref, h, PropType, StyleValue, provide, Ref, ComponentPublicInstance, Transition } from 'vue';
+import { defineComponent, ref, h, PropType, StyleValue, provide, Ref, ComponentPublicInstance, toRaw } from 'vue';
 import { Library, Preset, Layout, Box } from './types';
 import TilePane, { paneInjectKey } from './TilePane';
 import './style.scss';
@@ -28,6 +28,10 @@ export default defineComponent({
     gap: {
       type: Number,
       default: 1,
+    },
+    compress: {
+      type: Boolean,
+      default: true,
     },
     locked: Boolean,
   },
@@ -59,15 +63,31 @@ export default defineComponent({
         cellSize = measureCellSize(el, box);
         startPos = [el.offsetLeft, el.offsetTop];
       },
-      onDragMove(i: number, x: number, y: number) {
+      onDragMove(i: number, left: number, top: number) {
         let widthWithGap = cellSize[0] + props.gap;
         let heightWithGap = cellSize[1] + props.gap;
-        x += startPos[0];
-        y += startPos[1];
-        let newX = Math.max(0, Math.floor((x + cellSize[0] / 2) / widthWithGap));
-        let newY = Math.max(0, Math.floor((y + cellSize[1] / 2) / heightWithGap));
-        hintBox.value!.x = newX;
-        hintBox.value!.y = newY;
+        left += startPos[0];
+        top += startPos[1];
+        let newX = Math.max(0, Math.floor((left + cellSize[0] / 2) / widthWithGap));
+        let newY = Math.max(0, Math.floor((top + cellSize[1] / 2) / heightWithGap));
+  
+        const { x, y, w, h } = hintBox.value!;
+        if (newX == x && newY == y) return;
+  
+        // check overlap
+        if (newX + w > props.cols || newX < 0) return
+        let newBox = { use: '', x: newX, y: newY, w, h };
+        const otherBoxes = toRaw(layout.value ?? []).concat();
+        otherBoxes.splice(i, 1);
+        if (props.compress) {
+          if (compress(otherBoxes, newBox, newY > y)) {
+            hintBox.value!.x = newBox.x;
+            hintBox.value!.y = newBox.y;
+          }
+        } else if (!hasOverlap(otherBoxes, newBox)) {
+          hintBox.value!.x = newX;
+          hintBox.value!.y = newY;
+        }
       },
       onDragEnd(i: number) {
         if (!hintBox.value) return;
@@ -84,13 +104,31 @@ export default defineComponent({
         let el = children.value[i].$el;
         cellSize = measureCellSize(el, box);
       },
-      onResize(i: number, w: number, h: number) {
+      onResize(i: number, width: number, height: number) {
         let widthWithGap = cellSize[0] + props.gap;
         let heightWithGap = cellSize[1] + props.gap;
-        let newW = Math.max(1, Math.floor((w + cellSize[0] / 2) / widthWithGap));
-        let newH = Math.max(1, Math.floor((h + cellSize[1] / 2) / heightWithGap));
-        hintBox.value!.w = newW;
-        hintBox.value!.h = newH;
+        let newW = Math.max(1, Math.floor((width + cellSize[0] / 2) / widthWithGap));
+        let newH = Math.max(1, Math.floor((height + cellSize[1] / 2) / heightWithGap));
+
+        const { x, y, w, h } = hintBox.value!;
+        if (newW == w && newH == h) return;
+  
+        // check overlap
+        if (x + newW > props.cols) return;
+        const newBox = { use: '', x, y, w: newW, h: newH };
+        const otherBoxes = toRaw(layout.value ?? []).concat();
+        otherBoxes.splice(i, 1);
+        if (props.compress) {
+          if (compress(otherBoxes, newBox)) {
+            hintBox.value!.x = newBox.x;
+            hintBox.value!.y = newBox.y;
+            hintBox.value!.w = newBox.w;
+            hintBox.value!.h = newBox.h;
+          }
+        } else if (!hasOverlap(otherBoxes, newBox)) {
+          hintBox.value!.w = newW;
+          hintBox.value!.h = newH;
+        }
       },
       onResizeEnd(i: number) {
         if (!hintBox.value) return;
@@ -148,4 +186,71 @@ function normalizePreset(
 ): Layout {
   // todo
   return preset as Layout;
+}
+
+function isOverlap(a: Box, b: Box): boolean {
+  return !(
+    b.x >= a.x + a.w ||
+    b.x + b.w <= a.x ||
+    b.y >= a.y + a.h ||
+    b.y + b.h <= a.y
+  );
+}
+
+function hasOverlap(boxes: Box[], target: Box): boolean {
+  for (let box of boxes) {
+    if (isOverlap(box, target)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Vertically compress boxes
+ * @param boxes Other boxes
+ * @param target The box in action
+ * @param down When down is true, compare with target box's bottom edge
+ * @returns compress succeed or not
+ */ 
+function compress(boxes: Box[], target: Box, down: boolean = false): boolean {
+  boxes.sort((a, b) => a.y - b.y);
+  let i;
+  // Find an insertion index that will keep the list sorted
+  if (down) {
+    i = findLastIndex(boxes, (e) => e.y + e.h <= target.y + target.h);
+    i++;
+  } else {
+    i = boxes.findIndex(e => e.y >= target.y);
+    if (i == -1) boxes.length;
+  }
+  boxes.splice(i, 0, target);
+
+  const heights = [];
+  for (let box of boxes) {
+    let y = 0;
+    if (box.static) {
+      // If box is static, no compression is necessary
+      y = box.y;
+    } else {
+      // Iterate all columns occupied by this box,
+      // find the y position this box will be placed at
+      for (let i = box.x, j = box.x + box.w; i < j; i++) {
+        y = Math.max(y, heights[i] ?? 0);
+      }
+      box.y = y;
+    }
+    // Update current height for all columns
+    for (let i = box.x, j = box.x + box.w; i < j; i++) {
+      heights[i] = y + box.h;
+    }
+  }
+  return true;
+}
+
+function findLastIndex<T>(list: T[], cbk: (e: T) => boolean) {
+  for (let i = list.length - 1; i >= 0; i--) {
+    if (cbk(list[i])) return i;
+  }
+  return -1;
 }

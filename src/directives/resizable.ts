@@ -16,8 +16,8 @@ class ResizeController {
     el.appendChild(div);
   }
 
-  private resizing = ref(false);
-  private box = reactive({
+  private state = reactive({
+    resizing: false,
     left: 0,
     top: 0,
     width: 0,
@@ -36,12 +36,13 @@ class ResizeController {
       box.x -= offsetBox.x;
       box.y -= offsetBox.y;
     }
-    Object.assign(this.box, box);
+    Object.assign(this.state, box);
 
     document.addEventListener('pointermove', this.onPointermove);
     document.addEventListener('pointerup', () => {
       document.removeEventListener('pointermove', this.onPointermove);
-      this.resizing.value = false;
+      this.state.resizing = false;
+      delete this.el.dataset.resizing;
       nextTick(() => {
         this.stop?.();
         if (typeof this.params == 'object') {
@@ -52,26 +53,27 @@ class ResizeController {
   }
 
   onPointermove = (evt: PointerEvent) => {
-    if (this.resizing.value) {
-      this.box.width = Math.max(this.box.width + evt.movementX, 0)
-      this.box.height = Math.max(this.box.height + evt.movementY, 0)
+    const { state } = this;
+    if (state.resizing) {
+      state.width = Math.max(state.width + evt.movementX, 0)
+      state.height = Math.max(state.height + evt.movementY, 0)
       if (typeof this.params == 'object') {
-        this.params.onResize?.(this.box.width, this.box.height);
+        this.params.onResize?.(state.width, state.height);
       }
     } else {
-      this.resizing.value = true;
+      state.resizing = true;
       if (typeof this.params == 'object') {
         this.params.onResizeStart?.();
       }
       this.stop = watchEffect(() => {
-        if (this.resizing.value) {
+        if (state.resizing) {
           this.el.style.position = 'absolute';
           // Absolute positioning within grid are relative to grid cell
           // so left and top are not applied
           // this.el.style.left = `${this.box.left}px`;
           // this.el.style.top = `${this.box.top}px`;
-          this.el.style.width = `${this.box.width}px`;
-          this.el.style.height = `${this.box.height}px`;
+          this.el.style.width = `${state.width}px`;
+          this.el.style.height = `${state.height}px`;
           this.el.style.zIndex = '1';
         } else {
           this.el.style.position = '';
@@ -81,7 +83,8 @@ class ResizeController {
           this.el.style.height = '';
           this.el.style.zIndex = '';
         }
-      });  
+      });
+      this.el.dataset.resizing = "";
     }
   }
 }

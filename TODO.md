@@ -14,6 +14,9 @@
 [ ] DataGrid component
 [ ] Form components
 [✓] Popover component
-[ ] More layout components
 [ ] Snackbar support icon
 [✓] Carousel component
+[ ] TileLayout: Persistence
+[ ] TileLayout: Drag and drop
+[ ] TileLayout: Performance optimization
+[ ] TileLayout: Support min max size

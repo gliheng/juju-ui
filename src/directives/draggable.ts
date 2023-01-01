@@ -30,13 +30,14 @@ class DraggableController {
     document.addEventListener('pointerup', () => {
       document.removeEventListener('pointermove', this.onPointermove);
       this.state.dragging = false;
+      delete this.el.dataset.dragging;
       nextTick(() => {
         this.stop?.();
-        if (typeof this.params == 'object') {
-          this.params.onDragEnd?.();
-        }
-      });
-    }, { once: true });
+          if (typeof this.params == 'object') {
+            this.params.onDragEnd?.();
+          }
+        });
+      }, { once: true });
   }
   onPointermove = (evt: PointerEvent) => {
     if (this.state.dragging) {
@@ -63,6 +64,7 @@ class DraggableController {
       if (typeof this.params == 'object') {
         this.params.onDragStart?.();
       }
+      this.el.dataset.dragging = "";
     }
   }
 }

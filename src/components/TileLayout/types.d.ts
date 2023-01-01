@@ -25,5 +25,5 @@ export interface Box {
   y: number;
   w: number;
   h: number;
-  static: boolean;
+  static?: boolean;
 }
