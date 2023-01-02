@@ -1,5 +1,5 @@
 import { defineComponent, h, PropType } from 'vue';
-import SvgIcon from '@/SvgIcon/SvgIcon.vue';
+import Icon from '@/Icon/Icon.vue';
 import './Table.scss';
 
 export default defineComponent({
@@ -25,8 +25,8 @@ export default defineComponent({
       let { modelValue } = props;
       return (
         <div class="j-table-sorter" onClick={ onClick }>
-          <SvgIcon name="chevron-up-outline" data-on={modelValue === true} />
-          <SvgIcon name="chevron-down-outline" data-on={modelValue === false} />
+          <Icon name="chevron-up-outline" data-on={modelValue === true} />
+          <Icon name="chevron-down-outline" data-on={modelValue === false} />
         </div>
       );
     };

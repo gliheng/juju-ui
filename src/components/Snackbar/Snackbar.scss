@@ -1,4 +1,4 @@
-@import "vars";
+@use "vars";
 
 .j-snackbar {
   display: flex;
@@ -8,11 +8,11 @@
   border-radius: 3px;
   margin-top: 1rem;
   cursor: default;
-  box-shadow: $shadow;
+  box-shadow: vars.$shadow;
   background-color: var(--j-background-color);
   color: var(--j-primary-color);
   .j-snackbar-icon {
-    margin-right: $margin;
+    margin-right: vars.$margin;
   }
   .j-snackbar-label {
     flex: 1;

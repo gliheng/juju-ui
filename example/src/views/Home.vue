@@ -9,4 +9,7 @@ import Navigator from '../Navigator.vue';
 </script>
 
 <style scoped>
+.home {
+  flex: 1;
+}
 </style>

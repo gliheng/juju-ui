@@ -1,5 +1,5 @@
 import { defineComponent, h, Fragment, PropType } from 'vue';
-import SvgIcon from '@/SvgIcon/SvgIcon.vue';
+import Icon from '@/Icon/Icon.vue';
 import Checkbox from '@/Checkbox/Checkbox.vue';
 import { Datum, ColumnConfig, RowConfig } from './types';
 
@@ -85,7 +85,7 @@ export default defineComponent({
         }
         if (chevron) {
           chevronArrow = (
-            <SvgIcon name={ chevronExpand ? 'chevron-down' : 'chevron-forward' }
+            <Icon name={ chevronExpand ? 'chevron-down' : 'chevron-forward' }
               onClick={(evt: MouseEvent) => {
                 evt.stopPropagation();
                 emit('toggle');

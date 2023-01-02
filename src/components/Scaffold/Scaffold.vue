@@ -92,7 +92,7 @@ import { defineComponent, computed } from 'vue';
 import JButton from '@/Button/Button.vue';
 import JDropdown from '@/Dropdown/Dropdown.vue';
 import JMenu from '@/Menu/Menu.vue';
-import SvgIcon from '@/SvgIcon/SvgIcon.vue';
+import JIcon from '@/Icon/Icon.vue';
 import JSpace from '@/Space/Space';
 import { useSwitch, useWindowSizeClass } from '@utils/hooks';
 
@@ -106,7 +106,7 @@ type Action = {
 };
 
 export default defineComponent({
-  components: { JButton, JDropdown, JMenu, SvgIcon, JSpace },
+  components: { JButton, JDropdown, JMenu, JIcon, JSpace },
   props: {
     actions: Array,
     titleAlign: String,

@@ -9,7 +9,7 @@
       </j-menu>
     </template>
     <div v-if="!sel">Please select an app from context menu</div>
-    <j-svg-icon v-else :name="sel" size="lg" />
+    <j-icon v-else :name="sel" size="lg" />
   </j-context-menu>
 </template>
 

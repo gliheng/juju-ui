@@ -1,4 +1,4 @@
-@import "vars";
+@use "vars";
 
 .j-popup {
   position: fixed;
@@ -29,7 +29,7 @@
       h1 {
         flex: 1;
         margin: 0;
-        padding-left: $margin;
+        padding-left: vars.$margin;
         font-size: 14px;
         font-weight: 600;
       }
@@ -59,11 +59,11 @@
       }
     }
     > footer {
-      padding: $margin 0;
+      padding: vars.$margin 0;
       text-align: right;
       button {
         margin: 0;
-        margin-right: $margin;
+        margin-right: vars.$margin;
       }
     }
   }

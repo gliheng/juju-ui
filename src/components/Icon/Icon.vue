@@ -57,4 +57,4 @@ function getIconSvg(name?: string): string {
 }
 </script>
 
-<style src="./SvgIcon.scss"></style>
+<style src="./Icon.scss"></style>

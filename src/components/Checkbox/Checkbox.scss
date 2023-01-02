@@ -1,5 +1,5 @@
 @use "sass:math";
-@import "vars";
+@use "vars";
 
 .j-checkbox {
   display: inline-flex;
@@ -19,7 +19,7 @@
   &:focus {
     outline: none;
     .j-checkbox-check {
-      box-shadow: $outline;
+      box-shadow: vars.$outline;
     } 
   }
   &:hover {

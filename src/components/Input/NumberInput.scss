@@ -1,4 +1,4 @@
-@import "vars";
+@use "vars";
 
 .j-number-input {
   border: 1px solid var(--j-input-border-color, var(--j-border-color));
@@ -10,7 +10,7 @@
   --j-input-height: 30px;
   --j-icon-size: calc(var(--j-input-height) / 2);
   &.j-focus {
-    box-shadow: $outline;
+    box-shadow: vars.$outline;
     border-color: var(--j-primary-color);
   }
   &:hover {

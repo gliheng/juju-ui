@@ -1,21 +1,21 @@
 <template>
   <div class="pool">
     <div>
-      <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-a">
+      <j-tile-layout-drag-source class="j-shadow-5 pill" name="pane-a">
         Component A
-      </j-flex-layout-drag-source>
-      <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-b">
+      </j-tile-layout-drag-source>
+      <j-tile-layout-drag-source class="j-shadow-5 pill" name="pane-b">
         Component B
-      </j-flex-layout-drag-source>
-      <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-c">
+      </j-tile-layout-drag-source>
+      <j-tile-layout-drag-source class="j-shadow-5 pill" name="pane-c">
         Component C
-      </j-flex-layout-drag-source>
-      <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-d">
+      </j-tile-layout-drag-source>
+      <j-tile-layout-drag-source class="j-shadow-5 pill" name="pane-d">
         Component D
-      </j-flex-layout-drag-source>
-      <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-e">
+      </j-tile-layout-drag-source>
+      <j-tile-layout-drag-source class="j-shadow-5 pill" name="pane-e">
         Component E
-      </j-flex-layout-drag-source>
+      </j-tile-layout-drag-source>
     </div>
     <p>Drag these pills to the panel bellow to modify layout</p>
   </div>
@@ -31,19 +31,60 @@ import library from './library';
 const preset = [
   {
     use: 'pane-a',
+    x: 0,
+    y: 0,
+    w: 1,
+    h: 1,
+    closable: true,
   },
   {
     use: 'pane-b',
+    x: 1,
+    y: 0,
+    w: 1,
+    h: 1,
+    closable: true,
   },
   {
     use: 'pane-c',
+    x: 2,
+    y: 0,
+    w: 1,
+    h: 1,
+    closable: true,
   },
   {
     use: 'pane-d',
+    x: 3,
+    y: 0,
+    w: 1,
+    h: 1,
+    closable: true,
   },
   {
     use: 'pane-e',
+    x: 4,
+    y: 0,
+    w: 1,
+    h: 1,
+    static: true,
   },
 ];
 </script>
 
+<style lang="scss" scoped>
+.pool {
+  margin-bottom: 8px;
+  .pill {
+    display: inline-block;
+    background: white;
+    line-height: 30px;
+    margin: 0 8px;
+    border-radius: 20px;
+    padding: 5px;
+  }
+  p {
+    color: grey;
+  }
+}
+</style>

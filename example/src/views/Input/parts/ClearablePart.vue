@@ -1,7 +1,7 @@
 <template>
   <j-input placeholder="Username" clearable v-model="v">
     <template #prepend>
-      <j-svg-icon name="search" />
+      <j-icon name="search" />
     </template>
   </j-input>
 </template>

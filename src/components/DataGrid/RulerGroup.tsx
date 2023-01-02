@@ -1,5 +1,4 @@
 import { h, defineComponent, PropType, StyleValue } from 'vue';
-import SvgIcon from '@/SvgIcon/SvgIcon.vue';
 import Button from '@/Button/Button.vue';
 import { excelCol } from './utils';
 

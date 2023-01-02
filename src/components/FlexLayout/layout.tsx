@@ -463,7 +463,7 @@ export class RenderBox {
 
   renderLeafContent(): JSX.Element {
     if (!this.use) {
-      return this.context.placeholder();
+      return <div class="j-flex-layout-placeholder">{this.context.placeholder()}</div>;
     }
     const onRemove = (i: number) => {
       this.tabs?.splice(i, 1);

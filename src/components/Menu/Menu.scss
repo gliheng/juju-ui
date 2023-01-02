@@ -1,4 +1,4 @@
-@import "vars";
+@use "vars";
 
 .j-menu-entry {
   position: relative;
@@ -31,7 +31,7 @@
       flex: 1;
     }
     > .j-icon {
-      margin-left: $margin;
+      margin-left: vars.$margin;
     }
   }
   .j-menu-icon {

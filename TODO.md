@@ -14,6 +14,11 @@
 [ ] DataGrid component
 [ ] Form components
 [✓] Popover component
-[ ] More layout components
 [ ] Snackbar support icon
 [✓] Carousel component
+[ ] TileLayout: Persistence
+[✓] TileLayout: Drag and drop
+[✓] TileLayout: Closable
+[ ] TileLayout: Performance optimization
+[ ] TileLayout: Support min max size
+[ ] Remove getCurrentInstance use, since it's deprecated

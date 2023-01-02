@@ -1,8 +1,8 @@
-@import "vars";
+@use "vars";
 
 .j-scale-enter-active,
 .j-scale-leave-active {
-  transition: opacity 0.2s $curve, transform 0.2s $curve;
+  transition: opacity 0.2s vars.$curve, transform 0.2s vars.$curve;
 }
 
 .j-scale-enter-from,
@@ -27,7 +27,7 @@
 
 .j-expand-enter-active,
 .j-expand-leave-active {
-  transition: max-height 0.2s $curve, opacity 0.2s $curve;
+  transition: max-height 0.2s vars.$curve, opacity 0.2s vars.$curve;
   // This css trick animate height, since you cannot transition from 0 to auto 
   max-height: 2000px;
 }
@@ -39,10 +39,9 @@
   max-height: 0;
 }
 
-
 .j-fade-enter-active,
 .j-fade-leave-active {
-  transition: opacity 0.2s $curve;
+  transition: opacity 0.2s vars.$curve;
 }
 
 .j-fade-enter-from,

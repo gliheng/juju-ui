@@ -1,4 +1,4 @@
-@import "vars";
+@use "vars";
 
 .j-input {
   display: inline-flex;
@@ -16,12 +16,12 @@
     background: none;
     flex: 1;
     padding: 0;
-    margin: 0 $margin;
+    margin: 0 vars.$margin;
     min-width: 5rem;
     color: var(--j-text-color);
   }
   &[data-focus="true"] {
-    box-shadow: $outline;
+    box-shadow: vars.$outline;
     border-color: var(--j-primary-color);
     outline: none;
     z-index: 1;
@@ -46,10 +46,10 @@
     color: var(--j-foreground-color-1);
   }
   > .j-input-prepend .j-icon {
-    margin-left: $margin;
+    margin-left: vars.$margin;
   }
   > .j-input-append .j-icon, > input ~ .j-icon {
-    margin-right: $margin;
+    margin-right: vars.$margin;
   }
   .j-input-clear {
     visibility: hidden;

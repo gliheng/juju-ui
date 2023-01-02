@@ -48,7 +48,7 @@ export default defineComponent({
     let viewSize = useElementSize(elm);
     watch(viewSize, async (size) => {
       if (!renderBox) {
-        // Inital render
+        // Inital render is defered till we have element size
         renderBox = await loadPreset();
       }
       renderBox.layout(0, 0, size.width, size.height);
@@ -146,14 +146,10 @@ export default defineComponent({
       dimension: Dimension;
     }>();
 
-    function validData(dt?: DataTransfer | null): boolean {
-      return dt ? dt.types.indexOf(MIME) != -1 : false;
-    }
-
     let tabHeight = 0;
     let rect: DOMRect | undefined;
     function onDragenter(evt: DragEvent) {
-      if (evt.dataTransfer && validData(evt.dataTransfer)) {
+      if (validData(evt.dataTransfer)) {
         evt.preventDefault();
 
         rect = elm.value?.getBoundingClientRect();
@@ -281,3 +277,7 @@ export default defineComponent({
     };
   },
 });
+
+function validData(dt?: DataTransfer | null): boolean {
+  return dt ? dt.types.indexOf(MIME) != -1 : false;
+}

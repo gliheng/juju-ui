@@ -46,10 +46,6 @@ import library from './library';
 .layout {
   height: 500px;
   .placeholder {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     color: silver;
   }
 }

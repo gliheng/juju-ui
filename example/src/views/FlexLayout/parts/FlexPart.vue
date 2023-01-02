@@ -78,10 +78,6 @@ let preset = {
   height: 500px;
   --j-divider-color: transparent;
   .placeholder {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     color: silver;
   }
 }

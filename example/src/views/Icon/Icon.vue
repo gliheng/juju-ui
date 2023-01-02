@@ -1,6 +1,6 @@
 <template>
   <example-list
-    title="SvgIcon"
+    title="Icon"
     :list="list"
     :modules="modules"
   >
