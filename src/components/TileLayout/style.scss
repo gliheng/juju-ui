@@ -38,4 +38,13 @@
     opacity: 0;
     grid-area: 1 / 1;
   }
+  .j-tile-layout-pane-close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: var(--j-border-color);
+    &:hover {
+      color: var(--j-background-color);
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import { defineComponent, ref, h, PropType, StyleValue, provide, Ref, ComponentPublicInstance, toRaw, getCurrentInstance } from 'vue';
+import { defineComponent, ref, h, PropType, StyleValue, provide, ComponentPublicInstance, toRaw } from 'vue';
 import { Library, Preset, Layout, Box } from './types';
 import TilePane, { paneInjectKey } from './TilePane';
 import './style.scss';
@@ -167,25 +167,23 @@ export default defineComponent({
       },
     });
 
+    // Rect of the component's root element
     let rect: DOMRect | undefined;
+    // The prefered size for a drag-in panel
     let transferData: {
-      w: number; h: number;
+      w: number; h: number; closable: boolean;
     };
     function onDragenter(evt: DragEvent) {
       if (validData(evt.dataTransfer)) {
         evt.preventDefault();
         measureCellSize();
-        let w = 1, h = 1;
         // Size are passes as keys, since some browsers won't let you read transfer data in dragenter/dragover events
         for (let t of evt.dataTransfer!.types) {
           if (t.startsWith('props:')) {
-            let size = JSON.parse(t.substring('props:'.length));
-            w = size.w;
-            h = size.h;
+            transferData = JSON.parse(t.substring('props:'.length));
             break;
           }
         }
-        transferData = { w, h };
         rect = elm.value?.getBoundingClientRect();
       } else {
         rect = undefined;
@@ -198,7 +196,7 @@ export default defineComponent({
         let { clientX, clientY } = evt;
         let offsetX = clientX - rect.left, offsetY = clientY - rect.top;
         let [x, y] = cellByPos(offsetX, offsetY);
-        if (!hintBox.value) hintBox.value = { use: '', x, y, w: transferData.w, h: transferData.h };
+        if (!hintBox.value) hintBox.value = { x, y, w: transferData.w, h: transferData.h };
 
         layoutDrag(() => layout.value.concat(), x, y);
       }
@@ -221,14 +219,33 @@ export default defineComponent({
         y: hint.y,
         w: hint.w,
         h: hint.h,
+        closable: transferData.closable,
       });
       hintBox.value = undefined;
+    }
+
+    function removePane(i: number) {
+      layout.value.splice(i, 1);      
+      if (props.compress) {
+        compress(layout.value);
+      }
     }
 
     return () => {
       let content;
       if (layout.value.length) {
-        content = renderLayout(props.locked, props.library, layout.value, children);
+        content = layout.value.map((e, i) => {
+          return (
+            <TilePane
+              ref={(e: any) => children.value[i] = e}
+              i={i}
+              library={props.library}
+              static={props.locked || e.static}
+              onClose={removePane.bind(null, i)}
+              {...e}
+            />
+          );
+        });
       } else if (slots.placeholder) {
         content = <div class="j-tile-layout-placeholder">{slots.placeholder()}</div>;
       }
@@ -268,12 +285,6 @@ export default defineComponent({
   }
 });
 
-function renderLayout(locked: boolean, library: Library, layout: Layout, children: Ref<any[]>): JSX.Element[] {
-  return layout.map((e, i) => {
-    return <TilePane ref={(e: any) => children.value[i] = e} i={i} library={library} {...e} static={locked || e.static} />;
-  });
-}
-
 function normalizePreset(
   config: {cols: number},
   preset: Preset,
@@ -303,22 +314,24 @@ function hasOverlap(boxes: Box[], target: Box): boolean {
 /**
  * Vertically compress boxes
  * @param boxes Other boxes
- * @param target The box in action
+ * @param target The box in action, can be empty
  * @param down When down is true, compare with target box's bottom edge
  * @returns compress succeed or not
  */ 
-function compress(boxes: Box[], target: Box, down: boolean = false): boolean {
+function compress(boxes: Box[], target?: Box, down: boolean = false): boolean {
   boxes.sort((a, b) => a.y - b.y);
-  let i;
-  // Find an insertion index that will keep the list sorted
-  if (down) {
-    i = findLastIndex(boxes, (e) => e.y + e.h <= target.y + target.h);
-    i++;
-  } else {
-    i = boxes.findIndex(e => e.y >= target.y);
-    if (i == -1) boxes.length;
+  if (target) {
+    let i;
+    // Find an insertion index that will keep the list sorted
+    if (down) {
+      i = findLastIndex(boxes, (e) => e.y + e.h <= target.y + target.h);
+      i++;
+    } else {
+      i = boxes.findIndex(e => e.y >= target.y);
+      if (i == -1) boxes.length;
+    }
+    boxes.splice(i, 0, target);
   }
-  boxes.splice(i, 0, target);
 
   const heights = [];
   for (let box of boxes) {

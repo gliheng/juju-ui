@@ -18,7 +18,7 @@
 [✓] Carousel component
 [ ] TileLayout: Persistence
 [✓] TileLayout: Drag and drop
-[ ] TileLayout: Closable
+[✓] TileLayout: Closable
 [ ] TileLayout: Performance optimization
 [ ] TileLayout: Support min max size
 [ ] Remove getCurrentInstance use, since it's deprecated

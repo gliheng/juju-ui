@@ -9,7 +9,7 @@ type DraggableParams = boolean | {
 const DraggableDirectiveSymbol = Symbol('DraggableDirectiveSymbol');
 
 class DraggableController {
-  constructor(public el: HTMLElement, public params: DraggableParams) {
+  constructor(private el: HTMLElement, private params: DraggableParams) {
     el.addEventListener('pointerdown', this.onPointerdown);
   }
   dispose() {

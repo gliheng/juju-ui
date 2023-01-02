@@ -15,15 +15,20 @@ export type Preset = {
   w?: number;
   h?: number;
   static?: boolean;
+  closable?: boolean;
 }[];
 
-export type Layout = Box[];
+export type Layout = Pane[];
+
+export type Pane = {
+  use: string;
+  closable?: boolean;
+} & Box;
 
 export interface Box {
-  use: string;
+  static?: boolean;
   x: number;
   y: number;
   w: number;
   h: number;
-  static?: boolean;
 }

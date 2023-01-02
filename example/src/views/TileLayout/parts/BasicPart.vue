@@ -35,6 +35,7 @@ const preset = [
     y: 0,
     w: 1,
     h: 1,
+    closable: true,
   },
   {
     use: 'pane-b',
@@ -42,6 +43,7 @@ const preset = [
     y: 0,
     w: 1,
     h: 1,
+    closable: true,
   },
   {
     use: 'pane-c',
@@ -49,6 +51,7 @@ const preset = [
     y: 0,
     w: 1,
     h: 1,
+    closable: true,
   },
   {
     use: 'pane-d',
@@ -56,6 +59,7 @@ const preset = [
     y: 0,
     w: 1,
     h: 1,
+    closable: true,
   },
   {
     use: 'pane-e',
@@ -63,6 +67,7 @@ const preset = [
     y: 0,
     w: 1,
     h: 1,
+    static: true,
   },
 ];
 </script>

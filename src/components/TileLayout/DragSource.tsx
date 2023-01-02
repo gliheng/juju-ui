@@ -15,6 +15,7 @@ export default defineComponent({
       type: Number,
       default: 1,
     },
+    closable: Boolean,
   },
   // These are native events, they're here to make ts happy
   setup(props, { slots }) {
@@ -23,7 +24,7 @@ export default defineComponent({
       if (dataTransfer) {
         dataTransfer.effectAllowed = 'copyMove';
         dataTransfer.setData(MIME, props.name);
-        dataTransfer.setData(`props:${JSON.stringify({w: props.w, h: props.h})}`, '');
+        dataTransfer.setData(`props:${JSON.stringify({w: props.w, h: props.h, closable: props.closable})}`, '');
       }
     }
 

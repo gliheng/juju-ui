@@ -9,11 +9,14 @@ type ResizableParams = boolean | {
 const ResizableDirectiveSymbol = Symbol('ResizableDirectiveSymbol');
 
 class ResizeController {
-  constructor(public el: HTMLElement, public params: ResizableParams) {
+  constructor(private el: HTMLElement, private params: ResizableParams) {
     let div = document.createElement('div');
     div.className = 'j-tile-resize';
     div.addEventListener('pointerdown', this.onPointerdown);
     el.appendChild(div);
+  }
+
+  dispose() {
   }
 
   private state = reactive({

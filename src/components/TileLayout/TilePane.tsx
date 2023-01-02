@@ -1,6 +1,7 @@
 import { defineComponent, PropType, ref, StyleValue, InjectionKey, inject } from 'vue';
 import resizable from '@directives/resizable';
 import draggable from '@directives/draggable';
+import Icon from '@/Icon/Icon.vue';
 import { Library } from './types';
 
 export const paneInjectKey = Symbol() as InjectionKey<{
@@ -27,6 +28,7 @@ export default defineComponent({
       required: true,
     },
     static: Boolean,
+    closable: Boolean,
     use: {
       type: String,
       required: true,
@@ -46,6 +48,10 @@ export default defineComponent({
     h: {
       type: Number,
       required: true,
+    },
+    onClose: {
+      type: Function as PropType<() => void>,
+      requried: true,
     },
   },
   setup(props) {
@@ -69,10 +75,23 @@ export default defineComponent({
         );
       }
 
+      let closeBtn;
+      if (props.closable) {
+        closeBtn = (
+          <a
+            class="j-tile-layout-pane-close"
+            onClick={props.onClose}
+          >
+            <Icon name="close-outline" />
+          </a>
+        );
+      }
+
       return (
         <div class="j-tile-layout-pane"
           ref={(e) => el.value = e as HTMLElement}
           style={style}
+          data-static={props.static}
           v-resizable={!props.static && {
             onResizeStart() {
               parent?.onResizeStart(i);
@@ -96,6 +115,7 @@ export default defineComponent({
             },
           }}
         >
+          {closeBtn}
           <Component />
         </div>
       );  
