@@ -1,11 +1,19 @@
 import { defineComponent, h } from 'vue';
-import { MIME } from './FlexLayout';
+import { MIME } from './TileLayout';
 
 export default defineComponent({
   props: {
     name: {
       type: String,
       required: true,
+    },
+    w: {
+      type: Number,
+      default: 1,
+    },
+    h: {
+      type: Number,
+      default: 1,
     },
   },
   // These are native events, they're here to make ts happy
@@ -15,6 +23,7 @@ export default defineComponent({
       if (dataTransfer) {
         dataTransfer.effectAllowed = 'copyMove';
         dataTransfer.setData(MIME, props.name);
+        dataTransfer.setData(`props:${JSON.stringify({w: props.w, h: props.h})}`, '');
       }
     }
 

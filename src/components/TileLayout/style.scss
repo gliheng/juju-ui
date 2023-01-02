@@ -21,11 +21,21 @@
     }
   }
   .j-tile-layout-placeholder {
+    position: absolute;
+    width: 100%;
+    height: 100%;
     display: flex;
+    grid-row: 1;
+    grid-column: 1;
   }
   .j-tile-layout-hint {
     pointer-events: none;
     background-color: var(--j-foreground-color-2);
     opacity: 0.5;
+  }
+  .j-tile-layout-unit-cell {
+    pointer-events: none;
+    opacity: 0;
+    grid-area: 1 / 1;
   }
 }

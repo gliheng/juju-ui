@@ -1,21 +1,21 @@
 <template>
   <div class="pool">
     <div>
-      <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-a">
+      <j-tile-layout-drag-source class="j-shadow-5 pill" name="pane-a" :w="3" :h="3">
         Component A
-      </j-flex-layout-drag-source>
-      <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-b">
+      </j-tile-layout-drag-source>
+      <j-tile-layout-drag-source class="j-shadow-5 pill" name="pane-b">
         Component B
-      </j-flex-layout-drag-source>
-      <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-c">
+      </j-tile-layout-drag-source>
+      <j-tile-layout-drag-source class="j-shadow-5 pill" name="pane-c">
         Component C
-      </j-flex-layout-drag-source>
-      <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-d">
+      </j-tile-layout-drag-source>
+      <j-tile-layout-drag-source class="j-shadow-5 pill" name="pane-d">
         Component D
-      </j-flex-layout-drag-source>
-      <j-flex-layout-drag-source class="j-shadow-5 pill" name="pane-e">
+      </j-tile-layout-drag-source>
+      <j-tile-layout-drag-source class="j-shadow-5 pill" name="pane-e">
         Component E
-      </j-flex-layout-drag-source>
+      </j-tile-layout-drag-source>
     </div>
     <p>Drag these pills to the panel bellow to modify layout</p>
   </div>

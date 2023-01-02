@@ -56,13 +56,19 @@ export default defineComponent({
     return () => {
       let { library, use, x, y, w, h, i } = props;
       let Component = library.find(item => item.name == use) as any;
-      if (!Component) {
-        return <span>`Cannot find component: ${use}`</span>;
-      }
-
       let style: StyleValue = {
         'grid-area': `${y + 1}/${x + 1}/span ${h}/span ${w}`
       };
+
+      if (!Component) {
+        return (
+          <div class="j-tile-layout-pane"
+            ref={(e) => el.value = e as HTMLElement}
+            style={style}
+          >Cannot find component: {use}</div>
+        );
+      }
+
       return (
         <div class="j-tile-layout-pane"
           ref={(e) => el.value = e as HTMLElement}
