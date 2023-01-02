@@ -52,11 +52,17 @@ export default defineComponent({
       layout.value = normalizePreset({ cols: props.cols }, preset);
     }
 
+    /**
+     * Convert left and top pixel coords to cell indexes
+     * @param left relative pixel distance from left
+     * @param top relative pixel distance from top
+     * @returns cell index position
+     */
     function cellByPos(left: number, top: number): [number, number] {
       let widthWithGap = cellSize[0] + props.gap;
       let heightWithGap = cellSize[1] + props.gap;
-      let newX = Math.max(0, Math.floor((left + cellSize[0] / 2) / widthWithGap));
-      let newY = Math.max(0, Math.floor((top + cellSize[1] / 2) / heightWithGap));
+      let newX = Math.max(0, Math.floor(left / widthWithGap));
+      let newY = Math.max(0, Math.floor(top / heightWithGap));
       return [newX, newY];
     }
 
@@ -116,8 +122,9 @@ export default defineComponent({
         startPos = [el.offsetLeft, el.offsetTop];
       },
       onDragMove(i: number, left: number, top: number) {
-        left += startPos[0];
-        top += startPos[1];
+        // Offset by half cell's size, so that movement is more netural
+        left += startPos[0] + cellSize[0] / 2;
+        top += startPos[1] + cellSize[1] / 2;
         let [x, y] = cellByPos(left, top);
         layoutDrag(() => {
           const otherBoxes = toRaw(layout.value).concat();
