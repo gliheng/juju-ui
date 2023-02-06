@@ -12,6 +12,10 @@
     border-radius: 4px;
     width: fit-content;
     word-wrap: break-word;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: var(--j-background-color-1);
+    }
   }
   &[data-side="left"] {
     > aside {
@@ -154,3 +158,11 @@
     }
   }
 }
+
+// @media (prefers-color-scheme: dark) {
+//   .j-popover {
+//     > aside {
+//       background-color: var(--j-background-color-1);
+//     }
+//   }
+// }
