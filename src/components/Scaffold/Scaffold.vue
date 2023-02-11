@@ -1,17 +1,11 @@
 <template>
   <div class="j-scaffold" :data-wide="wideLayout" :data-expanded="expanded" :data-has-nav="hasNav">
-    <j-drawer v-if="!wideLayout" v-model="drawerOn" side="left" >
-      <div class="j-scaffold-appbar j-shadow-1" v-if="$slots['nav-title']">
-        <slot name="nav-title"></slot>
-      </div>
+    <j-drawer v-if="!wideLayout" class="j-scaffold-hover-nav" v-model="drawerOn" side="left" >
       <slot name="nav"></slot>
     </j-drawer>
-    <nav v-else class="j-scaffold-nav">
-      <div class="j-scaffold-appbar j-shadow-1" v-if="$slots['nav-title']">
-        <slot name="nav-title"></slot>
-      </div>
+    <div v-else class="j-scaffold-static-nav">
       <slot name="nav"></slot>
-    </nav>
+    </div>
     <main class="j-scaffold-content">
       <slot name="content"></slot>
     </main>
@@ -110,6 +104,10 @@ export default defineComponent({
   props: {
     actions: Array,
     titleAlign: String,
+    showNav: {
+      type: Boolean,
+      default: true,
+    },
   },
   setup(props, { slots }) {
     let [ expanded, toggleExpanded ] = useSwitch(false);
@@ -132,7 +130,7 @@ export default defineComponent({
 
     let sizeClass = useWindowSizeClass();
     let wideLayout = computed(() => sizeClass.value != 'sm');
-    let hasNav = computed(() => !!slots.nav);
+    let hasNav = computed(() => Boolean(props.showNav && slots.nav));
     let titleAlign = computed(() => {
       if (wideLayout) {
         return 'left';

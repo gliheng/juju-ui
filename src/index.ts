@@ -40,6 +40,7 @@ import Progress from './components/Progress/Progress.vue';
 import Calendar from './components/Calendar/Calendar.vue';
 import Tree from './components/Tree/Tree.vue';
 import Scaffold from './components/Scaffold/Scaffold.vue';
+import ScaffoldNav from './components/Scaffold/ScaffoldNav.vue';
 import Table from './components/Table/Table';
 import DataGrid from './components/DataGrid/DataGrid';
 import Scroller from './components/Scroller/Scroller.vue';
@@ -112,6 +113,7 @@ export {
   Calendar,
   Tree,
   Scaffold,
+  ScaffoldNav,
   Table,
   DataGrid,
   AutoComplete,
@@ -182,6 +184,7 @@ export default function(app: App, conf: Partial<Config>) {
     .component('j-calendar', Calendar)
     .component('j-tree', Tree)
     .component('j-scaffold', Scaffold)
+    .component('j-scaffold-nav', ScaffoldNav)
     .component('j-table', Table)
     .component('j-data-grid', DataGrid)
     .component('j-auto-complete', AutoComplete)

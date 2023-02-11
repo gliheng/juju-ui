@@ -42,17 +42,25 @@
       }
     }
   }
-  .j-scaffold-nav {
+  .j-scaffold-hover-nav {
+    display: flex;
+    padding: 0;
+  }
+  .j-scaffold-static-nav {
     position: fixed;
     transform: translateX(calc(var(--j-scaffold-sidebar-width) * -1));
+    transition: transform 0.2s vars.$curve;
     top: 0;
     left: 0;
     bottom: 0;
     width: var(--j-scaffold-sidebar-width);
+    display: flex;
+  }
+  .j-scaffold-nav {
     box-sizing: border-box;
-    transition: transform 0.2s vars.$curve;
     padding: vars.$margin;
     background-color: var(--j-background-color-1);
+    flex: 1;
   }
   .j-scaffold-appbar {
     height: var(--j-scaffold-appbar-height);
@@ -78,7 +86,7 @@
     .j-appbar {
       left: var(--j-scaffold-sidebar-width);
     }
-    .j-scaffold-nav {
+    .j-scaffold-static-nav {
       transform: translateX(0);
     }
     .j-scaffold-content {

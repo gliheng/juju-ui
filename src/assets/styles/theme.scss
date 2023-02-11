@@ -34,20 +34,32 @@
   --j-background-color-2: #494949;
 }
 
-.j-theme-default {
-  @include use-theme(#2196f3);
-  @include light-theme;
+:root {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  @include use-theme(#2196f3);
+  @include light-theme;
 }
 
 .j-light {
   @include light-theme;
 }
 
+@media (prefers-color-scheme: light) {
+  :root {
+    @include light-theme;
+  }
+}
+
 .j-dark {
   @include dark-theme;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    @include dark-theme;
+  }
 }
 
 $color-config: (

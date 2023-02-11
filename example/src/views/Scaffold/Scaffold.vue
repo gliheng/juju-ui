@@ -7,19 +7,20 @@
       </div>
     </template>
     <template #nav>
-      <j-listbox>
-        <j-listbox-item
-          v-for="(item, i) in drawerItems"
-          :key="item.label"
-          :icon="item.icon"
-          :active="i == active"
-          @click="active = i"
-        >
-          {{ item.label }}
-        </j-listbox-item>
-      </j-listbox>
+      <j-scaffold-nav title="🍄 JUJU-UI">
+        <j-listbox class="nav">
+          <j-listbox-item
+            v-for="(item, i) in drawerItems"
+            :key="item.label"
+            :icon="item.icon"
+            :active="i == active"
+            @click="active = i"
+          >
+            {{ item.label }}
+          </j-listbox-item>
+        </j-listbox>
+      </j-scaffold-nav>
     </template>
-    <template #nav-title>🍄 JUJU-UI</template>
   </j-scaffold>
 </template>
 
@@ -66,5 +67,9 @@ let actions = [
   font-size: 2rem;
   text-align: center;
   margin-top: 2rem;
+}
+
+.nav {
+  margin: .4rem 0;
 }
 </style>
