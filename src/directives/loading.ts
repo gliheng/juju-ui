@@ -14,13 +14,13 @@ export default {
 function setupLoading(el: HTMLElement, yes: boolean = true) {
   if (yes != Boolean((el as any)[LoadingDirectiveSymbol])) {
     if (yes) {
-      let el = document.createElement('div');
+      let div = document.createElement('div');
       el.className = 'j-loading';
       let spinner = document.createElement('div');
       spinner.className = 'j-spinner';
       el.appendChild(spinner);
-      el.appendChild(el);
-      (el as any)[LoadingDirectiveSymbol] = el;
+      el.appendChild(div);
+      (el as any)[LoadingDirectiveSymbol] = div;
     } else {
       (el as any)[LoadingDirectiveSymbol].remove();
       delete (el as any)[LoadingDirectiveSymbol];
