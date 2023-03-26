@@ -15,10 +15,10 @@ function setupLoading(el: HTMLElement, yes: boolean = true) {
   if (yes != Boolean((el as any)[LoadingDirectiveSymbol])) {
     if (yes) {
       let div = document.createElement('div');
-      el.className = 'j-loading';
+      div.className = 'j-loading';
       let spinner = document.createElement('div');
       spinner.className = 'j-spinner';
-      el.appendChild(spinner);
+      div.appendChild(spinner);
       el.appendChild(div);
       (el as any)[LoadingDirectiveSymbol] = div;
     } else {
