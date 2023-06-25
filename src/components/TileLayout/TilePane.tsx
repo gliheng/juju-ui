@@ -51,7 +51,6 @@ export default defineComponent({
     },
     onClose: {
       type: Function as PropType<() => void>,
-      requried: true,
     },
   },
   setup(props) {
@@ -76,7 +75,7 @@ export default defineComponent({
       }
 
       let closeBtn;
-      if (props.closable) {
+      if (props.closable && props.onClose) {
         closeBtn = (
           <a
             class="j-tile-layout-pane-close"

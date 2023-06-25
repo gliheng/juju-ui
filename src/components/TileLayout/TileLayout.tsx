@@ -241,7 +241,7 @@ export default defineComponent({
               i={i}
               library={props.library}
               static={props.locked || e.static}
-              onClose={removePane.bind(null, i)}
+              onClose={props.locked ? undefined : removePane.bind(null, i)}
               {...e}
             />
           );
