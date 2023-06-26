@@ -67,7 +67,7 @@ const preset = [
     y: 0,
     w: 1,
     h: 1,
-    static: true,
+    closable: true,
   },
 ];
 </script>

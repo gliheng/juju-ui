@@ -16,9 +16,9 @@
 [✓] Popover component
 [ ] Snackbar support icon
 [✓] Carousel component
-[ ] TileLayout: Persistence
 [✓] TileLayout: Drag and drop
 [✓] TileLayout: Closable
-[ ] TileLayout: Performance optimization
-[ ] TileLayout: Support min max size
+[ ] TileLayout: Persistence
+[ ] TileLayout: Limit drag
+[ ] TileLayout: Set draggable target
 [ ] Remove getCurrentInstance use, since it's deprecated

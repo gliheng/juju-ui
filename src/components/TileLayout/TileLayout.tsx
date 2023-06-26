@@ -1,6 +1,7 @@
 import { defineComponent, ref, h, PropType, StyleValue, provide, ComponentPublicInstance, toRaw } from 'vue';
 import { Library, Preset, Layout, Box } from './types';
 import TilePane, { paneInjectKey } from './TilePane';
+import HintBox from './HintBox';
 import './style.scss';
 
 export const MIME = "application/j-tile-layout";
@@ -42,11 +43,11 @@ export default defineComponent({
     let elm = ref<HTMLDivElement>();
     let layout = ref<Layout>([]);
     let children = ref<ComponentPublicInstance[]>([]);
-    let hintBox = ref<Box | undefined>();
     let cellSize = [0, 0];
     let startPos = [0, 0];
     let unitCell = ref<HTMLDivElement>();
-  
+    let hintBox = ref<Box | undefined>();
+
     let { preset } = props;
     if (preset) {
       layout.value = normalizePreset({ cols: props.cols }, preset);
@@ -174,7 +175,7 @@ export default defineComponent({
       w: number; h: number; closable: boolean;
     };
     function onDragenter(evt: DragEvent) {
-      if (validData(evt.dataTransfer)) {
+      if (!props.locked && validData(evt.dataTransfer)) {
         evt.preventDefault();
         measureCellSize();
         // Size are passes as keys, since some browsers won't let you read transfer data in dragenter/dragover events
@@ -252,14 +253,7 @@ export default defineComponent({
       // hint object is a box to show location of the object under drag
       let hint;
       if (hintBox.value) {
-        const { x, y, w, h } = hintBox.value;
-        hint = (
-          <div class="j-tile-layout-hint"
-            style={{
-              'grid-area': `${y + 1}/${x + 1}/span ${h}/span ${w}`
-            }}
-          />
-        );
+        hint = <HintBox { ...hintBox.value! } />;
       }
 
       let style: StyleValue = {

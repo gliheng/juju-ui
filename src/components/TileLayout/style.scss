@@ -11,13 +11,13 @@
     .j-tile-resize {
       position: absolute;
       cursor: se-resize;
-      border: 2px solid var(--j-border-color);
+      border: var(--j-tile-resize-border-width, 2px) solid var(--j-border-color);
       border-left: none;
       border-top: none;
       right: 1px;
       bottom: 1px;
-      width: 10px;
-      height: 10px;
+      width: var(--j-tile-resize-size, 6px);
+      height: var(--j-tile-resize-size, 6px);
     }
   }
   .j-tile-layout-placeholder {
@@ -30,8 +30,12 @@
   }
   .j-tile-layout-hint {
     pointer-events: none;
-    background-color: var(--j-foreground-color-2);
-    opacity: 0.5;
+    .j-tile-layout-hint-animated {
+      position: absolute;
+      transition: 0.5s;
+      opacity: 0.5;
+      background-color: var(--j-foreground-color-2);
+    }
   }
   .j-tile-layout-unit-cell {
     pointer-events: none;
@@ -39,6 +43,7 @@
     grid-area: 1 / 1;
   }
   .j-tile-layout-pane-close {
+    line-height: 0;
     position: absolute;
     right: 0;
     top: 0;
