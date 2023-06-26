@@ -13,12 +13,12 @@ const modules = {
 };
 const list = [
   {
-    title: 'Empty tile layout container with placeholder',
-    part: 'EmptyPart.vue',
-  },
-  {
     title: 'Basic tile',
     part: 'BasicPart.vue',
+  },
+  {
+    title: 'Tile with titlebar',
+    part: 'TitlebarPart.vue',
   },
 ];
 </script>

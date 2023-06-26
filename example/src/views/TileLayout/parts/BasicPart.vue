@@ -23,7 +23,11 @@
     :library="library"
     :preset="preset"
     storage-key="juju-tile-layout"
-  />
+  >
+    <template #placeholder>
+      <div class="placeholder">Drop pill onto this block</div>
+    </template>
+  </j-tile-layout>
 </template>
 
 <script setup>
@@ -33,40 +37,40 @@ const preset = [
     use: 'pane-a',
     x: 0,
     y: 0,
-    w: 1,
-    h: 1,
+    w: 2,
+    h: 2,
     closable: true,
   },
   {
     use: 'pane-b',
-    x: 1,
+    x: 2,
     y: 0,
-    w: 1,
-    h: 1,
+    w: 2,
+    h: 2,
     closable: true,
   },
   {
     use: 'pane-c',
-    x: 2,
+    x: 4,
     y: 0,
-    w: 1,
-    h: 1,
+    w: 2,
+    h: 2,
     closable: true,
   },
   {
     use: 'pane-d',
-    x: 3,
+    x: 6,
     y: 0,
-    w: 1,
-    h: 1,
+    w: 2,
+    h: 2,
     closable: true,
   },
   {
     use: 'pane-e',
-    x: 4,
+    x: 8,
     y: 0,
-    w: 1,
-    h: 1,
+    w: 2,
+    h: 2,
     closable: true,
   },
 ];
@@ -86,5 +90,12 @@ const preset = [
   p {
     color: grey;
   }
+}
+.placeholder {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: silver;
 }
 </style>

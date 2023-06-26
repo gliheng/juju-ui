@@ -114,8 +114,8 @@ export default defineComponent({
             },
           }}
         >
-          {closeBtn}
           <Component />
+          {closeBtn}
         </div>
       );  
     };

@@ -6,8 +6,13 @@
   grid-auto-flow: row;
   grid-gap: 1px;
   .j-tile-layout-pane {
-    display: flex;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    .j-title-layout-title-bar {
+      height: 20px;
+      background: red;
+    }
     .j-tile-resize {
       position: absolute;
       cursor: se-resize;
