@@ -1,4 +1,4 @@
-import { createApp, ComponentPublicInstance } from 'vue';
+import { createApp, ComponentPublicInstance, markRaw } from 'vue';
 import SnackbarManager from './SnackbarManager.vue';
 import PopupManager from './PopupManager.vue';
 
@@ -36,12 +36,18 @@ export interface PopupOpts {
   icon: string,
 }
 
-export function alert(msg: string, opts: PopupOpts): Promise<void> {
+export function alert(msg: string | JSX.Element, opts: PopupOpts): Promise<void> {
   let popups = ensurePopupRoot();
+  if (typeof msg != 'string') {
+    msg = markRaw(msg);
+  }
   return (popups as any).showAlert(msg, opts);
 }
 
-export function confirm(msg: string, opts: PopupOpts): Promise<void> {
+export function confirm(msg: string | JSX.Element, opts: PopupOpts): Promise<void> {
   let popups = ensurePopupRoot();
+  if (typeof msg != 'string') {
+    msg = markRaw(msg);
+  }
   return (popups as any).showConfirm(msg, opts);
 }

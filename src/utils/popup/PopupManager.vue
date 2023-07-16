@@ -2,15 +2,21 @@
   <j-popup v-for="(popup, id) in popups"
     v-model="popup.visible"
     :key="id"
-    :type="popup.type" :title="popup.title || ''"
+    :type="popup.type"
+    :title="popup.title || ''"
     :width="popup.width || 300"
     :height="popup.height || 220"
     :modal="popup.modal"
-    @dismiss="popup.dismiss.call(popup, $event)"
-    @accept="popup.accept.call(popup)"
+    @dismiss="sendFeedback('dismiss', popup, $event, id)"
+    @accept="sendFeedback('accept', popup, $event, id)"
   >
-    <j-icon v-if="popup.icon" :class="[ 'j-popup-icon', popup.iconColor || 'j-danger' ]" :name="popup.icon" size="lg" />
-    <p class="j-popup-content">{{ popup.msg || '' }}</p>
+    <template v-if="typeof popup.msg == 'string'">
+      <j-icon v-if="popup.icon" :class="[ 'j-popup-icon', popup.iconColor || 'j-danger' ]" :name="popup.icon" size="lg" />
+      <p class="j-popup-content">{{ popup.msg || '' }}</p>
+    </template>
+    <div v-else>
+      <Component :ref="(v: any) => componentRefs[id] = v" :is="popup.msg" />
+    </div>
   </j-popup>
 </template>
 
@@ -32,7 +38,7 @@ export type PopupType = {
   msg: string,
   type: string,
   visible: Ref<boolean>,
-  accept: () => void,
+  accept: (ret: any) => void,
   dismiss: (action: string) => void,
 } & PopupOpts;
 
@@ -47,14 +53,14 @@ export default defineComponent({
           type,
           ...opts,
           visible: false,
-          accept() {
+          accept(v: any) {
             this.visible = false;
-            resolve();
+            resolve(v);
             remove(popup);
           },
-          dismiss() {
+          dismiss(v: any) {
             this.visible = false;
-            reject();
+            reject(v);
             remove(popup);
           }
         });
@@ -74,16 +80,38 @@ export default defineComponent({
     }
   
     expose({
-      showAlert(msg: string, opts: PopupOpts): Promise<void> {
+      showAlert(msg: string | JSX.Element, opts: PopupOpts): Promise<void> {
         return showPopupOfType('alert', msg, opts);
       },
-      showConfirm(msg: string, opts: PopupOpts): Promise<void> {
+      showConfirm(msg: string | JSX.Element, opts: PopupOpts): Promise<void> {
         return showPopupOfType('confirm', msg, opts);
       },
     });
 
+    function sendFeedback(type: 'accept' | 'dismiss', popup, evt, id) {
+      // for jsx component, call custom component's hooks first
+      if (typeof popup.msg != 'string') {
+        const inst = componentRefs[id];
+        if (inst) {
+          if (type == 'accept') {
+            evt = inst.onAccept?.(evt) ?? evt;
+          } else if (type == 'dismiss') {
+            evt = inst.onDismiss?.(evt) ?? evt;
+          }
+        }
+      }
+      if (type == 'dismiss') {
+        popup.dismiss.call(popup, evt);
+      } else if (type == 'accept') {
+        popup.accept.call(popup, evt);
+      }
+    }
+
+    const componentRefs = {};
     return {
       popups,
+      sendFeedback,
+      componentRefs,
     };
   },
   components: { JPopup, JIcon },
