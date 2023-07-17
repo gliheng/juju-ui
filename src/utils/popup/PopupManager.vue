@@ -2,6 +2,7 @@
   <j-popup v-for="(popup, id) in popups"
     v-model="popup.visible"
     :key="id"
+    :popup-class="popup.class"
     :type="popup.type"
     :title="popup.title || ''"
     :width="popup.width || 300"
@@ -30,6 +31,7 @@ export interface PopupOpts {
   modal?: boolean,
   width?: number,
   height?: number,
+  class?: string,
   icon?: string,
   iconColor?: string,
 }

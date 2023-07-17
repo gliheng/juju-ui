@@ -1,6 +1,6 @@
 <template>
   <Teleport to="body">
-    <div class="j-popup" :style="{zIndex: zIndex}">
+    <div class="j-popup" :class="popupClass" :style="{zIndex: zIndex}">
       <transition name="j-scale">
         <div v-if="modelValue"
           class="j-popup-inner j-shadow-5"
@@ -61,6 +61,7 @@ export default defineComponent({
   components: { JIcon, JButton },
   props: {
     title: String,
+    popupClass: String,
     width: {
       type: Number,
       default: 500,
